@@ -9,5 +9,5 @@ public class JakSimApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(JakSimApplication.class, args);
 	}
-// 원격?/////22222
+// 원격?
 }
