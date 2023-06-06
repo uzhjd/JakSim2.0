@@ -15,6 +15,7 @@ class JakSimApplicationTests {
 	@Autowired
 	private DataSource ds;
 
+
 	@Test
 	void contextLoads() throws SQLException {
 		Connection conn = ds.getConnection();
