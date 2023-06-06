@@ -9,7 +9,6 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
-
 public class JDBCConfig {
     @Autowired
     private ApplicationContext application;
@@ -41,5 +40,6 @@ public class JDBCConfig {
         ds.setTimeBetweenEvictionRunsMillis(5000);
 
         return ds;
+        //test
     }
 }
