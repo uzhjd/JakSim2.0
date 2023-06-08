@@ -11,5 +11,8 @@
         <module name="com.twinkle.JakSim.main" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="com.twinkle.JakSim" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>

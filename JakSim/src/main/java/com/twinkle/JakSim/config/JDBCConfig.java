@@ -30,7 +30,6 @@ public class JDBCConfig {
         ds.setPassword(application.getEnvironment().getRequiredProperty("spring.datasource.password"));
 
         ds.setDefaultAutoCommit(true); //우리팀 유일의 희망! 대들보 같은 존재! 존재 자체가 희망 그 자체!
-        // 1조는 빛과 함께한다면... ds는 희망과 함께!
 
         ds.setInitialSize(2);
         ds.setMinIdle(3);
@@ -40,6 +39,5 @@ public class JDBCConfig {
         ds.setTimeBetweenEvictionRunsMillis(5000);
 
         return ds;
-        //test
     }
 }

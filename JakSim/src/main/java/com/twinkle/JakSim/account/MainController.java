@@ -7,17 +7,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
+
 @Controller
 public class MainController {
     @GetMapping("/")
     public String mainPage(Model model){
-        model.addAttribute("Jaemok", "index");
+        model.addAttribute("head_title", "main");
         return "content/index";
     }
 
     @PostMapping("/index")
-    public String testPage(@RequestBody String message){
+    @ResponseBody
+    public boolean testPage(@RequestBody HashMap<Object, String> message){
         System.out.println(message);
-        return "redirect:/";
+        System.out.println(message.get("name"));
+        System.out.println(message.get("number"));
+
+        return !message.values().stream().anyMatch(value -> value.equals(""));
     }
 }
