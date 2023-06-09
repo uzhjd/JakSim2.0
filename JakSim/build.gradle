@@ -31,8 +31,8 @@ dependencies {
 	implementation 'org.apache.tomcat:tomcat-jdbc:8.5.27'
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 
-	//security
-//	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+	implementation 'javax.servlet:jstl'
 }
 
 tasks.named('test') {
