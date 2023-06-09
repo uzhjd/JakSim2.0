@@ -1,4 +1,4 @@
-package com.twinkle.JakSim.account;
+package com.twinkle.JakSim;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,13 +17,5 @@ public class MainController {
         return "content/index";
     }
 
-    @PostMapping("/index")
-    @ResponseBody
-    public boolean testPage(@RequestBody HashMap<Object, String> message){
-        System.out.println(message);
-        System.out.println(message.get("name"));
-        System.out.println(message.get("number"));
 
-        return !message.values().stream().anyMatch(value -> value.equals(""));
-    }
 }

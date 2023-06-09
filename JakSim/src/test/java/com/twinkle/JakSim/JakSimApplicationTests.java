@@ -28,13 +28,15 @@ class JakSimApplicationTests {
 	@Test
 	void ShowAll() throws SQLException {
 		Connection conn = ds.getConnection();
-		String sql = "select * from question where id = ?";
+		String sql = "select * from user_info where user_id = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, "1");
+		pstmt.setString(1, "wkdgyfla97");
 		ResultSet rs = pstmt.executeQuery();
 		if(rs.next()) {
-			System.out.println(rs.getString("title"));
-			System.out.println(rs.getString("content"));
+			System.out.println(rs.getString("user_id"));
+			System.out.println(rs.getString("user_name"));
+			System.out.println(rs.getString("user_c_dt"));
+			System.out.println(rs.getString("user_birth"));
 		}
 		if(!conn.isClosed())
 			conn.close();
