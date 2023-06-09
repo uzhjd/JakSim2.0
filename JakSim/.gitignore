@@ -33,6 +33,20 @@
 .idea/**/misc.xml
 .idea/**/workspance.xml
 
+.gradle
+.gradle/7.6.1
+.gradle/7.6.1/checksums
+.gradle/7.6.1/dependecies-accessors
+.gradle/7.6.1/executionHistory
+.gradle/7.6.1/fileChanges
+.gradle/7.6.1/fileHashes
+.gradle/**.properties
+
+.gradle/buildOutputCleanup
+.gradle/buildOutputCleanup/buildOutputCleanup.lock
+.gradle/buildOutputCleanup/cache.properties
+.gradle/buildOutputCleanup/outputFiles.bin
+
 # Gradle and Maven with auto-import
 # When using Gradle or Maven with auto-import, you should exclude module files,
 # since they will be recreated, and may cause churn.  Uncomment if using
