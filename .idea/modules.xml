@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/JakSim.iml" filepath="$PROJECT_DIR$/.idea/JakSim.iml" />
-<<<<<<< Updated upstream
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/JakSim.JakSim.main.iml" filepath="$PROJECT_DIR$/.idea/modules/JakSim.JakSim.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/JakSim.JakSim.main~2.iml" filepath="$PROJECT_DIR$/.idea/modules/JakSim.JakSim.main~2.iml" />
-=======
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/JakSim.JakSim.main~1.iml" filepath="$PROJECT_DIR$/.idea/modules/JakSim.JakSim.main~1.iml" />
->>>>>>> Stashed changes
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.twinkle.JakSim.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.twinkle.JakSim.main.iml" />
     </modules>
   </component>
 </project>
