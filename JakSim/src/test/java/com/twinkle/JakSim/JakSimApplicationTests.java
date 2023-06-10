@@ -1,5 +1,6 @@
 package com.twinkle.JakSim;
 
+import com.twinkle.JakSim.account.UserDao;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,20 +26,6 @@ class JakSimApplicationTests {
 			System.out.println("Driver Load Fail");
 	}
 
-	@Test
-	void ShowAll() throws SQLException {
-		Connection conn = ds.getConnection();
-		String sql = "select * from user_info where user_id = ?";
-		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, "wkdgyfla97");
-		ResultSet rs = pstmt.executeQuery();
-		if(rs.next()) {
-			System.out.println(rs.getString("user_id"));
-			System.out.println(rs.getString("user_name"));
-			System.out.println(rs.getString("user_c_dt"));
-			System.out.println(rs.getString("user_birth"));
-		}
-		if(!conn.isClosed())
-			conn.close();
-	}
+	@Autowired
+	private UserDao userDao;
 }
