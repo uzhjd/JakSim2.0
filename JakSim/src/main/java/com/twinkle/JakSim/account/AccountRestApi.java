@@ -17,11 +17,9 @@ public class AccountRestApi {
 
     @PostMapping("/action")
     public int AccountAction(@RequestBody HashMap<Object, String> data){
-        // 1. 데이터 결함 확인 -> null 존재 확인
-//        if(data.values().stream().noneMatch(value -> value.equals(""))) {
-//            return -1;
-//        }
-        // 2. 데이터 전달 -> 정상 == true / 비정상 == false
+        if(data.values().stream().noneMatch(value -> value.equals(""))) {
+            return -1;
+        }
         return accountService.CreateMember(data);
     }
 }

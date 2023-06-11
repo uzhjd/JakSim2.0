@@ -28,4 +28,16 @@ public class UserDao {
 
         return result;
     }
+
+    public UserDO findByUserId(String userId){
+        String sql = "SELECT * FROM USER_INFO WHERE USER_ID = ?";
+        UserDO userDO = null;
+        try{
+            userDO = jdbcTemplate.queryForObject(sql, new UserRowMapper(), userId);
+        }catch(EmptyResultDataAccessException e){
+            System.out.println("데이터가 없다는디?");
+        }
+
+        return userDO;
+    }
 }

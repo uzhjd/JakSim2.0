@@ -7,5 +7,3 @@ n
 >JakSim/src/main/java/com/twinkle/JakSim/JakSimApplication.java,2/d/2d3c608b75f36652c31b1acf02596730c75446e9
 A
 JakSim/.gitignore,7/f/7fc86e9a6d250c96010610191d39933ece0ca1ca
-v
-FJakSim/src/main/java/com/twinkle/JakSim/account/AccountController.java,d/5/d569c594376d28418c3d40e28e45a28467e4e028
