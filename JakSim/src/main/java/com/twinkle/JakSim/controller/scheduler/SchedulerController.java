@@ -19,7 +19,7 @@ public class SchedulerController {
     private DataSource ds;
 
     private ReservationService reservationService;
-
+/// gse test
 //    @GetMapping("/{userId}")
     @GetMapping("") // Test용
     public String scheduleList(@RequestBody ReservationDto reservationDto) {
