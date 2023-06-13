@@ -1,0 +1,134 @@
+.toggle-btn {
+    display: none;
+  }
+
+  .toggle-label {
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-right: 10px;
+    width: 150px;
+    cursor: pointer;
+  }
+
+  .toggle-label:hover {
+    background-color: #e3d8fb;
+  }
+
+  .toggle-btn:checked + .toggle-label {
+    background-color: #A584EE;
+    color: #fff;
+    border: 0px;
+  }
+
+  .toggle-btn:checked + .toggle-label:hover {
+    background-color: #A584EE;
+  }
+
+  #findTrainer_container{
+    width: 1150px;
+    margin: 5vh auto;
+  }
+  #findTrainer_container > #location{
+    margin-left: 15px;
+
+  }
+  #location_img{
+    vertical-align: middle;
+    width: 25px;
+    height: 25px;
+  }
+  #findTrainer_container > #button_container{
+    margin: 30px auto;
+    text-align: center;
+  }
+  #amount_trainer{
+    margin-left: 15px;
+  }
+  .find_trainer_crop{
+    overflow: hidden;
+    width: 250px;
+    height: 200px;
+    border-radius: 7px;
+  }
+  .find_trainer_profile{
+    top: 10px;
+    left: 30px;
+    width: 300px;
+  }
+  #findTrainer_container > table{
+    margin-top: 30px;
+    border-collapse: separate;
+    border-spacing: 6rem 1rem;
+  }
+
+
+#trainer_create_container{
+    margin: 10rem;
+    margin-top: 3vh;
+}
+#trainer_create_introduce{
+    resize:none;
+    padding-left: 15vh;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+
+    border: 1px solid gray;
+    border-radius: 5px;
+    width: 50%;
+}
+#manage_main_container{
+    width: 1000px;
+    margin: 10px auto;
+}
+
+
+#trainer_manage_container{
+    margin: 10px auto;
+    height: 300px;
+    border: 1px solid #A584EE;
+    overflow: auto;
+}
+.manage_range{
+    margin-left: 30px;
+}
+
+.time_container, .manage_radio_container, .manage_people{
+    display: inline;
+    margin: 30px 30px;
+}
+.manage_container{
+    margin: 10px 10px;
+}
+.manage_people_label{
+    margin-right: 10px;
+}
+
+#timeTest{
+    padding: 5px;
+    margin-left: 30px;
+}
+#manage_button_div{
+    display:flex;
+    justify-content: right;
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+#manage_button_div > button{
+    padding: 5px 15px;
+    border: none;
+    background-color: #A584EE;
+    color: white;
+    border-radius: 5px;
+}
+#reservation_validation > table{
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: -5px -5px 3px #b8b8b8;
+    border-collapse: separate;
+    border-spacing: 15px;
+    text-align: center;
+}
