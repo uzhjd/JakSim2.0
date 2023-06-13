@@ -1,14 +1,12 @@
 package com.twinkle.JakSim;
 
-import com.twinkle.JakSim.account.UserDao;
+import com.twinkle.JakSim.model.dao.account.UserDao;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @SpringBootTest

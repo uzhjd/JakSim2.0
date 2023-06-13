@@ -1,4 +1,4 @@
-package com.twinkle.JakSim.auth;
+package com.twinkle.JakSim.config.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -9,37 +9,30 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-@RequiredArgsConstructor
+
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
-    private final AuthSuccessHandler authSuccessHandler;
-    private final AuthFailureHandler authFailureHandler;
-
+    private final CustomAuthSuccessHandler customAuthSuccessHandler;
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-
     @Bean
-    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception{
         return authenticationConfiguration.getAuthenticationManager();
     }
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-        http.authorizeHttpRequests()
-                .mvcMatchers("/", "/css/**", "/javascript/**", "/error/**",
-                        "/account/**", "/login/**").permitAll();
+        http.authorizeHttpRequests().antMatchers("/login/**", "/account/**", "/",
+                "/javascript/**", "/css/**", "/image/**").permitAll();
         http.formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login/action")
-                .successHandler(authSuccessHandler)
-                .failureHandler(authFailureHandler);
+                .successHandler(customAuthSuccessHandler);
         http.logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/")
                 .invalidateHttpSession(true);
         http.csrf().disable();

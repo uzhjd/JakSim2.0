@@ -1,10 +1,9 @@
-package com.twinkle.JakSim.account;
+package com.twinkle.JakSim.model.dao.account;
 
+import com.twinkle.JakSim.model.dto.account.UserDto;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-
-import java.sql.SQLException;
 
 public class UserDao {
     private final JdbcTemplate jdbcTemplate;
@@ -13,7 +12,7 @@ public class UserDao {
         jdbcTemplate = new JdbcTemplate(ds);
     }
 
-    public int insertMember(UserDO user){
+    public int insertMember(UserDto user){
         String sql = "INSERT INTO USER_INFO VALUES(?, ?, ?, ?, ?, ?, ?, ?, current_timestamp, ?)";
         int result = -1;
         try{
@@ -29,15 +28,15 @@ public class UserDao {
         return result;
     }
 
-    public UserDO findByUserId(String userId){
+    public UserDto findByUserId(String userId){
         String sql = "SELECT * FROM USER_INFO WHERE USER_ID = ?";
-        UserDO userDO = null;
+        UserDto userDto = null;
         try{
-            userDO = jdbcTemplate.queryForObject(sql, new UserRowMapper(), userId);
+            userDto = jdbcTemplate.queryForObject(sql, new UserRowMapper(), userId);
         }catch(EmptyResultDataAccessException e){
             System.out.println("데이터가 없다는디?");
         }
 
-        return userDO;
+        return userDto;
     }
 }

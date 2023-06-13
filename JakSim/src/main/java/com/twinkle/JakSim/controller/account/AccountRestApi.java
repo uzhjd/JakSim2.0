@@ -1,11 +1,10 @@
-package com.twinkle.JakSim.account;
+package com.twinkle.JakSim.controller.account;
 
+import com.twinkle.JakSim.model.service.account.AccountService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 
@@ -21,5 +20,10 @@ public class AccountRestApi {
             return -1;
         }
         return accountService.CreateMember(data);
+    }
+
+    @GetMapping("/user-info")
+    public UserDetails getUserInfo(User user){
+        return user;
     }
 }

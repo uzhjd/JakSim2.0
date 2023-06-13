@@ -1,9 +1,9 @@
-package com.twinkle.JakSim.account;
+package com.twinkle.JakSim.model.dto.account;
 
 import lombok.Data;
 
 @Data
-public class UserDO {
+public class UserDto {
     private String id;
     private String pw;
     private String name;
