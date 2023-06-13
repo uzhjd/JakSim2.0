@@ -20,18 +20,18 @@ public class ReservationDao {
         // 해당일에 내 예약이 없나? 없어야 예약을 따로 할 수 있다.
         this.sql = "select * from reservation where user_id = ? and r_c_dt = ? ";
 
-        try {
-            jdbcTemplate.query(this.sql, new resAvailableRowMapper());
-        } catch (EmptyResultDataAccessException e) {
-            if (e != null) {
-                throw new Exception("you have already booked");
-                System.out.println("이미 예약이 존재합니다.");
-
-                result = false;
-            }
-        } catch (Exception e) {
-            // Handle other exceptions
-        }
+//        try {
+//            jdbcTemplate.query(this.sql, new resAvailableRowMapper());
+//        } catch (EmptyResultDataAccessException e) {
+//            if (e != null) {
+//                throw new Exception("you have already booked");
+//                System.out.println("이미 예약이 존재합니다.");
+//
+//                result = false;
+//            }
+//        } catch (Exception e) {
+//            // Handle other exceptions
+//        }
 
         return result;
     }
