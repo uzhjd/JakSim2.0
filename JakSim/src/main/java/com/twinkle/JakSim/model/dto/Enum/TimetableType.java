@@ -1,4 +1,4 @@
-package com.twinkle.JakSim.model.Enum;
+package com.twinkle.JakSim.model.dto.Enum;
 
 public enum TimetableType {
     CONSULTING("1"),
