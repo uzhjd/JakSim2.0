@@ -1,7 +1,7 @@
 package com.twinkle.JakSim.model.service.reservation;
 
-import com.twinkle.JakSim.model.dao.ReservationDao;
-import com.twinkle.JakSim.model.dto.ReservationDto;
+import com.twinkle.JakSim.model.dao.reservation.ReservationDao;
+import com.twinkle.JakSim.model.dto.reservation.ReservationDto;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,11 +14,11 @@ public class ReservationService {
     private ReservationDao reservationDao;
 
     public String register(ReservationDto reservationDto) {
-        boolean resAvailable = reservationDao.resAvailable();
+//        boolean resAvailable = reservationDao.resAvailable();
 
-        if(resAvailable) {
-            reservationDao.register(reservationDto);
-        }
+//        if(resAvailable) {
+//            reservationDao.register(reservationDto);
+//        }
 
         return "";
     }

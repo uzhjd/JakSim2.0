@@ -1,4 +1,4 @@
-package com.twinkle.JakSim.model.dto;
+package com.twinkle.JakSim.model.dto.reservation;
 
 public class ReservationDto {
     private String userId;

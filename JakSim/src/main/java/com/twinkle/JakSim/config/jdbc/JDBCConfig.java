@@ -1,4 +1,4 @@
-package com.twinkle.JakSim.config;
+package com.twinkle.JakSim.config.jdbc;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;

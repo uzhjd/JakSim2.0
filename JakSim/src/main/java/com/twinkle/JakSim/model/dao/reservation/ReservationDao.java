@@ -1,11 +1,9 @@
-package com.twinkle.JakSim.model.dao;
+package com.twinkle.JakSim.model.dao.reservation;
 
-import com.twinkle.JakSim.model.dto.ReservationDto;
+import com.twinkle.JakSim.model.dto.reservation.ReservationDto;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-
-import java.util.List;
 
 public class ReservationDao {
 
