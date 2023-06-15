@@ -39,4 +39,18 @@ public class UserDao {
 
         return userDto;
     }
+
+    public Boolean isPtTicket(String userId) {
+        boolean result = false;
+
+        String sql = "SELECT * FROM USER_INFO WHERE USER_ID";
+
+        int pCnt = jdbcTemplate.queryForObject(sql, new UserRowMapper(), userId);
+
+        if(pCnt > 0) {
+            result = true;
+        }
+
+        return result;
+    }
 }
