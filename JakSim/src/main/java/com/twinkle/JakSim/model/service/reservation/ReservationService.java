@@ -34,6 +34,7 @@ public class ReservationService {
 
         } catch (Exception e) {
             resAvailable = false;
+            System.out.println("e.getMessage() = " + e.getMessage());
             System.out.println("예약을 할 수 없는 환경입니다.");
         }
 

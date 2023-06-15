@@ -4,6 +4,7 @@ import com.twinkle.JakSim.model.dto.reservation.ReservationDto;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class ReservationDao {
@@ -15,7 +16,7 @@ public class ReservationDao {
         jdbcTemplate = new JdbcTemplate(ds);
     }
 
-    public Boolean isReservate(String userId, String rCDt) {
+    public Boolean isReservate(String userId, LocalDateTime rCDt) {
         Boolean result = true;
 
         this.sql = "select * from reservation where user_id = ? and r_c_dt = ? ";
