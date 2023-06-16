@@ -9,9 +9,14 @@ import javax.validation.constraints.NotBlank;
 @ToString
 public class TimetableDto {
     private int tIdx;
+
     private int utIdx;
+
     private String tStartT;
+
     private String tEndT;
+
     private int tPeople;
+
     private int tType;
 }

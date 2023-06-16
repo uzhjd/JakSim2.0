@@ -21,6 +21,7 @@ public class PaymentDto {
     private int tpIdx;
 
     private LocalDate pCDt;
+
     private int pRefund;
 
     private LocalDate pMDt;

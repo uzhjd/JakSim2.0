@@ -28,6 +28,6 @@ public class ReservationDto {
     private int tIdx;
 
     @NotBlank
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate rCDt;
 }
