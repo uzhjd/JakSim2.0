@@ -42,7 +42,12 @@ public class ReservationService {
 
         // 등록 시도
         if(resAvailable) {
-            result = reservationDao.register(reservationDto.getTIdx(), reservationDto.getUserId(), reservationDto.getRCDt());
+            result = reservationDao.register(reservationDto.getTIdx(), reservationDto.getUserId(),
+                                                reservationDto.getRCDt());
+        }
+
+        if(result) {
+            paymentDao.decreasePt(reservationDto.getPIdx());
         }
 
         return result;

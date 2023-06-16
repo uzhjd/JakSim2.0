@@ -41,4 +41,17 @@ public class PaymentDao {
 
         return result;
     }
+
+    public void decreasePt(int pIdx) {
+        this.sql = "update payment " +
+                "set p_pt_cnt = ? where p_idx = ? limit 1";
+
+        try {
+            jdbcTemplate.update(this.sql, pIdx);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return;
+    }
 }
