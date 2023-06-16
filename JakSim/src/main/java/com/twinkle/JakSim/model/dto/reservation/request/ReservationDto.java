@@ -17,6 +17,7 @@ public class ReservationDto {
     @Size(max = 15)
     private String userId;
 
+    // 얘가 필요한지 알아보기!! 없으면 지우고 있따면 이 주석 지우기
     @NotBlank
     private int utIdx;
 

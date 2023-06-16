@@ -13,24 +13,18 @@ import java.time.LocalDate;
 @Data
 @ToString
 public class PaymentDto {
-    @NotBlank
+
     private int pIdx;
 
-    @NotBlank
     private String userId;
 
-    @NotBlank
     private int tpIdx;
 
-    @NotBlank
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate pCDt;
     private int pRefund;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate pMDt;
 
-    @NotBlank
     private int pPtCnt;
 
 }

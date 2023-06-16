@@ -38,15 +38,15 @@ public class ReservationDao {
     public Boolean register(ReservationDto reservationDto) {
         Boolean result = true;
 
-        this.sql = "insert into reservation " +
-                "values(RESERVATION_SEQ.NEXTVAL, ?, ?, TO_DATE(?, 'YYYY-MM-DD'))";
-
-        try {
-            jdbcTemplate.update(this.sql, );
-        } catch (EmptyResultDataAccessException e) {
-            System.out.println("예약이 올바르게 되지 않았습니다.");
-            return false;
-        }
+//        this.sql = "insert into reservation " +
+//                "values(RESERVATION_SEQ.NEXTVAL, ?, ?, TO_DATE(?, 'YYYY-MM-DD'))";
+//
+//        try {
+//            jdbcTemplate.update(this.sql, );
+//        } catch (EmptyResultDataAccessException e) {
+//            System.out.println("예약이 올바르게 되지 않았습니다.");
+//            return false;
+//        }
 
 
 

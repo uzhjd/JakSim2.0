@@ -1,8 +1,6 @@
 package com.twinkle.JakSim.model.dao.payment;
 
 import com.twinkle.JakSim.model.dto.payment.response.PaymentDto;
-import com.twinkle.JakSim.model.dto.reservation.request.ReservationDto;
-import com.twinkle.JakSim.model.dto.reservation.response.ResIsAvailableDto;
 
 import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
