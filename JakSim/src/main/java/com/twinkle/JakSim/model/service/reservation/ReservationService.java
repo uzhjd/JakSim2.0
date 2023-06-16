@@ -24,7 +24,7 @@ public class ReservationService {
 
         try {
             // 해당 날에 대한 예약이 없을 경우
-            boolean isReservate = reservationDao.isReservate(reservationDto.getUserId(), reservationDto.getRCDt());
+            boolean isReservate = reservationDao.isReservate(reservationDto.getUserId(), reservationDto.getTDate());
 
             // pt권 수가 남아있는지
             boolean isPtTicket = paymentDao.isPtTicket(reservationDto.getTIdx());
@@ -42,8 +42,7 @@ public class ReservationService {
 
         // 등록 시도
         if(resAvailable) {
-            result = reservationDao.register(reservationDto.getTIdx(), reservationDto.getUserId(),
-                                                reservationDto.getRCDt());
+            result = reservationDao.register(reservationDto.getTIdx(), reservationDto.getUserId());
         }
 
         if(result) {

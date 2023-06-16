@@ -18,8 +18,8 @@ public class ReservationDto {
     private String userId;
 
     // 얘가 필요한지 알아보기!! 없으면 지우고 있따면 이 주석 지우기
-    @NotBlank
-    private int utIdx;
+//    @NotBlank
+//    private int utIdx;
 
     @NotBlank
     private int pIdx;
@@ -28,6 +28,10 @@ public class ReservationDto {
     private int tIdx;
 
     @NotBlank
+    private LocalDate tDate;
+
+    // 이것도 필요가 없을 듯 => 현재 날짜 저장이자넹!!
+//    @NotBlank
 //    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate rCDt;
+//    private LocalDate rCDt;
 }

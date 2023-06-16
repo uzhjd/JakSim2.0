@@ -4,6 +4,9 @@ import lombok.Data;
 import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Data
 @ToString
@@ -12,9 +15,11 @@ public class TimetableDto {
 
     private int utIdx;
 
-    private String tStartT;
+    private LocalDate tDate;
 
-    private String tEndT;
+    private LocalTime tStartT;
+
+    private LocalTime tEndT;
 
     private int tPeople;
 
