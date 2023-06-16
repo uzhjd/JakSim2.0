@@ -33,24 +33,11 @@ public class UserDao {
         UserDto userDto = null;
         try{
             userDto = jdbcTemplate.queryForObject(sql, new UserRowMapper(), userId);
-        }catch(EmptyResultDataAccessException e){
+        } catch(EmptyResultDataAccessException e){
             System.out.println("데이터가 없다는디?");
         }
 
         return userDto;
     }
 
-    public Boolean isPtTicket(String userId) {
-        boolean result = false;
-
-        String sql = "SELECT * FROM USER_INFO WHERE USER_ID";
-
-        int pCnt = jdbcTemplate.queryForObject(sql, new UserRowMapper(), userId);
-
-        if(pCnt > 0) {
-            result = true;
-        }
-
-        return result;
-    }
 }

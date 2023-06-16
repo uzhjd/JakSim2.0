@@ -1,12 +1,9 @@
 package com.twinkle.JakSim.model.dao.timetable;
 
 import com.twinkle.JakSim.model.dao.reservation.resAvailableRowMapper;
-import com.twinkle.JakSim.model.dto.reservation.ReservationDto;
-import com.twinkle.JakSim.model.dto.timetable.TimetableDto;
 import org.apache.tomcat.jdbc.pool.DataSource;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-
-import java.util.List;
 
 public class TimetableDao {
 
@@ -22,12 +19,12 @@ public class TimetableDao {
 
         this.sql = "select * from timetable where t_idx = ?";
 
-        List<TimetableDto> resResult = jdbcTemplate.query(this.sql, new resAvailableRowMapper(), tIdx);
-
-        if (resResult == null) {
+        try {
+            jdbcTemplate.query(this.sql, new ccccccRowMapper(), tIdx);
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println("there isn't any timetables");
+            System.out.println(e);
             result = false;
-
-            System.out.println("we don't have this timetatble");
         }
 
         return result;

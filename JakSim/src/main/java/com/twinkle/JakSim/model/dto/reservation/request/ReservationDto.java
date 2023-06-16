@@ -1,4 +1,4 @@
-package com.twinkle.JakSim.model.dto.reservation;
+package com.twinkle.JakSim.model.dto.reservation.request;
 
 import com.sun.istack.internal.NotNull;
 import lombok.Data;
@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -27,5 +28,5 @@ public class ReservationDto {
 
     @NotBlank
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime rCDt;
+    private LocalDate rCDt;
 }
