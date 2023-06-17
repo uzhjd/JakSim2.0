@@ -20,8 +20,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     private final BCryptPasswordEncoder passwordEncoder;
     private final CustomUserDetailService customUserDetailService;
 
-    @Autowired
-    private DataSource ds;
+    //@Autowired
+    //private DataSource ds;
 
 
     @Override
@@ -29,17 +29,12 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String username = authentication.getName();
         String password = (String)authentication.getCredentials();
 
-        System.out.println("[Provider]");
-        System.out.println("username: " + username + " :: password: " + password);
-
         UserDetails user = customUserDetailService.loadUserByUsername(username);
 
         if(user ==  null){
             throw new UsernameNotFoundException(username);
         }
 
-        System.out.println("[DetailsInfo in Provider]");
-        System.out.println(user.toString());
 
         if(!passwordEncoder.matches(password, user.getPassword())){
             throw new BadCredentialsException("Invalid user Password");

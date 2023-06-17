@@ -1,3 +1,24 @@
 .account_input{
     display: block;
+    
+}
+
+#account_id{
+    color:white;
+    background-color: #b198e3;
+}
+
+#account_name{
+    color:white;
+    background-color: #782AFE;
+}
+
+#account_pw{
+    color:white;
+    background-color: #9050ff;
+}
+
+#account_gender{
+    color:white;
+    background-color: #9f68ff;
 }

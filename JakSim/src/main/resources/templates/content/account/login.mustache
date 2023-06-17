@@ -1,6 +1,6 @@
 {{>layout/header}}
-</head>
-
+    <script src="javascript/account/login.js"></script>
+    <link rel="stylesheet" href="css/account/loginStyle.css">
 <body>
 {{>layout/navi}}
 
@@ -8,9 +8,9 @@
         <form action="/login/action" method="post">
             <input type="text" name="username" id="user_id" class="form-control" placeholder="USER ID">
             <br>
-            <input type="text" name="password" id="user_pw" class="form-control" placeholder="USER PW">
+            <input type="password" name="password" id="user_pw" class="form-control" placeholder="USER PW">
             <br>
-            <button class="btn btn-primary" type="submit">로그인</button>
+            <button class="btn btn-primary" type="submit" id="loginButton">로그인</button>
         </form>
     </div>
 

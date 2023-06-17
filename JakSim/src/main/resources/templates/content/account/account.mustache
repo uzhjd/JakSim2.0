@@ -1,6 +1,6 @@
 {{>layout/header}}
     <script src="javascript/account/account.js"></script>
-    <link rel="stylesheet" href="css/styles/accountStyle.css">
+    <link rel="stylesheet" href="css/account/accountStyle.css">
 </head>
 <body>
 {{>layout/navi}}
@@ -8,14 +8,27 @@
         <h1>회원가입</h1>
         <hr>
         <input type="text" id="account_id" class="account_input" placeholder="id">
+        <span id="account_confirm_id"></span>
+        <button type="button" id="account_checkId">아이디 중복 확인</button>
+
         <input type="text" id="account_name" class="account_input" placeholder="name">
-        <input type="text" id="account_pw" class="account_input" placeholder="pw">
+
+        <input type="password" id="account_pw" class="account_input" placeholder="pw">
+        <input type="password" id="account_confirm" class="account_input" placeholder="비밀번호 확인">
+        <span id="account_confirm_span"></span>
+        <button type="button" id="account_checkPw">비밀번호 확인</button>
+
         <input type="text" id="account_gender" class="account_input" placeholder="gender">
+
         <input type="text" id="account_tel" class="account_input" placeholder="tel">
+        <span id="account_confirm_tel"></span>
+        <button type="button" id="account_checkTel">전화번호 중복 확인</button>
+
         <input type="text" id="account_question" class="account_input" placeholder="question">
         <input type="text" id="account_answer" class="account_input" placeholder="answer">
         <input type="text" id="account_birth" class="account_input" placeholder="birth">
         <input type="hidden" id="account_role" class="account_input" value="1">
         <button id="myButton">Send</button>
     </div>
+
 {{>layout/footer}}

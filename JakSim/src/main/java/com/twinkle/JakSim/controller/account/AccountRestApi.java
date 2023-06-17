@@ -1,7 +1,9 @@
 package com.twinkle.JakSim.controller.account;
 
+import com.twinkle.JakSim.model.dto.account.UserDto;
 import com.twinkle.JakSim.model.service.account.AccountService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +25,17 @@ public class AccountRestApi {
     }
 
     @GetMapping("/user-info")
-    public UserDetails getUserInfo(User user){
+    public UserDetails getUserInfo(@AuthenticationPrincipal User user){
         return user;
+    }
+
+    @PostMapping("/checkid")
+    public int checkId(@RequestBody UserDto data){
+        return accountService.findByUsername(data.getId());
+    }
+
+    @PostMapping("/checktel")
+    public int checkTel(@RequestBody UserDto data){
+        return accountService.findByTel(data.getTel());
     }
 }

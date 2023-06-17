@@ -14,10 +14,13 @@ import java.util.HashMap;
 @Service
 @RequiredArgsConstructor
 public class AccountService {
-    @Autowired
-    private DataSource ds;
+    //@Autowired
+    //private DataSource ds;
 
     private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private UserDao userDao;
 
     @Transactional
     public int CreateMember(HashMap<Object, String> member){
@@ -35,8 +38,23 @@ public class AccountService {
         userDto.setBirth(member.get("birth"));
         userDto.setRole(Integer.parseInt(member.get("role")));
 
-        UserDao userDao = new UserDao(ds);
         //정상
         return userDao.insertMember(userDto);
+    }
+
+    public int findByUsername(String id) {
+        int result = 0;
+
+        if(userDao.findByUserId(id) != null)
+            result = 1;
+
+        return result;
+    }
+
+    public int findByTel(String tel) {
+        int result = 0;
+        if(userDao.findByTel(tel) != null)
+            result = 1;
+        return result;
     }
 }
