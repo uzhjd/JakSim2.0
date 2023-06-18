@@ -11,7 +11,7 @@ public class ReservationRowMapper implements RowMapper<ReservationDto> {
         ReservationDto reservationDto = new ReservationDto();
 
         reservationDto.setUserId(rs.getString("USER_ID"));
-        reservationDto.setUtIdx(rs.getInt("UT_IDX"));
+//        reservationDto.setUtIdx(rs.getInt("UT_IDX"));
         reservationDto.setPIdx(rs.getInt("P_IDX"));
         reservationDto.setTIdx(rs.getInt("T_IDX"));
         reservationDto.setRCDt(rs.getDate("R_C_DT").toLocalDate());

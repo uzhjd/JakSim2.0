@@ -1,16 +1,20 @@
 package com.twinkle.JakSim.controller.scheduler;
 
-import com.twinkle.JakSim.model.dto.reservation.request.ReservationDto;
-import com.twinkle.JakSim.model.service.reservation.ReservationService;
+import com.twinkle.JakSim.model.dto.product.response.ValidPtDto;
+import com.twinkle.JakSim.model.dto.scheduler.request.SchedulerDto;
+import com.twinkle.JakSim.model.dto.trainer.TrainerDto;
+import com.twinkle.JakSim.model.service.payment.PaymentService;
+import com.twinkle.JakSim.model.service.trainer.TrainerService;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/scheduler")
@@ -20,21 +24,28 @@ public class SchedulerController {
     @Autowired
     private DataSource ds;
 
-    private ReservationService reservationService;
+    private TrainerService trainerService;
+    private PaymentService paymentService;
+    private TrainerDto trainerInfo;
 
-    @PostMapping("")
-//    @GetMapping("") // Test용
-    public String scheduleList(@Valid @RequestBody ReservationDto reservationDto) {
+    @PostMapping("/scheduler")
+    public String Scheduler(@Valid @RequestBody SchedulerDto schedulerDto) {
 
-        LocalDate today = LocalDate.now();
+        List<ValidPtDto> validPtList;
 
-       // 조회한 날이 오늘 이후인지 체크해보기 (과거에 것은 예약이 안되게 막기)
-        if(reservationDto.getRCDt().compareTo(today) >= 0) {
-            System.out.println("입력된 날이 더 과거입니다.");
-            reservationService.register(reservationDto);
+        try {
+            validPtList = paymentService.validPtList(schedulerDto.getUserId());
+        } catch (NullPointerException e) {
+            System.out.println("There's no any valid Pt list");
+            return "";
         }
 
-        return "content/scheduler";
-    }
+        int ptCnt = validPtList.get(0).getPPtCnt();
+        trainerInfo = trainerService.myTrainer(validPtList.get(0).getUtIdx());
 
+        // 예약 현황
+
+
+        return "";
+    }
 }

@@ -1,13 +1,13 @@
 package com.twinkle.JakSim.model.dao.payment;
 
-import com.twinkle.JakSim.model.dao.account.UserRowMapper;
-import com.twinkle.JakSim.model.dao.reservation.ReservationRowMapper;
 import com.twinkle.JakSim.model.dto.payment.response.PaymentDto;
-import com.twinkle.JakSim.model.dto.reservation.request.ReservationDto;
+import com.twinkle.JakSim.model.dto.product.response.ValidPtDto;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PaymentDao {
@@ -53,5 +53,25 @@ public class PaymentDao {
         }
 
         return;
+    }
+
+    public List<ValidPtDto> findAllValidPt(String userId, LocalDate today) {
+        List<ValidPtDto> list = new ArrayList<>();
+
+        this.sql = "select pro.ut_idx and pay.p_pt_cnt from payment pay inner join product pro on pay.tp_idx and pro.tp_idx" +
+                " where userId = ? and p_refund = '0' and p_pt_cnt > '0' and pro.pt_period >= (?today - p_c_dt)";
+
+        try {
+            list = (List<ValidPtDto>) jdbcTemplate.queryForObject(this.sql, new ValidPtRowMapper(), userId, today);
+        } catch (NullPointerException e) {
+            System.out.println("There's no valid Pt list");
+            System.out.println("e.getMessage() = " + e.getMessage());
+
+            list = null;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return list;
     }
 }
