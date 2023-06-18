@@ -1,13 +1,8 @@
 package com.twinkle.JakSim.model.dao.trainer;
 
-
-import com.twinkle.JakSim.model.dao.reservation.ReservationRowMapper;
 import com.twinkle.JakSim.model.dto.trainer.TrainerDto;
 import org.apache.tomcat.jdbc.pool.DataSource;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-
-import java.time.LocalDate;
 
 public class TrainerDao {
 
