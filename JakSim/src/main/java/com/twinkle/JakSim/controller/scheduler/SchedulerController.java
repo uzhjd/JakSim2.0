@@ -41,10 +41,17 @@ public class SchedulerController {
         }
 
         int ptCnt = validPtList.get(0).getPPtCnt();
+
         trainerInfo = trainerService.myTrainer(validPtList.get(0).getUtIdx());
 
         // 예약 현황
 
+
+        // pt선생님 timetable조회 (얘는 따료 빼지만 호출만 하기 service 꺼)
+        // timetableService.myTrainerTimetble(???);
+
+        // 상세 예약 현황 조회 (얘는 따료 빼지만 호출만 하기 service 꺼)
+        // reservationService.resDetail(???);
 
         return "";
     }
