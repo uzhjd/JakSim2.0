@@ -15,11 +15,12 @@ import java.security.Principal;
 @Controller
 public class MainController {
     @GetMapping("/")
-    public String mainPage(Principal user, Model model) {
+    public String mainPage(@AuthenticationPrincipal User user, Model model) {
         model.addAttribute("head_title", "main");
         if(user != null) {
             model.addAttribute("user", user);
         }
         return "content/index";
     }
+
 }

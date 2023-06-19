@@ -53,4 +53,8 @@ public class AccountService {
     public int update(String user_id, String pw) {
         return userDao.updatePassword(user_id, passwordEncoder.encode(pw));
     }
+
+    public boolean checkPassword(String username, String pw) {
+        return passwordEncoder.matches(pw, userDao.findByUserId(username).getPw());
+    }
 }
