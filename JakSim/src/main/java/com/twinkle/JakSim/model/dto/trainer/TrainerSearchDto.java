@@ -7,14 +7,25 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TrainerDto {
+public class TrainerSearchDto {
 
-    private int trainerId;
-    private String userId;
+    private String userName;
+
     private String insta;
     private String introduce;
     private String gym;
     private int expert1;
     private int expert2;
+
+    private int ptTimes;
+    private int ptPrice;
+    private String ptTitle;
+
+    private String careerContent;
+
+    private String certName;
+    private String certImage;
+
+    private String imagePath;
 
 }

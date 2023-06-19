@@ -1,0 +1,35 @@
+{{>layout/header}}
+<script src="https://kit.fontawesome.com/05995ac069.js" crossorigin="anonymous"></script>
+<body>
+{{>layout/navi}}
+<div id="trainer_Detail_Container">
+    <br/>
+    <h5 style="font-weight: bold; font-size: 19px;">트레이너 상세페이지</h5>
+    <br>
+    <div id="trainer-info">
+        <div id="trainer-table">
+            <div style="display: flex; align-items: center;">
+                <p style="margin-right: 5px;"><i class="fa-sharp fa-solid fa-location-dot fa-xl" style="color: #ca7cfd;"></i></p>
+                <div id="trainer_gym">
+                    {{#td}}
+                        {{introduce}}
+                        {{gym}}
+                    {{/td}}
+
+                </div>
+
+                <input type="text" value="{{#trainer}} {{gym}} {{/trainer}}" />
+            </div>
+            <div style="display: flex; align-items: center;">
+                <div>
+                    <i class="fa-brands fa-instagram fa-xl" style="margin-right: 6px"></i>
+                </div>
+
+            </div>
+        </div>
+    </div> <br/>
+    <hr/>
+
+
+</div>
+{{>layout/footer}}
