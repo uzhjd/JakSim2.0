@@ -1,6 +1,25 @@
+.input_container{
+    margin: 1vh 1vh 0vh 5vh;
+    position: relative;
+    /* relative로 둠으로써 span이 내부로 들어가지게 됨*/
+}
 .account_input{
     border: 1px black solid;
     border-radius: 5px;
+    
+    padding-left: 15vh;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    
+    width: 50%;
+}
+
+.account_span{
+    left: 1vh;
+    margin-top: 5px;
+    position: absolute;
+    font-weight: bold;
 }
 
 .account_button{
@@ -13,4 +32,9 @@
 
 .account_button:hover, .account_button:active{
     background-color: #a379ff;
+    color: #b7b7b7;
+}
+
+#account_confirm_id, #account_confirm_pw, #account_confirm_tel{
+    position: relative;
 }

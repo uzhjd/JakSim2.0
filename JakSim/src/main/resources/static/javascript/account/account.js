@@ -29,6 +29,7 @@ function isDupTel(){
         .catch(error =>{
             console.error(error);
         });
+
 }
 
 function idDupId(){
@@ -70,7 +71,7 @@ function handleClick(){
 function checkPassword(){
     pwd = document.getElementById('account_pw').value;
     confirmPwd = document.getElementById('account_confirm').value;
-    var text = document.getElementById('account_confirm_span');
+    var text = document.getElementById('account_confirm_pw');
     if(pwd !== confirmPwd){
         text.innerHTML = '비밀번호가 맞지 않습니다.';
         text.style.color = 'red';
