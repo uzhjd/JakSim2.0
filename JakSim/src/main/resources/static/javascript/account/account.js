@@ -14,16 +14,16 @@ window.onload = function(){
 
 function isDupTel(){
     var data = {tel : document.getElementById('account_tel').value};
-    var message = document.getElementById('account_confirm_tel');
+    var result = document.getElementById('account_confirm_tel');
     JSON.stringify(data);
     axios.post('/account/checktel', data)
         .then(response => {
             if(response.data !== 0){
-                message.style.color='red';
-                message.innerHTML = '이미 등록된 전화번호입니다.';
+                result.style.color='red';
+                result.innerHTML = '이미 등록된 전화번호입니다.';
             }else{
-                message.style.color='black';
-                message.innerHTML='전화번호가 확인되었습니다.';
+                result.style.color='black';
+                result.innerHTML='전화번호가 확인되었습니다.';
             }
         })
         .catch(error =>{
@@ -33,16 +33,16 @@ function isDupTel(){
 
 function idDupId(){
     var data = {id : document.getElementById('account_id').value};
-    var message = document.getElementById('account_confirm_id');
+    var result = document.getElementById('account_confirm_id');
     JSON.stringify(data);
     axios.post('/account/checkid', data)
         .then(response => {
             if(response.data !== 0){
-                message.style.color='red';
-                message.innerHTML = '아이디가 중복입니다.';
+                result.style.color='red';
+                result.innerHTML = '아이디가 중복입니다.';
             }else{
-                message.style.color='black';
-                message.innerHTML='사용가능한 아이디입니다.';
+                result.style.color='black';
+                result.innerHTML='사용가능한 아이디입니다.';
             }
         })
         .catch(error =>{

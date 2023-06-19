@@ -31,11 +31,21 @@ public class AccountRestApi {
 
     @PostMapping("/checkid")
     public int checkId(@RequestBody UserDto data){
-        return accountService.findByUsername(data.getId());
+        return accountService.findByUsername(data.getId()) == null ? 1 : 0;
     }
 
     @PostMapping("/checktel")
     public int checkTel(@RequestBody UserDto data){
+        return accountService.findByTel(data.getTel()) == null ? 0 : 1;
+    }
+
+    @PostMapping("/findtel")
+    public UserDto findTel(@RequestBody UserDto data){
         return accountService.findByTel(data.getTel());
+    }
+
+    @PutMapping("/changepw")
+    public int updatePassword(@RequestBody UserDto data){
+        return accountService.update(data.getId(), data.getPw());
     }
 }

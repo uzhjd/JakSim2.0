@@ -53,4 +53,18 @@ public class UserDao {
         return userDto;
     }
 
+    public int updatePassword(String user_id, String pw) {
+        String sql = "update user_info " +
+                "set user_pw = ? " +
+                "where user_id = ?";
+        int result = -1;
+
+        try{
+            result = jdbcTemplate.update(sql, pw, user_id);
+        }catch (Exception e){
+            System.out.println("모시깽이 에러");
+        }
+
+        return result;
+    }
 }

@@ -1,24 +1,16 @@
 .account_input{
-    display: block;
-    
+    border: 1px black solid;
+    border-radius: 5px;
 }
 
-#account_id{
+.account_button{
     color:white;
-    background-color: #b198e3;
+    background-color: #8753F6;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
 }
 
-#account_name{
-    color:white;
-    background-color: #782AFE;
-}
-
-#account_pw{
-    color:white;
-    background-color: #9050ff;
-}
-
-#account_gender{
-    color:white;
-    background-color: #9f68ff;
+.account_button:hover, .account_button:active{
+    background-color: #a379ff;
 }

@@ -1,5 +1,6 @@
 package com.twinkle.JakSim.model.dto.account;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Data

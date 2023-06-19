@@ -1,9 +1,28 @@
 {{>layout/header}}
-<script src="javascript/account/login.js"></script>
+<link rel="stylesheet" href="css/account/accountStyle.css">
+<script src="javascript/account/find.js"></script>
 <body>
 {{>layout/navi}}
 
     <h1>아이디/비밀번호 찾기</h1>
     <hr>
 
+    <input type="number" id="find_tel" class="account_input" placeholder="Telephone">
+    <span id="find_tel_result"></span>
+    <button type="button" id="find_checkTel" style="display:block">전화번호 확인</button>
+
+    <span id="find_question"></span>
+    <input type="text" id="find_inputAnswer" class="account_input" placeholder="질문답안">
+    <button type="button" id="find_checkAnswer">질문 확인</button>
+
+    <span>아이디: </span>
+    <span id="find_userId"></span>
+    <br>
+    <span>비밀번호:</span>
+    <input id="find_password"/>
+    <span>비밀번호 확인: </span>
+    <input id="find_confirmPassword"/>
+    <button id="find_checkPwButton">확인</button>
+    <button id="find_pwButton">변경</button>
+    
 {{>layout/footer}}

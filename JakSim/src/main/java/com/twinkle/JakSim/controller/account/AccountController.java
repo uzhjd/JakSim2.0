@@ -26,4 +26,10 @@ public class AccountController {
         model.addAttribute("head_title", "아이디/비밀번호 찾기");
         return String.format(this.defaultPath + "find");
     }
+
+    @GetMapping("/test")
+    public String testPage(Model model){
+        model.addAttribute("head_title", "Test");
+        return String.format(this.defaultPath + "test");
+    }
 }

@@ -42,19 +42,15 @@ public class AccountService {
         return userDao.insertMember(userDto);
     }
 
-    public int findByUsername(String id) {
-        int result = 0;
-
-        if(userDao.findByUserId(id) != null)
-            result = 1;
-
-        return result;
+    public UserDto findByUsername(String id) {
+        return userDao.findByUserId(id);
     }
 
-    public int findByTel(String tel) {
-        int result = 0;
-        if(userDao.findByTel(tel) != null)
-            result = 1;
-        return result;
+    public UserDto findByTel(String tel) {
+        return userDao.findByTel(tel);
+    }
+
+    public int update(String user_id, String pw) {
+        return userDao.updatePassword(user_id, passwordEncoder.encode(pw));
     }
 }
