@@ -3,8 +3,6 @@ package com.twinkle.JakSim.controller.reservation;
 import com.twinkle.JakSim.model.dto.reservation.request.ReservationDto;
 import com.twinkle.JakSim.model.service.reservation.ReservationService;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.jdbc.pool.DataSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -16,9 +14,9 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class ReservationController {
 
-    private ReservationService reservationService;
+    private final ReservationService reservationService;
 
-    @PostMapping("")
+    @PostMapping("/register")
     public String resRegister(@Valid @RequestBody ReservationDto reservationDto) {
 
         LocalDate today = LocalDate.now();

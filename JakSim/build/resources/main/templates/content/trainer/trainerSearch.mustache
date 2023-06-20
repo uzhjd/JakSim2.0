@@ -1,5 +1,58 @@
 {{>layout/header}}
-<p>{{Jaemok}}</p>
-<p>{{Jaksim}}</p>
-<button id="myButton" class="btn btn-primary">전송하기</button>
+<link rel="stylesheet" href="/css/trainer/trainerSearch.css">
+<script src="https://kit.fontawesome.com/05995ac069.js" crossorigin="anonymous"></script>
+<body>
+{{>layout/navi}}
+<div id="index_container">
+    <div id="findTrainer_container">
+        <div id="location">
+            <i class="fa-sharp fa-solid fa-location-dot fa-xl" style="color: #ca7cfd;"></i>
+            <span id="location_span">서울시 구로구 가산디지털단지역</span>
+        </div>
+
+        <div id="button_container">
+            <input type="radio" name="toggle" value="0" id="toggle-body-profile" class="toggle-btn">
+            <label for="toggle-body-profile" class="toggle-label">바디프로필</label>
+
+            <input type="radio" name="toggle" value="1" id="toggle-power-lifting" class="toggle-btn">
+            <label for="toggle-power-lifting" class="toggle-label">파워리프팅</label>
+
+            <input type="radio" name="toggle" value="2" id="toggle-diet" class="toggle-btn">
+            <label for="toggle-diet" class="toggle-label">다이어트</label>
+
+            <input type="radio" name="toggle" value="3" id="toggle-rehab" class="toggle-btn">
+            <label for="toggle-rehab" class="toggle-label">재활운동</label>
+
+            <input type="radio" name="toggle" value="4" id="toggle-posture" class="toggle-btn">
+            <label for="toggle-posture" class="toggle-label">자세교정</label>
+
+            <input type="radio" name="toggle" value="5" id="toggle-condition" class="toggle-btn">
+            <label for="toggle-condition" class="toggle-label">컨디셔닝</label>
+        </div>
+
+        <span id="amount_trainer">200명의 트레이너</span>
+        <table>
+            <tr>
+                {{#trainers}}
+                    <td>
+                        <div class="find_trainer_crop">
+                            <img src="{{imagePath}}" alt="트레이너" class="find_trainer_profile">
+                        </div>
+                        <div><input class="input_input" type="text" value="{{gym}}" name="gym"></div>
+                        <div><input class="input_input" type="text" value="{{userName}}" name="userName"></div>
+                        <div style="display:inline-block; margin-right:3px;">
+                            <input class="input_input" type="text" value="{{expert1}}" name="expert1">
+                        </div>
+                        <div>
+                            <input class="input_input" type="text" value="{{expert2}}" name="expert2">
+                        </div>
+                        <div>
+                            <input class="input_input" type="text" value="{{certName}}" name="certName">
+                        </div>
+                    </td>
+                {{/trainers}}
+            </tr>
+        </table>
+    </div>
+</div>
 {{>layout/footer}}

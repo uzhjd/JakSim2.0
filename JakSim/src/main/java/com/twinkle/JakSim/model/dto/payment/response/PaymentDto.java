@@ -1,7 +1,6 @@
 package com.twinkle.JakSim.model.dto.payment.response;
 
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.cglib.core.Local;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -10,8 +9,10 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Builder
 @ToString
+@AllArgsConstructor
 public class PaymentDto {
 
     private int pIdx;
@@ -27,5 +28,4 @@ public class PaymentDto {
     private LocalDate pMDt;
 
     private int pPtCnt;
-
 }

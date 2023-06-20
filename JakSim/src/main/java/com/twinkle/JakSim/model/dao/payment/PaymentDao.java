@@ -18,10 +18,6 @@ public class PaymentDao {
     private JdbcTemplate jdbcTemplate;
     private String sql;
 
-    public PaymentDao(DataSource ds) {
-        jdbcTemplate = new JdbcTemplate(ds);
-    }
-
     public Boolean isPtTicket(int pIdx) {
         boolean result = false;
         PaymentDto paymentDto = new PaymentDto();
@@ -29,7 +25,7 @@ public class PaymentDao {
         this.sql = "select * from payment where p_idx = ?";
 
         try {
-            paymentDto = jdbcTemplate.queryForObject(this.sql, new PaymentRowMappper(), pIdx);
+            PaymentDto paymentDto = jdbcTemplate.queryForObject(this.sql, new PaymentRowMappper(), pIdx);
         } catch (EmptyResultDataAccessException e) {
             System.out.println(e);
             System.out.println("Thers isn't any information");
@@ -60,13 +56,11 @@ public class PaymentDao {
     }
 
     public List<ValidPtDto> findAllValidPt(String userId, LocalDate today) {
-        List<ValidPtDto> list = new ArrayList<>();
-
         this.sql = "select pro.ut_idx and pay.p_pt_cnt from payment pay inner join product pro on pay.tp_idx and pro.tp_idx" +
                 " where userId = ? and p_refund = '0' and p_pt_cnt > '0' and pro.pt_period >= (?today - p_c_dt)";
 
         try {
-            list = (List<ValidPtDto>) jdbcTemplate.queryForObject(this.sql, new ValidPtRowMapper(), userId, today);
+            List<ValidPtDto> list = jdbcTemplate.query(this.sql, new ValidPtRowMapper(), userId, today);
         } catch (NullPointerException e) {
             System.out.println("There's no valid Pt list");
             System.out.println("e.getMessage() = " + e.getMessage());

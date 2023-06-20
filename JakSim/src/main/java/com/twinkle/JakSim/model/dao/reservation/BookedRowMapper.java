@@ -8,9 +8,7 @@ import java.sql.SQLException;
 
 public class BookedRowMapper implements RowMapper<ResIsAvailableDto> {
     public ResIsAvailableDto mapRow(ResultSet rs, int rowNum) throws SQLException {
-        ResIsAvailableDto resIsAvailableDto = new ResIsAvailableDto();
-
-        resIsAvailableDto.setRIdx(rs.getInt("P_IDX"));
+        ResIsAvailableDto resIsAvailableDto = new ResIsAvailableDto(rs.getInt("P_IDX"));
 
         return resIsAvailableDto;
     }

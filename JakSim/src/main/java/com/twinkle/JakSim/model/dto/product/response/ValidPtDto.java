@@ -1,10 +1,11 @@
 package com.twinkle.JakSim.model.dto.product.response;
 
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 
-@Data
+@Getter
+@Builder
 @ToString
+@AllArgsConstructor
 public class ValidPtDto {
     private int utIdx;
 

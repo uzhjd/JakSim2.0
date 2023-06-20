@@ -1,10 +1,12 @@
 package com.twinkle.JakSim.model.dto.reservation.response;
 
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 
-@Data
+@Getter
+@Builder
 @ToString
+@AllArgsConstructor
 public class ResIsAvailableDto {
+
     private int rIdx;
 }

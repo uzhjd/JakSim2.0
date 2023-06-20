@@ -1,18 +1,17 @@
 package com.twinkle.JakSim.model.dto.reservation.request;
 
-import com.sun.istack.internal.NotNull;
-import lombok.Data;
-import lombok.ToString;
-import org.springframework.format.annotation.DateTimeFormat;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Builder
 @ToString
+@AllArgsConstructor
 public class ReservationDto {
+
     @NotBlank
     @Size(max = 15)
     private String userId;
