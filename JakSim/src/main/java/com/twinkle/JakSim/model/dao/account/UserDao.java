@@ -38,8 +38,6 @@ public class UserDao {
         return userDto;
     }
 
-<<<<<<< HEAD
-=======
     public UserDto findByTel(String userTel){
         String sql = "SELECT * FROM USER_INFO WHERE USER_TEL = ?";
         UserDto userDto = null;
@@ -67,5 +65,4 @@ public class UserDao {
 
         return result;
     }
->>>>>>> b095dfcb1926c8320fa9500115aa78604d69a0b2
 }
