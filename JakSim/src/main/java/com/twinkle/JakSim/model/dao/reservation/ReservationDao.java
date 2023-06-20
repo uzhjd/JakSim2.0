@@ -1,41 +1,55 @@
 package com.twinkle.JakSim.model.dao.reservation;
 
-import com.twinkle.JakSim.model.dto.reservation.ReservationDto;
-import org.apache.tomcat.jdbc.pool.DataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+
+@Repository
 public class ReservationDao {
 
+    @Autowired
     private JdbcTemplate jdbcTemplate;
     private String sql;
 
-    public ReservationDao(DataSource ds){
-        jdbcTemplate = new JdbcTemplate(ds);
-    }
-
-    public Boolean resAvailable() throws Exception {
+    public Boolean isReservate(String userId, LocalDate tDate) {
         Boolean result = true;
 
-        // 해당일에 내 예약이 없나? 없어야 예약을 따로 할 수 있다.
         this.sql = "select * from reservation where user_id = ? and r_c_dt = ? ";
 
-//        try {
-//            jdbcTemplate.query(this.sql, new resAvailableRowMapper());
-//        } catch (EmptyResultDataAccessException e) {
-//            if (e != null) {
-//                throw new Exception("you have already booked");
-//                System.out.println("이미 예약이 존재합니다.");
-//
-//                result = false;
-//            }
-//        } catch (Exception e) {
-//            // Handle other exceptions
-//        }
+        try {
+            jdbcTemplate.query(this.sql, new ReservationRowMapper(), userId, tDate);
+        } catch(EmptyResultDataAccessException e) {
+            System.out.println("You have already booked");
+            System.out.println(e);
+            result = false;
+        }
 
         return result;
     }
-    public String register(ReservationDto reservationDto){
-        return "";
+
+    public Boolean register(int tIdx, String userId) {
+        int isOk = 0;
+        Boolean result = true;
+
+        this.sql = "insert into reservation " +
+                "values(RESERVATION_SEQ.NEXTVAL, ?, ?, to_date(sysdate,'YYYY/MM/DD'))";
+
+        try {
+            isOk = jdbcTemplate.update(this.sql, tIdx, userId);
+
+            if (isOk <= 0) {
+                result = false;
+            }
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println("예약이 올바르게 되지 않았습니다.");
+            return false;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return result;
     }
 }

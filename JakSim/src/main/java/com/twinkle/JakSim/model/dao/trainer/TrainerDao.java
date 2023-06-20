@@ -21,7 +21,7 @@ public class TrainerDao {
         this.sql = "INSERT INTO TRAINER_DETAILS VALUES(NULL, ?, ?, ?, ?, ?, ?)";
 
         jdbcTemplate.update(sql, trainer.getIntroduce(), trainer.getInsta(),
-                     trainer.getGym(), userId, trainer.getExpert1(), trainer.getExpert2());
+                trainer.getGym(), userId, trainer.getExpert1(), trainer.getExpert2());
 
         this.sql = "INSERT INTO PRODUCT VALUES(NULL, ?, ?, ?, ?, ?, ?)";
 
@@ -56,11 +56,11 @@ public class TrainerDao {
 
     public List<TrainerSearchDto> getTrainerPage(int tIdx) {
         String sql = "select * from trainer_details td " +
-                     "join product p on td.user_id = p.user_id " +
-                     "join trainer_career tca on td.user_id = tca.user_id " +
-                     "join trainer_cert tc on td.user_id = tc.user_id " +
-                     "join trainer_image ti on td.user_id = ti.user_id " +
-                     "join user_info ui on td.user_id = ui.user_id";
+                "join product p on td.user_id = p.user_id " +
+                "join trainer_career tca on td.user_id = tca.user_id " +
+                "join trainer_cert tc on td.user_id = tc.user_id " +
+                "join trainer_image ti on td.user_id = ti.user_id " +
+                "join user_info ui on td.user_id = ui.user_id";
 
         return jdbcTemplate.query(sql, new TrainerSearchRowMapper(), tIdx);
     }
@@ -131,4 +131,17 @@ public class TrainerDao {
 
     }
 
+    public TrainerDto findAllValidPt(int utIdx) {
+        TrainerDto trainerInfo = null;
+
+        this.sql = "select * from trainer_details where ut_idx = ?";
+
+        try {
+            trainerInfo = jdbcTemplate.queryForObject(this.sql, new TrainerRowMapper(), utIdx);
+        } catch(Exception e) {
+            System.out.println(e);
+        }
+
+        return trainerInfo;
+    }
 }

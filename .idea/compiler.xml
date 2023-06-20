@@ -11,6 +11,10 @@
         <module name="JakSim2.0.JakSim.main" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="11" />
+    <bytecodeTargetLevel>
+      <module name="JakSim2.0.JakSim" target="11" />
+      <module name="JakSim2.0.JakSim.main" target="11" />
+      <module name="JakSim2.0.JakSim.test" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>

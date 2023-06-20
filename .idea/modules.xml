@@ -3,6 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/JakSim.JakSim.main.iml" filepath="$PROJECT_DIR$/.idea/modules/JakSim.JakSim.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/JakSim2.0.JakSim.iml" filepath="$PROJECT_DIR$/.idea/modules/JakSim2.0.JakSim.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/JakSim2.0.JakSim.main.iml" filepath="$PROJECT_DIR$/.idea/modules/JakSim2.0.JakSim.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/JakSim2.0.JakSim.test.iml" filepath="$PROJECT_DIR$/.idea/modules/JakSim2.0.JakSim.test.iml" />
     </modules>
   </component>
 </project>

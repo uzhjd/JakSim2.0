@@ -14,11 +14,8 @@ import java.util.HashMap;
 @Service
 @RequiredArgsConstructor
 public class AccountService {
-    @Autowired
-    private DataSource ds;
-
     private final PasswordEncoder passwordEncoder;
-
+    private final UserDao userDao;
     @Transactional
     public int CreateMember(HashMap<Object, String> member){
         System.out.println("service: " +  member);
@@ -35,8 +32,23 @@ public class AccountService {
         userDto.setBirth(member.get("birth"));
         userDto.setRole(Integer.parseInt(member.get("role")));
 
-        UserDao userDao = new UserDao(ds);
         //정상
         return userDao.insertMember(userDto);
+    }
+
+    public UserDto findByUsername(String id) {
+        return userDao.findByUserId(id);
+    }
+
+    public UserDto findByTel(String tel) {
+        return userDao.findByTel(tel);
+    }
+
+    public int update(String user_id, String pw) {
+        return userDao.updatePassword(user_id, passwordEncoder.encode(pw));
+    }
+
+    public boolean checkPassword(String username, String pw) {
+        return passwordEncoder.matches(pw, userDao.findByUserId(username).getPw());
     }
 }

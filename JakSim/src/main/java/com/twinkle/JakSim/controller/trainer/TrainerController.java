@@ -64,7 +64,7 @@ public class TrainerController {
 
         return "content/index";
     }
-// testtesttest
+
     @GetMapping("/trainer/{trainerId}")
     public String viewTrainer(@PathVariable("trainerId") int tIdx, @AuthenticationPrincipal User info, Model model) throws SQLException {
         //String userId = info.getUsername();

@@ -49,4 +49,16 @@ public class TrainerService {
 
     }
 
+    public TrainerDto myTrainer(int utIdx) {
+        TrainerDto trainerInfo = null;
+
+        try {
+            trainerInfo = trainerDao.findAllValidPt(utIdx);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return trainerInfo;
+    }
+
 }
