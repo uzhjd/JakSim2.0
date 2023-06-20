@@ -1,20 +1,20 @@
 {{>layout/header}}
-<link rel="stylesheet" href="/css/trainerRegister.css">
-<link rel="stylesheet" href="/css/account_style.css">
-<link rel="stylesheet" href="/css/trainerSearch.css">
-<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/trainer/trainerRegister.css">
+<link rel="stylesheet" href="/css/trainer/account_style.css">
+<link rel="stylesheet" href="/css/trainer/trainerSearch.css">
+<link rel="stylesheet" href="/css/trainer/bootstrap.min.css">
 <body>
 {{>layout/navi}}
 <div id="trainer_create_container">
     <h3>트레이너 소개</h3>
-    <form action="@{/trainer/create/action}" method="post" enctype="multipart/form-data">
+    <form action="/trainerRegister" method="POST">
         <div class="input_container">
             <span class="input_span">인스타 링크</span>
             <input class="input_input" type="text" placeholder="인스타링크" name="insta">
         </div>
         <div class="input_container">
                 <span class="input_span">자기소개</span>
-            <textarea name="intro" id="trainer_create_introduce" cols="30" rows="10" required></textarea>
+            <textarea name="introduce" id="trainer_create_introduce" cols="30" rows="10" required></textarea>
         </div>
         <div class="input_container">
             <span class="input_span">소속 헬스장</span>
@@ -44,49 +44,51 @@
 
         <div class="input_container">
             <span class="input_span">자격증 추가</span>
-            <input class="input_input" type="text" id="cert">
-            <button type="button" id="add-cert" class="btn btn-outline-secondary">자격증 추가</button>
-            <input type="hidden" id="display-cert" name="cert" readonly>
+            <input class="input_input" type="text" name="certName" id="certName">
+<!--            <button type="button" id="add-cert" class="btn btn-outline-secondary">자격증 추가</button>-->
+<!--            <input type="hidden" id="display-cert" name="certName" readonly>-->
+            <input multiple="multiple" type="file" name="certImage" required/>
             <div id="create_cert_div"></div>
         </div>
 
         <div class="input_container">
-            <span class="input_span">경력사항 일자</span>
-            <input class="input_input" type="date" id="career_date" style="margin-bottom:5px;">
+<!--            <span class="input_span">경력사항 일자</span>-->
+<!--            <input class="input_input" type="date" name="" id="career_date" style="margin-bottom:5px;">-->
             <br>
             <span class="input_span">경력사항 내용</span>
-            <input class="input_input" type="text" id="career">
-            <button type="button" id="add-career" class="btn btn-outline-secondary">경력사항 추가</button>
-            <input type="hidden" id="display-career" name="career" style="width:100%;" readonly>
+            <input class="input_input" type="text" name="careerContent" id="careerContent">
+<!--            <button type="button" id="add-career" class="btn btn-outline-secondary">경력사항 추가</button>-->
+<!--            <input type="hidden" id="display-career" name="careerContent" id="careerContent" style="width:100%;" readonly>-->
             <div id="create_career_div"></div>
         </div>
         <div class="input_container">
             <div>
-                <input type="radio" name="type" value="개인" id="personal" class="create_toggle">
+                <input type="radio" name="ptType" value="0" id="ptType" class="create_toggle">
                 <label for="personal">개인</label>
-                <input type="radio" name="type" value="단체" id="organ" class="create_toggle">
+                <input type="radio" name="ptType" value="1" id="ptType" class="create_toggle">
                 <label for="organ">단체</label>
             </div>
             <span class="input_span">횟수</span>
-            <input class="input_input" type="number" id="pt-times" placeholder="횟수를 입력해주세요" style="margin-bottom:5px;">
+            <input class="input_input" type="number" name="ptTimes" id="ptTimes" placeholder="횟수를 입력해주세요" style="margin-bottom:5px;">
             <br>
-            <span class="input_span">개월 수(기간)</span>
-            <input class="input_input" type="number" id="pt-months" placeholder="개월 수를 입력해주세요" style="margin-bottom:5px;">
+            <span class="input_span">PT 제목</span>
+            <input class="input_input" type="text" name="ptTitle" id="ptTitle" placeholder="제목을 입력하세요" style="margin-bottom:5px;">
             <br>
             <span class="input_span">가격</span>
-            <input class="input_input" type="number" id="pt-price" placeholder="300,000원" style="margin-bottom:5px;">
+            <input class="input_input" type="number" name="ptPrice" id="ptPrice" placeholder="300,000원" style="margin-bottom:5px;">
             <button type="button" id="add-pt" class="btn btn-outline-secondary">등록</button>
-            <input type="hidden" id="display-price" name="pt" style="width:100%;" readonly>
+            <input type="hidden" id="display-price" name="ptPrice" style="width:100%;" readonly>
             <div id="create_pt_div"></div>
         </div>
 
         <div class="input_class">
             <span style="font-weight:bold">이미지 등록</span><br>
             <span>첫번째 이미지는 프로필 이미지로 사용됩니다</span><br>
-            <input multiple="multiple" type="file" name="files" required/>
+            <input multiple="multiple" type="file" name="imagePath" required/>
         </div>
         <br>
-        <input type="submit" value="확인" class="btn btn-primary">
+<!--        <input type="submit" value="확인" class="btn btn-primary">-->
+        <button onclick="save()" class="SignUp">트레이너등록</button>
     </form>
 </div>
 
