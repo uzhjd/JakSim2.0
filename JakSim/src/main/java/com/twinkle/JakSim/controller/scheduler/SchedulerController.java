@@ -38,7 +38,7 @@ public class SchedulerController {
 
         int ptCnt = validPtList.get(0).getPPtCnt();
 
-        trainerInfo = trainerService.myTrainer(validPtList.get(0).getUtIdx());
+        //trainerInfo = trainerService.myTrainer(validPtList.get(0).getUtIdx());
 
         // 예약 현황
 

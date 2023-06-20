@@ -9,16 +9,16 @@ public class TrainerRowMapper implements RowMapper<TrainerDto>{
 
     @Override
     public TrainerDto mapRow(ResultSet rs, int rowNum) throws SQLException {
-        TrainerDto trainerDo = new TrainerDto();
+        TrainerDto trainerDto = new TrainerDto();
 
-        trainerDo.setId(rs.getInt("UT_IDX"));
-        trainerDo.setIntroduce(rs.getString("UT_INTRO"));
-        trainerDo.setInsta(rs.getString("UT_INSTA"));
-        trainerDo.setGym(rs.getString("UT_GYM"));
-        trainerDo.setUserId(rs.getString("USER_ID"));
-        trainerDo.setExpert1(rs.getInt("UT_EXPERT_1"));
-        trainerDo.setExpert2(rs.getInt("UT_EXPERT_2"));
+        trainerDto.setTrainerId(rs.getInt("UT_IDX"));
+        trainerDto.setUserId(rs.getString("USER_ID"));
+        trainerDto.setIntroduce(rs.getString("UT_INTRO"));
+        trainerDto.setInsta(rs.getString("UT_INSTA"));
+        trainerDto.setGym(rs.getString("UT_GYM"));
+        trainerDto.setExpert1(rs.getInt("UT_EXPERT_1"));
+        trainerDto.setExpert2(rs.getInt("UT_EXPERT_2"));
 
-        return trainerDo;
+        return trainerDto;
     }
 }
