@@ -1,0 +1,21 @@
+{{>layout/header}}
+    <script src="javascript/account/account.js"></script>
+    <link rel="stylesheet" href="css/styles/accountStyle.css">
+</head>
+<body>
+{{>layout/navi}}
+    <div class="container">
+        <h1>회원가입</h1>
+        <hr>
+        <input type="text" id="account_id" class="account_input" placeholder="id">
+        <input type="text" id="account_name" class="account_input" placeholder="name">
+        <input type="text" id="account_pw" class="account_input" placeholder="pw">
+        <input type="text" id="account_gender" class="account_input" placeholder="gender">
+        <input type="text" id="account_tel" class="account_input" placeholder="tel">
+        <input type="text" id="account_question" class="account_input" placeholder="question">
+        <input type="text" id="account_answer" class="account_input" placeholder="answer">
+        <input type="text" id="account_birth" class="account_input" placeholder="birth">
+        <input type="hidden" id="account_role" class="account_input" value="1">
+        <button id="myButton">Send</button>
+    </div>
+{{>layout/footer}}

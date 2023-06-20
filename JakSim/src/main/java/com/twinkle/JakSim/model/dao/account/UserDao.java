@@ -31,13 +31,15 @@ public class UserDao {
         UserDto userDto = null;
         try{
             userDto = jdbcTemplate.queryForObject(sql, new UserRowMapper(), userId);
-        }catch(EmptyResultDataAccessException e){
+        } catch(EmptyResultDataAccessException e){
             System.out.println("데이터가 없다는디?");
         }
 
         return userDto;
     }
 
+<<<<<<< HEAD
+=======
     public UserDto findByTel(String userTel){
         String sql = "SELECT * FROM USER_INFO WHERE USER_TEL = ?";
         UserDto userDto = null;
@@ -65,4 +67,5 @@ public class UserDao {
 
         return result;
     }
+>>>>>>> b095dfcb1926c8320fa9500115aa78604d69a0b2
 }
