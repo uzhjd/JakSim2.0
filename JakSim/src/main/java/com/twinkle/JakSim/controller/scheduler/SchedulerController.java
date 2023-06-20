@@ -20,7 +20,6 @@ import java.util.List;
 @RequestMapping("/scheduler")
 @RequiredArgsConstructor
 public class SchedulerController {
-
     private TrainerService trainerService;
     private PaymentService paymentService;
     private TrainerDto trainerInfo;

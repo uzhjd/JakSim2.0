@@ -15,6 +15,13 @@ public class ReservationDao {
     private String sql;
 
     public Boolean isReservate(String userId, LocalDate tDate) {
+    /*public ReservationDao(DataSource ds){
+        jdbcTemplate = new JdbcTemplate(ds);
+    }
+    */
+
+
+    public Boolean resAvailable() throws Exception {
         Boolean result = true;
 
         this.sql = "select * from reservation where user_id = ? and r_c_dt = ? ";
