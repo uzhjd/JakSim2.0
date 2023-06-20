@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class TrainerController {
 
     @GetMapping("/trainer/register")
-    public String trainerRegisterForm(){
+    public String trainerRegisterForm() {
 
         return "content/trainer/trainerRegister";
     }

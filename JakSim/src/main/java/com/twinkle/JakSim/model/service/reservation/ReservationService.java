@@ -5,15 +5,14 @@ import com.twinkle.JakSim.model.dao.payment.PaymentDao;
 import com.twinkle.JakSim.model.dao.reservation.ReservationDao;
 import com.twinkle.JakSim.model.dao.timetable.TimetableDao;
 import com.twinkle.JakSim.model.dto.reservation.request.ReservationDto;
+import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class ReservationService {
-
-    @Autowired
-    private DataSource ds;
     private ReservationDao reservationDao;
     private TimetableDao timetableDao;
     private PaymentDao paymentDao;

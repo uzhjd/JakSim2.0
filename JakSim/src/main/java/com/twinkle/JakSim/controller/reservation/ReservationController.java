@@ -16,8 +16,6 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class ReservationController {
 
-    @Autowired
-    private DataSource ds;
 
     private ReservationService reservationService;
 

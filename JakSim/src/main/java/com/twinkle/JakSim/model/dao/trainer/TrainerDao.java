@@ -1,17 +1,16 @@
 package com.twinkle.JakSim.model.dao.trainer;
 
 import com.twinkle.JakSim.model.dto.trainer.TrainerDto;
-import org.apache.tomcat.jdbc.pool.DataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class TrainerDao {
 
+    @Autowired
     private JdbcTemplate jdbcTemplate;
     private String sql;
-
-    public TrainerDao(DataSource ds) {
-        jdbcTemplate = new JdbcTemplate(ds);
-    }
 
     public TrainerDto findAllValidPt(int utIdx) {
         TrainerDto trainerInfo = null;

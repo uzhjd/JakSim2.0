@@ -3,14 +3,18 @@ package com.twinkle.JakSim.model.dao.payment;
 import com.twinkle.JakSim.model.dto.payment.response.PaymentDto;
 import com.twinkle.JakSim.model.dto.product.response.ValidPtDto;
 import org.apache.tomcat.jdbc.pool.DataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class PaymentDao {
+    @Autowired
     private JdbcTemplate jdbcTemplate;
     private String sql;
 

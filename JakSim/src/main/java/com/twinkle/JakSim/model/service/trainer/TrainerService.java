@@ -2,9 +2,11 @@ package com.twinkle.JakSim.model.service.trainer;
 
 import com.twinkle.JakSim.model.dao.trainer.TrainerDao;
 import com.twinkle.JakSim.model.dto.trainer.TrainerDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class TrainerService {
 
     private TrainerDao trainerDao;

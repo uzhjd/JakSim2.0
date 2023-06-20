@@ -21,9 +21,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SchedulerController {
 
-    @Autowired
-    private DataSource ds;
-
     private TrainerService trainerService;
     private PaymentService paymentService;
     private TrainerDto trainerInfo;

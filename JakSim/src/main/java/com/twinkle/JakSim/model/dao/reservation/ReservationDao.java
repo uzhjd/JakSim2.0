@@ -1,21 +1,18 @@
 package com.twinkle.JakSim.model.dao.reservation;
 
-import com.twinkle.JakSim.model.dto.reservation.request.ReservationDto;
-import org.apache.tomcat.jdbc.pool.DataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
+@Repository
 public class ReservationDao {
 
+    @Autowired
     private JdbcTemplate jdbcTemplate;
     private String sql;
-
-    public ReservationDao(DataSource ds) {
-        jdbcTemplate = new JdbcTemplate(ds);
-    }
 
     public Boolean isReservate(String userId, LocalDate tDate) {
         Boolean result = true;
