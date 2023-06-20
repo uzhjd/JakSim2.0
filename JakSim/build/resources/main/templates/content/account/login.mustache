@@ -1,0 +1,18 @@
+{{>layout/header}}
+</head>
+
+<body>
+{{>layout/navi}}
+
+    <div class="container">
+        <form action="/login/action" method="post">
+            <input type="text" name="username" id="user_id" class="form-control" placeholder="USER ID">
+            <br>
+            <input type="text" name="password" id="user_pw" class="form-control" placeholder="USER PW">
+            <br>
+            <button class="btn btn-primary" type="submit">로그인</button>
+        </form>
+    </div>
+
+{{>layout/footer}}
+
