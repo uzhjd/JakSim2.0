@@ -13,12 +13,17 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpSession;
+
 
 @RequiredArgsConstructor
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
     private final BCryptPasswordEncoder passwordEncoder;
     private final CustomUserDetailService customUserDetailService;
+
+    @Autowired
+    private HttpSession session;
 
     //@Autowired
     //private DataSource ds;
@@ -35,10 +40,11 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             throw new UsernameNotFoundException(username);
         }
 
-
         if(!passwordEncoder.matches(password, user.getPassword())){
             throw new BadCredentialsException("Invalid user Password");
         }
+
+        session.setAttribute("session_username", user.getUsername());
 
         return new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities());
     }

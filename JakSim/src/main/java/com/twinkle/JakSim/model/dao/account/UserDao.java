@@ -21,8 +21,6 @@ public class UserDao {
                     user.getQuestion(), user.getAnswer(), user.getBirth(), user.getRole());
         }catch(EmptyResultDataAccessException e){
             return -1;
-        }catch(Exception e){
-            return -1;
         }
 
         return result;

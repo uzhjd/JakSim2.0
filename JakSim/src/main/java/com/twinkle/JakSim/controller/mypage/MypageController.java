@@ -16,24 +16,18 @@ import java.security.Principal;
 @Controller
 @RequestMapping("/mypage")
 @RequiredArgsConstructor
-//@PreAuthorize("authentication") <- 확실치는 않은데, 이걸 이용하면 귀찮은거 해결이 될 것으로 예상합니다.
+//@PreAuthorize("authentication")
 public class MypageController {
     private final String defaultPath = "/content/mypage/";
     private final AccountService accountService;
     @GetMapping("/auth")
-    public String authPage(Model model, @AuthenticationPrincipal User user){
-        if(user != null) {
-            model.addAttribute("user", user);
-        }
+    public String authPage(Model model){
         model.addAttribute("head_title", "개인페이지");
         return String.format(defaultPath + "auth");
     }
 
     @GetMapping("/{username}")
     public String myPage(@PathVariable("username") String username, @AuthenticationPrincipal User user, Model model){
-        if(user != null) {
-            model.addAttribute("user", user);
-        }
         model.addAttribute("head_title", "개인페이지");
         model.addAttribute("user_info", accountService.findByUsername(user.getUsername()));
         return String.format(defaultPath + "mypage");

@@ -14,14 +14,8 @@ import java.util.HashMap;
 @Service
 @RequiredArgsConstructor
 public class AccountService {
-    //@Autowired
-    //private DataSource ds;
-
     private final PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private UserDao userDao;
-
+    private final UserDao userDao;
     @Transactional
     public int CreateMember(HashMap<Object, String> member){
         System.out.println("service: " +  member);
