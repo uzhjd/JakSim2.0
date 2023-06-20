@@ -10,9 +10,11 @@ public class ReservationDao {
     private JdbcTemplate jdbcTemplate;
     private String sql;
 
-    public ReservationDao(DataSource ds){
+    /*public ReservationDao(DataSource ds){
         jdbcTemplate = new JdbcTemplate(ds);
     }
+    */
+
 
     public Boolean resAvailable() throws Exception {
         Boolean result = true;

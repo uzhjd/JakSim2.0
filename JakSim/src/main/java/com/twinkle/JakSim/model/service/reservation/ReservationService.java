@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReservationService {
 
-    @Autowired
-    private DataSource ds;
+    //@Autowired
+    //private DataSource ds;
     private ReservationDao reservationDao;
 
     public String register(ReservationDto reservationDto) {

@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class SchedulerController {
 
-    @Autowired
-    private DataSource ds;
+    //@Autowired
+    //private DataSource ds;
 
     private ReservationService reservationService;
 /// gse test
