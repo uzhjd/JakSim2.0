@@ -56,7 +56,8 @@ public class PaymentDao {
     }
 
     public List<ValidPtDto> findAllValidPt(String userId, LocalDate today) {
-        this.sql = "select pro.ut_idx and pay.p_pt_cnt from payment pay inner join product pro on pay.tp_idx and pro.tp_idx" +
+        this.sql = "select pro.ut_idx and pay.p_pt_cnt" +
+                "from payment pay inner join product pro on pay.tp_idx and pro.tp_idx" +
                 " where userId = ? and p_refund = '0' and p_pt_cnt > '0' and pro.pt_period >= (?today - p_c_dt)";
 
         try {
@@ -66,7 +67,7 @@ public class PaymentDao {
             System.out.println("e.getMessage() = " + e.getMessage());
 
             list = null;
-        } catch (Exception e) {
+        } catch (EmptyResultDataAccessException e) {
             System.out.println(e);
         }
 

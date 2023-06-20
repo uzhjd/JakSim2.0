@@ -24,8 +24,8 @@ public class ScheduleListController {
     @PostMapping
     public String SchedulePage(@AuthenticationPrincipal User user, Model model) {
         try {
-            List<ValidPtDto> validPtList = paymentService.validPtList(user.getUsername());
             // Username = userID??
+            List<ValidPtDto> validPtList = paymentService.validPtList(user.getUsername());
             int ptCnt = validPtList.get(0).getPPtCnt();
             //trainerInfo = trainerService.myTrainer(validPtList.get(0).getUtIdx());
 

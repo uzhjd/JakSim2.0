@@ -11,13 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.sql.SQLException;
 import java.util.List;
 
 @Controller
-@RequestMapping("/trainerRegister")
 public class TrainerController {
     @Autowired
     private TrainerService trainerService;
@@ -29,7 +27,7 @@ public class TrainerController {
         return "content/trainer/trainerRegister";
     }
 
-    @PostMapping
+    @PostMapping("/trainerRegister")
     public String trainerSignUp(TrainerInsertDto trainerDto, @AuthenticationPrincipal User info, Model model) {
         //String userId = info.getUsername();
         model.addAttribute("head_title", "트레이너 등록");

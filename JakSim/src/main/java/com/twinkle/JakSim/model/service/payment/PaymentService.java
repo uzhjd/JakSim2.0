@@ -23,9 +23,7 @@ public class PaymentService {
 
         try {
             list = paymentDao.findAllValidPt(userId, today);
-        } catch (NullPointerException e) {
-            System.out.println("e.getMessage() = " + e.getMessage());
-            System.out.println("예약을 할 수 없는 환경입니다.");
+            // null 가능성 무시하고 넘어감!
         } catch (Exception e) {
             System.out.println(e);
         }
