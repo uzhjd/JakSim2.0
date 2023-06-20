@@ -33,6 +33,10 @@
 .idea/**/misc.xml
 .idea/**/workspance.xml
 
+.idea
+.idea/**/compiler.xml
+.idea/**/modules.xml
+
 .gradle
 .gradle/7.6.1
 .gradle/7.6.1/checksums
