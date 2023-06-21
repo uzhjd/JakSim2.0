@@ -18,15 +18,5 @@ public class PaymentDto {
 
     private int pIdx;
 
-    private String userId;
-
-    private int tpIdx;
-
-    private LocalDate pCDt;
-
-    private int pRefund;
-
-    private LocalDate pMDt;
-
     private int pPtCnt;
 }

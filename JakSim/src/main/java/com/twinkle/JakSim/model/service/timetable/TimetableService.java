@@ -14,7 +14,7 @@ public class TimetableService {
 
     private final TimetableDao timetableDao;
 
-    public List<TimetableDto> myTrainerTimetable(String trainerId) {
+    public List<TimetableDto> findMyTrainerTimetable(String trainerId) {
         List<TimetableDto> timetableDtoList = new ArrayList<>();
 
         try {

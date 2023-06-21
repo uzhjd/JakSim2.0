@@ -14,7 +14,7 @@ public class PaymentService {
 
     private final PaymentDao paymentDao;
 
-    public List<ValidPtDto> validPtList(String userId) {
+    public List<ValidPtDto> findValidPtList(String userId) {
         List<ValidPtDto> list = new ArrayList<>();
         LocalDate today = LocalDate.now();
 

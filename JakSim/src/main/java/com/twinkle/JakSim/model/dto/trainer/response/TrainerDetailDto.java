@@ -7,6 +7,7 @@ import org.springframework.lang.Nullable;
 @Builder
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 public class TrainerDetailDto {
 
     private int trainerIdX;

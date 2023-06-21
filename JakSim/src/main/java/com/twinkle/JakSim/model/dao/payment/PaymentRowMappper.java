@@ -10,11 +10,6 @@ public class PaymentRowMappper implements RowMapper<PaymentDto> {
 
     public PaymentDto mapRow(ResultSet rs, int rowNum) throws SQLException {
         PaymentDto paymentDto = new PaymentDto(rs.getInt("P_IDX"),
-                                                rs.getString("USER_ID"),
-                                                rs.getInt("TP_IDX"),
-                                                rs.getDate("P_C_DT").toLocalDate(),
-                                                rs.getInt("P_REFOUND"),
-                                                rs.getDate("P_M_DT").toLocalDate(),
                                                 rs.getInt("P_PT_CNT"));
 
         return paymentDto;

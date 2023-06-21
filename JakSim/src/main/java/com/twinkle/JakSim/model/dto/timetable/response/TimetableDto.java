@@ -2,9 +2,7 @@ package com.twinkle.JakSim.model.dto.timetable.response;
 
 import lombok.*;
 
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Getter
@@ -15,7 +13,7 @@ import java.time.LocalTime;
 public class TimetableDto {
     private int tIdx;
 
-    private int utIdx;
+    private int userId;
 
     private LocalDate tDate;
 

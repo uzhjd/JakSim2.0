@@ -50,7 +50,7 @@ public class TrainerService {
 
     }
 
-    public TrainerDetailDto myTrainer(String trainerId) {
+    public TrainerDetailDto findMyTrainer(String trainerId) {
         TrainerDetailDto trainerDetailDto = new TrainerDetailDto();
 
         try {
