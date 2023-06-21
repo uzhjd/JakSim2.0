@@ -2,7 +2,7 @@ DROP TABLE USER_INFO;
 
 CREATE TABLE USER_INFO(
                           USER_ID VARCHAR(30),
-                          USER_PW VARCHAR(30) NOT NULL,
+                          USER_PW VARCHAR(100) NOT NULL,
                           USER_NAME VARCHAR(50) NOT NULL,
                           USER_GENDER INT(1) NOT NULL,
                           USER_TEL VARCHAR(15) UNIQUE NOT NULL,
