@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class ReservationService {
-    private ReservationDao reservationDao;
-    private TimetableDao timetableDao;
-    private PaymentDao paymentDao;
+    private final ReservationDao reservationDao;
+    private final TimetableDao timetableDao;
+    private final PaymentDao paymentDao;
 
     public Boolean register(ReservationDto reservationDto) {
         boolean resAvailable = true;
@@ -23,7 +23,7 @@ public class ReservationService {
 
         try {
             // 해당 날에 대한 예약이 없을 경우
-            boolean isReservate = reservationDao.isReservate(reservationDto.getUserId(), reservationDto.getTDate());
+//            boolean isReservate = reservationDao.isReservate(reservationDto.getUserId(), reservationDto.getTDate());
 
             // pt권 수가 남아있는지
             boolean isPtTicket = paymentDao.isPtTicket(reservationDto.getTIdx());

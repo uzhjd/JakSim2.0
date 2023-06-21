@@ -18,16 +18,13 @@ public class ReservationController {
 
     @PostMapping("/register")
     public String resRegister(@Valid @RequestBody ReservationDto reservationDto) {
-
         LocalDate today = LocalDate.now();
 
-       // 조회한 날이 오늘 이후인지 체크해보기 (과거에 것은 예약이 안되게 막기)
         if(reservationDto.getRCDt().compareTo(today) >= 0) {
             System.out.println("입력된 날이 더 과거입니다.");
             reservationService.register(reservationDto);
         }
 
-        return "content/reservation";
+        return "content/reservation/register";
     }
-
 }

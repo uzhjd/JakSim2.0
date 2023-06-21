@@ -11,6 +11,7 @@ import java.time.LocalTime;
 @Builder
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 public class TimetableDto {
     private int tIdx;
 

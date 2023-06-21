@@ -7,7 +7,7 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 public class ValidPtDto {
-    private int utIdx;
+    private String userId;
 
     private int pPtCnt;
 }

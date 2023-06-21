@@ -4,6 +4,7 @@ import com.twinkle.JakSim.model.dao.trainer.*;
 import com.twinkle.JakSim.model.dto.account.UserDto;
 import com.twinkle.JakSim.model.dto.trainer.TrainerInsertDto;
 import com.twinkle.JakSim.model.dto.trainer.*;
+import com.twinkle.JakSim.model.dto.trainer.response.TrainerDetailDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,16 +50,16 @@ public class TrainerService {
 
     }
 
-    public TrainerDto myTrainer(int utIdx) {
-        TrainerDto trainerInfo = null;
+    public TrainerDetailDto myTrainer(String trainerId) {
+        TrainerDetailDto trainerDetailDto = new TrainerDetailDto();
 
         try {
-            trainerInfo = trainerDao.findAllValidPt(utIdx);
+            trainerDetailDto = trainerDao.findMyTrainer(trainerId);
         } catch (Exception e) {
             System.out.println(e);
         }
 
-        return trainerInfo;
+        return trainerDetailDto;
     }
 
 }

@@ -8,13 +8,12 @@ import java.sql.SQLException;
 
 public class ReservationRowMapper implements RowMapper<ReservationDto> {
     public ReservationDto mapRow(ResultSet rs, int rowNum) throws SQLException {
-        ReservationDto reservationDto = new ReservationDto();
-
-        reservationDto.setUserId(rs.getString("USER_ID"));
-//        reservationDto.setUtIdx(rs.getInt("UT_IDX"));
-        reservationDto.setPIdx(rs.getInt("P_IDX"));
-        reservationDto.setTIdx(rs.getInt("T_IDX"));
-        reservationDto.setRCDt(rs.getDate("R_C_DT").toLocalDate());
+        ReservationDto reservationDto = new ReservationDto(rs.getString("USER_ID"),
+                                                            rs.getInt("P_IDX"),
+                                                            rs.getInt("T_IDX"),
+                                                            rs.getDate("T_DATE").toLocalDate(),
+                                                            rs.getDate("R_C_DT").toLocalDate()
+        );
 
         return reservationDto;
     }
