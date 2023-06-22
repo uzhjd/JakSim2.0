@@ -1,7 +1,9 @@
 package com.twinkle.JakSim.model.dao.reservation;
 
+import com.twinkle.JakSim.model.dto.reservation.response.IsReservationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -20,7 +22,7 @@ public class ReservationDao {
         this.sql = "select * from reservation where user_id = ? and r_c_dt = ? ";
 
         try {
-            jdbcTemplate.query(this.sql, new ReservationRowMapper(), userId, tDate);
+            jdbcTemplate.query(this.sql, new IsReservationRowMapper(), userId, tDate);
         } catch(EmptyResultDataAccessException e) {
             System.out.println("You have already booked");
             System.out.println(e);
@@ -51,5 +53,32 @@ public class ReservationDao {
         }
 
         return result;
+    }
+
+
+    public Boolean delete(int rIdx) {
+        this.sql = "delete from reservation where t_idx = ?";
+
+        try {
+            jdbcTemplate.update(this.sql, rIdx);
+        } catch (IncorrectResultSizeDataAccessException e) {
+            System.out.println(e);
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+
+        this.sql = "select * from reservation where t_idx = ?";
+
+        try {
+            jdbcTemplate.queryForObject(this.sql, new IsReservationRowMapper(), rIdx);
+        } catch (EmptyResultDataAccessException e) {
+            return true;
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return false;
     }
 }

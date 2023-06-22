@@ -47,9 +47,6 @@ public class ScheduleListController {
 
         try {
             List<TimetableDto> scheduleList = scheduleListService.findSchedule(user.getUsername(), trainerId);
-
-
-
             model.addAttribute("trainerList", scheduleList);
         } catch (Exception e) {
             System.out.println(e);

@@ -54,6 +54,19 @@ public class PaymentDao {
         return;
     }
 
+    public void increaseCnt(String userId, int pIdx) {
+        this.sql = "update payment set P_PT_CNT = P_PT_CNT + 1 where user_id = ? and p_idx = ?";
+
+        try {
+            jdbcTemplate.update(this.sql, userId, pIdx);
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return;
+    }
+
     public List<ValidPtDto> findAllValidPt(String userId, LocalDate today) {
         List<ValidPtDto> list = new ArrayList<>();
 

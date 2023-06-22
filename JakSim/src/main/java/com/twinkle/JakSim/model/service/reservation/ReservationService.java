@@ -1,13 +1,10 @@
 package com.twinkle.JakSim.model.service.reservation;
 
-import com.twinkle.JakSim.model.dao.account.UserDao;
 import com.twinkle.JakSim.model.dao.payment.PaymentDao;
 import com.twinkle.JakSim.model.dao.reservation.ReservationDao;
 import com.twinkle.JakSim.model.dao.timetable.TimetableDao;
 import com.twinkle.JakSim.model.dto.reservation.request.ReservationDto;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.jdbc.pool.DataSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -49,5 +46,14 @@ public class ReservationService {
         }
 
         return result;
+    }
+
+    public Boolean delete(String userId, int pIdx, int rIdx) {
+        if(reservationDao.delete(rIdx)) {
+            paymentDao.increaseCnt(userId, pIdx);
+            return true;
+        }
+
+        return false;
     }
 }
