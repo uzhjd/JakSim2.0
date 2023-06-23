@@ -40,13 +40,19 @@ public class ScheduleListDao {
 
     public List<TimetableDto> findAllSchedule(String trainerId, LocalDate firstDate, LocalDate lastDate, int tType) {
         List<TimetableDto> timetableList = new ArrayList<>();
+        Object[] params;
 
-        this.sql = "select * from timetable " +
-                "where user_id = ? and t_type = ? and t_date between ? and ?";
+        this.sql = "select * from timetable where user_id = ? and t_date between ? and ?";
+
+        if(tType == 3) {
+            params = new Object[]{trainerId, firstDate, lastDate};
+        } else {
+            sql += " and t_type = ?";
+            params = new Object[]{trainerId, firstDate, lastDate, tType};
+        }
 
         try {
-            timetableList = jdbcTemplate.query(this.sql, new TimetableRowMapper(), trainerId, tType,
-                                                                                                firstDate, lastDate);
+            timetableList = jdbcTemplate.query(this.sql, new TimetableRowMapper(), params);
         } catch (EmptyResultDataAccessException e) {
             System.out.println("There's no any schedule");
             System.out.println(e);
