@@ -11,6 +11,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TimetableDto {
+
     private int tIdx;
 
     private int userId;

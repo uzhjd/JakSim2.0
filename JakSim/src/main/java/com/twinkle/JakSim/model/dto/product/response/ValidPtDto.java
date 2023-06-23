@@ -7,10 +7,10 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 public class ValidPtDto {
+
     private String trainerId;
 
     private int pIdx;
-
 
     private int pPtCnt;
 }

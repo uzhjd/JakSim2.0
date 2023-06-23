@@ -7,7 +7,6 @@ import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Getter
-@Builder
 @ToString
 @AllArgsConstructor
 public class ReservationDto {

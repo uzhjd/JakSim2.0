@@ -9,8 +9,10 @@ import java.sql.SQLException;
 public class PaymentRowMappper implements RowMapper<PaymentDto> {
 
     public PaymentDto mapRow(ResultSet rs, int rowNum) throws SQLException {
-        PaymentDto paymentDto = new PaymentDto(rs.getInt("P_IDX"),
-                                                rs.getInt("P_PT_CNT"));
+        PaymentDto paymentDto = PaymentDto.builder()
+                .pIdx(rs.getInt("P_IDX"))
+                .pPtCnt(rs.getInt("P_PT_CNT"))
+                .build();
 
         return paymentDto;
     }

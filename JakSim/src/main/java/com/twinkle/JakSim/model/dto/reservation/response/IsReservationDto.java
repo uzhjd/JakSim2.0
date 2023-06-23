@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor
-//@Builder
+@Builder
 @ToString
 @Getter
 public class IsReservationDto {
