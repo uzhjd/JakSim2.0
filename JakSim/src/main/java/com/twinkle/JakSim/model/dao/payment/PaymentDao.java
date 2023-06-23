@@ -55,7 +55,7 @@ public class PaymentDao {
     }
 
     public void increaseCnt(int pIdx) {
-        this.sql = "update payment set P_PT_CNT = P_PT_CNT + 1 where and p_idx = ?";
+        this.sql = "update payment set P_PT_CNT = P_PT_CNT + 1 where p_idx = ?";
 
         try {
             jdbcTemplate.update(this.sql, pIdx);

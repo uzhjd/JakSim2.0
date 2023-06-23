@@ -31,4 +31,20 @@ public class ScheduleListService {
 
         return timetableList;
     }
+
+    public List<TimetableDto> findAllSchedule(String trainerId, int tType) {
+        List<TimetableDto> timetableList = new ArrayList<>();
+
+        LocalDate today = LocalDate.now();
+        LocalDate firstDate = today.withDayOfMonth(1);
+        LocalDate lastDate = today.withDayOfMonth(firstDate.lengthOfMonth());
+
+        try {
+            timetableList = scheduleListDao.findAllSchedule(trainerId, firstDate, lastDate, tType);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return timetableList;
+    }
 }

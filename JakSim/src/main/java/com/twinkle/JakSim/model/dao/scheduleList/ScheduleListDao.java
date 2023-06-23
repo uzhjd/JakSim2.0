@@ -1,7 +1,6 @@
 package com.twinkle.JakSim.model.dao.scheduleList;
 
 
-import com.twinkle.JakSim.model.dao.payment.PaymentRowMappper;
 import com.twinkle.JakSim.model.dao.timetable.TimetableRowMapper;
 import com.twinkle.JakSim.model.dto.timetable.response.TimetableDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,27 @@ public class ScheduleListDao {
                 "where res.user_id = ? and tt.user_id = ? and t_date between ? and ?";
 
         try {
-            timetableList = jdbcTemplate.query(this.sql, new TimetableRowMapper(), userId, trainerId, firstDate, lastDate);
+            timetableList = jdbcTemplate.query(this.sql, new TimetableRowMapper(),
+                                                                            userId, trainerId, firstDate, lastDate);
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println("There's no any schedule");
+            System.out.println(e);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return timetableList;
+    }
+
+    public List<TimetableDto> findAllSchedule(String trainerId, LocalDate firstDate, LocalDate lastDate, int tType) {
+        List<TimetableDto> timetableList = new ArrayList<>();
+
+        this.sql = "select * from timetable " +
+                "where user_id = ? and t_type = ? and t_date between ? and ?";
+
+        try {
+            timetableList = jdbcTemplate.query(this.sql, new TimetableRowMapper(), trainerId, tType,
+                                                                                                firstDate, lastDate);
         } catch (EmptyResultDataAccessException e) {
             System.out.println("There's no any schedule");
             System.out.println(e);
