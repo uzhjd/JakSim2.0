@@ -15,6 +15,8 @@ public class IsReservationDto {
 
     private int tIdx;
 
+    private int pIdx;
+
     private String userId;
 
     private LocalDate rCDt;

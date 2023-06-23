@@ -13,13 +13,15 @@ import java.time.LocalDate;
 public class ReservationDto {
 
     @NotBlank
-    @Size(max = 15)
+    @Size(max = 30)
     private String userId;
 
     @NotBlank
+    @Size(max = 8)
     private int pIdx;
 
     @NotBlank
+    @Size(max = 8)
     private int tIdx;
 
     @NotBlank

@@ -1,4 +1,4 @@
-package com.twinkle.JakSim.controller.scheduleList;
+package com.twinkle.JakSim.controller.scheduleList.generalUser;
 
 import com.twinkle.JakSim.model.dto.product.response.ValidPtDto;
 import com.twinkle.JakSim.model.dto.timetable.response.TimetableDto;
@@ -19,7 +19,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/scheduler")
 @RequiredArgsConstructor
-public class ScheduleListController {
+public class GeneralScheController {
 
     private final TrainerService trainerService;
     private final PaymentService paymentService;

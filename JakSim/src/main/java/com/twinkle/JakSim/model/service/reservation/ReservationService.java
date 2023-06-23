@@ -48,9 +48,9 @@ public class ReservationService {
         return result;
     }
 
-    public Boolean delete(String userId, int pIdx, int rIdx) {
+    public Boolean delete(int pIdx, int rIdx) {
         if(reservationDao.delete(rIdx)) {
-            paymentDao.increaseCnt(userId, pIdx);
+            paymentDao.increaseCnt(pIdx);
             return true;
         }
 

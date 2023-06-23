@@ -10,6 +10,7 @@ public class IsReservationRowMapper implements RowMapper<IsReservationDto> {
     public IsReservationDto mapRow(ResultSet rs, int rowNum) throws SQLException {
         IsReservationDto isReservationDto = new IsReservationDto(rs.getInt("rIdx"),
                                                                     rs.getInt("T_IDX"),
+                                                                    rs.getInt("P_IDX"),
                                                                     rs.getString(("USER_ID")),
                                                                     rs.getDate("R_C_DT").toLocalDate()
         );

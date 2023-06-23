@@ -1,6 +1,5 @@
 package com.twinkle.JakSim.model.dao.reservation;
 
-import com.twinkle.JakSim.model.dto.reservation.response.IsReservationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
@@ -55,27 +54,17 @@ public class ReservationDao {
         return result;
     }
 
-
     public Boolean delete(int rIdx) {
         this.sql = "delete from reservation where t_idx = ?";
 
         try {
-            jdbcTemplate.update(this.sql, rIdx);
-        } catch (IncorrectResultSizeDataAccessException e) {
-            System.out.println(e);
-        }
-        catch (Exception e) {
-            System.out.println(e);
-        }
+            int rowsAffected = jdbcTemplate.update(this.sql, rIdx);
 
-        this.sql = "select * from reservation where t_idx = ?";
-
-        try {
-            jdbcTemplate.queryForObject(this.sql, new IsReservationRowMapper(), rIdx);
-        } catch (EmptyResultDataAccessException e) {
-            return true;
-        }
-        catch (Exception e) {
+            if (rowsAffected != 0) {
+                return true;
+            }
+            throw new RuntimeException("No rows were affected by the update operation");
+        } catch (Exception e) {
             System.out.println(e);
         }
 

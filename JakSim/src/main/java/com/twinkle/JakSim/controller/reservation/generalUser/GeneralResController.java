@@ -1,10 +1,8 @@
-package com.twinkle.JakSim.controller.reservation;
+package com.twinkle.JakSim.controller.reservation.generalUser;
 
 import com.twinkle.JakSim.model.dto.reservation.request.ReservationDto;
 import com.twinkle.JakSim.model.service.reservation.ReservationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +14,7 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/reservation")
 @RequiredArgsConstructor
-public class ReservationController {
+public class GeneralResController {
 
     private final ReservationService reservationService;
 
@@ -33,9 +31,8 @@ public class ReservationController {
     }
 
     @GetMapping("/cancle/{pIdx}/{rIdx}/")
-    public String resCancle(@AuthenticationPrincipal User user, @PathVariable("rIdx") int rIdx,
-                                @PathVariable("pIdx") int pIdx, Model model) {
-        if(reservationService.delete(user.getUsername(), pIdx, rIdx)) {
+    public String resCancle(@PathVariable("rIdx") int rIdx, @PathVariable("pIdx") int pIdx, Model model) {
+        if(reservationService.delete(pIdx, rIdx)) {
             model.addAttribute("trainerList", "삭제 성공");
         } else {
             model.addAttribute("trainerList", "삭제 실패");

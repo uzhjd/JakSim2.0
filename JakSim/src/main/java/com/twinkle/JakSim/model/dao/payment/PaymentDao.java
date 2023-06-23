@@ -54,11 +54,11 @@ public class PaymentDao {
         return;
     }
 
-    public void increaseCnt(String userId, int pIdx) {
-        this.sql = "update payment set P_PT_CNT = P_PT_CNT + 1 where user_id = ? and p_idx = ?";
+    public void increaseCnt(int pIdx) {
+        this.sql = "update payment set P_PT_CNT = P_PT_CNT + 1 where and p_idx = ?";
 
         try {
-            jdbcTemplate.update(this.sql, userId, pIdx);
+            jdbcTemplate.update(this.sql, pIdx);
         }
         catch (Exception e) {
             System.out.println(e);
@@ -70,7 +70,7 @@ public class PaymentDao {
     public List<ValidPtDto> findAllValidPt(String userId, LocalDate today) {
         List<ValidPtDto> list = new ArrayList<>();
 
-        this.sql = "select user_id and p_pt_cnt " +
+        this.sql = "select pro.user_id and pro.tp_idx and pay.p_pt_cnt " +
                 "from payment as pay inner join product as pro on pay.tp_idx and pro.tp_idx " +
                 "where user_id = ? and p_refund = '0' and p_pt_cnt > '0' and p_pt_period >= (? - p_c_dt)";
 
