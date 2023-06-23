@@ -1,4 +1,4 @@
-package com.twinkle.JakSim.controller.scheduleList.generalUser;
+package com.twinkle.JakSim.controller.scheduleList;
 
 import com.twinkle.JakSim.model.dto.product.response.ValidPtDto;
 import com.twinkle.JakSim.model.dto.timetable.response.TimetableDto;
@@ -19,7 +19,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/scheduler")
 @RequiredArgsConstructor
-public class GeneralScheController {
+public class SchedulerController {
 
     private final TrainerService trainerService;
     private final PaymentService paymentService;
@@ -28,7 +28,6 @@ public class GeneralScheController {
 
     @GetMapping("/ptList")
     public String TrainerList(@AuthenticationPrincipal User user, Model model) {
-        // response: (null 그대로 보내주고 back단에서 알림만 캐치해서 보내주는 방식으로하기)
         try {
             List<ValidPtDto> validPtList = paymentService.findValidPtList(user.getUsername());
             model.addAttribute("trainerList", validPtList);
@@ -36,14 +35,12 @@ public class GeneralScheController {
             System.out.println(e);
         }
 
-        return "content/scheduleList/scheduleList";
+        return "content/scheduleList/generalScheduleList";
     }
 
     @GetMapping("/details/{trainerId}")
     public String ScheulerDetails(@AuthenticationPrincipal User user, @PathVariable("trainerId") String trainerId,
                                                                                                         Model model) {
-        // request: DTo로 받아오는게 아니니까 null체크라던지 trainerId가 실제로 내 DB에 있는지 체크 필요?
-        // response: (null 그대로 보내주고 back단에서 알림만 캐치해서 보내주는 방식으로하기)LocalDate nMonth = LocalDate.now();
 
         try {
             List<TimetableDto> scheduleList = scheduleListService.findSchedule(user.getUsername(), trainerId);
@@ -52,13 +49,11 @@ public class GeneralScheController {
             System.out.println(e);
         }
 
-        return "content/scheduleList/scheduleList";
+        return "content/scheduleList/generalScheduleList";
     }
 
     @GetMapping("/trainerDetails/{trainerId}")
     public String TrainerDetails(@PathVariable("trainerId") String trainerId, Model model) {
-        // request: DTo로 받아오는게 아니니까 null체크라던지 trainerId가 실제로 내 DB에 있는지 체크 필요?
-        // response: (null 그대로 보내주고 back단에서 알림만 캐치해서 보내주는 방식으로하기)
         try {
             TrainerDetailDto trainerDetailDto = trainerService.findMyTrainer(trainerId);
             model.addAttribute("trainerDetails", trainerDetailDto);
@@ -66,13 +61,12 @@ public class GeneralScheController {
             System.out.println(e);
         }
 
-        return "content/scheduleList/scheduleList";
+        return "content/scheduleList/generalScheduleList";
     }
 
     @GetMapping("/timetableDetails/{trainerId}")
-    public String TimetableDetails(@PathVariable("trainerId") String trainerId, Model model) {
-        // request: DTo로 받아오는게 아니니까 null체크라던지 trainerId가 실제로 내 DB에 있는지 체크 필요?
-        // response: (null 그대로 보내주고 back단에서 알림만 캐치해서 보내주는 방식으로하기)
+    public String TimetableDetails(@AuthenticationPrincipal User user, @PathVariable("trainerId") String trainerId,
+                                                                                                        Model model) {
         try {
             List<TimetableDto> timetableDtoList = timetableService.findMyTrainerTimetable(trainerId);
             model.addAttribute("trainerDetails", timetableDtoList);
@@ -80,6 +74,12 @@ public class GeneralScheController {
             System.out.println(e);
         }
 
-        return "content/scheduleList/scheduleList";
+        // Role도 authentics에 넣어달라
+        // 아니면 쿼리문 날려서 찾아야 한다. 또는 따로 매서드 만들어야 함.
+//        if(user.getRoles().toString().equals(1)) {
+//            return "content/scheduleList/generalScheduleList";
+//        }
+
+        return "content/scheduleList/trainerScheduleList";
     }
 }
