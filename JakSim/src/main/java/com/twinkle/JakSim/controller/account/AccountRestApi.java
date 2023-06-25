@@ -18,7 +18,7 @@ public class AccountRestApi {
 
     @PostMapping("/action")
     public int AccountAction(@RequestBody HashMap<Object, String> data){
-        if(data.values().stream().noneMatch(value -> value.equals(""))) {
+        if(data.values().stream().anyMatch(value -> value.equals(""))) {
             return -1;
         }
         return accountService.CreateMember(data);
@@ -48,4 +48,10 @@ public class AccountRestApi {
     public int updatePassword(@RequestBody UserDto data){
         return accountService.update(data.getId(), data.getPw());
     }
+
+    @DeleteMapping("/delete")
+    public int deleteUser(@AuthenticationPrincipal User user){
+        return accountService.delete(user.getUsername());
+    }
+    
 }

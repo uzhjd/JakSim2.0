@@ -32,4 +32,9 @@ public class AccountController {
         model.addAttribute("head_title", "Test");
         return String.format(this.defaultPath + "test");
     }
+
+    @GetMapping("/account/delprocess")
+    public String deleteProcess(){
+        return "redirect:/logout";
+    }
 }

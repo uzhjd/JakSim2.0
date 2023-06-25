@@ -51,4 +51,8 @@ public class AccountService {
     public boolean checkPassword(String username, String pw) {
         return passwordEncoder.matches(pw, userDao.findByUserId(username).getPw());
     }
+
+    public int delete(String id) {
+        return userDao.deleteUser(id);
+    }
 }
