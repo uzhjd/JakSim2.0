@@ -15,9 +15,6 @@
 .idea/**/compiler.xml
 .idea/**/modules.xml
 
-.idea
-.idea/**/compiler.xml
-.idea/**/modules.xml
 
 # AWS User-specific
 .idea/**/aws.xml

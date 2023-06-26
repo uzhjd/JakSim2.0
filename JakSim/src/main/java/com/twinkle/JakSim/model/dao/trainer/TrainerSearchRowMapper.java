@@ -12,6 +12,7 @@ public class TrainerSearchRowMapper implements RowMapper<TrainerSearchDto> {
 
         TrainerSearchDto trainerSearchDto = new TrainerSearchDto();
 
+        trainerSearchDto.setTrainerId(rs.getInt("UT_IDX"));
         trainerSearchDto.setUserName(rs.getString("USER_NAME"));
         trainerSearchDto.setInsta(rs.getString("UT_INSTA"));
         trainerSearchDto.setIntroduce(rs.getString("UT_INTRO"));

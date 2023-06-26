@@ -7,9 +7,14 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TrainerImageDto {
-    private int imageId;
+public class PtUserDto {
+
+    private String userName;
     private String userId;
-    private String imagePath;
+    private int gender;
+    private String tel;
+
+    private int ptType;
+    private int ptCnt;
 
 }
