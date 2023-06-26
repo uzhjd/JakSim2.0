@@ -1,5 +1,6 @@
 package com.twinkle.JakSim.model.dto.reservation.request;
 
+//import com.sun.istack.internal.NotNull;
 import lombok.Data;
 import lombok.ToString;
 

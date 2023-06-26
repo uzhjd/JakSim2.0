@@ -18,7 +18,7 @@ public class AccountService {
     private final UserDao userDao;
     @Transactional
     public int CreateMember(HashMap<Object, String> member){
-        System.out.println("service: " +  member);
+        System.out.println(" " +  member);
 
         UserDto userDto = new UserDto();
 
@@ -51,4 +51,9 @@ public class AccountService {
     public boolean checkPassword(String username, String pw) {
         return passwordEncoder.matches(pw, userDao.findByUserId(username).getPw());
     }
+
+    public int delete(String id) {
+        return userDao.deleteUser(id);
+    }
+
 }

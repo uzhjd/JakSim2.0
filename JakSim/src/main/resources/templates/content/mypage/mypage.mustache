@@ -1,5 +1,5 @@
 {{>layout/header}}
-
+<script src="/javascript/mypage/mypage.js"></script>
 </head>
 
 <body>
@@ -8,5 +8,7 @@
     <span>{{user_info.name}}</span>
     <span>{{user_info.birth}}</span>
     <span>{{user_info.c_dt}}</span>
-    <span>{{userId}}</span>
+    <span>{{session_username}}</span>
+
+    <button type="button" id="mypage_delete">회원삭제</button>
 {{>layout/footer}}
