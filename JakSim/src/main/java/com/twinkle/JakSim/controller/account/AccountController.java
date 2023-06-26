@@ -15,6 +15,11 @@ public class AccountController {
         return String.format(this.defaultPath + "account");
     }
 
+    @GetMapping("/account/{num}")
+    public String accountPages(@PathVariable("num") int num, Model model){
+        return String.format(defaultPath + "account_" + num);
+    }
+
     @GetMapping("/login")
     public String loginPage(Model model){
         model.addAttribute("head_title", "로그인");

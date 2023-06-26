@@ -53,5 +53,5 @@ public class AccountRestApi {
     public int deleteUser(@AuthenticationPrincipal User user){
         return accountService.delete(user.getUsername());
     }
-    
+
 }

@@ -40,10 +40,21 @@
             <button type="button" id="account_checkTel" class="account_button">전화번호 확인</button>
             <br><span id="account_confirm_tel"></span>
         </div>
+        <div class="input_container">
+            <span class="account_span">이메일</span>
+            <input type="text" id="account_email" class="account_input" placeholder="E-mail">
+            <button type="button" id="account_checkEmail" class="account_button">이메일 확인</button>
+            <br><span id="account_confirm_email"></span>
+        </div>
 
         <div class="input_container">
-            <span class="account_span">질문</span> 
-            <input type="text" id="account_question" class="account_input" placeholder="question">
+            <span class="account_span">질문</span>
+            <select id="account_question">
+                <option value="1">태어난 고향</option>
+                <option value="2">바보</option>
+                <option value="3">바보멍청이</option>
+                <option value="4">띨띨이</option>
+            </select>
         </div>
         <div class="input_container">
             <span class="account_span">답변</span> 
