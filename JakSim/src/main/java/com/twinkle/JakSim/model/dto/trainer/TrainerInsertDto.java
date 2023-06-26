@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TrainerInsertDto {
-    private String userId;
+    //private String userId;
     private String insta;
     private String introduce;
     private String gym;

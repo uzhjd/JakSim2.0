@@ -12,7 +12,7 @@ public class TimetableRowMapper implements RowMapper<TimetableDto> {
         TimetableDto timetableDto = new TimetableDto();
 
         timetableDto.setTIdx(rs.getInt("T_IDX"));
-        timetableDto.setUtIdx(rs.getInt("UT_IDX"));
+        timetableDto.setUserId(rs.getString("USER_ID"));
         timetableDto.setTStartT(rs.getTime("T_START_T").toLocalTime());
         timetableDto.setTEndT(rs.getTime("T_END_T").toLocalTime());
         timetableDto.setTPeople(rs.getInt("T_PEOPLE"));

@@ -28,20 +28,16 @@
     }
   });
 
+//function deleteReview(reviewId) {
+//  axios.delete(`/deleteReview/${reviewId}`)
+//    .then(function (response) {
+//      // Handle the successful response
+//      console.log(response);
+//    })
+//    .catch(function (error) {
+//      // Handle the error
+//      console.log(error);
+//    });
+//}
 
-            function deleteReview() {
-                fetch('/delete-review', { method: 'POST' })
-                    .then(response => {
-                        if (response.ok) {
-                            // Redirect to the desired page after successful deletion
-                            alert('리뷰가 삭제 되었습니다.');
-                            window.location.href = '/';
-                        } else {
-                            // Handle any error conditions
-                            console.error('Failed to delete review');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Failed to delete review', error);
-                    });
-            }
+

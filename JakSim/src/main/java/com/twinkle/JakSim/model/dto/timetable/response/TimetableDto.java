@@ -13,7 +13,7 @@ import java.time.LocalTime;
 public class TimetableDto {
     private int tIdx;
 
-    private int utIdx;
+    private String userId;
 
     private LocalDate tDate;
 

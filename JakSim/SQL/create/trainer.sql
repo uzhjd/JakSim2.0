@@ -1,85 +1,116 @@
+DROP TABLE TRAINER_DETAILS;
+DROP TABLE TRAINER_IMAGE;
+DROP TABLE TRAINER_CERT;
+DROP TABLE TRAINER_CAREER;
+DROP TABLE PRODUCT;
+
+
 CREATE TABLE TRAINER_DETAILS (
-                                 UT_IDX INT(8) NOT NULL AUTO_INCREMENT,
-                                 UT_INTRO VARCHAR(600) NOT NULL,
-                                 UT_INSTA VARCHAR(100) NULL,
-                                 UT_GYM VARCHAR(300) NOT NULL,
-                                 USER_ID VARCHAR(30) NOT NULL,
-                                 UT_EXPERT_1 INT(1) NOT NULL,
-                                 UT_EXPERT_2 INT(1) NOT NULL,
-                                 PRIMARY KEY (UT_IDX),
-                                 FOREIGN KEY (USER_ID) REFERENCES USER_INFO(USER_ID)
-                                     ON DELETE CASCADE
+    UT_IDX INT(8) NOT NULL AUTO_INCREMENT,
+    UT_INTRO VARCHAR(600) NOT NULL,
+    UT_INSTA VARCHAR(100) NULL,
+    UT_GYM VARCHAR(300) NOT NULL,
+    USER_ID VARCHAR(30) NOT NULL,
+    UT_EXPERT_1 INT(1) NOT NULL CHECK (UT_EXPERT_1 BETWEEN 0 AND 5),
+    UT_EXPERT_2 INT(1) NOT NULL CHECK (UT_EXPERT_2 BETWEEN 0 AND 5),
+    PRIMARY KEY (UT_IDX),
+    FOREIGN KEY (USER_ID) REFERENCES USER_INFO (USER_ID)
+    ON DELETE CASCADE
 );
 
+
 CREATE TABLE TRAINER_IMAGE(
-                              TI_IDX INT(8) AUTO_INCREMENT,
-                              UT_IDX INT(8) NOT NULL,
-                              TI_PATH VARCHAR(1000) NOT NULL,
-                              PRIMARY KEY (TI_IDX),
-                              FOREIGN KEY (UT_IDX) REFERENCES TRAINER_DETAILS(UT_IDX)
-                                  ON DELETE CASCADE
+    TI_IDX INT(8) AUTO_INCREMENT,
+    USER_ID VARCHAR(30) NOT NULL,
+    TI_PATH VARCHAR(1000) NOT NULL,
+    PRIMARY KEY (TI_IDX),
+    FOREIGN KEY (USER_ID) REFERENCES USER_INFO(USER_ID)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE TRAINER_CERT(
-                             TC_IDX INT(8) AUTO_INCREMENT,
-                             UT_IDX INT(8) NOT NULL,
-                             TC_NAME VARCHAR(100) NOT NULL,
-                             TC_IMAGE VARCHAR(1000) NOT NULL,
-                             PRIMARY KEY (TC_IDX),
-                             FOREIGN KEY (UT_IDX) REFERENCES TRAINER_DETAILS(UT_IDX)
-                                 ON DELETE CASCADE
+    TC_IDX INT(8) AUTO_INCREMENT,
+    USER_ID VARCHAR(30) NOT NULL,
+    TC_NAME VARCHAR(100) NOT NULL,
+    TC_IMAGE VARCHAR(1000) NOT NULL,
+    PRIMARY KEY (TC_IDX),
+    FOREIGN KEY (USER_ID) REFERENCES USER_INFO(USER_ID)
+    ON DELETE CASCADE
 );
 
-CREATE TABLE TRAINER_EXPERT(
-                               TE_IDX INT(8) AUTO_INCREMENT,
-                               UT_IDX INT(8) NOT NULL,
-                               TE_EXPERT INT(1) NOT NULL,
-                               PRIMARY KEY (TE_IDX),
-                               FOREIGN KEY (UT_IDX) REFERENCES TRAINER_DETAILS(UT_IDX)
-                                   ON DELETE CASCADE
-);
 
 CREATE TABLE TRAINER_CAREER(
-                               TCAR_IDX INT(8) AUTO_INCREMENT,
-                               UT_IDX INT(8) NOT NULL,
-                               TCAR_CONTENT VARCHAR(100) NOT NULL,
-                               PRIMARY KEY (TCAR_IDX),
-                               FOREIGN KEY (UT_IDX) REFERENCES TRAINER_DETAILS(UT_IDX)
-                                   ON DELETE CASCADE
+    TCAR_IDX INT(8) AUTO_INCREMENT,
+    USER_ID VARCHAR(30) NOT NULL,
+    TCAR_CONTENT VARCHAR(100) NOT NULL,
+    PRIMARY KEY (TCAR_IDX),
+    FOREIGN KEY (USER_ID) REFERENCES USER_INFO(USER_ID)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE PRODUCT(
-                        TP_IDX INT(8) AUTO_INCREMENT,
-                        UT_IDX INT(8) NOT NULL,
-                        TP_TIMES INT(3) NOT NULL,
-                        TP_PRICE INT(7) NOT NULL,
-                        TP_TYPE INT(1) NOT NULL,
-                        TP_TITLE VARCHAR(100) NOT NULL,
-                        TP_PERIOD INT(2) NOT NULL,
-                        PRIMARY KEY (TP_IDX),
-                        FOREIGN KEY (UT_IDX) REFERENCES TRAINER_DETAILS (UT_IDX)
-                            ON DELETE CASCADE
+    TP_IDX INT(8) AUTO_INCREMENT,
+    USER_ID VARCHAR(30) NOT NULL,
+    TP_TIMES INT(3) NOT NULL,
+    TP_PRICE INT(7) NOT NULL,
+    TP_TYPE INT(1) NOT NULL,
+    TP_TITLE VARCHAR(100) NOT NULL,
+    TP_PERIOD INT(2) NOT NULL,
+    PRIMARY KEY (TP_IDX),
+    FOREIGN KEY (USER_ID) REFERENCES USER_INFO(USER_ID)
+    ON DELETE CASCADE
 );
---TP_CONTENT VARCHAR(600) NOT NULL,
-
-
 
 COMMIT;
 
 INSERT INTO TRAINER_DETAILS
 VALUES(NULL, '새로운 작심득근의 새로운 트레이너!', 'https://www.instagram.com/gse96', '나주배짐', 'wkdgyfla97', 1, 2);
+INSERT INTO TRAINER_DETAILS
+VALUES(NULL, '작심득근 리부트 가보자고', 'https://www.instagram.com/humbleKim', '강짐', 'hye8997', 2, 3);
+INSERT INTO TRAINER_DETAILS
+VALUES(NULL, '멸치탈출 트레이너는 나야나', 'https://www.instagram.com/test', '가디짐', 'humble', 2, 4);
+INSERT INTO TRAINER_DETAILS
+VALUES(NULL, '오늘밤 주인공은 나야나', 'https://www.instagram.com/tes9t6', '근육짱짐', 'ujeong', 3, 5);
 
 INSERT INTO TRAINER_IMAGE
-VALUES(NULL, 2, 'files/trainer/a.jpg');
+VALUES(NULL, 'wkdgyfla97', 'files/trainer/a.jpg');
+INSERT INTO TRAINER_IMAGE
+VALUES(NULL, 'hye8997', 'files/trainer/b.jpg');
+INSERT INTO TRAINER_IMAGE
+VALUES(NULL, 'humble', 'files/trainer/c.jpg');
+INSERT INTO TRAINER_IMAGE
+VALUES(NULL, 'ujeong', 'files/trainer/d.jpg');
+
 
 INSERT INTO TRAINER_CERT
-VALUES(NULL, 2, '생활체육지도자 1급', 'files/trainer/cert/massage.png');
-
-INSERT INTO TRAINER_EXPERT
-VALUES(NULL, 2, 0);
+VALUES(NULL, 'wkdgyfla97', '생활체육지도자 1급', 'files/trainer/cert/1.png');
+INSERT INTO TRAINER_CERT
+VALUES(NULL, 'hye8997', '줘패기 1급', 'files/trainer/cert/2.png');
+INSERT INTO TRAINER_CERT
+VALUES(NULL, 'humble', '말빨 1급', 'files/trainer/cert/3.png');
+INSERT INTO TRAINER_CERT
+VALUES(NULL, 'ujeong', '귀여움 1급', 'files/trainer/cert/4.png');
 
 INSERT INTO TRAINER_CAREER
-VALUES(NULL, 2, '전국체전 입선');
+VALUES(NULL, 'wkdgyfla97', '전국체전 입선');
+INSERT INTO TRAINER_CAREER
+VALUES(NULL, 'hye8997', '줘패기대회 입선');
+INSERT INTO TRAINER_CAREER
+VALUES(NULL, 'humble', '입털기 대회 우승');
+INSERT INTO TRAINER_CAREER
+VALUES(NULL, 'ujeong', '귀여움 대회 아차상');
+
 
 INSERT INTO PRODUCT
-VALUES(NULL, 2, 24, 600000, 0, '바디프로필 3개월 패키지', 6);
+VALUES(NULL, 'wkdgyfla97', 24, 600000, 0, '바디프로필 3개월 패키지', 6);
+INSERT INTO PRODUCT
+VALUES(NULL, 'hye8997', 10, 200000, 0, '생활근력 만들기', 5);
+INSERT INTO PRODUCT
+VALUES(NULL, 'humble', 20, 400000, 1, '입근육을 만들자', 6);
+INSERT INTO PRODUCT
+VALUES(NULL, 'ujeong', 1, 10000, 0, '귀여워지고싶나용', 6);
+
+
+COMMIT;
+
+

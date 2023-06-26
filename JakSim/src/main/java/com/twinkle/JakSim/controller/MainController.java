@@ -15,8 +15,9 @@ import java.security.Principal;
 @Controller
 public class MainController {
     @GetMapping("/")
-    public String mainPage(Model model) {
+    public String mainPage(Model model, @AuthenticationPrincipal User info) {
         model.addAttribute("head_title", "main");
+        model.addAttribute("userId", info);
         return "content/index";
     }
 

@@ -1,9 +1,7 @@
 package com.twinkle.JakSim.model.dto.reservation.request;
 
-import com.sun.istack.internal.NotNull;
 import lombok.Data;
 import lombok.ToString;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

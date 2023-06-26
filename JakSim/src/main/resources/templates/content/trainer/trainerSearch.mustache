@@ -31,28 +31,56 @@
         </div>
 
         <span id="amount_trainer">200명의 트레이너</span>
-        <table>
-            <tr>
-                {{#trainers}}
-                    <td>
+
+        <style>
+            .trainer-container {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+
+            .trainer-item {
+                width: calc(33.33% - 10px); /* Set the width of each item */
+                margin-bottom: 20px;
+                padding: 10px;
+                border: 1px solid #ccc;
+            }
+        </style>
+
+        <style>
+            .trainer-item a {
+                color: black;
+                text-decoration: none;
+            }
+        </style>
+
+        <div class="trainer-container">
+            {{#trainers}}
+                <div class="trainer-item">
+                    <a href="/trainer/{{trainerId}}">
                         <div class="find_trainer_crop">
                             <img src="{{imagePath}}" alt="트레이너" class="find_trainer_profile">
                         </div>
-                        <div><input class="input_input" type="text" value="{{gym}}" name="gym"></div>
-                        <div><input class="input_input" type="text" value="{{userName}}" name="userName"></div>
-                        <div style="display:inline-block; margin-right:3px;">
-                            <input class="input_input" type="text" value="{{expert1}}" name="expert1">
+                        <div>
+                            <span>{{gym}}</span>
                         </div>
                         <div>
-                            <input class="input_input" type="text" value="{{expert2}}" name="expert2">
+                            <span>{{userName}}</span>
                         </div>
                         <div>
-                            <input class="input_input" type="text" value="{{certName}}" name="certName">
+                            <span>{{expert1}}</span>
                         </div>
-                    </td>
-                {{/trainers}}
-            </tr>
-        </table>
+                        <div>
+                            <span>{{expert2}}</span>
+                        </div>
+                        <div>
+                            <span>{{certName}}</span>
+                        </div>
+                    </a>
+                </div>
+            {{/trainers}}
+        </div>
+
     </div>
 </div>
 {{>layout/footer}}

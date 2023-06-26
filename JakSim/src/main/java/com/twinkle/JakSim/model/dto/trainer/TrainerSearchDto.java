@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TrainerSearchDto {
 
+    private int trainerId;
+
     private String userName;
 
     private String insta;

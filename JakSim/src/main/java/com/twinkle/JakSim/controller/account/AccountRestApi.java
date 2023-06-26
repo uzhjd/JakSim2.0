@@ -18,9 +18,9 @@ public class AccountRestApi {
 
     @PostMapping("/action")
     public int AccountAction(@RequestBody HashMap<Object, String> data){
-        if(data.values().stream().noneMatch(value -> value.equals(""))) {
-            return -1;
-        }
+//        if(data.values().stream().noneMatch(value -> value.equals(""))) {
+//            return -1;
+//        }
         return accountService.CreateMember(data);
     }
 
