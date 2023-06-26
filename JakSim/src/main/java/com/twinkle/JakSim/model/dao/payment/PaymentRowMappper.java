@@ -9,15 +9,10 @@ import java.sql.SQLException;
 public class PaymentRowMappper implements RowMapper<PaymentDto> {
 
     public PaymentDto mapRow(ResultSet rs, int rowNum) throws SQLException {
-        PaymentDto paymentDto = new PaymentDto();
-
-        paymentDto.setPIdx(rs.getInt("P_IDX"));
-        paymentDto.setUserId(rs.getString("USER_ID"));
-        paymentDto.setTpIdx(rs.getInt("TP_IDX"));
-        paymentDto.setPCDt(rs.getDate("P_C_DT").toLocalDate());
-        paymentDto.setPRefund(rs.getInt("P_REFOUND"));
-        paymentDto.setPMDt(rs.getDate("P_M_DT").toLocalDate());
-        paymentDto.setPPtCnt(rs.getInt("P_PT_CNT"));
+        PaymentDto paymentDto = PaymentDto.builder()
+                .pIdx(rs.getInt("P_IDX"))
+                .pPtCnt(rs.getInt("P_PT_CNT"))
+                .build();
 
         return paymentDto;
     }

@@ -1,29 +1,27 @@
 package com.twinkle.JakSim.model.dto.reservation.request;
 
-//import com.sun.istack.internal.NotNull;
-import lombok.Data;
+import lombok.*;
 import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
-@Data
+@Getter
 @ToString
+@AllArgsConstructor
 public class ReservationDto {
+
     @NotBlank
-    @Size(max = 15)
+    @Size(max = 30)
     private String userId;
 
-    // 얘가 필요한지 알아보기!! 없으면 지우고 있따면 이 주석 지우기
-//    @NotBlank
-//    private int utIdx;
-
     @NotBlank
+    @Size(max = 8)
     private int pIdx;
 
     @NotBlank
+    @Size(max = 8)
     private int tIdx;
 
     @NotBlank

@@ -1,0 +1,18 @@
+{{>layout/header}}
+    <script src="javascript/account/login.js"></script>
+    <link rel="stylesheet" href="css/account/loginStyle.css">
+<body>
+{{>layout/navi}}
+
+    <div class="container">
+        <form action="/login/action" method="post">
+            <input type="text" name="username" id="user_id" class="form-control" placeholder="USER ID">
+            <br>
+            <input type="password" name="password" id="user_pw" class="form-control" placeholder="USER PW">
+            <br>
+            <button class="btn btn-primary" type="submit" id="loginButton">로그인</button>
+        </form>
+    </div>
+
+{{>layout/footer}}
+

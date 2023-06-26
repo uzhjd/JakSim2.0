@@ -1,7 +1,6 @@
 package com.twinkle.JakSim.controller.scheduler;
 
 import com.twinkle.JakSim.model.dto.product.response.ValidPtDto;
-import com.twinkle.JakSim.model.dto.scheduler.request.SchedulerDto;
 import com.twinkle.JakSim.model.dto.trainer.TrainerDto;
 import com.twinkle.JakSim.model.service.payment.PaymentService;
 import com.twinkle.JakSim.model.service.trainer.TrainerService;

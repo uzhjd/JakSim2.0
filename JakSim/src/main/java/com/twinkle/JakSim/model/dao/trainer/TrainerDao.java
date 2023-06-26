@@ -6,7 +6,9 @@ import com.twinkle.JakSim.model.dto.account.UserDto;
 import com.twinkle.JakSim.model.dto.timetable.response.TimetableDto;
 import com.twinkle.JakSim.model.dto.trainer.TrainerInsertDto;
 import com.twinkle.JakSim.model.dto.trainer.*;
+import com.twinkle.JakSim.model.dto.trainer.response.TrainerDetailDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -130,18 +132,18 @@ public class TrainerDao {
 
     }
 
-    public TrainerDto findAllValidPt(int utIdx) {
-        TrainerDto trainerInfo = null;
+    public TrainerDetailDto findMyTrainer(String userId) {
+        TrainerDetailDto trainerDetailDto = new TrainerDetailDto();
 
-        this.sql = "select * from trainer_details where ut_idx = ?";
+        this.sql = "select * from trainer_details where user_id = ?";
 
         try {
-            trainerInfo = jdbcTemplate.queryForObject(this.sql, new TrainerRowMapper(), utIdx);
-        } catch(Exception e) {
+            trainerDetailDto = jdbcTemplate.queryForObject(this.sql, new TrainerDetailRowMapper(), userId);
+        } catch (EmptyResultDataAccessException e) {
             System.out.println(e);
         }
 
-        return trainerInfo;
+        return trainerDetailDto;
     }
 
     public List<TimetableDto> getTimetable(String userId) {

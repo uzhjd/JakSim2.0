@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary" >
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/" id="nav-head">작심득근</a>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="trainerRegister">트레이너 등록</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/trainer/trainerSearch">트레이너 찾기</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/mypage/auth">마이페이지</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">스케줄러</a>
+                </li>
+            </ul>
+            {{#userId}}
+                <li class="nav-item d-flex" style="margin-left:7px">
+                </li>
+                <li class="nav-item d-flex" style="margin-left:7px">
+                    <a class="nav-link" href="/logout">로그아웃</a>
+                </li>
+            {{/userId}}
+            {{^userId}}
+                <li class="nav-item d-flex" style="margin-left:7px">
+                    <a class="nav-link" href="login">로그인</a>
+                </li>
+            {{/userId}}
+            <li class="nav-item d-flex" style="margin-left:7px;">
+                <a class="nav-link" href="/account">회원가입</a>
+            </li>
+        </div>
+
+    </div>
+</nav>
+</html>

@@ -1,19 +1,20 @@
 package com.twinkle.JakSim.model.dto.timetable.response;
 
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-@Data
+@Getter
+@Builder
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class TimetableDto {
+
     private int tIdx;
 
-    private String userId;
+    private int userId;
 
     private LocalDate tDate;
 

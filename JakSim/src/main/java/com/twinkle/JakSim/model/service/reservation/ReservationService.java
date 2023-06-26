@@ -1,21 +1,18 @@
 package com.twinkle.JakSim.model.service.reservation;
 
-import com.twinkle.JakSim.model.dao.account.UserDao;
 import com.twinkle.JakSim.model.dao.payment.PaymentDao;
 import com.twinkle.JakSim.model.dao.reservation.ReservationDao;
 import com.twinkle.JakSim.model.dao.timetable.TimetableDao;
 import com.twinkle.JakSim.model.dto.reservation.request.ReservationDto;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.jdbc.pool.DataSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class ReservationService {
-    private ReservationDao reservationDao;
-    private TimetableDao timetableDao;
-    private PaymentDao paymentDao;
+    private final ReservationDao reservationDao;
+    private final TimetableDao timetableDao;
+    private final PaymentDao paymentDao;
 
     public Boolean register(ReservationDto reservationDto) {
         boolean resAvailable = true;
@@ -23,7 +20,7 @@ public class ReservationService {
 
         try {
             // 해당 날에 대한 예약이 없을 경우
-            boolean isReservate = reservationDao.isReservate(reservationDto.getUserId(), reservationDto.getTDate());
+//            boolean isReservate = reservationDao.isReservate(reservationDto.getUserId(), reservationDto.getTDate());
 
             // pt권 수가 남아있는지
             boolean isPtTicket = paymentDao.isPtTicket(reservationDto.getTIdx());
@@ -49,5 +46,14 @@ public class ReservationService {
         }
 
         return result;
+    }
+
+    public Boolean delete(int pIdx, int rIdx) {
+        if(reservationDao.delete(rIdx)) {
+            paymentDao.increaseCnt(pIdx);
+            return true;
+        }
+
+        return false;
     }
 }
