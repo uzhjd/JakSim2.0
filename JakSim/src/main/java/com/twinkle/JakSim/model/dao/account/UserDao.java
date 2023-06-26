@@ -65,4 +65,16 @@ public class UserDao {
 
         return result;
     }
+
+    public int deleteUser(String id) {
+        String sql = "DELETE FROM USER_INFO WHERE USER_ID = ?";
+        int result = -1;
+
+        try{
+            result = jdbcTemplate.update(sql, id);
+        }catch (Exception e){
+            System.out.println("회원삭제 실패");
+        }
+        return result;
+    }
 }

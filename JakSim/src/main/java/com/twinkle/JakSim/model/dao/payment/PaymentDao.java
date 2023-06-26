@@ -18,9 +18,9 @@ public class PaymentDao {
     private JdbcTemplate jdbcTemplate;
     private String sql;
 
-    public PaymentDao(DataSource ds) {
-        jdbcTemplate = new JdbcTemplate(ds);
-    }
+//    public PaymentDao(DataSource ds) {
+//        jdbcTemplate = new JdbcTemplate(ds);
+//    }
 
     public Boolean isPtTicket(int pIdx) {
         boolean result = false;
