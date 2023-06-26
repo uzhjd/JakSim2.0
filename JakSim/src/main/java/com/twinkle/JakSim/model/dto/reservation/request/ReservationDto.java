@@ -1,6 +1,7 @@
 package com.twinkle.JakSim.model.dto.reservation.request;
 
 import lombok.*;
+import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

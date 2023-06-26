@@ -17,22 +17,36 @@
                     <a class="nav-link" href="/scheduler/details/ujeong">스케줄러</a>
                 </li>
             </ul>
+<<<<<<< HEAD
             {{#userId}}
                 <span id="user">{{userId.getUsername}}</span>
                 <li class="nav-item d-flex" style="margin-left:7px">
+=======
+            {{#session_username}}
+                <li class="nav-item d-flex" id="navi_userInfo">
+                    <a class="nav-link" href="/mypage/{{session_username}}" id="navi_username">{{session_username}}</a>
+>>>>>>> 0dcc39d6397c6ad07cf56efcb462bf426b1f7650
                 </li>
                 <li class="nav-item d-flex" style="margin-left:7px">
                     <a class="nav-link" href="/logout">로그아웃</a>
                 </li>
-            {{/userId}}
-            {{^userId}}
+            {{/session_username}}
+            {{^session_username}}
                 <li class="nav-item d-flex" style="margin-left:7px">
                     <a class="nav-link" href="/login">로그인</a>
                 </li>
                 <li class="nav-item d-flex" style="margin-left:7px;">
                     <a class="nav-link" href="/account">회원가입</a>
                 </li>
+<<<<<<< HEAD
             {{/userId}}
+=======
+                <li class="nav-item d-flex" style="margin-left:7px;">
+                    <a class="nav-link" href="/account">회원가입</a>
+                </li>
+            {{/session_username}}
+
+>>>>>>> 0dcc39d6397c6ad07cf56efcb462bf426b1f7650
         </div>
     </div>
 </nav>

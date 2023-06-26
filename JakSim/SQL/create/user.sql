@@ -22,3 +22,5 @@ INSERT INTO USER_INFO
 VALUES('hye8997', '1234', '정혜화', '1', '01012345678', '0', '전라남도 해남군', '1989-03-30', current_timestamp, 1);
 INSERT INTO USER_INFO
 VALUES('ujeong', '1004', '남유정', '1', '01012345999', '0', '서울특별시', '2000-05-28', current_timestamp, 1);
+INSERT INTO USER_INFO
+VALUES('humble', '6789', '김겸손', '0', '01091029629', '0', '전라남도 강진군', '1996-02-09', current_timestamp, 1);

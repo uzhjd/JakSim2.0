@@ -1,0 +1,95 @@
+{{>layout/header}}
+<body>
+{{>layout/navi}}
+<div id="index_container">
+    <form action="/ptTimetableRegister" method="POST">
+        {{#timetable}}
+            <h3>PT 시간 등록</h3>
+        <div id="trainer_manage_container">
+            <div class="manage_container">
+                <div class="time_container">
+                    <span class="manage_class">수업시간</span>
+                    <input type="time" id="start_time_1" name="tStartT" value="{{tStartT}}"> ~
+                    <input type="time" id="end_time_1" name="tEndT" value="{{tEndT}}">
+                </div>
+                <div class="manage_radio_container">
+                    <input type="radio" name="tType" value="one" {{#isOneToOne}}checked="checked"{{/isOneToOne}}>1:1
+                    <input type="radio" name="tType" value="gather" {{#isGroup}}checked="checked"{{/isGroup}}>단체
+                    <input type="radio" name="tType" value="consult" {{#isConsultation}}checked="checked"{{/isConsultation}}>상담
+                </div>
+                <div class="count_people">
+                    <label for="people" class="manage_people_label">인원수</label>
+                    <input type="number" name="tPeople" value="{{tPeople}}">
+                </div>
+            </div>
+            {{#isEditing}}
+                <!-- Additional inputs for editing -->
+                <input type="hidden" name="tIdx" value="{{tIdx}}">
+                <input type="hidden" name="_method" value="PUT">
+            {{/isEditing}}
+        {{/timetable}}
+    </div>
+        <!-- Additional inputs for deletion -->
+        {{#isDeleting}}
+            <input type="hidden" name="tID" value="{{tIdx}}">
+            <input type="hidden" name="_method" value="DELETE">
+        {{/isDeleting}}
+        <!-- Buttons -->
+        <div id="manage_button_div">
+            <button id="manage_button">{{#isEditing}}변경사항 저장{{/isEditing}}{{#isDeleting}}시간 삭제{{/isDeleting}}{{^isEditing}}{{^isDeleting}}시간 등록{{/isDeleting}}{{/isEditing}}</button>
+        </div>
+    </form>
+    <script>
+        const form = document.querySelector('form');
+
+        form.addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent the default form submission behavior
+
+      // Extract the form data and perform the desired action
+      const formData = new FormData(form);
+      const tID = formData.get('tIdx'); // Get the timetable ID
+
+      if (tID) {
+        // If tID exists, it means an existing timetable is being edited or deleted
+        const method = formData.get('_method'); // Get the HTTP method (PUT or DELETE)
+
+        if (method === 'PUT') {
+          // Perform the logic for updating the existing timetable entry
+          const updatedTimetableData = {
+            // Extract the necessary form data for updating the timetable entry
+            tStartT: formData.get('tStartT'),
+            tEndT: formData.get('tEndT'),
+            tType: formData.get('tType'),
+            tPeople: formData.get('tPeople')
+          };
+
+          // Call a function to handle updating the timetable entry
+          updateTimetableEntry(tID, updatedTimetableData);
+        } else if (method === 'DELETE') {
+          // Perform the logic for deleting the existing timetable entry
+          // Call a function to handle deleting the timetable entry
+          deleteTimetableEntry(tID);
+        }
+      } else {
+        // If tID doesn't exist, it means a new timetable is being registered
+        const newTimetableData = {
+          // Extract the necessary form data for registering a new timetable entry
+          tStartT: formData.get('tStartT'),
+          tEndT: formData.get('tEndT'),
+          tType: formData.get('tType'),
+          tPeople: formData.get('tPeople')
+        };
+
+        // Call a function to handle registering the new timetable entry
+        registerTimetableEntry(newTimetableData);
+      }
+
+      // Clear the form inputs (optional)
+      form.reset();
+    });
+
+
+    </script>
+
+</div>
+{{>layout/footer}}

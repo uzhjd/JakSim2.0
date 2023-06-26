@@ -2,6 +2,7 @@ package com.twinkle.JakSim.model.service.trainer;
 
 import com.twinkle.JakSim.model.dao.trainer.*;
 import com.twinkle.JakSim.model.dto.account.UserDto;
+import com.twinkle.JakSim.model.dto.timetable.response.TimetableDto;
 import com.twinkle.JakSim.model.dto.trainer.TrainerInsertDto;
 import com.twinkle.JakSim.model.dto.trainer.*;
 import com.twinkle.JakSim.model.dto.trainer.response.TrainerDetailDto;
@@ -22,8 +23,8 @@ public class TrainerService {
 
     //트레이너 등록
     @Transactional
-    public void TrainerSignUp(TrainerInsertDto requestTrainer) {
-        trainerDao.insertTrainer(requestTrainer);
+    public void TrainerSignUp(TrainerInsertDto requestTrainer, String userId) {
+        trainerDao.insertTrainer(requestTrainer, userId);
 
     }
 
@@ -34,20 +35,40 @@ public class TrainerService {
 
     //트레이너 상세페이지에 표시될 정보 가져오기
     @Transactional
-    public List<TrainerSearchDto> searchTrainer(int idx) {
-        return trainerDao.getTrainerPage(idx);
+    public List<TrainerSearchDto> searchTrainer(int tIdx) {
+        return trainerDao.getTrainerPage(tIdx);
     }
 
     @Transactional
-    public void updateTrainer(TrainerInsertDto requestTrainer) {
-        trainerDao.upDateTrainer(requestTrainer);
+    public void updateTrainer(TrainerInsertDto requestTrainer, String userId) {
+        trainerDao.upDateTrainer(requestTrainer, userId);
 
     }
 
     @Transactional
-    public void deleteTrainer(TrainerInsertDto requestTrainer) {
-        trainerDao.deleteTrainer(requestTrainer);
+    public void deleteTrainer(String userId) {
+        trainerDao.deleteTrainer(userId);
 
+    }
+
+    @Transactional
+    public List<TimetableDto> getTimetable(String userId) {
+        return trainerDao.getTimetable(userId);
+    }
+
+    @Transactional
+    public void registerTimetable(TimetableDto timetable, String userId) {
+        trainerDao.registerTimetable(timetable, userId);
+    }
+
+    @Transactional
+    public void updateTimetable(TimetableDto timetable, String userId) {
+        trainerDao.updateTimetable(timetable, userId);
+    }
+
+    @Transactional
+    public void deleteTimetable(int tIdx) {
+        trainerDao.deleteTimetable(tIdx);
     }
 
     public TrainerDetailDto findMyTrainer(String trainerId) {

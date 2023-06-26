@@ -23,11 +23,15 @@ CREATE TABLE REVIEW_IMAGE(
 COMMIT;
 
 INSERT INTO REVIEW
-VALUES();
+VALUES(NULL, 'ujeong', 1, '트레이너가 친절하고 PT가 맛있어요', 5, current_date, NULL);
 INSERT INTO REVIEW
-VALUES();
+VALUES(NULL, 'humble', 1, '이렇게 피티가 뭐같은적이 없음', 1, current_date, NULL);
+INSERT INTO REVIEW
+VALUES(NULL, 'test96', 1, '무릎이 박살남', 2, current_date, NULL);
 
 INSERT INTO REVIEW_IMAGE
-VALUES();
+VALUES(NULL, 1, 'files/review/1.jpg');
 INSERT INTO REVIEW_IMAGE
-VALUES();
+VALUES(NULL, 2, 'files/review/2.jpg');
+INSERT INTO REVIEW_IMAGE
+VALUES(NULL, 3, 'files/review/3.jpg');

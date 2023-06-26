@@ -13,7 +13,7 @@ public class TrainerSignUpRowMapper implements RowMapper<TrainerInsertDto> {
 
         TrainerInsertDto trainerInsertDto = new TrainerInsertDto();
 
-        trainerInsertDto.setUserId(rs.getString("USER_ID"));
+        //trainerInsertDto.setUserId(rs.getString("USER_ID"));
         trainerInsertDto.setInsta(rs.getString("UT_INSTA"));
         trainerInsertDto.setIntroduce(rs.getString("UT_INTRO"));
         trainerInsertDto.setGym(rs.getString("UT_GYM"));

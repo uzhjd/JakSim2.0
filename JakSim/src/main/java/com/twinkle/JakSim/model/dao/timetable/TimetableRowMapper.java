@@ -17,7 +17,6 @@ public class TimetableRowMapper implements RowMapper<TimetableDto> {
                                                 .tPeople(rs.getInt("T_PEOPLE"))
                                                 .tType(rs.getInt("T_TYPE"))
                                                 .build();
-
         return timetableDto;
     }
 }

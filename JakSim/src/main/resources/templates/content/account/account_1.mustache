@@ -1,0 +1,25 @@
+{{>layout/header}}
+    <link rel="stylesheet" href="/css/account/accountStyle.css">
+    <script src="/javascript/account/account_1.js"></script>
+</head>
+
+<body>
+{{>layout/navi}}
+
+    <div class="container">
+        <h1 class="account_banner">여기다가 로고라도\n붙여주셈</h1>
+        <div class="account_container">
+            <span class="account_span">이메일</span>
+            <div class="input_container">
+                <input class="account_input" type="text" placeholder="Email"/>
+                <button class="account_button" type="button" id="account_email_button">인증하기</button>
+            </div>
+            <span style="color:red;" id="account_email_counter"></span>
+            <div class="input_container">
+                
+            </div>
+        </div>
+        <a href="/account/2">이동</a>
+    </div>
+
+{{>layout/footer}}
