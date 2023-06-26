@@ -14,14 +14,10 @@ CREATE TABLE TIMETABLE(
 COMMIT;
 
 INSERT INTO TIMETABLE
-VALUES(NULL, 'wkdgyfla97', '2023/05/23', '09:00', '10:00', '3', '0');
+VALUES(NULL, 'wkdgyfla97', '2023/05/23', '11:00', '12:00', '3', '0');
 INSERT INTO TIMETABLE
-VALUES(NULL, 'wkdgyfla97', '2023/05/25', '09:00', '10:00', '1', '1');
-<<<<<<< HEAD
-=======
-
+VALUES(NULL, 'wkdgyfla97', '2023/05/25', '11:00', '12:00', '1', '1');
 INSERT INTO TIMETABLE
 VALUES(NULL, 'test96', '2023/05/23', '09:00', '10:00', '3', '0');
 INSERT INTO TIMETABLE
 VALUES(NULL, 'test96', '2023/05/25', '10:00', '11:00', '1', '1');
->>>>>>> 0dcc39d6397c6ad07cf56efcb462bf426b1f7650
