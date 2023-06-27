@@ -116,4 +116,13 @@ public class TrainerController {
 
         return "content/trainer/trainerControlpage";
     }
+
+    @GetMapping("trainer/ptUserInfo")
+    public String ptUserInfo(Model model, @AuthenticationPrincipal User info){
+        model.addAttribute("head_title", "트레이너 관리페이지");
+        model.addAttribute("userId", info);
+        model.addAttribute("ptUser", trainerService.getMyPtUserInfo(info.getUsername()));
+
+        return "content/trainer/trainerControlUserInfopage";
+    }
 }

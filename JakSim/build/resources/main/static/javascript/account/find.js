@@ -46,7 +46,7 @@ var changePassword = function(){
         id : userData['id'],
         pw : document.getElementById('find_password').value
     };
-        
+
     axios.put('/account/changepw', pwData)
         .then(response => {
             if(response.data > 0){
