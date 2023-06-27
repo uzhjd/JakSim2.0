@@ -71,6 +71,12 @@ public class TrainerService {
         trainerDao.deleteTimetable(tIdx);
     }
 
+    @Transactional
+    public List<PtUserDto> getMyPtUserInfo(String userId) {
+        return trainerDao.getPtUserInfo(userId);
+    }
+
+
     public TrainerDetailDto findMyTrainer(String trainerId) {
         TrainerDetailDto trainerDetailDto = new TrainerDetailDto();
 

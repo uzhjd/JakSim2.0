@@ -1,22 +1,25 @@
 window.onload = function() {
-    var pwButton = document.getElementById('pwButton');
-    pwButton.addEventListener('click', checkPassword);
+    var deleteButton = document.getElementById('mypage_delete');
+
+    deleteButton.addEventListener('click', deleteUser);
 }
 
-var checkPassword = function(){
-    var data = {pw : document.getElementById('pwInput').value}
-    var span = document.getElementById('mypage_failureSpan');
+var deleteUser = function(){
+    var data = {id : document.getElementById('navi_username').innerHTML};
+    console.log(data);
 
-    axios.post('/mypage/api/auth', data)
+    axios.delete('/account/delete')
         .then(response => {
-            if(response.data !== ''){
-                window.location.href='/mypage/' + response.data;
+            if(response.data === 1){
+                alert('회원정보가 삭제되었습니다.');
+                window.location.href='/account/delprocess';
             }else{
-                span.innerHTML = '비밀번호를 다시 확인해주세요';
-                span.style.color='red';
+                alert('????? 와 안되누?');
             }
         })
         .catch(error => {
             console.error(error);
         });
 }
+
+

@@ -5,12 +5,28 @@ window.onload = function(){
     var passwordCheckButton = document.getElementById('account_checkPw');
     var idCheckButton = document.getElementById('account_checkId');
     var telCheckButton = document.getElementById('account_checkTel');
+    var emailCheckButton = document.getElementById('account_checkEmail');
 
-    button.addEventListener('click', handleClick);
+    button.addEventListener('click', registerClick);
     passwordCheckButton.addEventListener('click', checkPassword);
     idCheckButton.addEventListener('click', idDupId);
     telCheckButton.addEventListener('click', isDupTel)
+    emailCheckButton.addEventListener('click', isDupEmail);
 };
+
+function isDupEmail(){
+    var data = {email : document.getElementById('account_email').value};
+    var result = document.getElementById('account_confirm_email');
+
+    axios.post('/account/checkemail', data)
+        .then(response => {
+            console.log('at first');
+            console.log(response.data);
+        })
+        .catch(error => {
+            console.error(error);
+        })
+}
 
 function isDupTel(){
     var data = {tel : document.getElementById('account_tel').value};
@@ -51,7 +67,7 @@ function idDupId(){
         });
 }
 
-function handleClick(){
+function registerClick(){
     UserToJSON();
     axios.post('/account/action', registerData)
         .then(response => {
@@ -82,15 +98,16 @@ function checkPassword(){
 }
 
 var UserToJSON = function(){
-    registerData.id = document.getElementById('account_id').value
-    registerData.pw = document.getElementById('account_pw').value
-    registerData.name = document.getElementById('account_name').value
-    registerData.gender = document.getElementById('account_gender').value
-    registerData.tel = document.getElementById('account_tel').value
-    registerData.question = document.getElementById('account_question').value
-    registerData.answer = document.getElementById('account_answer').value
-    registerData.birth = document.getElementById('account_birth').value
-    registerData.role = document.getElementById('account_role').value
+    registerData.id = document.getElementById('account_id').value;
+    registerData.pw = document.getElementById('account_pw').value;
+    registerData.name = document.getElementById('account_name').value;
+    registerData.gender = document.getElementById('account_gender').value;
+    registerData.email = document.getElementById('account_email').value;
+    registerData.tel = document.getElementById('account_tel').value;
+    registerData.question = document.getElementById('account_question').value;
+    registerData.answer = document.getElementById('account_answer').value;
+    registerData.birth = document.getElementById('account_birth').value;
+    registerData.role = document.getElementById('account_role').value;
 
     JSON.stringify(registerData);
 
