@@ -13,8 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Service
@@ -23,7 +26,7 @@ public class AccountService {
     private final JavaMailSender emailSender;
     private final PasswordEncoder passwordEncoder;
     private final UserDao userDao;
-    private StringBuilder key;
+    private String key;
 
     @Transactional
     public int CreateMember(HashMap<Object, String> member){
@@ -65,35 +68,35 @@ public class AccountService {
         return userDao.deleteUser(id);
     }
 
-    public int validateEmail(String email) {
-        int result = 0;
+    public String validateEmail(String email) {
         createKey();
 
         try{
-            result = sendEmail(email);
-        }catch (Exception e){
+            sendEmail(email);
+        }catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return result;
+
+        return this.key;
     }
 
     private void createKey() {
-        Random random = new Random();
-        StringBuilder result = new StringBuilder();
+        //숫자 0-9, 문자 A-Z
         int [] numList = IntStream.concat(
-                IntStream.rangeClosed(48, 57),
-                IntStream.rangeClosed(65, 90)
+                IntStream.rangeClosed(65, 90),
+                IntStream.rangeClosed(48, 57)
         ).toArray();
 
-        for(int i=0; i<6; i++){
-            result.append(String.format("%c", numList[random.nextInt(numList.length)]));
-        }
-        this.key = result;
+        List<Integer> indexList = IntStream.range(0, numList.length).boxed().collect(Collectors.toList());
+        Collections.shuffle(indexList);
+        //특정 문자가 지나치게 중복되어 이를 해결하고자 전체 요소를 다시 섞음
+
+        this.key = indexList.stream().limit(6).map(i -> String.format("%c", numList[i])).collect(Collectors.joining());
     }
 
     private MimeMessage createMailForm(String email) throws MessagingException, UnsupportedEncodingException{
         String sender = "lsd4026@naver.com";
-        String title = "[작심득근] 이메일 인증번호입니다.";
+        String title = "[작심득근] 회원가입 이메일 인증";
 
         MimeMessage message = emailSender.createMimeMessage();
         message.addRecipients(MimeMessage.RecipientType.TO, email);
@@ -104,9 +107,8 @@ public class AccountService {
         return message;
     }
 
-    private int sendEmail(String toMail) throws MessagingException, UnsupportedEncodingException{
+    private void sendEmail(String toMail) throws MessagingException, UnsupportedEncodingException{
         MimeMessage emailForm = createMailForm(toMail);
         emailSender.send(emailForm);
-        return 1;
     }
 }
