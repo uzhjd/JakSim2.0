@@ -36,10 +36,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.csrf().disable();
         http.authorizeHttpRequests().antMatchers( "/", "/trainerUpdate/**",
-                        "/scheduler/**", "/trainerDelete", "/reservation/**", "/account/**",
+                        "/scheduler/**", "/trainerDelete", "/reservation/**",
                         "/trainerRegister/**", "/trainer/**",
                         "/javascript/**", "/css/**", "/image/**").permitAll()
-                .antMatchers("/login/**", "/find/**").hasAnyRole("ANONYMOUS")
+                .antMatchers("/login/**", "/find/**", "/account/**").hasAnyRole("ANONYMOUS")
                 .anyRequest().authenticated();
         http
                 .formLogin()
