@@ -17,10 +17,8 @@ public class AccountRestApi {
     private final AccountService accountService;
 
     @PostMapping("/action")
-    public int AccountAction(@RequestBody HashMap<Object, String> data){
-        if(data.values().stream().anyMatch(value -> value.equals(""))) {
-            return -1;
-        }
+    public int AccountAction(@RequestBody UserDto data){
+        System.out.println(data.toString());
         return accountService.CreateMember(data);
     }
 

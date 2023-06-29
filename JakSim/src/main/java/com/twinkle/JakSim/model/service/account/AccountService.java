@@ -29,20 +29,19 @@ public class AccountService {
     private String key;
 
     @Transactional
-    public int CreateMember(HashMap<Object, String> member){
-        System.out.println(" " +  member);
-
+    public int CreateMember(UserDto member){
         UserDto userDto = new UserDto();
 
-        userDto.setId(member.get("id"));
-        userDto.setPw(passwordEncoder.encode(member.get("pw")));
-        userDto.setName(member.get("name"));
-        userDto.setGender(Integer.parseInt(member.get("gender")));
-        userDto.setTel(member.get("tel"));
-        userDto.setQuestion(Integer.parseInt(member.get("question")));
-        userDto.setAnswer(member.get("answer"));
-        userDto.setBirth(member.get("birth"));
-        userDto.setRole(Integer.parseInt(member.get("role")));
+        userDto.setId(member.getId());
+        userDto.setPw(passwordEncoder.encode(member.getPw()));
+        userDto.setName(member.getName());
+        userDto.setGender(member.getGender());
+        userDto.setTel(member.getTel());
+        userDto.setQuestion(member.getQuestion());
+        userDto.setAnswer(member.getAnswer());
+        userDto.setBirth(member.getBirth());
+        userDto.setEmail(member.getEmail());
+        userDto.setRole(member.getRole());
 
         //정상
         return userDao.insertMember(userDto);

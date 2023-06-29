@@ -13,6 +13,7 @@ import java.io.IOException;
 public class CustomAuthFailureHandler extends SimpleUrlAuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+        setDefaultFailureUrl("/login");
         super.onAuthenticationFailure(request, response, exception);
     }
 }

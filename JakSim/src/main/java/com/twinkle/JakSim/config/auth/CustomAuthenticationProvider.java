@@ -41,6 +41,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         }
 
         if(!passwordEncoder.matches(password, user.getPassword())){
+            System.out.println("비밀번호 다름");
             throw new BadCredentialsException("Invalid user Password");
         }
 
