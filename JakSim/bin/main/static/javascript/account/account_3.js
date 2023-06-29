@@ -1,6 +1,6 @@
 var answerCode = '';
 var buttonCnt = 0;
-var timeSpan, emailCheckInput, checkButton, time, intervalId, nextButton;
+var timeSpan, emailCheckInput, checkButton, time, intervalId, nextButton, phoneSpan;
 var isEmail = false, isPhone = false;
 
 window.onload = function(){
@@ -8,11 +8,17 @@ window.onload = function(){
     var phoneCheckButton = document.getElementById('account_phone_button');
     nextButton = document.getElementById('account_3_next');
 
-    nextButton.addEventListener('click', () => {window.location.href='/account/4'});
+    nextButton.addEventListener('click', nextPage);
     emailCheckButton.addEventListener('click', function(){
         sendMail(emailCheckButton); });
     phoneCheckButton.addEventListener('click', checkPhone);
 };
+
+function nextPage(){
+    sessionStorage.setItem('email', document.getElementById('account_email').value);
+    sessionStorage.setItem('tel', document.getElementById('account_tel').value);
+    window.location.href='/account/4';
+}
 
 function sendMail(){
     var email = {email: document.getElementById('account_email').value};
@@ -76,13 +82,12 @@ function updateTimeSpan(){
 
 function checkCode(){
     (answerCode === emailCheckInput.value) && (time !== 0) ? isEmail = true : isEmail = false;
-    console.log(isEmail + " ;;; " + isPhone);
     isEmail && isPhone ? nextButton.disabled = false : nextButton.disabled = true;
 }
 
 function checkPhone(){
     var data = {tel : document.getElementById('account_tel').value};
-    var phoneSpan = document.getElementById('account_phone_span');
+    phoneSpan = document.getElementById('account_phone_span');
     axios.post('/account/checktel', data)
         .then(response => {
             console.log(response.data);
