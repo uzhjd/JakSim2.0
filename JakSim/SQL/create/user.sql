@@ -10,6 +10,7 @@ CREATE TABLE USER_INFO(
                           USER_ANSWER VARCHAR(50) NOT NULL,
                           USER_BIRTH DATE NOT NULL,
                           USER_C_DT DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                          USER_M_DT DATETIME,
                           USER_ROLE INT(1) NOT NULL,
                           PRIMARY KEY (USER_ID)
 );

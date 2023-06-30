@@ -26,6 +26,10 @@ public class CustomUserDetailService implements UserDetailsService {
 
         siteUser = userDao.findByUserId(username);
 
+        if(siteUser == null){
+            throw new UsernameNotFoundException("user not found");
+        }
+
         List<GrantedAuthority> authorities = new ArrayList<>();
         if("admin".equals(username)){
             authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
