@@ -5,7 +5,6 @@ window.onload = function(){
     var failSpan = document.getElementById('login_failure_span');
     failSpan.innerHTML = getErrorMessage(errorCode);
     failSpan.style.color = 'red';
-
 }
 
 function getErrorMessage(errorCode){
