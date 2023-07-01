@@ -21,12 +21,26 @@ public class ReservationController {
     private final ReservationService reservationService;
 
     @PostMapping("/register")
-    public String resRegister(@Valid @RequestBody ReservationDto reservationDto) {
+    public String resRegister(@AuthenticationPrincipal User user, @Valid @RequestBody ReservationDto reservationDto,
+                                                                                        Model model) throws Exception {
         LocalDate today = LocalDate.now();
 
-        if(reservationDto.getRCDt().compareTo(today) >= 0) {
+        if(reservationDto.getTDate().compareTo(today) >= 0) {
             System.out.println("입력된 날이 더 과거입니다.");
-            reservationService.register(reservationDto);
+            int result = reservationService.register(user.getUsername(), reservationDto);
+
+            if(result == 1) {
+                throw new Exception("이미 등록된 예약이 있습니다.");
+            } else if (result == 2) {
+                throw new Exception("PT권이 모두 사용되었습니다.");
+            } else if (result == 3) {
+                throw new Exception("해당 일정은 존재하지 않습니다.");
+            } else if (result == 4) {
+                throw new Exception("예약이 올바르게 되지 않았습니다.");
+            }
+
+            model.addAttribute("예약 결과", result);
+
         }
 
         return "content/scheduleList/generalScheduleList";

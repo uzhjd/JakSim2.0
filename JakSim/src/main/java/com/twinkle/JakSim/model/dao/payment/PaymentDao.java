@@ -20,23 +20,20 @@ public class PaymentDao {
 
     public Boolean isPtTicket(int pIdx) {
         boolean result = false;
-        PaymentDto paymentDto = new PaymentDto();
 
-        this.sql = "select * from payment where p_idx = ?";
+        this.sql = "select p_pt_cnt from payment where p_idx = ?";
 
         try {
-            paymentDto = jdbcTemplate.queryForObject(this.sql, new PaymentRowMappper(), pIdx);
+            PaymentDto paymentDto = jdbcTemplate.queryForObject(this.sql, new PaymentRowMappper(), pIdx);
+
+            if(paymentDto.getPPtCnt() > 0) {
+                result = true;
+            }
         } catch (EmptyResultDataAccessException e) {
             System.out.println(e);
             System.out.println("Thers isn't any information");
         } catch (Exception e) {
             System.out.println(e);
-        }
-
-        int pCnt = paymentDto.getPPtCnt();
-
-        if(pCnt > 0) {
-            result = true;
         }
 
         return result;
