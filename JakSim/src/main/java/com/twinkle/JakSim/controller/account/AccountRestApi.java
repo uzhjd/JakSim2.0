@@ -59,9 +59,4 @@ public class AccountRestApi {
     public int deleteUser(@AuthenticationPrincipal User user){
         return accountService.delete(user.getUsername());
     }
-
-    @GetMapping("/sessiontime")
-    public int getSessionTime(HttpSession session){
-        return session.getMaxInactiveInterval();
-    }
 }

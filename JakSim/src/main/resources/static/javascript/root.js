@@ -3,7 +3,7 @@ var requestId;
 
 function showSessionValidTime(){
     var navTime = document.getElementById('nav_time');
-    axios.get('/account/sessiontime')
+    axios.get('/mypage/api/sessiontime')
         .then(response => {
             countDown(response.data, navTime);
         })
@@ -20,7 +20,6 @@ function countDown(time, navTime){
         var currentTime = Date.now();
         var remainTime = Math.max(0, endTime - currentTime);
         var seconds = Math.floor(remainTime/1000);
-
 
         var min = Math.floor(seconds/60);
         seconds = seconds%60;

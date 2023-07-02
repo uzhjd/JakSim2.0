@@ -7,6 +7,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 @RestController
 @RequestMapping("/mypage/api")
 @RequiredArgsConstructor
@@ -15,5 +17,9 @@ public class MypageRestApi {
     @PostMapping("/auth")
     public String authPassword(@RequestBody UserDto userDto, @AuthenticationPrincipal User user){
         return accountService.checkPassword(user.getUsername(), userDto.getPw()) ? user.getUsername() : null;
+    }
+    @GetMapping("/sessiontime")
+    public int getSessionTime(HttpSession session){
+        return session.getMaxInactiveInterval();
     }
 }
