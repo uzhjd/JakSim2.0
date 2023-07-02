@@ -6,6 +6,7 @@ CREATE TABLE USER_INFO(
                           USER_NAME VARCHAR(50) NOT NULL,
                           USER_GENDER INT(1) NOT NULL,
                           USER_TEL VARCHAR(15) UNIQUE NOT NULL,
+                          USER_EMAIL VARCHAR(100) UNIQUE NOT NULL,
                           USER_QUESTION INT(1) NOT NULL,
                           USER_ANSWER VARCHAR(50) NOT NULL,
                           USER_BIRTH DATE NOT NULL,

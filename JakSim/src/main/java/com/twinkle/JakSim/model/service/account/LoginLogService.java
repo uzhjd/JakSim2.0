@@ -17,4 +17,8 @@ public class LoginLogService {
 
         return loginLogDao.create(logDto);
     }
+
+    public LoginLogDto findByUsernameRecent(String username) {
+        return loginLogDao.findByUsernameRecent(username);
+    }
 }

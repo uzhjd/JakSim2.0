@@ -4,10 +4,13 @@ import com.twinkle.JakSim.model.dto.account.UserDto;
 import com.twinkle.JakSim.model.service.account.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 
 @RestController
@@ -57,4 +60,8 @@ public class AccountRestApi {
         return accountService.delete(user.getUsername());
     }
 
+    @GetMapping("/sessiontime")
+    public int getSessionTime(HttpSession session){
+        return session.getMaxInactiveInterval();
+    }
 }

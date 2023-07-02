@@ -22,4 +22,18 @@ public class LoginLogDao {
         }
         return result;
     }
+
+    public LoginLogDto findByUsernameRecent(String userId) {
+        String sql = "SELECT * FROM LOGIN_LOG WHERE USER_ID = ? ORDER BY L_DT desc LIMIT 1";
+
+        LoginLogDto logDto = new LoginLogDto();
+
+        try{
+            logDto = jdbcTemplate.queryForObject(sql, new LoginLogMapper(), userId);
+        }catch (EmptyResultDataAccessException e){
+            System.out.println("로그인 기록이 없다는데?");
+        }
+
+        return logDto;
+    }
 }

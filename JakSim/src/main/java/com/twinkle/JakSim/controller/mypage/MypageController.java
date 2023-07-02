@@ -1,6 +1,8 @@
 package com.twinkle.JakSim.controller.mypage;
 
+import com.twinkle.JakSim.model.dto.account.LoginLogDto;
 import com.twinkle.JakSim.model.service.account.AccountService;
+import com.twinkle.JakSim.model.service.account.LoginLogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,6 +22,7 @@ import java.security.Principal;
 public class MypageController {
     private final String defaultPath = "/content/mypage/";
     private final AccountService accountService;
+    private final LoginLogService loginLogService;
     @GetMapping("/auth")
     public String authPage(Model model){
         model.addAttribute("head_title", "개인페이지");
@@ -30,6 +33,9 @@ public class MypageController {
     public String myPage(@PathVariable("username") String username, @AuthenticationPrincipal User user, Model model){
         model.addAttribute("head_title", "개인페이지");
         model.addAttribute("user_info", accountService.findByUsername(user.getUsername()));
+        LoginLogDto logDto = loginLogService.findByUsernameRecent(user.getUsername());
+        if(logDto.getIp() != null)
+            model.addAttribute("log", logDto);
         return String.format(defaultPath + "mypage");
     }
 
