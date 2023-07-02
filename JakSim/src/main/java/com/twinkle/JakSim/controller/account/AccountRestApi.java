@@ -21,13 +21,7 @@ public class AccountRestApi {
 
     @PostMapping("/action")
     public int AccountAction(@RequestBody UserDto data){
-        System.out.println(data.toString());
         return accountService.CreateMember(data);
-    }
-
-    @GetMapping("/user-info")
-    public UserDetails getUserInfo(@AuthenticationPrincipal User user){
-        return user;
     }
 
     @PostMapping("/checkid")
