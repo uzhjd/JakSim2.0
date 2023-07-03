@@ -1,13 +1,15 @@
 .input_container{
     margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 .account_input{
     border: none;
     border-bottom: 1px solid black;
 
     padding:3px;
+    margin: 0.3rem;
 
-    width: 83%;
+    width: 60%;
 }
 .account_input:focus{
     outline: none;
@@ -43,4 +45,14 @@
 
 #account_confirm_id, #account_confirm_pw, #account_confirm_tel{
     position: relative;
+}
+
+#account_fin_container{
+    display: flex;
+    flex-decoration: column;
+    align-items: center;
+}
+
+#account_fin_button{
+    margin: 0.5rem auto;
 }

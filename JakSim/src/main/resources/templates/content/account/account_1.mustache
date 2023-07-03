@@ -1,25 +1,31 @@
 {{>layout/header}}
-    <link rel="stylesheet" href="/css/account/accountStyle.css">
-    <script src="/javascript/account/account_1.js"></script>
+<link rel="stylesheet" href="/css/account/accountStyle.css">
+<script src="/javascript/account/account_1.js"></script>
 </head>
 
 <body>
 {{>layout/navi}}
 
-    <div class="container">
-        <h1 class="account_banner">여기다가 로고라도\n붙여주셈</h1>
-        <div class="account_container">
-            <span class="account_span">이메일</span>
-            <div class="input_container">
-                <input class="account_input" type="text" placeholder="Email"/>
-                <button class="account_button" type="button" id="account_email_button">인증하기</button>
-            </div>
-            <span style="color:red;" id="account_email_counter"></span>
-            <div class="input_container">
-                
-            </div>
+<div class="container">
+    <h1 class="account_banner">여기다가 로고라도\n붙여주셈</h1>
+    <div class="account_container" id="account_parent_container">
+        <div>
+            <span class="account_span">아이디</span>
         </div>
-        <a href="/account/2">이동</a>
+
+        <div class="input_container">
+            <input class="account_input" id="account_userid" type="text" placeholder="아이디를 여기에 입력해주세요"/>
+            <button class="account_button" type="button" id="account_id_check">중복 확인</button>
+        </div>
+        <span id="account_id_result"></span>
+
+        <div class="input_container" id="account_password_container">
+            <div id="account_span_container"></div>
+
+        </div>
+        <a href="/" class="btn btn-secondary">이전</a>
+        <button id="account_1_next" class="btn btn-primary" onclick="window.location.href='/account/2'" disabled>이동</button>
     </div>
+</div>
 
 {{>layout/footer}}

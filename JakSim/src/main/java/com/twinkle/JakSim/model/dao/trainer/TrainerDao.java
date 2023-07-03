@@ -178,11 +178,12 @@ public class TrainerDao {
         jdbcTemplate.update(this.sql, tIdx);
     }
 
-//    public PtUserDto getPtUserInfo(String userId) {                 //DB 수정하자!
-//        this.sql = "SELECT * FROM USER_INFO UI " +
-//                "JOIN PRODUCT P ON UI.";
-//
-//        return null;
-//    }
+    public List<PtUserDto> getPtUserInfo(String userId) {                //값 여러개 넣어서 테스트 해봐야함
+        this.sql = "SELECT UI.USER_ID, UI.USER_NAME, UI.USER_TEL, UI.USER_GENDER, PD.TP_TYPE, P.P_PT_PERIOD " +
+                   "FROM USER_INFO UI JOIN PAYMENT P ON UI.USER_ID = P.USER_ID " +
+                   "JOIN PRODUCT PD ON P.TP_IDX = PD.TP_IDX WHERE PD.USER_ID = ?";
+
+        return jdbcTemplate.query(this.sql, new PtUserRowMapper(), userId);
+    }
 
 }
