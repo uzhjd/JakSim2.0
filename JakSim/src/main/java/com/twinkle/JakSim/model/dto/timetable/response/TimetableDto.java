@@ -14,7 +14,7 @@ public class TimetableDto {
 
     private int tIdx;
 
-    private int userId;
+    private String userId;
 
     private LocalDate tDate;
 

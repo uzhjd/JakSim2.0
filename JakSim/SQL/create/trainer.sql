@@ -71,6 +71,8 @@ INSERT INTO TRAINER_DETAILS
 VALUES(NULL, '멸치탈출 트레이너는 나야나', 'https://www.instagram.com/test', '가디짐', 'humble', 2, 4);
 INSERT INTO TRAINER_DETAILS
 VALUES(NULL, '오늘밤 주인공은 나야나', 'https://www.instagram.com/tes9t6', '근육짱짐', 'ujeong', 3, 5);
+INSERT INTO TRAINER_DETAILS
+VALUES(NULL, '안녕 여기 1짱은 나다', 'https://www.instagram.com/test96', '가리봉짱짐', 'test96', 2, 5);
 
 INSERT INTO TRAINER_IMAGE
 VALUES(NULL, 'wkdgyfla97', 'files/trainer/a.jpg');
@@ -80,6 +82,8 @@ INSERT INTO TRAINER_IMAGE
 VALUES(NULL, 'humble', 'files/trainer/c.jpg');
 INSERT INTO TRAINER_IMAGE
 VALUES(NULL, 'ujeong', 'files/trainer/d.jpg');
+INSERT INTO TRAINER_IMAGE
+VALUES(NULL, 'test96', 'files/trainer/e.jpg');
 
 
 INSERT INTO TRAINER_CERT
@@ -90,6 +94,8 @@ INSERT INTO TRAINER_CERT
 VALUES(NULL, 'humble', '말빨 1급', 'files/trainer/cert/3.png');
 INSERT INTO TRAINER_CERT
 VALUES(NULL, 'ujeong', '귀여움 1급', 'files/trainer/cert/4.png');
+INSERT INTO TRAINER_CERT
+VALUES(NULL, 'test96', '가리봉 싸움 1짱', 'files/trainer/cert/5.png');
 
 INSERT INTO TRAINER_CAREER
 VALUES(NULL, 'wkdgyfla97', '전국체전 입선');
@@ -99,6 +105,8 @@ INSERT INTO TRAINER_CAREER
 VALUES(NULL, 'humble', '입털기 대회 우승');
 INSERT INTO TRAINER_CAREER
 VALUES(NULL, 'ujeong', '귀여움 대회 아차상');
+INSERT INTO TRAINER_CAREER
+VALUES(NULL, 'test96', '가리봉 싸움짱');
 
 
 INSERT INTO PRODUCT
@@ -109,6 +117,8 @@ INSERT INTO PRODUCT
 VALUES(NULL, 'humble', 20, 400000, 1, '입근육을 만들자', 6);
 INSERT INTO PRODUCT
 VALUES(NULL, 'ujeong', 1, 10000, 0, '귀여워지고싶나용', 6);
+INSERT INTO PRODUCT
+VALUES(NULL, 'test96', 1, 20000, 0, '뒤지게패자', 6);
 
 
 COMMIT;

@@ -1,14 +1,41 @@
 {{>layout/header}}
 <body>
 {{>layout/navi}}
+<!DOCTYPE html>
+<h4>전체 회원 조회</h4>
 
-    {{#ptUser}}
-        <span>{{userName}}</span>
-        <span>{{userId}}</span>
-        <<span>{{gender}}</span>
-        <<span>{{tel}}</span>
-        <<span>{{ptType}}</span>
-        <<span>{{ptCnt}}</span>
-    {{/ptUser}}
+<div class="search-container">
+    <input type="text" id="search-input" placeholder="회원명">
+</div>
+<table>
+    <thead>
+        <tr>
+            <th>회원명</th>
+            <th>PT 타입</th>
+            <th>아이디</th>
+            <th>전화번호</th>
+            <th>성별</th>
+            <th>PT 잔여 횟수</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+        {{#ptUser}}
+            <th>{{userName}}</th>
+            <th>{{userId}}</th>
+            <th>{{gender}}</th>
+            <th>{{tel}}</th>
+            <th>{{ptType}}</th>
+            <th>{{ptCnt}}</th>
+        {{/ptUser}}
+        </tr>
+    </tbody>
+</table>
+
+<div class="pagination">
+    <button id="prev-page">이전</button>
+    <span id="current-page">Page 1</span>
+    <button id="next-page">다음</button>
+</div>
 
 {{>layout/footer}}

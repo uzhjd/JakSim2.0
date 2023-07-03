@@ -10,7 +10,7 @@ public class TimetableRowMapper implements RowMapper<TimetableDto> {
     public TimetableDto mapRow(ResultSet rs, int rowNum) throws SQLException {
         TimetableDto timetableDto = TimetableDto.builder()
                                                 .tIdx(rs.getInt("T_IDX"))
-                                                .userId(rs.getInt("USER_ID"))
+                                                .userId(rs.getString("USER_ID"))
                                                 .tDate(rs.getDate("T_DATE").toLocalDate())
                                                 .tStartT(rs.getTime("T_START_T").toLocalTime())
                                                 .tEndT(rs.getTime("T_END_T").toLocalTime())

@@ -2,9 +2,9 @@
 <body>
 {{>layout/navi}}
 <div id="index_container">
-    <form action="/ptTimetableRegister" method="POST">
+    <form action="/trainer/ptTimetableUpdate" method="POST">
+        <h3>PT 시간</h3>
         {{#timetable}}
-            <h3>PT 시간 등록</h3>
         <div id="trainer_manage_container">
             <div class="manage_container">
                 <div class="time_container">
@@ -13,83 +13,147 @@
                     <input type="time" id="end_time_1" name="tEndT" value="{{tEndT}}">
                 </div>
                 <div class="manage_radio_container">
-                    <input type="radio" name="tType" value="one" {{#isOneToOne}}checked="checked"{{/isOneToOne}}>1:1
-                    <input type="radio" name="tType" value="gather" {{#isGroup}}checked="checked"{{/isGroup}}>단체
-                    <input type="radio" name="tType" value="consult" {{#isConsultation}}checked="checked"{{/isConsultation}}>상담
+                    <input type="radio" name="tType" value="0">상담
+                    <input type="radio" name="tType" value="1">1:1
+                    <input type="radio" name="tType" value="2">단체
                 </div>
                 <div class="count_people">
                     <label for="people" class="manage_people_label">인원수</label>
                     <input type="number" name="tPeople" value="{{tPeople}}">
                 </div>
+                <button id="delete_timetable">시간 삭제</button>
             </div>
-            {{#isEditing}}
                 <!-- Additional inputs for editing -->
                 <input type="hidden" name="tIdx" value="{{tIdx}}">
                 <input type="hidden" name="_method" value="PUT">
-            {{/isEditing}}
-        {{/timetable}}
-    </div>
-        <!-- Additional inputs for deletion -->
-        {{#isDeleting}}
+        </div>
             <input type="hidden" name="tID" value="{{tIdx}}">
             <input type="hidden" name="_method" value="DELETE">
-        {{/isDeleting}}
         <!-- Buttons -->
+        {{/timetable}}
+
+    </form>
+    <form action="/trainer/ptTimetableRegister" method="POST">
+        <div class="time_container">
+            <span class="manage_class">수업시간</span>
+            <input type="time" id="start_time_1" name="tStartT"> ~
+            <input type="time" id="end_time_1" name="tEndT">
+        </div>
+        <div class="manage_radio_container">
+            <input type="radio" name="tType" value="0">상담
+            <input type="radio" name="tType" value="1">1:1
+            <input type="radio" name="tType" value="2">단체
+        </div>
+        <div class="count_people">
+            <label for="people" class="manage_people_label">인원수</label>
+            <input type="number" name="tPeople">
+        </div>
         <div id="manage_button_div">
-            <button id="manage_button">{{#isEditing}}변경사항 저장{{/isEditing}}{{#isDeleting}}시간 삭제{{/isDeleting}}{{^isEditing}}{{^isDeleting}}시간 등록{{/isDeleting}}{{/isEditing}}</button>
+            <button id="manage_button">시간 등록하기</button>
         </div>
     </form>
-    <script>
-        const form = document.querySelector('form');
-
-        form.addEventListener('submit', function(event) {
-      event.preventDefault(); // Prevent the default form submission behavior
-
-      // Extract the form data and perform the desired action
-      const formData = new FormData(form);
-      const tID = formData.get('tIdx'); // Get the timetable ID
-
-      if (tID) {
-        // If tID exists, it means an existing timetable is being edited or deleted
-        const method = formData.get('_method'); // Get the HTTP method (PUT or DELETE)
-
-        if (method === 'PUT') {
-          // Perform the logic for updating the existing timetable entry
-          const updatedTimetableData = {
-            // Extract the necessary form data for updating the timetable entry
-            tStartT: formData.get('tStartT'),
-            tEndT: formData.get('tEndT'),
-            tType: formData.get('tType'),
-            tPeople: formData.get('tPeople')
-          };
-
-          // Call a function to handle updating the timetable entry
-          updateTimetableEntry(tID, updatedTimetableData);
-        } else if (method === 'DELETE') {
-          // Perform the logic for deleting the existing timetable entry
-          // Call a function to handle deleting the timetable entry
-          deleteTimetableEntry(tID);
-        }
-      } else {
-        // If tID doesn't exist, it means a new timetable is being registered
-        const newTimetableData = {
-          // Extract the necessary form data for registering a new timetable entry
-          tStartT: formData.get('tStartT'),
-          tEndT: formData.get('tEndT'),
-          tType: formData.get('tType'),
-          tPeople: formData.get('tPeople')
-        };
-
-        // Call a function to handle registering the new timetable entry
-        registerTimetableEntry(newTimetableData);
-      }
-
-      // Clear the form inputs (optional)
-      form.reset();
-    });
-
-
-    </script>
 
 </div>
 {{>layout/footer}}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var plusButton = document.getElementById('plus_timetable');
+  plusButton.addEventListener('click', function(event) {
+    event.preventDefault();
+    
+    // Create a new manage_container div
+    var manageContainerDiv = document.createElement('div');
+    manageContainerDiv.className = 'manage_container';
+    
+    // Create a time_container div
+    var timeContainerDiv = document.createElement('div');
+    timeContainerDiv.className = 'time_container';
+    
+    // Create the "수업시간" label
+    var classLabel = document.createElement('span');
+    classLabel.className = 'manage_class';
+    classLabel.textContent = '수업시간';
+    
+    // Create the start_time_1 input
+    var startTimeInput = document.createElement('input');
+    startTimeInput.type = 'time';
+    startTimeInput.name = 'tStartT';
+    
+    // Create the end_time_1 input
+    var endTimeInput = document.createElement('input');
+    endTimeInput.type = 'time';
+    endTimeInput.name = 'tEndT';
+    
+    // Append the elements to the time_container div
+    timeContainerDiv.appendChild(classLabel);
+    timeContainerDiv.appendChild(startTimeInput);
+    timeContainerDiv.appendChild(document.createTextNode(' ~ '));
+    timeContainerDiv.appendChild(endTimeInput);
+    
+    // Create the manage_radio_container div
+    var radioContainerDiv = document.createElement('div');
+    radioContainerDiv.className = 'manage_radio_container';
+    
+    // Create the radio buttons
+    var oneRadio = document.createElement('input');
+    oneRadio.type = 'radio';
+    oneRadio.name = 'tType';
+    oneRadio.value = 'one';
+    
+    var oneLabel = document.createTextNode('1:1');
+    
+    var gatherRadio = document.createElement('input');
+    gatherRadio.type = 'radio';
+    gatherRadio.name = 'tType';
+    gatherRadio.value = 'gather';
+    
+    var gatherLabel = document.createTextNode('단체');
+    
+    var consultRadio = document.createElement('input');
+    consultRadio.type = 'radio';
+    consultRadio.name = 'tType';
+    consultRadio.value = 'consult';
+    
+    var consultLabel = document.createTextNode('상담');
+    
+    // Append the radio buttons to the manage_radio_container div
+    radioContainerDiv.appendChild(oneRadio);
+    radioContainerDiv.appendChild(oneLabel);
+    radioContainerDiv.appendChild(gatherRadio);
+    radioContainerDiv.appendChild(gatherLabel);
+    radioContainerDiv.appendChild(consultRadio);
+    radioContainerDiv.appendChild(consultLabel);
+    
+    // Create the count_people div
+    var countPeopleDiv = document.createElement('div');
+    countPeopleDiv.className = 'count_people';
+    
+    // Create the manage_people_label
+    var peopleLabel = document.createElement('label');
+    peopleLabel.htmlFor = 'people';
+    peopleLabel.className = 'manage_people_label';
+    peopleLabel.textContent = '인원수';
+    
+    // Create the tPeople input
+    var tPeopleInput = document.createElement('input');
+    tPeopleInput.type = 'number';
+    tPeopleInput.name = 'tPeople';
+    
+    // Append the elements to the count_people div
+    countPeopleDiv.appendChild(peopleLabel);
+    countPeopleDiv.appendChild(tPeopleInput);
+    
+    // Append the elements to the manage_container div
+    manageContainerDiv.appendChild(timeContainerDiv);
+    manageContainerDiv.appendChild(radioContainerDiv);
+    manageContainerDiv.appendChild(countPeopleDiv);
+    
+    // Append the manage_container div to the trainer_manage_container div
+    // Append the manage_container div to the index_container div
+    var indexContainerDiv = document.getElementById('index_container');
+    indexContainerDiv.appendChild(manageContainerDiv);
+
+  });
+});
+</script>

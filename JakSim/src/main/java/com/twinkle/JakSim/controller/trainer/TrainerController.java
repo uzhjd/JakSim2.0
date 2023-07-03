@@ -104,20 +104,27 @@ public class TrainerController {
 
         return "content/trainer/trainerControlpage";
     }
-    @PostMapping("/ptTimetableRegister")
-    public String timetableRegister(Model model, @AuthenticationPrincipal User info, TimetableDto timetable, int tIdx){
+    @PostMapping("/trainer/ptTimetableRegister")
+    public String timetableRegister(Model model, @AuthenticationPrincipal User info, TimetableDto timetable){
         model.addAttribute("head_title", "트레이너 관리페이지");
         model.addAttribute("userId", info);
         model.addAttribute("timetable", trainerService.getTimetable(info.getUsername()));
         trainerService.registerTimetable(timetable, info.getUsername());
-        trainerService.updateTimetable(timetable, info.getUsername());
-        trainerService.deleteTimetable(tIdx);
-        //3개 한번에 되는지 테스트 해보기
 
         return "content/trainer/trainerControlpage";
     }
+    @PostMapping("/trainer/ptTimetableUpdate")
+    public String timetableDelete(Model model, @AuthenticationPrincipal User info, TimetableDto timetable, int tIdx){
+        model.addAttribute("head_title", "트레이너 관리페이지");
+        model.addAttribute("userId", info);
+        model.addAttribute("timetable", trainerService.getTimetable(info.getUsername()));
 
-    @GetMapping("trainer/ptUserInfo")
+        trainerService.deleteTimetable(tIdx);
+
+        return "redirect:/trainer/trainerControl";
+    }
+
+    @GetMapping("/trainer/ptUserInfo")
     public String ptUserInfo(Model model, @AuthenticationPrincipal User info){
         model.addAttribute("head_title", "트레이너 관리페이지");
         model.addAttribute("userId", info);
