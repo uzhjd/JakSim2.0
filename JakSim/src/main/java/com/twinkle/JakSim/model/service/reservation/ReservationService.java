@@ -10,47 +10,44 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class ReservationService {
+
     private final ReservationDao reservationDao;
     private final TimetableDao timetableDao;
     private final PaymentDao paymentDao;
 
-    public Boolean register(ReservationDto reservationDto) {
-        boolean resAvailable = true;
-        boolean result = true;
+    public int register(String userId, ReservationDto reservationDto) throws Exception {
+        boolean isReservated = reservationDao.isReservate(userId, reservationDto.getTDate());
+
+        boolean isPtTicket = paymentDao.isPtTicket(reservationDto.getPIdx());
+
+        boolean isTimetable = timetableDao.isTimetable(reservationDto.getTIdx());
+
+        if(!isReservated)
+            return 1;
+        else if(!isPtTicket)
+            return 2;
+        else if(!isTimetable)
+            return 3;
 
         try {
-            // 해당 날에 대한 예약이 없을 경우
-//            boolean isReservate = reservationDao.isReservate(reservationDto.getUserId(), reservationDto.getTDate());
+            boolean register = reservationDao.register(userId, reservationDto.getTIdx(), reservationDto.getPIdx());
 
-            // pt권 수가 남아있는지
-            boolean isPtTicket = paymentDao.isPtTicket(reservationDto.getTIdx());
-
-            // time table idx가 실제하는 데이터인지
-            boolean isTimetable = timetableDao.isTimetable(reservationDto.getTIdx());
-
-        } catch (NullPointerException e) {
-            resAvailable = false;
-            System.out.println("e.getMessage() = " + e.getMessage());
-            System.out.println("예약을 할 수 없는 환경입니다.");
+            if(register)
+                paymentDao.decreasePt(reservationDto.getPIdx());
+            else
+                return 4;
         } catch (Exception e) {
             System.out.println("e.getMessage() = " + e.getMessage());
         }
 
-        // 등록 시도
-        if(resAvailable) {
-            result = reservationDao.register(reservationDto.getTIdx(), reservationDto.getUserId());
-        }
-
-        if(result) {
-            paymentDao.decreasePt(reservationDto.getPIdx());
-        }
-
-        return result;
+        // 0: 예약 완료, 1: 등록된 예약 O, 2: 사용가능한 PT권 X, 일정 존재 X, 4: 예기치 못한 에러 발생
+        return 0;
     }
 
     public Boolean delete(int pIdx, int rIdx) {
         if(reservationDao.delete(rIdx)) {
             paymentDao.increaseCnt(pIdx);
+
             return true;
         }
 

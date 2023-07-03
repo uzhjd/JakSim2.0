@@ -26,6 +26,7 @@ public class TimetableDao {
         } catch (EmptyResultDataAccessException e) {
             System.out.println("there isn't any timetables");
             System.out.println(e);
+
             result = false;
         } catch (Exception e){
             System.out.println(e);

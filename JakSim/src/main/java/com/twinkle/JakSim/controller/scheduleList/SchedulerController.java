@@ -19,7 +19,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/scheduler")
 @RequiredArgsConstructor
-public class SchedulerController2 {
+public class SchedulerController {
 
     private final TrainerService trainerService;
     private final PaymentService paymentService;

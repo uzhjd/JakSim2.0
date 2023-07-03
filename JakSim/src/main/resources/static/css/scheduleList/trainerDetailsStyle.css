@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css?family=Questrial&display=swap');
+
+#trainer2 {
+    font-family: 'Questrial', sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    color: rgba(116, 116, 116, 1);
+
+    float: right;
+    width: 400px;
+    height: 200px;
+}
+
+#trainer-details {
+    border: 2px solid rgba(196, 196, 196, 1);
+    padding: 10px;
+    border-radius: 20px;
+    padding: 20px
+}
+
+.trainer-info {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+}
+
+#trainerDetail {
+    float: right;
+    margin-right: 50px;
+}
+
