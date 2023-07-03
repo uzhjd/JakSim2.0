@@ -12,6 +12,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Repository
@@ -152,10 +154,10 @@ public class TrainerDao {
         return jdbcTemplate.query(this.sql, new TimetableRowMapper(), userId);
     }
 
-    public void registerTimetable(TimetableDto timetable, String userId) {
-        this.sql = "INSERT INTO TIMETABLE VALUES(NULL, ?, sysdate(), ?, ?, ?, ?)";
+    public void registerTimetable(TimetableDto timetable) {
+        this.sql = "INSERT INTO TIMETABLE VALUES(NULL, ?, ?, ?, ?, ?, ?)";
 
-        jdbcTemplate.update(this.sql, userId,         //DATE는 안넣어도 될 것 같은데..timetable.getTDate(),
+        jdbcTemplate.update(this.sql, timetable.getUserId(), timetable.getTDate(),         //DATE는 안넣어도 될 것 같은데..timetable.getTDate(),
                 timetable.getTStartT(), timetable.getTEndT(),
                 timetable.getTPeople(), timetable.getTType());
     }

@@ -30,22 +30,20 @@ public class ReviewController {
     @PostMapping("/editReview")
     public String editMyReview(Model model, @AuthenticationPrincipal User info,
                                ReviewRequestDto reviewRequestDto) {
-        model.addAttribute("head_title", "리뷰 수정");
         model.addAttribute("userId", info);
         model.addAttribute("review", reviewService.showMyReivew(info.getUsername()));
         reviewService.editReview(reviewRequestDto, info.getUsername());
 
-        return "content/review/editReview";
+        return "redirect:/editReview";
     }
 
     @PostMapping("/deleteReview")
     public String deleteMyReview(Model model, @AuthenticationPrincipal User info,
                                ReviewRequestDto reviewRequestDto) {
-        model.addAttribute("head_title", "트레이너 상세페이지");
         model.addAttribute("userId", info);
         reviewService.deleteReview(info.getUsername());
 
-        return "content/trainer/trainerDetailPage";
+        return "redirect:/trainer/{trainerId}";
     }
 
 

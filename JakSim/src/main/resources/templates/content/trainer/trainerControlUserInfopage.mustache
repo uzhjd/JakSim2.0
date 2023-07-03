@@ -1,41 +1,215 @@
 {{>layout/header}}
 <body>
 {{>layout/navi}}
-<!DOCTYPE html>
-<h4>전체 회원 조회</h4>
+<style>
+    * {
+        font-family: Noto Sans KR;
+        margin: 0;
+        padding: 0;
+    }
 
-<div class="search-container">
-    <input type="text" id="search-input" placeholder="회원명">
-</div>
-<table>
-    <thead>
-        <tr>
-            <th>회원명</th>
-            <th>PT 타입</th>
-            <th>아이디</th>
-            <th>전화번호</th>
-            <th>성별</th>
-            <th>PT 잔여 횟수</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-        {{#ptUser}}
-            <th>{{userName}}</th>
-            <th>{{userId}}</th>
-            <th>{{gender}}</th>
-            <th>{{tel}}</th>
-            <th>{{ptType}}</th>
-            <th>{{ptCnt}}</th>
-        {{/ptUser}}
-        </tr>
-    </tbody>
-</table>
+    main {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        margin-top: 0px;
+        align-items: flex-start;
+        border-top: 2px solid #dedede;
+    }
 
-<div class="pagination">
-    <button id="prev-page">이전</button>
-    <span id="current-page">Page 1</span>
-    <button id="next-page">다음</button>
-</div>
+    .sideBar {
+        width: 26.33%;
+        height: auto;
+        margin-left: 20px;
+    }
 
+    .sideBar ul {
+        float: right;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .menuPart {
+        float: right;
+        margin-top: 80px;
+        margin-bottom: 10px;
+        margin-right: 20px;
+    }
+
+    .sideBar li.active a {
+        color: #A584EE;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .sideBar li a {
+        color: black;
+        text-decoration: none;
+        font-weight: thin;
+    }
+
+    .sideBar li a:hover {
+        color: #A584EE;
+    }
+
+    .right_info {
+        color: rgba(29.000000171363354, 29.000000171363354, 32.00000189244747, 1);
+        position: relative;
+        font-size: 25px;
+        font-weight: 600;
+        margin-top: 30px;
+        margin-bottom: 50px;
+
+    }
+
+    .main {
+        float: left;
+        width: 65%;
+        height: auto;
+        padding: 50px;
+        padding-top: 0;
+        border-left: 2px solid #dedede;
+        margin-left: 30px;
+        padding-left: 80px;
+    }
+
+    .user_data-container {
+        width: 770px;
+        margin: 50px 0px;
+        padding: 30px;
+        background-color: white;
+        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
+        border-radius: 7px;
+        float: left;
+        margin-top: 0px;
+
+    }
+
+    table {
+        margin: 0 auto;
+    }
+
+    .search-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .search-input-container {
+        position: relative;
+        margin-left: 550px;
+    }
+
+    .search-input {
+        width: 250px;
+        height: 30px;
+        border-radius: 5px;
+        border: 1px solid #B7B7B7;
+        padding: 5px 30px 5px 10px;
+        font-size: 14px;
+
+    }
+
+    .search-icon {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        color: #a584ee;
+        visibility: visible;
+
+    }
+
+    th, td {
+        text-align: center;
+    }
+
+    th {
+    padding-bottom: 10px;
+    }
+
+    td {
+        border-bottom: 1px solid #dedede;
+        padding-top: 20px;
+        padding-bottom: 5px;
+    }
+
+</style>
+<script src="https://kit.fontawesome.com/05995ac069.js" crossorigin="anonymous"></script>
+<main>
+    <nav class="sideBar" style="width: 170px;">
+        <ul>
+            <div class="menuPart">
+                <li ><a href="/trainer/trainerControl">PT 시간 등록</a></li>
+                <li class="active"><a href="/trainer/ptUserInfo">전체 회원 정보 조회</a></li>
+            </div>
+        </ul>
+    </nav>
+    <div class="main">
+        <div>
+            <h3 class="right_info">전체 회원 정보 조회</h3>
+        </div>
+        <div class="search-container">
+            <div class="search-input-container">
+                <input style="width: 222px;" type="text" class="search-input" placeholder="검색어를 입력하세요" id="search-input">
+                <a onclick="searchUsers()" class="search-icon"><i class="fa-solid fa-magnifying-glass fa-sm"></i></a>
+            </div>
+        </div>
+        <div class="user_data-container">
+            <table>
+                <thead>
+                <tr>
+                    <th>회원명</th>
+                    <th>PT 타입</th>
+                    <th>아이디</th>
+                    <th>전화번호</th>
+                    <th>성별</th>
+                    <th>PT 잔여 횟수</th>
+                </tr>
+                </thead>
+                <tbody id="table-body">
+                    {{#ptUser}}
+                        <tr>
+                            <td>{{userName}}</td>
+                            <td>{{ptType}}</td>
+                            <td>{{userId}}</td>
+                            <td>{{tel}}</td>
+                            <td>{{gender}}</td>
+                            <td>{{ptCnt}}</td>
+                        </tr>
+                    {{/ptUser}}
+                    </tbody>
+                </table>
+        </div>
+<!--            <div class="pagination">-->
+<!--                <button id="prev-page">이전</button>-->
+<!--                <span id="current-page">Page 1</span>-->
+<!--                <button id="next-page">다음</button>-->
+<!--            </div>-->
+        </div>
+    </main>
 {{>layout/footer}}
+
+<script>
+    function searchUsers() {
+        // 검색어 입력란의 값을 가져옵니다.
+        var keyword = document.getElementById("search-input").value.toLowerCase();
+
+        // 회원 리스트의 각 행을 가져옵니다.
+        var rows = document.getElementById("table-body").getElementsByTagName("tr");
+
+        // 각 행을 순회하면서 검색어와 일치하는 회원명을 찾습니다.
+        for (var i = 0; i < rows.length; i++) {
+            var userName = rows[i].getElementsByTagName("td")[0].innerText.toLowerCase();
+
+            // 회원명과 검색어를 비교하여 일치하지 않는 행을 숨깁니다.
+            if (userName.indexOf(keyword) === -1) {
+                rows[i].style.display = "none";
+            } else {
+                rows[i].style.display = ""; // 일치하는 경우 보이도록 설정합니다.
+            }
+        }
+    }
+</script>

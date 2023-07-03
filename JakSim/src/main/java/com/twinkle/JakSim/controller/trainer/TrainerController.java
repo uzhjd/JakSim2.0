@@ -1,5 +1,6 @@
 package com.twinkle.JakSim.controller.trainer;
 
+import com.twinkle.JakSim.model.dto.timetable.TimetableInsertDto;
 import com.twinkle.JakSim.model.dto.timetable.response.TimetableDto;
 import com.twinkle.JakSim.model.dto.trainer.TrainerInsertDto;
 import com.twinkle.JakSim.model.dto.trainer.*;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -105,20 +107,15 @@ public class TrainerController {
         return "content/trainer/trainerControlpage";
     }
     @PostMapping("/trainer/ptTimetableRegister")
-    public String timetableRegister(Model model, @AuthenticationPrincipal User info, TimetableDto timetable){
-        model.addAttribute("head_title", "트레이너 관리페이지");
+    public String timetableRegister(Model model, @AuthenticationPrincipal User info, TimetableInsertDto timetable){
         model.addAttribute("userId", info);
-        model.addAttribute("timetable", trainerService.getTimetable(info.getUsername()));
+        System.out.println(timetable.toString());
         trainerService.registerTimetable(timetable, info.getUsername());
 
-        return "content/trainer/trainerControlpage";
+        return "redirect:/trainer/trainerControl";
     }
     @PostMapping("/trainer/ptTimetableUpdate")
-    public String timetableDelete(Model model, @AuthenticationPrincipal User info, TimetableDto timetable, int tIdx){
-        model.addAttribute("head_title", "트레이너 관리페이지");
-        model.addAttribute("userId", info);
-        model.addAttribute("timetable", trainerService.getTimetable(info.getUsername()));
-
+    public String timetableDelete(@RequestParam("tIdx") int tIdx){
         trainerService.deleteTimetable(tIdx);
 
         return "redirect:/trainer/trainerControl";
@@ -131,5 +128,16 @@ public class TrainerController {
         model.addAttribute("ptUser", trainerService.getMyPtUserInfo(info.getUsername()));
 
         return "content/trainer/trainerControlUserInfopage";
+    }
+
+    @GetMapping("/modalTest")
+    public String modalTest(Model model) {
+        model.addAttribute("head_title", "주소 검색");
+        return "content/trainer/addressTest";
+    }
+
+    @GetMapping("/address-search")
+    public String addressTest() {
+        return "content/trainer/addressModal";
     }
 }

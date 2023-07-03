@@ -6,8 +6,9 @@
 <div id="index_container">
     <div id="findTrainer_container">
         <div id="location">
-            <i class="fa-sharp fa-solid fa-location-dot fa-xl" style="color: #ca7cfd;"></i>
-            <span id="location_span">서울시 구로구 가산디지털단지역</span>
+            <a onclick="road()" style="cursor: pointer;"><i class="fa-sharp fa-solid fa-location-dot fa-xl" style="color: #ca7cfd;" id="location"></i></a>
+            <input readonly type="text" placeholder="주소를 입력하세요" id="input-address" style="pointer-events: none; width: 350px; border: white; border-radius: 5px; "/>
+            <br>
         </div>
 
         <div id="button_container">
@@ -30,7 +31,7 @@
             <label for="toggle-condition" class="toggle-label">컨디셔닝</label>
         </div>
 
-        <span id="amount_trainer">200명의 트레이너</span> <br/>
+<!--        <span id="amount_trainer">200명의 트레이너</span> <br/>-->
 
         <style>
             .trainer-container {
@@ -63,7 +64,7 @@
                             <span>{{gym}}</span>
                         </div>
                         <div>
-                            <span>{{userName}}</span>
+                            <span>{{userName}} <i class="fa-solid fa-star" style="color: #f3eb12;"></i> </span>
                         </div>
                         <div>
                             <span class="searchExpert1">{{expert1}}</span>
@@ -120,12 +121,13 @@ window.onload = function() {
     }
   }
 
- 
+
   
 };
 
 
 </script>
+
 
 <script>
 
@@ -163,3 +165,23 @@ window.onload = function() {
     });
   }
 </script>
+
+<script>
+        function road() {
+             const popup = window.open("/address-search","Popup", "width=800, height=700");
+
+             popup.onbeforeunload=(data)=>{
+                 console.log(data)
+                 console.log("데이터 체크")
+            }
+             // 팝업창에 데이터 쓰기
+             popup.document.write(data);
+        }
+
+        function test(){
+            $.ajax({
+                url: "https://business.juso.go.kr/addrlink/addrLinkUrl.do?confmKey=U01TX0FVVEgyMDIzMDUwMjE0MTI1MDExMzczNzM=&returnUrl=http://localhost:3030/road-return&resultType=4",
+                type: "GET",
+            })
+        }
+    </script>
