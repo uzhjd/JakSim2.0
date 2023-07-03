@@ -1,6 +1,8 @@
 package com.twinkle.JakSim.controller.mypage;
 
+import com.twinkle.JakSim.model.dto.account.LoginLogDto;
 import com.twinkle.JakSim.model.service.account.AccountService;
+import com.twinkle.JakSim.model.service.account.LoginLogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,6 +22,7 @@ import java.security.Principal;
 public class MypageController {
     private final String defaultPath = "/content/mypage/";
     private final AccountService accountService;
+    private final LoginLogService loginLogService;
     @GetMapping("/auth")
     public String authPage(Model model){
         model.addAttribute("head_title", "개인페이지");
@@ -27,10 +30,18 @@ public class MypageController {
     }
 
     @GetMapping("/{username}")
-    public String myPage(@PathVariable("username") String username, @AuthenticationPrincipal User user, Model model){
+    public String mainPage(@PathVariable("username") String username, Model model){
         model.addAttribute("head_title", "개인페이지");
-        model.addAttribute("user_info", accountService.findByUsername(user.getUsername()));
+        model.addAttribute("user_info", accountService.findByUsername(username));
+        LoginLogDto logDto = loginLogService.findByUsernameRecent(username);
+        if(logDto.getIp() != null)
+            model.addAttribute("log", logDto);
         return String.format(defaultPath + "mypage");
     }
 
+    @GetMapping("/mypage/{userId}/log")
+    public String logPage(@PathVariable("userId") String username, Model model){
+        model.addAttribute("head_title", username + "님 이력확인");
+        return String.format(defaultPath + "log");
+    }
 }

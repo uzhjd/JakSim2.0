@@ -1,16 +1,22 @@
 {{>layout/header}}
-    <script src="javascript/account/login.js"></script>
-    <link rel="stylesheet" href="css/account/loginStyle.css">
+    <script src="/javascript/account/login.js"></script>
+    <link rel="stylesheet" href="/css/account/loginStyle.css">
+    <link rel="stylesheet" href="/css/account/accountStyle.css">
 <body>
 {{>layout/navi}}
 
     <div class="container">
         <form action="/login/action" method="post">
-            <input type="text" name="username" id="user_id" class="form-control" placeholder="USER ID">
-            <br>
-            <input type="password" name="password" id="user_pw" class="form-control" placeholder="USER PW">
-            <br>
-            <button class="btn btn-primary" type="submit" id="loginButton">로그인</button>
+            <div class="account_input_container">
+                <input type="text" name="username" id="user_id" class="account_input" placeholder="USER ID">
+            </div>
+            <div class="account_input_container">
+                <input type="password" name="password" id="user_pw" class="account_input" placeholder="USER PW">
+            </div>
+            <div class="account_input_container">
+                <span id="login_failure_span" style="margin:3px;"></span>
+            </div>
+            <button class="account_button" type="submit" id="loginButton" style="margin:3px;">로그인</button>
         </form>
     </div>
 

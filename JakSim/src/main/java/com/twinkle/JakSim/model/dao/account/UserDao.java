@@ -13,11 +13,12 @@ public class UserDao {
     private JdbcTemplate jdbcTemplate;
 
     public int insertMember(UserDto user){
-        String sql = "INSERT INTO USER_INFO VALUES(?, ?, ?, ?, ?, ?, ?, ?, current_timestamp, ?)";
+        String sql = "INSERT INTO USER_INFO(user_id, user_pw, user_name, user_gender, user_tel, user_email, user_question, user_answer, user_birth, user_c_dt, user_role) " +
+                "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, current_timestamp, ?)";
         int result = -1;
         try{
             result = jdbcTemplate.update(sql,
-                    user.getId(), user.getPw(), user.getName(), user.getGender(), user.getTel(),
+                    user.getId(), user.getPw(), user.getName(), user.getGender(), user.getTel(), user.getEmail(),
                     user.getQuestion(), user.getAnswer(), user.getBirth(), user.getRole());
         }catch(EmptyResultDataAccessException e){
             return -1;
