@@ -7,10 +7,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class ReviewController {
@@ -27,7 +24,7 @@ public class ReviewController {
         return "content/review/editReview";
     }
 
-    @PostMapping("/editReview")
+    @PostMapping("/editMyReview")
     public String editMyReview(Model model, @AuthenticationPrincipal User info,
                                ReviewRequestDto reviewRequestDto) {
         model.addAttribute("userId", info);
@@ -40,11 +37,18 @@ public class ReviewController {
     @PostMapping("/deleteReview")
     public String deleteMyReview(Model model, @AuthenticationPrincipal User info,
                                ReviewRequestDto reviewRequestDto) {
-        model.addAttribute("userId", info);
+        //model.addAttribute("userId", info);
         reviewService.deleteReview(info.getUsername());
 
         return "redirect:/trainer/{trainerId}";
     }
+
+//    @PostMapping("/trainer/ptTimetableUpdate")
+//    public String timetableDelete(@RequestParam("tIdx") int tIdx){
+//        trainerService.deleteTimetable(tIdx);
+//
+//        return "redirect:/trainer/trainerControl";
+//    }
 
 
 }
