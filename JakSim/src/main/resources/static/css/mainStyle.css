@@ -1,6 +1,26 @@
+@import url('https://fonts.googleapis.com/css?family=Questrial&display=swap');
+
 .container{
     width: 90%;
     margin: 1rem auto;
+}
+
+.jaksim_btn{
+    font-family: 'Questrial', sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+
+    border: 2px solid #E9E1FB;
+    border-radius: 7px;
+    padding: 6px 6px 2px 6px;
+
+    background-color: #E9E1FB;
+    color: #BFBFBF;
+}
+.jaksim_btn:hover, .jaksim_btn:active, .jaksim_btn:disabled{
+    background-color: #C8B0FC;
+    border: 2px solid #FFFFFF;
+    color: #FFFFFF;
 }
 
 #navi_userInfo{
@@ -10,5 +30,20 @@
 #navi_profile_img{
     width:2.3rem;
     border-radius: 50%;
-    border: 0.15rem solid #8753F6;
+    border: 0.15rem solid #C8B0FC;
+}
+
+#nav_time{
+    margin: 0px 5px 0px 5px;
+    color:#C8B0FC;
+}
+
+#nav-head{
+    color: #C8B0FC;
+    font-weight: bold;
+}
+
+.nav_font{
+    font-family: 'Questrial', sans-serif;
+    color:#747474;
 }

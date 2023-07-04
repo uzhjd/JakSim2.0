@@ -4,36 +4,49 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="trainerRegister">트레이너 등록</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/trainer/trainerSearch">트레이너 찾기</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/scheduler/details/ujeong">스케줄러</a>
-                </li>
+                {{#isTrainer}}
+                    <li class="nav-item">
+                        <a class="nav-link nav_font" href="/scheduler/details/ujeong">스케줄러 확인</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav_font" href="trainerRegister">트레이너 찾기</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav_font" href="trainerRegister">PT 관리</a>
+                    </li>
+                {{/isTrainer}}
+                {{^isTrainer}}
+                    <li class="nav-item">
+                        <a class="nav-link nav_font" href="/scheduler/details/ujeong">스케줄러</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav_font" href="trainerRegister">트레이너 찾기</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav_font" href="trainerRegister">트레이너 등록</a>
+                    </li>
+                {{/isTrainer}}
             </ul>
             {{#session_username}}
                 <li class="nav-item d-flex">
                     <a href="/mypage/auth"><img src="/image/profile.jpg" alt="profile" id="navi_profile_img"></a>
                 </li>
                 <li class="nav-item d-flex" id="navi_userInfo">
-                    <a class="nav-link" href="/mypage/auth" id="navi_username">{{session_username}}</a>
+                    <a class="nav-link nav_font" href="/mypage/auth" id="navi_username">{{session_username}}</a>
                 </li>
                 <li class="nav-item d-flex">
-                    <span class="nav-link" id="nav_time" style="margin: 0px 5px 0px 5px; color:#8753F6;">-- : --</span>
+                    <span class="nav-link" id="nav_time">-- : --</span>
                 </li>
                 <li class="nav-item d-flex" style="margin-left:7px">
-                    <a class="nav-link" href="/logout">로그아웃</a>
+                    <a class="nav-link nav_font" href="/logout">로그아웃</a>
                 </li>
             {{/session_username}}
             {{^session_username}}
                 <li class="nav-item d-flex" style="margin-left:7px">
-                    <a class="nav-link" href="/login">로그인</a>
+                    <a class="nav-link nav_font" href="/login">로그인</a>
                 </li>
                 <li class="nav-item d-flex" style="margin-left:7px;">
-                    <a class="nav-link" href="/account/1">회원가입</a>
+                    <a class="nav-link nav_font" href="/account/1">회원가입</a>
                 </li>
             {{/session_username}}
         </div>
