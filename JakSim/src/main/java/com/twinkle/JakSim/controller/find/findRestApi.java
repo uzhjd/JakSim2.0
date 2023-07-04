@@ -15,6 +15,11 @@ public class findRestApi {
         return accountService.findByEmail(userDto.getEmail()) != null;
     }
 
+    @PostMapping("/email/get")
+    public UserDto getEmail(@RequestBody UserDto userDto){
+        return accountService.findByEmail(userDto.getEmail());
+    }
+
     @PostMapping("/email/action")
     public String actionEmail(@RequestBody UserDto userDto){
         return accountService.validateEmail(userDto.getEmail());

@@ -3,6 +3,8 @@ var buttonCnt = 0;
 var timeSpan, emailCheckInput, checkButton, time, intervalId, nextButton, phoneSpan;
 var isEmail = false, isPhone = false;
 var emailCheckButton;
+var timeout;
+var requestId;
 
 window.onload = function(){
     emailCheckButton = document.getElementById('account_email_button');
@@ -82,26 +84,46 @@ function createCheckDiv(container) {
 
   time = 180;
 
-  if(!intervalId){
-    intervalId = setInterval(updateTimeSpan, 1000);
-  }
+  showValidTime();
 }
 
-function updateTimeSpan(){
-    var min = Math.floor(time / 60);
-    var seconds = time % 60;
-    seconds = seconds.toString().padStart(2, '0');
-    timeSpan.innerHTML = `${min} : ${seconds}`;
-    if (time === 0) {
-        clearInterval();
-    } else {
-        time--;
+function showValidTime(){
+    timeout = false;
+
+    var startTime = Date.now();
+    var endTime = startTime + time*1000;
+
+    function update(){
+        var currentTime = Date.now();
+        var remainTime = Math.max(0, endTime - currentTime);
+
+        var seconds = Math.floor(remainTime/1000);
+        var min = Math.floor(seconds/60);
+        seconds = seconds%60;
+
+        min = min.toString().padStart(2, '0');
+        seconds = seconds.toString().padStart(2, '0');
+
+        timeSpan.innerHTML = `${min} : ${seconds}`;
+
+        if(currentTime < endTime){
+            requestId = requestAnimationFrame(update);
+        }else{
+            timeout = true;
+            alert('시간이 초과되었습니다.');
+        }
     }
+    update();
 }
+
+function stopTimer(){
+    cancelAnimationFrame(requestId);
+}
+
 
 function checkCode(){
     (answerCode === emailCheckInput.value) && (time !== 0) ? isEmail = true : isEmail = false;
-    if(!isEmail){
+    if(!isEmail || timeout){
         document.getElementById('account_codeCheck_fail').innerHTML = '인증번호를 다시 확인해주세요';
     }
     else{
