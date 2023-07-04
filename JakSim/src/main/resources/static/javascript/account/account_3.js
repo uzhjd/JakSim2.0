@@ -2,17 +2,36 @@ var answerCode = '';
 var buttonCnt = 0;
 var timeSpan, emailCheckInput, checkButton, time, intervalId, nextButton, phoneSpan;
 var isEmail = false, isPhone = false;
+var emailCheckButton;
 
 window.onload = function(){
-    var emailCheckButton = document.getElementById('account_email_button');
+    emailCheckButton = document.getElementById('account_email_button');
     var phoneCheckButton = document.getElementById('account_phone_button');
     nextButton = document.getElementById('account_3_next');
 
     nextButton.addEventListener('click', nextPage);
     emailCheckButton.addEventListener('click', function(){
-        sendMail(emailCheckButton); });
+        dupMail();
+    });
     phoneCheckButton.addEventListener('click', checkPhone);
 };
+
+function dupMail(){
+    axios.post('/account/checkemail', {email : document.getElementById('account_email').value})
+        .then(response => {
+            if(response.data){
+                alert('이메일이 전송되었습니다.');
+                document.getElementById('account_check_dupmail').innerHTML = '';
+                sendMail(emailCheckButton);
+            }else{
+                document.getElementById('account_check_dupmail').innerHTML = '이미 등록된 이메일입니다.';
+                document.getElementById('account_check_dupmail').style.color = 'red';
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
+}
 
 function nextPage(){
     sessionStorage.setItem('email', document.getElementById('account_email').value);
@@ -82,6 +101,12 @@ function updateTimeSpan(){
 
 function checkCode(){
     (answerCode === emailCheckInput.value) && (time !== 0) ? isEmail = true : isEmail = false;
+    if(!isEmail){
+        document.getElementById('account_codeCheck_fail').innerHTML = '인증번호를 다시 확인해주세요';
+    }
+    else{
+        document.getElementById('account_codeCheck_fail').innerHTML = '';
+    }
     isEmail && isPhone ? nextButton.disabled = false : nextButton.disabled = true;
 }
 

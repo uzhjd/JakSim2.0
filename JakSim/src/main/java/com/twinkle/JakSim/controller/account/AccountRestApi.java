@@ -34,6 +34,11 @@ public class AccountRestApi {
         return accountService.findByTel(data.getTel()) == null ? 0 : 1;
     }
 
+    @PostMapping("/checkemail")
+    public boolean dupEmail(@RequestBody UserDto data){
+        return accountService.findByEmail(data.getEmail()) == null;
+    }
+
     @PostMapping("/emailaction")
     public String checkEmail(@RequestBody UserDto data){
         return accountService.validateEmail(data.getEmail());
