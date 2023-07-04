@@ -10,7 +10,6 @@ public class PaymentRowMappper implements RowMapper<PaymentDto> {
 
     public PaymentDto mapRow(ResultSet rs, int rowNum) throws SQLException {
         PaymentDto paymentDto = PaymentDto.builder()
-                .pIdx(rs.getInt("P_IDX"))
                 .pPtCnt(rs.getInt("P_PT_CNT"))
                 .build();
 

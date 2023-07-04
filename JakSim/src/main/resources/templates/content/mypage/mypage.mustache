@@ -1,14 +1,20 @@
 {{>layout/header}}
-<script src="/javascript/mypage/mypage.js"></script>
+    <script src="/javascript/root.js"></script>
+    <script src="/javascript/mypage/mypage.js"></script>
+    <link rel="stylesheet" href="/css/mypage/mypageStyle.css">
 </head>
 
 <body>
 {{>layout/navi}}
-    <span>{{user_info.id}}님 환영합니다.</span>
-    <span>{{user_info.name}}</span>
-    <span>{{user_info.birth}}</span>
-    <span>{{user_info.c_dt}}</span>
-    <span>{{session_username}}</span>
 
-    <button type="button" id="mypage_delete">회원삭제</button>
+    <div id="mypage_container">
+        <aside>
+            {{>content/mypage/aside/main_aside}}
+        </aside>
+        <section>
+            {{>content/mypage/content/main_content}}
+        </section>
+
+    </div>
+
 {{>layout/footer}}

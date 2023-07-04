@@ -1,7 +1,15 @@
 window.onload = function(){
     var idCheckButton = document.getElementById('account_id_check');
+    var accountNextButton = document.getElementById('account_1_next');
+
     idCheckButton.addEventListener('click', idCheck);
+    accountNextButton.addEventListener('click', sessionStore);
 };
+
+function sessionStore(){
+
+    sessionStorage.setItem('pw', )
+}
 
 function idCheck(){
     var userId = document.getElementById('account_userid');
@@ -16,14 +24,13 @@ function idCheck(){
                 result.innerHTML = '아이디가 중복입니다.';
             }else{
                 result.innerHTML = '';
+                sessionStorage.setItem('id', document.getElementById('account_userid').value);
                 passwordDiv(document.getElementById('account_span_container'), document.getElementById('account_password_container'));
             }
         })
         .catch(error => {
             console.error(error);
         })
-
-        //why?
 };
 
 function passwordDiv(spanContainer, inputContainer){
@@ -45,6 +52,7 @@ function passwordDiv(spanContainer, inputContainer){
     passwordCheckButton.classList.add('account_button');
     passwordCheckButton.addEventListener('click', function(){
         if(checkPassowrd(passwordInput.value, confirmPasswordInput.value)){
+            sessionStorage.setItem('pw', passwordInput.value);
             document.getElementById('account_1_next').disabled=false;
         }else{
             document.getElementById('account_1_next').disabled=true;

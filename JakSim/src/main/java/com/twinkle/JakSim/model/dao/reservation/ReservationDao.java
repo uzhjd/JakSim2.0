@@ -21,7 +21,7 @@ public class ReservationDao {
         this.sql = "select * from reservation where user_id = ? and r_c_dt = ? ";
 
         try {
-            jdbcTemplate.query(this.sql, new IsReservationRowMapper(), userId, tDate);
+            jdbcTemplate.queryForObject(this.sql, new IsReservationRowMapper(), userId, tDate);
         } catch(EmptyResultDataAccessException e) {
             System.out.println("You have already booked");
             System.out.println(e);
@@ -31,21 +31,18 @@ public class ReservationDao {
         return result;
     }
 
-    public Boolean register(int tIdx, String userId) {
-        int isOk = 0;
+    public Boolean register(String userId, int tIdx, int pIdx) {
         Boolean result = true;
 
         this.sql = "insert into reservation " +
-                "values(RESERVATION_SEQ.NEXTVAL, ?, ?, to_date(sysdate,'YYYY/MM/DD'))";
+                "values(?, ?, ?)";
 
         try {
-            isOk = jdbcTemplate.update(this.sql, tIdx, userId);
+            jdbcTemplate.update(this.sql, tIdx, userId, pIdx);
 
-            if (isOk <= 0) {
-                result = false;
-            }
         } catch (EmptyResultDataAccessException e) {
             System.out.println("예약이 올바르게 되지 않았습니다.");
+
             return false;
         } catch (Exception e) {
             System.out.println(e);

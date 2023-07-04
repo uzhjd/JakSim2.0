@@ -35,18 +35,18 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.csrf().disable();
-        http.authorizeHttpRequests().antMatchers( "/account/**", "/", "/trainerUpdate/**", "/scheduler/**", "/trainerDelete", "/reservation/**", "/account/**", "/trainerRegister/**", "/trainer/**",
-                        "/javascript/**", "/css/**", "/image/**").permitAll()
+        http.authorizeHttpRequests().antMatchers( "/", "/trainerUpdate/**",
+                        "/scheduler/**", "/trainerDelete", "/reservation/**",
+                        "/trainerRegister/**", "/trainer/**",
+                        "/javascript/**", "/css/**", "/image/**", "/account/**").permitAll()
                 .antMatchers("/login/**", "/find/**").hasAnyRole("ANONYMOUS")
-                .anyRequest().authenticated()
-                .and()
+                .anyRequest().authenticated();
+        http
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login/action")
                 .successHandler(customAuthSuccessHandler)
-                .failureHandler(customAuthFailureHandler)
-                .usernameParameter("username")
-                .passwordParameter("password");
+                .failureHandler(customAuthFailureHandler);
         http.logout()
                 .deleteCookies("JSESSIONID")
                 .invalidateHttpSession(true).logoutUrl("/logout").permitAll()

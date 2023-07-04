@@ -6,10 +6,7 @@ import lombok.*;
 @Builder
 @ToString
 @AllArgsConstructor
-@NoArgsConstructor
 public class PaymentDto {
-
-    private int pIdx;
 
     private int pPtCnt;
 }
