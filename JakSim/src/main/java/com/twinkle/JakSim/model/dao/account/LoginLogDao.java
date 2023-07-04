@@ -6,6 +6,9 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Repository
 public class LoginLogDao {
     @Autowired
@@ -35,5 +38,18 @@ public class LoginLogDao {
         }
 
         return logDto;
+    }
+
+    public List<LoginLogDto> findByUsername(String username) {
+        String sql = "SELECT * FROM LOGIN_LOG WHERE USER_ID = ? ORDER BY L_DT desc";
+        List<LoginLogDto> resultList = new ArrayList<>();
+
+        try{
+            resultList = jdbcTemplate.query(sql, new LoginLogMapper(), username);
+        }catch (EmptyResultDataAccessException e){
+            System.out.println("로그인 기록이 없다는데?");
+        }
+
+        return resultList;
     }
 }

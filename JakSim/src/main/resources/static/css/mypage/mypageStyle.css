@@ -67,3 +67,44 @@ section{
     text-decoration-line: none;
     color: #575757;
 }
+
+.mypage_container{
+    margin: 1rem 3rem 1rem 3rem;
+}
+
+.mypage_title{
+    font-weight: bold;
+    color: #777777;
+}
+
+.mypage_table_tableHead{
+    background-color: #8753F6;
+    color: white;
+    border-top-right-radius: 10px;
+    border-top-left-radius:10px;
+    padding: 5px;
+}
+
+.mypage_table_tableHead > a{
+   color:white;
+   text-decoration-line: none;
+   font-weight:bold;
+   font-size: 1.3rem;
+}
+
+.mypage_table_row{
+    padding: 0.5rem;
+    border: 1px solid #d0d0d0;
+}
+
+.mypage_table_row > button{
+    color: #77777;
+    background-color: white;
+    border: 1px solid #777777;
+    border-radius: 5px;
+}
+
+.mypage_table_row > button:hover, .mypage_table_row > button:active, .mypage_table_row > button:disabled{
+    background-color: #777777;
+    color: white;
+}

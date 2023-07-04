@@ -78,4 +78,15 @@ public class UserDao {
         }
         return result;
     }
+
+    public UserDto findByEmail(String email) {
+        String sql = "SELECT * FROM USER_INFO WHERE USER_EMAIL = ?";
+        UserDto user = null;
+        try{
+            user = jdbcTemplate.queryForObject(sql, new UserRowMapper() ,email);
+        }catch (EmptyResultDataAccessException e){
+            System.out.println("데이터가 없다네예");
+        }
+        return user;
+    }
 }

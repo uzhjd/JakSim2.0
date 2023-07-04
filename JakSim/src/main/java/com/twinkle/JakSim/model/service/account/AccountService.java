@@ -95,7 +95,7 @@ public class AccountService {
 
     private MimeMessage createMailForm(String email) throws MessagingException, UnsupportedEncodingException{
         String sender = "lsd4026@naver.com";
-        String title = "[작심득근] 회원가입 이메일 인증";
+        String title = "[작심득근] 이메일 인증";
 
         MimeMessage message = emailSender.createMimeMessage();
         message.addRecipients(MimeMessage.RecipientType.TO, email);
@@ -109,5 +109,9 @@ public class AccountService {
     private void sendEmail(String toMail) throws MessagingException, UnsupportedEncodingException{
         MimeMessage emailForm = createMailForm(toMail);
         emailSender.send(emailForm);
+    }
+
+    public UserDto findByEmail(String email) {
+        return userDao.findByEmail(email);
     }
 }

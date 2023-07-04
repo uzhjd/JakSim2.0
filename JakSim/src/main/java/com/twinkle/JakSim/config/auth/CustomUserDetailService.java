@@ -31,10 +31,12 @@ public class CustomUserDetailService implements UserDetailsService {
         }
 
         List<GrantedAuthority> authorities = new ArrayList<>();
-        if("admin".equals(username)){
+        if(siteUser.getRole() == 0){
             authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        }else{
+        }else if(siteUser.getRole() == 1){
             authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        }else if(siteUser.getRole() == 2){
+            authorities.add(new SimpleGrantedAuthority("ROLE_TRAINER"));
         }
 
         return new User(siteUser.getId(), siteUser.getPw(), authorities);

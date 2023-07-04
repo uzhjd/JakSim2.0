@@ -39,9 +39,11 @@ public class MypageController {
         return String.format(defaultPath + "mypage");
     }
 
-    @GetMapping("/mypage/{userId}/log")
+    @GetMapping("/{userId}/history")
     public String logPage(@PathVariable("userId") String username, Model model){
         model.addAttribute("head_title", username + "님 이력확인");
+        model.addAttribute("user_info", accountService.findByUsername(username));
+        model.addAttribute("access_log", loginLogService.findByUsername(username));
         return String.format(defaultPath + "log");
     }
 }

@@ -19,7 +19,7 @@ public class LoginLogMapper implements RowMapper<LoginLogDto> {
         logDto.setIp(rs.getString("L_IP"));
         logDto.setUser_id(rs.getString("USER_ID"));
         logDto.setId(rs.getInt("L_ID"));
-        logDto.setDt(rs.getString("L_DT"));
+        logDto.setDt(LocalDateTime.parse(rs.getString("L_DT"), formatter));
 
         return logDto;
     }
