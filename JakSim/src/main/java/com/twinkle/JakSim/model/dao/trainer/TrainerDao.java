@@ -12,6 +12,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Repository
@@ -152,12 +154,12 @@ public class TrainerDao {
         return jdbcTemplate.query(this.sql, new TimetableRowMapper(), userId);
     }
 
-    public void registerTimetable(TimetableDto timetable, String userId) {
-        this.sql = "INSERT INTO TIMETABLE VALUES(NULL, ?, ?, ?, ?, ?, ?) " +
-                "WHERE USER_ID = ?";
+    public void registerTimetable(TimetableDto timetable) {
+        this.sql = "INSERT INTO TIMETABLE VALUES(NULL, ?, ?, ?, ?, ?, ?)";
 
-        jdbcTemplate.update(this.sql, userId, timetable.getTDate(),         //DATE는 안넣어도 될 것 같은데..
-                timetable.getTStartT(), timetable.getTEndT(), timetable.getTPeople(), timetable.getTType());
+        jdbcTemplate.update(this.sql, timetable.getUserId(), timetable.getTDate(),         //DATE는 안넣어도 될 것 같은데..timetable.getTDate(),
+                timetable.getTStartT(), timetable.getTEndT(),
+                timetable.getTPeople(), timetable.getTType());
     }
 
     public void updateTimetable(TimetableDto timetable, String userId) {
@@ -179,7 +181,7 @@ public class TrainerDao {
     }
 
     public List<PtUserDto> getPtUserInfo(String userId) {                //값 여러개 넣어서 테스트 해봐야함
-        this.sql = "SELECT UI.USER_ID, UI.USER_NAME, UI.USER_TEL, UI.USER_GENDER, PD.TP_TYPE, P.P_PT_PERIOD " +
+        this.sql = "SELECT UI.USER_ID, UI.USER_NAME, UI.USER_TEL, UI.USER_GENDER, PD.TP_TYPE, P.P_PT_CNT " +
                    "FROM USER_INFO UI JOIN PAYMENT P ON UI.USER_ID = P.USER_ID " +
                    "JOIN PRODUCT PD ON P.TP_IDX = PD.TP_IDX WHERE PD.USER_ID = ?";
 

@@ -5,16 +5,15 @@ import lombok.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-@Getter
 @Builder
-@ToString
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class TimetableDto {
 
     private int tIdx;
 
-    private int userId;
+    private String userId;
 
     private LocalDate tDate;
 
@@ -25,4 +24,11 @@ public class TimetableDto {
     private int tPeople;
 
     private int tType;
+
+    public TimetableDto(LocalTime tStartT, LocalTime tEndT, int tPeople, int tType) {
+        this.tStartT = tStartT;
+        this.tEndT = tEndT;
+        this.tPeople = tPeople;
+        this.tType = tType;
+    }
 }

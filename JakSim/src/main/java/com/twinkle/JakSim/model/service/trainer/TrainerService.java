@@ -2,6 +2,7 @@ package com.twinkle.JakSim.model.service.trainer;
 
 import com.twinkle.JakSim.model.dao.trainer.*;
 import com.twinkle.JakSim.model.dto.account.UserDto;
+import com.twinkle.JakSim.model.dto.timetable.TimetableInsertDto;
 import com.twinkle.JakSim.model.dto.timetable.response.TimetableDto;
 import com.twinkle.JakSim.model.dto.trainer.TrainerInsertDto;
 import com.twinkle.JakSim.model.dto.trainer.*;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -57,8 +60,13 @@ public class TrainerService {
     }
 
     @Transactional
-    public void registerTimetable(TimetableDto timetable, String userId) {
-        trainerDao.registerTimetable(timetable, userId);
+    public void registerTimetable(TimetableInsertDto timetable, String userId) {
+        TimetableDto timetableDto = new TimetableDto(timetable.getTIdx(), userId, LocalDate.parse(timetable.getTDate()),
+                LocalTime.parse(timetable.getTStartT()), LocalTime.parse(timetable.getTEndT()),
+                timetable.getTPeople(), timetable.getTType());
+
+        trainerDao.registerTimetable(timetableDto);
+
     }
 
     @Transactional

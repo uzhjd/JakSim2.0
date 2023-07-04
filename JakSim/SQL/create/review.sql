@@ -34,4 +34,4 @@ VALUES(NULL, 1, 'files/review/1.jpg');
 INSERT INTO REVIEW_IMAGE
 VALUES(NULL, 2, 'files/review/2.jpg');
 INSERT INTO REVIEW_IMAGE
-VALUES(NULL, 3, 'files/review/3.jpg');
+VALUES(NULL, 4, 'files/review/3.jpg');
