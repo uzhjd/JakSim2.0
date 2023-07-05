@@ -10,7 +10,6 @@ public class findController {
     @GetMapping("/find/userid")
     public String findIdPage(Model model){
         model.addAttribute("head_title", "아이디 찾기");
-
         return String.format(defaultPath + "find_userid");
     }
 
@@ -18,5 +17,17 @@ public class findController {
     public String certIdPage(Model model){
         model.addAttribute("head_title", "이메일 인증");
         return String.format(defaultPath + "find_userid_cert");
+    }
+
+    @GetMapping("/find/userpw")
+    public String findPwPage(Model model){
+        model.addAttribute("head_title", "비밀번호 찾기");
+        return String.format(defaultPath + "find_userpw");
+    }
+
+    @GetMapping("/find/userpw/cert")
+    public String certPwPage(Model model){
+        model.addAttribute("head_title", "비밀번호 인증");
+        return String.format(defaultPath + "find_userpw_cert");
     }
 }

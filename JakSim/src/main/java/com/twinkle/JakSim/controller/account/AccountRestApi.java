@@ -51,6 +51,7 @@ public class AccountRestApi {
 
     @PutMapping("/changepw")
     public int updatePassword(@RequestBody UserDto data){
+        System.out.println(data.toString());
         return accountService.update(data.getId(), data.getPw());
     }
 

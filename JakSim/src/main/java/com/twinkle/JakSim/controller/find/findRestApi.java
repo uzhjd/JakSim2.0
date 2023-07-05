@@ -24,4 +24,9 @@ public class findRestApi {
     public String actionEmail(@RequestBody UserDto userDto){
         return accountService.validateEmail(userDto.getEmail());
     }
+
+    @PostMapping("/checkuser")
+    public UserDto checkUser(@RequestBody UserDto userDto){
+        return accountService.findByUsername(userDto.getId());
+    }
 }
