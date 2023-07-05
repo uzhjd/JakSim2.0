@@ -6,7 +6,7 @@ import lombok.*;
 @Builder
 @ToString
 @AllArgsConstructor
-public class ValidPtDto {
+public class ValidPtResponse {
 
     private String trainerId;
 

@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Getter
 @ToString
 @AllArgsConstructor
-public class ReservationDto {
+public class ReservationRequest {
 
     @NotBlank
     @Size(max = 8)

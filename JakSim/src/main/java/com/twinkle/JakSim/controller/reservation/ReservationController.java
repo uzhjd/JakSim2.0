@@ -1,6 +1,6 @@
 package com.twinkle.JakSim.controller.reservation;
 
-import com.twinkle.JakSim.model.dto.reservation.request.ReservationDto;
+import com.twinkle.JakSim.model.dto.reservation.request.ReservationRequest;
 import com.twinkle.JakSim.model.service.reservation.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,7 +21,7 @@ public class ReservationController {
     private final ReservationService reservationService;
 
     @PostMapping("/register")
-    public String resRegister(@AuthenticationPrincipal User user, @Valid @RequestBody ReservationDto reservationDto,
+    public String resRegister(@AuthenticationPrincipal User user, @Valid @RequestBody ReservationRequest reservationDto,
                                                                                         Model model) throws Exception {
         LocalDate today = LocalDate.now();
 

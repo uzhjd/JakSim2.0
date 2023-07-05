@@ -1,15 +1,15 @@
 package com.twinkle.JakSim.controller.scheduleList;
 
-import com.twinkle.JakSim.model.dto.timetable.response.TimetableDto;
-import com.twinkle.JakSim.model.dto.trainer.response.TrainerDetailDto;
+import com.twinkle.JakSim.model.dto.reservation.request.ReservationCkRequest;
+import com.twinkle.JakSim.model.dto.reservation.response.ReservationResponse;
+import com.twinkle.JakSim.model.dto.timetable.response.TimetableResponse;
+import com.twinkle.JakSim.model.service.reservation.ReservationService;
 import com.twinkle.JakSim.model.service.scheduleList.ScheduleListService;
-import com.twinkle.JakSim.model.service.timetable.TimetableService;
 import com.twinkle.JakSim.model.service.trainer.TrainerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,42 +19,26 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ScheduleListController {
 
-    private final TrainerService trainerService;
-    private final TimetableService timetableService;
     private final ScheduleListService scheduleListService;
+    private final ReservationService reservationService;
 
-//    @GetMapping()
-//    public String generalScheduler(@AuthenticationPrincipal User user, Model model) {
-//
-//
-////        if(user.getAuthorities().equals("ROLE_USER")) {
-////            return "content/scheduleList/generalScheduleList";
-////        }
-//
-//        return "content/scheduleList/generalScheduleList";
-//    }
-
+    // 3
     @GetMapping("/details/trainerId/{trainerId}")
-    public ResponseEntity<List<TimetableDto>> generalscheDetails(@AuthenticationPrincipal User user,
-                                                                 @PathVariable("trainerId") String trainerId) {
-        List<TimetableDto> response = scheduleListService.findSchedule(user.getUsername(), trainerId);
+    public ResponseEntity<List<TimetableResponse>> monthSchedule(@AuthenticationPrincipal User user,
+                                                                      @PathVariable("trainerId") String trainerId) {
+
+        List<TimetableResponse> response = scheduleListService.findSchedule(user.getUsername(), trainerId);
 
         return ResponseEntity.ok(response);
     }
 
-    ////////////////////////////////////////////////
-//    @GetMapping("/trainerDetails/{trainerId}")
-//    public ResponseEntity<TrainerDetailDto> TrainerDetails(@PathVariable("trainerId") String trainerId) {
-//        TrainerDetailDto response = trainerService.findMyTrainer(trainerId);
-//
-//        return ResponseEntity.ok(response);
-//    }
-//
-//    @GetMapping("/timetableDetails/{trainerId}")
-//    public ResponseEntity<List<TimetableDto>> TimetableDetails(@AuthenticationPrincipal User user,
-//                                                               @PathVariable("trainerId") String trainerId) {
-//        List<TimetableDto> response = timetableService.findMyTrainerTimetable(trainerId);
-//
-//        return ResponseEntity.ok(response);
-//    }
+    // 5
+    @PostMapping("/reservation")
+    public ResponseEntity<ReservationResponse> reservation(@AuthenticationPrincipal User user,
+                                                           @RequestBody ReservationCkRequest resCheckRequest) {
+
+        ReservationResponse response = reservationService.findReservation(user.getUsername(), resCheckRequest.getTrainerId(), resCheckRequest.getTDate());
+
+        return ResponseEntity.ok(response);
+    }
 }

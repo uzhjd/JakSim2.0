@@ -1,7 +1,7 @@
 package com.twinkle.JakSim.model.dao.payment;
 
 import com.twinkle.JakSim.model.dto.payment.response.PaymentDto;
-import com.twinkle.JakSim.model.dto.product.response.ValidPtDto;
+import com.twinkle.JakSim.model.dto.product.response.ValidPtResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -64,8 +64,8 @@ public class PaymentDao {
         return;
     }
 
-    public List<ValidPtDto> findAllValidPt(String userId, LocalDate today) {
-        List<ValidPtDto> list = new ArrayList<>();
+    public List<ValidPtResponse> findAllValidPt(String userId, LocalDate today) {
+        List<ValidPtResponse> list = new ArrayList<>();
 
         this.sql = "select pro.user_id, pay.p_idx, pay.p_pt_cnt " +
                 "from payment as pay inner join product as pro on pay.tp_idx = pro.tp_idx " +

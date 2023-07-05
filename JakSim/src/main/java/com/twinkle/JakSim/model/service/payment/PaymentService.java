@@ -1,7 +1,7 @@
 package com.twinkle.JakSim.model.service.payment;
 
 import com.twinkle.JakSim.model.dao.payment.PaymentDao;
-import com.twinkle.JakSim.model.dto.product.response.ValidPtDto;
+import com.twinkle.JakSim.model.dto.product.response.ValidPtResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +14,8 @@ public class PaymentService {
 
     private final PaymentDao paymentDao;
 
-    public List<ValidPtDto> findValidPtList(String userId) {
-        List<ValidPtDto> list = new ArrayList<>();
+    public List<ValidPtResponse> findValidPtList(String userId) {
+        List<ValidPtResponse> list = new ArrayList<>();
         LocalDate today = LocalDate.now();
 
         try {

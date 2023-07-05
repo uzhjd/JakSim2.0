@@ -1,18 +1,16 @@
 package com.twinkle.JakSim.model.service.trainer;
 
 import com.twinkle.JakSim.model.dao.trainer.*;
-import com.twinkle.JakSim.model.dto.account.UserDto;
 import com.twinkle.JakSim.model.dto.timetable.TimetableInsertDto;
-import com.twinkle.JakSim.model.dto.timetable.response.TimetableDto;
+import com.twinkle.JakSim.model.dto.timetable.response.TimetableResponse;
 import com.twinkle.JakSim.model.dto.trainer.TrainerInsertDto;
 import com.twinkle.JakSim.model.dto.trainer.*;
-import com.twinkle.JakSim.model.dto.trainer.response.TrainerDetailDto;
+import com.twinkle.JakSim.model.dto.trainer.response.TrainerDetailResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -55,13 +53,13 @@ public class TrainerService {
     }
 
     @Transactional
-    public List<TimetableDto> getTimetable(String userId) {
+    public List<TimetableResponse> getTimetable(String userId) {
         return trainerDao.getTimetable(userId);
     }
 
     @Transactional
     public void registerTimetable(TimetableInsertDto timetable, String userId) {
-        TimetableDto timetableDto = new TimetableDto(timetable.getTIdx(), userId, LocalDate.parse(timetable.getTDate()),
+        TimetableResponse timetableDto = new TimetableResponse(timetable.getTIdx(), userId, LocalDate.parse(timetable.getTDate()),
                 LocalTime.parse(timetable.getTStartT()), LocalTime.parse(timetable.getTEndT()),
                 timetable.getTPeople(), timetable.getTType());
 
@@ -70,7 +68,7 @@ public class TrainerService {
     }
 
     @Transactional
-    public void updateTimetable(TimetableDto timetable, String userId) {
+    public void updateTimetable(TimetableResponse timetable, String userId) {
         trainerDao.updateTimetable(timetable, userId);
     }
 
@@ -85,16 +83,16 @@ public class TrainerService {
     }
 
 
-    public TrainerDetailDto findMyTrainer(String trainerId) {
-        TrainerDetailDto trainerDetailDto = new TrainerDetailDto();
+    public TrainerDetailResponse findTrainerBreif(String trainerId) {
+        TrainerDetailResponse trainerDetailResponse = new TrainerDetailResponse();
 
         try {
-            trainerDetailDto = trainerDao.findMyTrainer(trainerId);
+            trainerDetailResponse = trainerDao.findTrainerBreif(trainerId);
         } catch (Exception e) {
             System.out.println(e);
         }
 
-        return trainerDetailDto;
+        return trainerDetailResponse;
     }
 
 }

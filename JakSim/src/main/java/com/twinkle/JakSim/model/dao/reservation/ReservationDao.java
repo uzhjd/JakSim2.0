@@ -1,5 +1,6 @@
 package com.twinkle.JakSim.model.dao.reservation;
 
+import com.twinkle.JakSim.model.dto.reservation.response.ReservationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
@@ -66,5 +67,23 @@ public class ReservationDao {
         }
 
         return false;
+    }
+
+    public ReservationResponse findReservation(String userId, String trainerId, LocalDate tDate) {
+        ReservationResponse reservationResponse = new ReservationResponse();
+
+        this.sql = "select * from reservation as res inner join timetable as tt on res.t_idx = tt.t_idx " +
+                "where res.user_id = ? and tt.user_id = ? tt.t_date = ?";
+
+        try {
+            reservationResponse = jdbcTemplate.queryForObject(this.sql, new ReservationRowMapper(), userId, trainerId, tDate);
+        } catch (EmptyResultDataAccessException e) {
+
+            System.out.println("예약이 없습니다.");
+        } catch(Exception e) {
+            System.out.println(e);
+        }
+
+        return reservationResponse;
     }
 }

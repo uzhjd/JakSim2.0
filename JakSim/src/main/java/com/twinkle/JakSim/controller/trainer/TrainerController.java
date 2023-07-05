@@ -1,7 +1,6 @@
 package com.twinkle.JakSim.controller.trainer;
 
 import com.twinkle.JakSim.model.dto.timetable.TimetableInsertDto;
-import com.twinkle.JakSim.model.dto.timetable.response.TimetableDto;
 import com.twinkle.JakSim.model.dto.trainer.TrainerInsertDto;
 import com.twinkle.JakSim.model.dto.trainer.*;
 import com.twinkle.JakSim.model.service.review.ReviewService;
