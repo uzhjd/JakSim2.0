@@ -1,0 +1,290 @@
+{{>layout/header}}
+<body>
+{{>layout/navi}}
+<style>
+    * {
+        font-family: Noto Sans KR;
+        margin: 0;
+        padding: 0;
+    }
+
+    main {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        margin-top: 0px;
+        align-items: flex-start;
+        border-top: 2px solid #dedede;
+    }
+
+    .sideBar {
+        width: 26.33%;
+        height: auto;
+        margin-left: 20px;
+    }
+
+    .sideBar ul {
+        float: right;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .menuPart {
+        float: right;
+        margin-top: 80px;
+        margin-bottom: 10px;
+        margin-right: 20px;
+    }
+
+    .sideBar li.active a {
+        color: #A584EE;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .sideBar li a {
+        color: black;
+        text-decoration: none;
+        font-weight: thin;
+    }
+
+    .sideBar li a:hover {
+        color: #A584EE;
+    }
+
+    .right_info {
+        color: rgba(29.000000171363354, 29.000000171363354, 32.00000189244747, 1);
+        position: relative;
+        font-size: 25px;
+        font-weight: 600;
+        margin-top: 30px;
+        margin-bottom: 50px;
+
+    }
+
+    .main {
+        float: left;
+        width: 65%;
+        height: auto;
+        padding: 50px;
+        padding-top: 0;
+        border-left: 2px solid #dedede;
+        margin-left: 30px;
+        padding-left: 80px;
+    }
+
+    .user_data-container {
+        width: 770px;
+        margin: 50px 0px;
+        padding: 30px;
+        background-color: white;
+        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
+        border-radius: 7px;
+        float: left;
+        margin-top: 0px;
+        margin-bottom: 15px;
+
+    }
+    .user_insert-container {
+      width: 770px;
+        margin: 50px 0px;
+        padding: 30px;
+        background-color: white;
+        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
+        border-radius: 7px;
+        float: left;
+        margin-top: 0px;
+    }
+
+    table {
+        margin: 0 auto;
+    }
+
+    .search-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        margin-left: 58px;
+    }
+
+    .search-input-container {
+        position: relative;
+        margin-left: 550px;
+    }
+
+    .search-input {
+        width: 250px;
+        height: 30px;
+        border-radius: 5px;
+        border: 1px solid #B7B7B7;
+        padding: 5px 30px 5px 10px;
+        font-size: 14px;
+
+    }
+
+    .search-icon {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        color: #a584ee;
+        visibility: visible;
+
+    }
+
+    th, td {
+        text-align: center;
+    }
+
+    th {
+    padding-bottom: 10px;
+    padding-right: 25px;
+    }
+
+    td {
+        /* border-bottom: 1px solid #dedede; */
+        padding-top: 20px;
+        padding-bottom: 10px;
+        padding-right: 25px;
+    }
+
+
+
+    #delete_timetable {
+      color: #a584ee;
+    }
+
+    #delete_timetable:hover {
+        color: #c6b4ec;
+
+    }
+
+        #insert-timetable {
+      color: #a584ee;
+    }
+
+    #insert-timetable:hover {
+      color: #c6b4ec;
+    }
+
+
+
+
+</style>
+<script src="https://kit.fontawesome.com/05995ac069.js" crossorigin="anonymous"></script>
+<main>
+    <nav class="sideBar" style="width: 170px;">
+        <ul>
+            <div class=menuPart>
+                <li class="active"><a href="/trainer/trainerControl">PT시간 등록</a></li>
+                <li ><a href="/trainer/ptUserInfo">회원 전체 정보 조회</a></li>
+            </div>
+        </ul>
+    </nav>
+    <div class="main">
+        <div>
+            <h3 class="right_info">PT 시간 등록</h3>
+        </div>
+<!--        <div class="search-container">-->
+<!--            <div class="search-input-container">-->
+<!--                <input style="width: 222px;" type="text" class="search-input" placeholder="검색어를 입력하세요">-->
+<!--                <a><i class="fa-solid fa-magnifying-glass fa-sm search-icon"></i></a>-->
+<!--            </div>-->
+<!--        </div>-->
+        <div class="user_data-container">
+            <table>
+                <thead>
+                <tr>
+                    <th>수업시간</th>
+                    <th>PT 타입</th>
+                    <th>인원수</th>
+                </tr>
+                </thead>
+                <form action="/trainer/ptTimetableUpdate" method="POST">
+                    {{#timetable}}
+                    <tbody>
+                    <tr>
+                        <td>
+                            <input style="pointer-events: none;" type="time" id="start_time_1" name="tStartT" value="{{tStartT}}" readonly> ~
+                            <input style="pointer-events: none;" type="time" id="end_time_1" name="tEndT" value="{{tEndT}}" readonly>
+                        </td>
+                        <td>
+                            <input style="width: 104px;
+                    margin-right: 20px;
+                    margin-left: 20px; border: white; text-align: center; pointer-events: none;" type="text" name="tType" value="{{tType}}" class="tType" readonly />
+                        </td>
+                        <td>
+                            <input style=" width: 104px;
+                            margin-right: 20px;
+                            margin-left: 20px; border: white; text-align: center; pointer-events: none;"
+                                   type="number" name="tPeople" value="{{tPeople}}" readonly>
+                        </td>
+                        <td style="padding-left: 50px;">
+                            <input type="hidden" name="tIdx" value="{{tIdx}}">
+                            <a href="/trainer/ptTimetableUpdate"><i id="delete_timetable" class="fa-solid fa-trash-can fa-lg"></i></a>
+                        </td>
+                    </tr>
+                    {{/timetable}}
+                </tbody>
+                </form>
+            </table>
+        </div>
+        <script>
+          window.onload = function() {
+              var ptType = document.querySelectorAll('.tType');
+
+
+              for (var i = 0; i < ptType.length; i++) {
+                  var type = parseInt(ptType[i].value);
+
+                  if (type === 0) {
+                      ptType[i].value = '상담';
+                  } else if (type === 1) {
+                      ptType[i].value = '1:1';
+                  } else if (type === 2) {
+                      ptType[i].value = '단체';
+                  }
+              }
+          }
+      </script>
+        <div class="user_insert-container">
+            <table>
+                <thead>
+                <tr>
+                    <th>수업날짜</th>
+                    <th>수업시간</th>
+                    <th>PT 타입</th>
+                    <th>인원수</th>
+                </tr>
+                </thead>
+                <form action="/trainer/ptTimetableRegister" method="POST">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <input type="date" id="tDate" name="tDate" required>
+                        </td>
+                        <td>
+                            <input style="width: 100px;" type="time" id="tStartT" name="tStartT" required> ~
+                            <input style="width: 100px;" type="time" id="tEndT" name="tEndT" required>
+                        </td>
+                        <td>
+                            <input type="radio" name="tType" value="0">상담
+                            <input type="radio" name="tType" value="1" checked>1:1
+                            <input type="radio" name="tType" value="2">단체
+                        </td>
+                        <td>
+                            <input style="width: 40px; text-align: center;" type="number" name="tPeople" value="1" required>
+                        </td>
+                        <td>
+                            <a href="/trainer/ptTimetableRegister"><i id="insert-timetable" class="fa-regular fa-calendar-plus fa-xl"></i></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </form>
+            </table>
+        </div>
+    </div>
+</main>
+{{>layout/footer}}

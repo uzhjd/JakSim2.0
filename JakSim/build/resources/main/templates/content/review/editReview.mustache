@@ -1,0 +1,33 @@
+{{>layout/header}}
+<link rel="stylesheet" href="/css/trainer/editReview.css">
+<body>
+{{>layout/navi}}
+<form id="review-form" action="/editMyReview" method="POST">
+    {{#review}}
+        <div class="review-star">
+            <label for="review-star">별점</label>
+            <select class="star_select" id="star" name="star">
+                <option value="1" {{#star_eq_1}}selected{{/star_eq_1}}>1</option>
+                <option value="2" {{#star_eq_2}}selected{{/star_eq_2}}>2</option>
+                <option value="3" {{#star_eq_3}}selected{{/star_eq_3}}>3</option>
+                <option value="4" {{#star_eq_4}}selected{{/star_eq_4}}>4</option>
+                <option value="5" {{#star_eq_5}}selected{{/star_eq_5}}>5</option>
+            </select>
+        </div>
+        <div class="review-content">
+            <label for="review-content">내용</label>
+            <input type="text" id="reviewContent" name="reviewContent" value="{{reviewContent}}"/>
+            <br/>
+        </div>
+    {{/review}}
+    <input type="submit" id="review-edit-button" value="저장">
+    <button type="button" id="review-cancel-button" onclick="goBack()">취소</button>
+    <script>
+        function goBack() {
+            // Go back to the previous page in the browser's history
+            window.history.back();
+        }
+    </script>
+</form>
+
+{{>layout/footer}}

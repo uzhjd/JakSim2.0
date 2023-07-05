@@ -67,18 +67,11 @@ public class PaymentDao {
     public List<ValidPtDto> findAllValidPt(String userId, LocalDate today) {
         List<ValidPtDto> list = new ArrayList<>();
 
-        this.sql = "select pro.user_id and pro.tp_idx and pay.p_pt_cnt " +
-                "from payment as pay inner join product as pro on pay.tp_idx and pro.tp_idx " +
-                "where user_id = ? and p_refund = '0' and p_pt_cnt > '0' and p_pt_period >= (? - p_c_dt)";
+        this.sql = "select pro.user_id, pay.p_idx, pay.p_pt_cnt " +
+                "from payment as pay inner join product as pro on pay.tp_idx = pro.tp_idx " +
+                "where pay.user_id = ? and p_refund = '0' and p_pt_cnt > '0' and p_pt_period >= (? - p_c_dt)";
 
-        try {
-            list = jdbcTemplate.query(this.sql, new ValidPtRowMapper(), userId, today);
-        } catch (EmptyResultDataAccessException e) {
-            System.out.println("There's no valid Pt list");
-            System.out.println("e.getMessage() = " + e.getMessage());
-
-            list = null;
-        }
+        list = jdbcTemplate.query(this.sql, new ValidPtRowMapper(), userId, today);
 
         return list;
     }

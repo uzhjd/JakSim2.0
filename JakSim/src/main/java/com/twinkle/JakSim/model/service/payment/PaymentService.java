@@ -20,6 +20,10 @@ public class PaymentService {
 
         try {
             list = paymentDao.findAllValidPt(userId, today);
+
+            if(list.isEmpty()) {
+                System.out.println("유효한 pt권이 없습니다.");
+            }
         } catch (Exception e) {
             System.out.println(e);
         }
