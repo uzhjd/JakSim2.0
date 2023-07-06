@@ -1,8 +1,12 @@
 package com.twinkle.JakSim.controller.reservation;
 
+import com.twinkle.JakSim.model.dto.reservation.request.IsReservationRequest;
 import com.twinkle.JakSim.model.dto.reservation.request.ReservationRequest;
+import com.twinkle.JakSim.model.dto.reservation.response.ReservationResponse;
 import com.twinkle.JakSim.model.service.reservation.ReservationService;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
@@ -21,47 +25,43 @@ public class ReservationController {
     private final ReservationService reservationService;
 
     @PostMapping("/register")
-    public String resRegister(@AuthenticationPrincipal User user, @Valid @RequestBody ReservationRequest reservationDto,
-                                                                                        Model model) throws Exception {
+    public ResponseEntity<Integer> register(@AuthenticationPrincipal User user,
+                                        @Valid @RequestBody ReservationRequest reservationRequest) throws Exception {
+        int response = 0;
         LocalDate today = LocalDate.now();
 
-        if(reservationDto.getTDate().compareTo(today) >= 0) {
+        if(reservationRequest.getTDate().compareTo(today) >= 0) {
             System.out.println("입력된 날이 더 과거입니다.");
-            int result = reservationService.register(user.getUsername(), reservationDto);
+            response = reservationService.register(user.getUsername(), reservationRequest);
 
-            if(result == 1) {
+            if(response == 1) {
                 throw new Exception("이미 등록된 예약이 있습니다.");
-            } else if (result == 2) {
+            } else if (response == 2) {
                 throw new Exception("PT권이 모두 사용되었습니다.");
-            } else if (result == 3) {
+            } else if (response == 3) {
                 throw new Exception("해당 일정은 존재하지 않습니다.");
-            } else if (result == 4) {
+            } else if (response == 4) {
                 throw new Exception("예약이 올바르게 되지 않았습니다.");
             }
-
-            model.addAttribute("예약 결과", result);
-
         }
 
-        return "content/scheduleList/generalScheduleList";
+        return ResponseEntity.ok().body(response);
+    }
+
+    // 5
+    @PostMapping("/reservation")
+    public ResponseEntity<ReservationResponse> reservation(@AuthenticationPrincipal User user,
+                                                           @RequestBody IsReservationRequest resCheckRequest) {
+        ReservationResponse response = reservationService.findReservation(user.getUsername(), resCheckRequest.getTrainerId(), resCheckRequest.getTDate());
+
+        return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/cancle/{pIdx}/{rIdx}/")
-    public String resCancle(@AuthenticationPrincipal User user, @PathVariable("rIdx") int rIdx,
-                            @PathVariable("pIdx") int pIdx, Model model) {
+    public ResponseEntity<Boolean> resCancle(@AuthenticationPrincipal User user, @PathVariable("rIdx") int rIdx,
+                              @PathVariable("pIdx") int pIdx) {
+        Boolean response = reservationService.delete(pIdx, rIdx);
 
-        if(reservationService.delete(pIdx, rIdx)) {
-            model.addAttribute("trainerList", "삭제 성공");
-        } else {
-            model.addAttribute("trainerList", "삭제 실패");
-        }
-
-        // Role도 authentics에 넣어달라
-        // 아니면 쿼리문 날려서 찾아야 한다. 또는 따로 매서드 만들어야 함.
-//        if(user.getRoles().toString().equals(1)) {
-//            return "content/scheduleList/generalScheduleList";
-//        }
-
-        return "content/scheduleList/trainerScheduleList";
+        return ResponseEntity.ok().body(response);
     }
 }

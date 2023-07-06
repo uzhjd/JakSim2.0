@@ -43,7 +43,7 @@ public class PaymentDao {
         this.sql = "update payment set p_pt_cnt = ? where p_idx = ? limit 1";
 
         try {
-            jdbcTemplate.update(this.sql, pIdx);
+            jdbcTemplate.update(this.sql, pIdx-1);
         } catch (EmptyResultDataAccessException e) {
             System.out.println(e);
         }

@@ -6,7 +6,7 @@ import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 @Getter
-public class ReservationCkRequest {
+public class IsReservationRequest {
 
     private LocalDate tDate;
 

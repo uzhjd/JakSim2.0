@@ -16,21 +16,6 @@ public class ReservationDao {
     private JdbcTemplate jdbcTemplate;
     private String sql;
 
-    public Boolean isReservate(String userId, LocalDate tDate) {
-        Boolean result = true;
-
-        this.sql = "select * from reservation where user_id = ? and r_c_dt = ? ";
-
-        try {
-            jdbcTemplate.queryForObject(this.sql, new IsReservationRowMapper(), userId, tDate);
-        } catch(EmptyResultDataAccessException e) {
-            System.out.println("You have already booked");
-            System.out.println(e);
-            result = false;
-        }
-
-        return result;
-    }
 
     public Boolean register(String userId, int tIdx, int pIdx) {
         Boolean result = true;
@@ -86,4 +71,20 @@ public class ReservationDao {
 
         return reservationResponse;
     }
+//    public Boolean isReservate(String userId, LocalDate tDate) {
+//        Boolean result = true;
+//
+//        this.sql = "select * from reservation where user_id = ? and r_c_dt = ? ";
+//
+//        try {
+//            jdbcTemplate.queryForObject(this.sql, new IsReservationRowMapper(), userId, tDate);
+//        } catch(EmptyResultDataAccessException e) {
+//            System.out.println("You have already booked");
+//            System.out.println(e);
+//            result = false;
+//        }
+//
+//        return result;
+//    }
+
 }

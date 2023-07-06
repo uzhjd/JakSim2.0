@@ -21,5 +21,8 @@ public class ReservationRequest {
     private int tIdx;
 
     @NotBlank
+    private String trainerId;
+
+    @NotBlank
     private LocalDate tDate;
 }

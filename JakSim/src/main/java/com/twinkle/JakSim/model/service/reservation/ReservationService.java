@@ -3,7 +3,6 @@ package com.twinkle.JakSim.model.service.reservation;
 import com.twinkle.JakSim.model.dao.payment.PaymentDao;
 import com.twinkle.JakSim.model.dao.reservation.ReservationDao;
 import com.twinkle.JakSim.model.dao.timetable.TimetableDao;
-import com.twinkle.JakSim.model.dto.reservation.request.ReservationCkRequest;
 import com.twinkle.JakSim.model.dto.reservation.request.ReservationRequest;
 import com.twinkle.JakSim.model.dto.reservation.response.ReservationResponse;
 import lombok.RequiredArgsConstructor;
@@ -20,15 +19,15 @@ public class ReservationService {
     private final PaymentDao paymentDao;
 
     public int register(String userId, ReservationRequest reservationDto) throws Exception {
-        boolean isReservated = reservationDao.isReservate(userId, reservationDto.getTDate());
+        ReservationResponse reservationResponse = reservationDao.findReservation(userId, reservationDto.getTrainerId(), reservationDto.getTDate());
 
         boolean isPtTicket = paymentDao.isPtTicket(reservationDto.getPIdx());
 
         boolean isTimetable = timetableDao.isTimetable(reservationDto.getTIdx());
 
-        if(!isReservated)
+        if(reservationResponse == null) {
             return 1;
-        else if(!isPtTicket)
+        } else if(!isPtTicket)
             return 2;
         else if(!isTimetable)
             return 3;
