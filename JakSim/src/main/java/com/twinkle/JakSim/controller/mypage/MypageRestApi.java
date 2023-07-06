@@ -44,10 +44,7 @@ public class MypageRestApi {
     }
 
     @PutMapping("/profile/update")
-    public boolean getData(@AuthenticationPrincipal User user, @RequestParam("file") MultipartFile data, @RequestParam("email") String email){
-        System.out.println(data);
-        System.out.println(email);
-
-        return accountService.updateEmail(email, user.getUsername()) && fileService.updateProfileImage(data);
+    public boolean getData(@AuthenticationPrincipal User user, @RequestParam("file") MultipartFile data, @RequestParam("email") String email) throws Exception{
+        return accountService.updateEmail(email, user.getUsername()) && fileService.updateProfileImage(data, user.getUsername());
     }
 }
