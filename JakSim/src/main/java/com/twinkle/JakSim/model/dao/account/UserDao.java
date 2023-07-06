@@ -89,4 +89,18 @@ public class UserDao {
         }
         return user;
     }
+
+    public int updateEmail(String email, String username) {
+        String sql = "UPDATE USER_INFO " +
+                "SET USER_EMAIL = ? " +
+                "WHERE USER_ID = ?";
+        int result = -1;
+        try{
+            result = jdbcTemplate.update(sql, email, username);
+        }catch (Exception e){
+            System.out.println("모시깽이 에러");
+        }
+
+        return result;
+    }
 }

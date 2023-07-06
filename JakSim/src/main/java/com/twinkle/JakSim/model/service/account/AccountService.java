@@ -114,4 +114,8 @@ public class AccountService {
     public UserDto findByEmail(String email) {
         return userDao.findByEmail(email);
     }
+
+    public boolean updateEmail(String email, String username) {
+        return userDao.updateEmail(email, username) > 0;
+    }
 }
