@@ -17,7 +17,7 @@ import java.time.LocalDate;
 
 import javax.validation.Valid;
 
-@Controller
+@RestController
 @RequestMapping("/reservation")
 @RequiredArgsConstructor
 public class ReservationController {
@@ -49,7 +49,7 @@ public class ReservationController {
     }
 
     // 5
-    @PostMapping("/reservation")
+    @PostMapping("/search")
     public ResponseEntity<ReservationResponse> reservation(@AuthenticationPrincipal User user,
                                                            @RequestBody IsReservationRequest resCheckRequest) {
         ReservationResponse response = reservationService.findReservation(user.getUsername(), resCheckRequest.getTrainerId(), resCheckRequest.getTDate());
