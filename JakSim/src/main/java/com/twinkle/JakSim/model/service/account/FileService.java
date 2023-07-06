@@ -3,9 +3,13 @@ package com.twinkle.JakSim.model.service.account;
 import com.twinkle.JakSim.model.dao.account.FileDao;
 import com.twinkle.JakSim.model.dto.account.UserImage;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.util.UUID;
 
@@ -13,6 +17,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class FileService {
     private final FileDao fileDao;
+    @Autowired
+    private HttpSession session;
     public boolean updateProfileImage(MultipartFile file, String username) throws Exception{
         UserImage userImage = new UserImage();
 
@@ -26,6 +32,15 @@ public class FileService {
         userImage.setUser_id(username);
         userImage.setPath("/image/profiles/" + fileName);
 
-        return fileDao.create(userImage) > 0;
+        if(fileDao.create(userImage) > 0){
+            session.setAttribute("session_profile", userImage);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public UserImage getSingeProfile(String username){
+        return fileDao.getRecentImage(username);
     }
 }

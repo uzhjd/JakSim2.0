@@ -1,5 +1,6 @@
 package com.twinkle.JakSim.config.auth;
 
+import com.twinkle.JakSim.model.service.account.FileService;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Autowired
     private HttpSession session;
 
-    //@Autowired
-    //private DataSource ds;
+    private final FileService fileService;
 
 
     @Override
@@ -45,7 +45,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("Invalid user Password");
         }
 
-        session.setAttribute("session_username", user.getUsername());
+        session.setAttribute("session_user", user);
+        session.setAttribute("session_profile", fileService.getSingeProfile(username));
 
         return new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities());
     }

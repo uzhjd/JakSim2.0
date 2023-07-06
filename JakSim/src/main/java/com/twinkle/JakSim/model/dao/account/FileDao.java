@@ -21,4 +21,17 @@ public class FileDao {
         }
         return result;
     }
+
+    public UserImage getRecentImage(String username){
+        String sql = "SELECT * FROM USER_IMAGE WHERE USER_ID = ? ORDER BY UI_DT DESC LIMIT 1";
+        UserImage image = new UserImage();
+
+        try{
+            image = jdbcTemplate.queryForObject(sql, new UserImageMapper(),username);
+        }catch (EmptyResultDataAccessException e){
+            image.setPath("/image/profiles/profile.jpg");
+        }
+
+        return image;
+    }
 }

@@ -31,9 +31,12 @@ section{
 
 #mypage_aside_profileImg{
     width: 150px;
-    border-radius: 50%;
-    border: 0.15rem solid #C8B0FC;
+    height: 150px;
+
     object-fit: cover;
+
+    border: 0.15rem solid #C8B0FC;
+    border-radius: 50%;
 }
 
 #mypage_aside_profileImgContainer button{
@@ -123,4 +126,12 @@ section{
 }
 .mypage_table_row > span, .mypage_table_row > input{
     margin-right: auto;
+}
+
+#profile_preview{
+    width:150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 0.15rem solid #C8B0FC;
 }

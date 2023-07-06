@@ -36,9 +36,11 @@
 }
 
 #navi_profile_img{
-    width:2.3rem;
+    width: 40px;
+    height:40px;
     border-radius: 50%;
-    border: 0.15rem solid #C8B0FC;
+    border: 1px solid #C8B0FC;
+    object-fit: cover;
 }
 
 #nav_time{
@@ -54,12 +56,4 @@
 .nav_font{
     font-family: 'Questrial', sans-serif;
     color:#747474;
-}
-
-#profile_preview{
-    width:150px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 0.15rem solid #C8B0FC;
 }
