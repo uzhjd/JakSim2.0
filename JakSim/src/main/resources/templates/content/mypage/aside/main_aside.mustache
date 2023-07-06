@@ -1,8 +1,11 @@
 <div id="mypage_aside_profileImgContainer">
-    <img src="/image/profile.jpg" alt="profile" id="mypage_aside_profileImg">
+    <a href="/mypage/{{session_username}}/profile">
+        <img src="/image/profile.jpg" alt="profile" id="mypage_aside_profileImg">
+        <button onclick="window.location.href=''">+</button>
+    </a>
 </div>
-<h3 id="mypage_aside_username" style="color:black">{{session_username}}</h3>
-<h6 id="mypage_aside_email">{{user_info.email}}</h6>
+<h3 id="mypage_aside_username" class="jaksim_font">{{session_username}}</h3>
+<h6 id="mypage_aside_email" class="jaksim_font">{{user_info.email}}</h6>
 
 
 {{#log}}
@@ -18,8 +21,8 @@
 
 <div id="mypage_aside_nav">
     <ul>
-        <li><a href="/mypage/{{session_username}}/profile">내프로필</a></li>
-        <li><a href="/mypage/{{session_username}}/security">보안설정</a></li>
-        <li><a href="/mypage/{{session_username}}/history">이력관리</a></li>
+        <li><a href="/mypage/{{session_username}}/profile" class="jaksim_font">내프로필</a></li>
+        <li><a href="/mypage/{{session_username}}/history" class="jaksim_font">이력관리</a></li>
+        <li><a href="/mypage/{{session_username}}/security" class="jaksim_font">보안관리</a></li>
     </ul>
 </div>

@@ -24,12 +24,35 @@ section{
     width: 100%;
     text-align: center;
     padding: 5%;
+
+    position: relative;
+    display: inline-block;
 }
 
 #mypage_aside_profileImg{
-    width: 30%;
+    width: 150px;
     border-radius: 50%;
-    border: 0.15rem solid #8753F6;
+    border: 0.15rem solid #C8B0FC;
+    object-fit: cover;
+}
+
+#mypage_aside_profileImgContainer button{
+    position: absolute;
+    bottom: 30px;
+    right: 100px;
+    background-color: #C8B0FC;
+    color: #ffffff;
+    border: 2px solid #C8B0FC;
+    border-radius: 50%;
+    font-size: 25px;
+}
+
+#mypage_aside_profileImgContainer button:active,
+#mypage_aside_profileImgContainer button:hover,
+#mypage_aside_profileImgContainer button:disabled{
+    color: #BFBFBF;
+    background: #E9E1FB;
+    border: 2px solid #E9E1FB;
 }
 
 #mypage_delete{
@@ -39,22 +62,21 @@ section{
 
 #mypage_aside_username, #mypage_aside_email, #mypage_aside_loginspan{
     text-align: center;
-    color:#575757;
-}
-
-#mypage_aside_loginspan{
-    color: #8753F6;
-    font-weight: bold;
 }
 
 #mypage_aside_banner{
     margin: 2.5rem 1rem 2.5rem 1rem;
     padding: 10px;
-    border: 0.2px solid #8753F6;
+    border: 2px solid #C8B0FC;
     border-radius: 5px;
-    background-color: #f2ecff;
+    background-color: #FFFFFF;
 
     text-align: center;
+}
+
+#mypage_aside_banner > span{
+    color: #C8B0FC;
+    font-weight: bold;
 }
 
 #mypage_aside_nav > ul > li{
@@ -65,7 +87,6 @@ section{
 
 #mypage_aside_nav > ul > li > a{
     text-decoration-line: none;
-    color: #575757;
 }
 
 .mypage_container{
@@ -78,11 +99,12 @@ section{
 }
 
 .mypage_table_tableHead{
-    background-color: #8753F6;
+    background-color: #C8B0FC;
     color: white;
     border-top-right-radius: 10px;
     border-top-left-radius:10px;
     padding: 5px;
+    margin-top: 30px;
 }
 
 .mypage_table_tableHead > a{
@@ -95,16 +117,10 @@ section{
 .mypage_table_row{
     padding: 0.5rem;
     border: 1px solid #d0d0d0;
-}
 
-.mypage_table_row > button{
-    color: #77777;
-    background-color: white;
-    border: 1px solid #777777;
-    border-radius: 5px;
+    display:flex;
+    align-items: center;
 }
-
-.mypage_table_row > button:hover, .mypage_table_row > button:active, .mypage_table_row > button:disabled{
-    background-color: #777777;
-    color: white;
+.mypage_table_row > span, .mypage_table_row > input{
+    margin-right: auto;
 }

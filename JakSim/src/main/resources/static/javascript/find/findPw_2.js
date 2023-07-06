@@ -4,7 +4,6 @@ var requestId;
 var timeout;
 
 window.onload = function(){
-    console.log(sessionStorage.getItem('userId'));
     codeInput = document.getElementById('find_pw_validInput');
     checkButton = document.getElementById('find_pw_validButton');
     userEmail = sessionStorage.getItem('userEmail');
@@ -31,6 +30,7 @@ function createTags(){
     confirmPwInput.type='password';
 
     pwCheckButton.textContent = '비밀번호 확인';
+    pwCheckButton.classList.add('jaksim_btn');
     pwCheckButton.addEventListener('click', function(){
         if(pwInput.value === confirmPwInput.value){
             var sendData = {id: sessionStorage.getItem('userId'), pw: pwInput.value}
@@ -60,6 +60,7 @@ function createTags(){
 function checkCode(){
     if((code === codeInput.value) && !timeout){
         sessionStorage.removeItem('userEmail');
+        stopTimer();
         createTags();
     }else{
         failSpan.innerHTML = '인증시간이 만료되었습니다.';
@@ -104,7 +105,6 @@ function stopTimer(){
 function sendEmail(){
     axios.post('/find/api/email/action', {email: userEmail})
         .then(response => {
-            console.log(response.data);
             code = response.data;
         })
         .catch(error => {

@@ -23,6 +23,14 @@
     color: #FFFFFF;
 }
 
+.jaksim_font{
+    font-family: 'Questrial', sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+
+    color: #747474;
+}
+
 #navi_userInfo{
     margin-left:7px;
 }
@@ -46,4 +54,12 @@
 .nav_font{
     font-family: 'Questrial', sans-serif;
     color:#747474;
+}
+
+#profile_preview{
+    width:150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 0.15rem solid #C8B0FC;
 }

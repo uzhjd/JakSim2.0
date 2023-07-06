@@ -46,4 +46,11 @@ public class MypageController {
         model.addAttribute("access_log", loginLogService.findByUsername(username));
         return String.format(defaultPath + "log");
     }
+
+    @GetMapping("/{userId}/profile")
+    public String profilePage(@PathVariable("userId") String username, Model model){
+        model.addAttribute("user_info", accountService.findByUsername(username));
+        model.addAttribute("log", loginLogService.findByUsernameRecent(username));
+        return String.format(defaultPath + "profile");
+    }
 }

@@ -1,18 +1,17 @@
 {{>layout/header}}
-<script src="/javascript/mypage/mypage.js"></script>
 <link rel="stylesheet" href="/css/mypage/mypageStyle.css">
+<script src="/javascript/mypage/profile.js"></script>
 </head>
 
 <body>
 {{>layout/navi}}
 
 <div id="mypage_container">
-    <aside>
-        {{>content/mypage/aside/main_aside}}
-    </aside>
-    <section>
-        {{>content/mypage/content/main_profile}}
-    </section>
+
+    <div>
+        <input id="profile_imgInput" type="file" onchange="readURL(this);">
+        <img id="profile_preview">
+    </div>
 
 </div>
 
