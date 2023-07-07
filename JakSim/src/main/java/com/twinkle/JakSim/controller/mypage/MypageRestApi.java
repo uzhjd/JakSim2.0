@@ -47,4 +47,19 @@ public class MypageRestApi {
     public boolean getData(@AuthenticationPrincipal User user, @RequestParam("file") MultipartFile data, @RequestParam("email") String email) throws Exception{
         return accountService.updateEmail(email, user.getUsername()) && fileService.updateProfileImage(data, user.getUsername());
     }
+
+    @PutMapping("/profile/update/email")
+    public boolean changeEmail(@AuthenticationPrincipal User user, @RequestBody UserDto userDto){
+        return accountService.updateEmail(userDto.getEmail(), user.getUsername());
+    }
+
+    @PostMapping("/email/get")
+    public boolean dupEmail(@RequestBody UserDto userDto){
+        return accountService.findByEmail(userDto.getEmail()) == null;
+    }
+
+    @PostMapping("/email/check")
+    public String validEmail(@RequestBody UserDto userDto){
+        return accountService.validateEmail(userDto.getEmail());
+    }
 }

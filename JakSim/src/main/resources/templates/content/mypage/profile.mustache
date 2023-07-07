@@ -17,20 +17,25 @@
             {{^session_profile}}
                 <img src="/image/profiles/profile.jpg" id="profile_preview">
             {{/session_profile}}
+
         </div>
         <input id="profile_imgInput" class="form-control form-control-sm" type="file" onchange="readURL(this);">
+        <div>
+            <button type="button" id="checkFile" class="jaksim_btn">프로필 사진 변경</button>
+        </div>
     </div>
 
     <div>
         <p class="jaksim_font">이메일 변경</p>
         <div>
-            <input type="email" id="profile_emailInput">
-            <button class="jaksim_btn">변경</button>
-
+            <input type="email" id="profile_emailInput" value="{{user_info.email}}">
+            <button type="button" class="jaksim_btn" id="profile_change_email">변경</button>
+            <span id="profile_dup_span" style="color:red;"></span>
+            <div id="profile_validate_div"></div>
         </div>
     </div>
 
-    <button id="checkFile">파일형식 알아내기</button>
+
 
 </div>
 

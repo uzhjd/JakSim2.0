@@ -38,8 +38,8 @@ public class SecurityConfig {
         http.authorizeHttpRequests().antMatchers( "/", "/trainerUpdate/**",
                         "/scheduler/**", "/trainerDelete", "/reservation/**",
                         "/trainerRegister/**", "/trainer/**",
-                        "/javascript/**", "/css/**", "/image/**", "/account/**").permitAll()
-                .antMatchers("/login/**", "/find/**").hasAnyRole("ANONYMOUS")
+                        "/javascript/**", "/css/**", "/image/**").permitAll()
+                .antMatchers("/login/**", "/find/**", "/account/**").hasAnyRole("ANONYMOUS")
                 .anyRequest().authenticated();
         http
                 .formLogin()
