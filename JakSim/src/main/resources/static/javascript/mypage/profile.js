@@ -14,7 +14,9 @@ function checking(){
 
     axios.put('/mypage/api/profile/update', formData, {headers: {'Content-Type' : 'multipart/form-data'}})
         .then(response => {
-            console.log(response.data);
+            if(response.data){
+                window.location.href='/';
+            }
         })
         .catch(error => {
             console.error(error);

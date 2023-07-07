@@ -18,7 +18,7 @@ public class UserImageMapper implements RowMapper<UserImage> {
         image.setPath(rs.getString("UI_PATH"));
         image.setUser_id(rs.getString("USER_ID"));
         image.setDt(LocalDateTime.parse(rs.getString("UI_DT"), formatter));
-        image.setId(rs.getInt(rs.getInt("UI_ID")));
+        image.setId(rs.getInt("UI_ID"));
 
         return image;
     }
