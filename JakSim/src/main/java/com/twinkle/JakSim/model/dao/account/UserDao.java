@@ -103,4 +103,30 @@ public class UserDao {
 
         return result;
     }
+
+    public int updateName(String name, String username) {
+        String sql = "UPDATE USER_INFO " +
+                "SET USER_NAME = ? " +
+                "WHERE USER_ID = ?";
+        int result = -1;
+        try{
+            result = jdbcTemplate.update(sql, name, username);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return result;
+    }
+
+    public int updateTel(String tel, String username) {
+        String sql = "UPDATE USER_INFO " +
+                "SET USER_TEL = ? " +
+                "WHERE USER_ID = ?";
+        int result = -1;
+        try{
+            result = jdbcTemplate.update(sql, tel, username);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return result;
+    }
 }

@@ -44,8 +44,8 @@ public class MypageRestApi {
     }
 
     @PutMapping("/profile/update")
-    public boolean getData(@AuthenticationPrincipal User user, @RequestParam("file") MultipartFile data, @RequestParam("email") String email) throws Exception{
-        return accountService.updateEmail(email, user.getUsername()) && fileService.updateProfileImage(data, user.getUsername());
+    public boolean getData(@AuthenticationPrincipal User user, @RequestParam("file") MultipartFile data) throws Exception{
+        return fileService.updateProfileImage(data, user.getUsername());
     }
 
     @PutMapping("/profile/update/email")
@@ -61,5 +61,15 @@ public class MypageRestApi {
     @PostMapping("/email/check")
     public String validEmail(@RequestBody UserDto userDto){
         return accountService.validateEmail(userDto.getEmail());
+    }
+
+    @PutMapping("/profile/update/name")
+    public boolean changeName(@AuthenticationPrincipal User user, @RequestBody UserDto data){
+        return accountService.updateName(data.getName(), user.getUsername());
+    }
+
+    @PutMapping("/profile/update/tel")
+    public boolean changeTel(@AuthenticationPrincipal User user, @RequestBody UserDto data){
+        return accountService.updateTel(data.getTel(), user.getUsername());
     }
 }

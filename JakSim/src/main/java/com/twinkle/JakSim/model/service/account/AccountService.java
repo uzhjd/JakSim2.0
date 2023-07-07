@@ -118,4 +118,12 @@ public class AccountService {
     public boolean updateEmail(String email, String username) {
         return userDao.updateEmail(email, username) > 0;
     }
+
+    public boolean updateName(String name, String username) {
+        return userDao.updateName(name, username) > 0;
+    }
+
+    public boolean updateTel(String tel, String username) {
+        return userDao.updateTel(tel, username) > 0;
+    }
 }

@@ -2,11 +2,11 @@ aside{
     float:left;
     height: 95%;
     width: 30%;
-    border-left: 1px solid #d0d0d0;
-    border-right: 1px solid #d0d0d0;
+    border-left: 0.0625 solid #f2f2f2;
+    border-right: 0.0625px solid #f2f2f2;
 
     box-shadow: 5px 0px 10px #d0d0d0;
-}
+    }
 
 section{
     float: right;
@@ -41,12 +41,18 @@ section{
 
 #mypage_aside_profileImgContainer button{
     position: absolute;
-    bottom: 30px;
-    right: 100px;
+    bottom: 20px;
+    right: 90px;
+
+    width:50px;
+    height:50px;
+
     background-color: #C8B0FC;
     color: #ffffff;
+
     border: 2px solid #C8B0FC;
     border-radius: 50%;
+
     font-size: 25px;
 }
 
@@ -119,7 +125,9 @@ section{
 
 .mypage_table_row{
     padding: 0.5rem;
-    border: 1px solid #d0d0d0;
+    border: 0.0625rem solid #f2f2f2;
+    border-top: none;
+
 
     display:flex;
     align-items: center;
@@ -134,4 +142,8 @@ section{
     object-fit: cover;
     border-radius: 50%;
     border: 0.15rem solid #C8B0FC;
+}
+
+.profile_input{
+    border: none;
 }
