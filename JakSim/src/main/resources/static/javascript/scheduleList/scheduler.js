@@ -5,13 +5,12 @@ today.setHours(0, 0, 0, 0);    // 비교 편의를 위해 today의 시간을 초
 var setDt, trainerId, tType;
 
 // 달력 생성 : 해당 달에 맞춰 테이블을 만들고, 날짜를 채워 넣는다.
-function buildCalendar(trainerId, tType) {
+function buildCalendar(trainerId, ptDay) {
     this.trainerId = trainerId;
-    this.tType = tType;
 
     let firstDate = new Date(nowMonth.getFullYear(), nowMonth.getMonth(), 1);     // 이번달 1일
     let lastDate = new Date(nowMonth.getFullYear(), nowMonth.getMonth() + 1, 0);  // 이번달 마지막날
-
+    let idx = 0;
     let tbody_Calendar = document.querySelector(".Calendar > tbody");
     document.getElementById("calYear").innerText = nowMonth.getFullYear();             // 연도 숫자 갱신
     document.getElementById("calMonth").innerText = leftPad(nowMonth.getMonth() + 1);  // 월 숫자 갱신
@@ -33,7 +32,8 @@ function buildCalendar(trainerId, tType) {
 
         let newDIV = document.createElement("p");
         newDIV.innerHTML = leftPad(nowDay.getDate());        // 추가한 열에 날짜 입력
-        nowColumn.appendChild(newDIV);
+
+
 
         if (nowDay.getDay() == 6) {                 // 토요일인 경우
             nowRow = tbody_Calendar.insertRow();    // 새로운 행 추가
@@ -50,6 +50,15 @@ function buildCalendar(trainerId, tType) {
             newDIV.className = "futureDay";
             newDIV.onclick = function () { choiceDate(this); }
         }
+
+        if(leftPad(nowDay.getDate()) == ptDay[idx]) {
+            console.log(leftPad(nowDay.getDate()));
+            newDIV.classList.add("ptDay");
+
+            idx++;
+        }
+
+        nowColumn.appendChild(newDIV);
     }
 
     setDt = nowMonth.getFullYear().toString() + ". " +  leftPad(nowMonth.getMonth() + 1).toString() + ". ";
@@ -86,4 +95,23 @@ function leftPad(value) {
         return value;
     }
     return value;
+}
+
+function setSchdule(trainerId, tType) {
+    var ptDay = [];
+    this.tType = tType;
+    console.log("seset");
+    const url = '/scheduler/details/' + trainerId;
+
+    axios.get(url)
+        .then((response) => {
+            response.data.forEach(function(schdule) {
+                ptDay.push(schdule['tdate'].split("-")[2]);
+            });
+
+            buildCalendar(trainerId, ptDay.sort());
+        })
+        .catch(error => {
+            console.error(error);
+        });
 }

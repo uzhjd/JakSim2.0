@@ -120,6 +120,10 @@ td {
     font-weight: 600;
     cursor: pointer;
 }
+
+.ptDay {
+    color: #A584EE;
+}
 /*#timetable {*/
 /*    width: 30%;*/
 /*    height: 600px;*/

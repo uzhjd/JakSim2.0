@@ -19,7 +19,7 @@ public class ScheduleListController {
     private final ScheduleListService scheduleListService;
 
     // 3
-    @GetMapping("/details/trainerId/{trainerId}")
+    @GetMapping("/details/{trainerId}")
     public ResponseEntity<List<TimetableResponse>> monthSchedule(@AuthenticationPrincipal User user,
                                                                       @PathVariable("trainerId") String trainerId) {
 

@@ -38,7 +38,7 @@ function changePtList(selectedPt, type) {
 
     setPtCnt(ptCnt);
     setTrainerBrief(trainerId);
-    buildCalendar(trainerId, tType);
+    setSchdule(trainerId, tType);
 }
 
 
