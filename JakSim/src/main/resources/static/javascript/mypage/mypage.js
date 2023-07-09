@@ -1,11 +1,19 @@
 var nameChangeButton, telChangeButton;
 var nameInput, telInput;
+var textA, textB, textZ, textK;
 window.onload = function() {
     var deleteButton = document.getElementById('mypage_delete');
     nameChangeButton = document.getElementById('profile_name_change');
     telChangeButton = document.getElementById('profile_tel_change');
     nameInput = document.getElementById('profile_name_input');
     telInput = document.getElementById('profile_tel_input');
+
+    textA = document.getElementById('textA');
+    textB = document.getElementById('textB');
+    textZ = document.getElementById('textZ');
+    textK = document.getElementById('textK');
+
+    setInterval(toggleText, 2000);
 
     deleteButton.addEventListener('click', deleteUser);
 
@@ -30,6 +38,14 @@ window.onload = function() {
             isTelChange = true;
         }
     })
+}
+
+function toggleText(){
+    textA.classList.toggle('hidden');
+    textB.classList.toggle('hidden');
+    textK.classList.toggle('hidden');
+    textZ.classList.toggle('hidden');
+
 }
 
 function telChangeInput(){

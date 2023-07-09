@@ -1,6 +1,6 @@
 aside{
     float:left;
-    height: 95%;
+    min-height: 100%;
     width: 30%;
     border-left: 0.0625 solid #f2f2f2;
     border-right: 0.0625px solid #f2f2f2;
@@ -12,11 +12,6 @@ section{
     float: right;
     height:95%;
     width: 70%;
-}
-
-#mypage_container{
-    width: 85%;
-    margin: 0rem auto;
 }
 
 #mypage_aside_profileImgContainer{
@@ -37,6 +32,7 @@ section{
 
     border: 0.15rem solid #C8B0FC;
     border-radius: 50%;
+    margin-top: 40px;
 }
 
 #mypage_aside_profileImgContainer button{
@@ -95,7 +91,7 @@ section{
 }
 
 .mypage_container{
-    margin: 1rem 3rem 1rem 3rem;
+    margin: 0rem 3rem;
 }
 
 .mypage_title{
@@ -142,4 +138,23 @@ section{
 
 .profile_input{
     border: none;
+}
+
+@keyframes slideIn{
+    0%{
+        transform: translateX(100%);
+    }
+    100%{
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.hidden{
+    display:none;
 }

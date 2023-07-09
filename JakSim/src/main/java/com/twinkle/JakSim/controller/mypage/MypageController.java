@@ -67,4 +67,12 @@ public class MypageController {
         model.addAttribute("log", loginLogService.findByUsernameRecent(username));
         return String.format(defaultPath + "profile");
     }
+
+    @GetMapping("/{userId}/history/weight")
+    public String weightPage(@PathVariable("userId") String username, Model model){
+        model.addAttribute("head_title", "체중 그래프");
+        model.addAttribute("user_info", accountService.findByUsername(username));
+
+        return String.format(defaultPath + "inbody/weight");
+    }
 }
