@@ -54,7 +54,7 @@ public class ReservationDao {
         return false;
     }
 
-    public ReservationResponse findReservation(String userId, String trainerId, LocalDate tDate) {
+    public ReservationResponse findReservation(String userId, String trainerId, String tDate) {
         ReservationResponse reservationResponse = new ReservationResponse();
 
         this.sql = "select * from reservation as res inner join timetable as tt on res.t_idx = tt.t_idx " +
@@ -63,8 +63,7 @@ public class ReservationDao {
         try {
             reservationResponse = jdbcTemplate.queryForObject(this.sql, new ReservationRowMapper(), userId, trainerId, tDate);
         } catch (EmptyResultDataAccessException e) {
-
-            System.out.println("예약이 없습니다.");
+//            System.out.println("예약이 없습니다.");
         } catch(Exception e) {
             System.out.println(e);
         }

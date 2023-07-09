@@ -30,7 +30,7 @@ public class ReservationController {
         int response = 0;
         LocalDate today = LocalDate.now();
 
-        if(reservationRequest.getTDate().compareTo(today) >= 0) {
+        if(reservationRequest.getTDate().compareTo(today.toString()) >= 0) {
             System.out.println("입력된 날이 더 과거입니다.");
             response = reservationService.register(user.getUsername(), reservationRequest);
 
@@ -52,8 +52,7 @@ public class ReservationController {
     @PostMapping("/search")
     public ResponseEntity<ReservationResponse> reservation(@AuthenticationPrincipal User user,
                                                            @Valid @RequestBody IsReservationRequest resCheckRequest) {
-
-        ReservationResponse response = reservationService.findReservation(user.getUsername(), resCheckRequest.getTrainerId(), LocalDate.parse(resCheckRequest.getDt()));
+        ReservationResponse response = reservationService.findReservation(user.getUsername(), resCheckRequest.getTrainerId(), resCheckRequest.getDt());
 
         return ResponseEntity.ok().body(response);
     }

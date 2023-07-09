@@ -1,6 +1,7 @@
 package com.twinkle.JakSim.model.dto.reservation.response;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalTime;
 
@@ -10,14 +11,21 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReservationResponse {
-
     private int rIdx;
 
-    private LocalTime tStartT;
+    private String tStartT;
 
-    private LocalTime tEndT;
+    private String tEndT;
 
     private int tPeople;
 
     private int tType;
+//
+//    public void setTStartT(String time) {
+//        this.tStartT = LocalTime.parse(time);
+//    }
+//
+//    public void setTEndT(String time) {
+//        this.tEndT = LocalTime.parse(time);
+//    }
 }

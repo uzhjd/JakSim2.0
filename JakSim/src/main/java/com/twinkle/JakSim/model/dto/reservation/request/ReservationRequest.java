@@ -24,5 +24,5 @@ public class ReservationRequest {
     private String trainerId;
 
     @NotBlank
-    private LocalDate tDate;
+    private String tDate;
 }

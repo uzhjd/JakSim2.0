@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 @Service
 @RequiredArgsConstructor
@@ -57,8 +59,18 @@ public class ReservationService {
         return false;
     }
 
-    public ReservationResponse findReservation(String userId, String trainerId, LocalDate tDate) {
-        ReservationResponse reservationResponse = reservationDao.findReservation(userId, trainerId, tDate);
+    public ReservationResponse findReservation(String userId, String trainerId, String tDate) {
+        ReservationResponse reservationResponse = new ReservationResponse();
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        try {
+            reservationResponse = reservationDao.findReservation(userId, trainerId, tDate);
+
+//            reservationResponse.setTStartT(reservationResponse.getTStartT().format(formatter));
+//            reservationResponse.setTEndT(reservationResponse.getTEndT().format(formatter));
+        } catch (NullPointerException e) {
+            System.out.println("rservation NullpointException : 현날짜에 데이터가 없습니다.");
+        }
 
         return reservationResponse;
     }
