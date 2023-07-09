@@ -26,7 +26,7 @@ window.onload = function() {
             telChangeInput();
             isTelChange = false
         }else{
-            telChangeResult();
+            checkTel();
             isTelChange = true;
         }
     })
@@ -67,11 +67,12 @@ function nameChangeResult(){
         });
 }
 
-function updateTel(){
+function checkTel(){
     axios.post('/mypage/api/profile/check/tel', {tel: telInput.value})
             .then(response => {
-                if(response.data){
-                    updateTel();
+                console.log(response.data);
+                if(response.data === true){
+                    telChangeResult();
                 }else{
                     alert('이미 존재하는 전화번호입니다.');
                 }

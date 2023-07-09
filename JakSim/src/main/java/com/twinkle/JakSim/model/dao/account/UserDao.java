@@ -127,6 +127,7 @@ public class UserDao {
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
+        System.out.println("result: " + result);
         return result;
     }
 }

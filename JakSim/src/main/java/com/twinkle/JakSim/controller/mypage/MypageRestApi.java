@@ -72,4 +72,9 @@ public class MypageRestApi {
     public boolean changeTel(@AuthenticationPrincipal User user, @RequestBody UserDto data){
         return accountService.updateTel(data.getTel(), user.getUsername());
     }
+
+    @PostMapping("/profile/check/tel")
+    public boolean checkTel(@RequestBody UserDto data){
+        return accountService.findByTel(data.getTel()) == null;
+    }
 }
