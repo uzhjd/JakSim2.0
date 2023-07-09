@@ -2,10 +2,12 @@
 
 #timetable {
     width: 450px;
-    height:400px;
+    height:200px;
     float: right;
     margin-top: 10px;
 
+    border-radius: 20px;
+    border: 2px solid rgba(196, 196, 196, 1);
     background: white;
 
     font-family: 'Questrial', sans-serif;
@@ -15,16 +17,14 @@
 }
 
 #timetableDetail {
-    /* --------------- */
-    height:200px;
-    overflow: scroll;
-    overflow-x:hidden;
-
-    background: white;
-    border-radius: 20px;
-    border: 2px solid rgba(196, 196, 196, 1);
-
+    width: 445px;
+    height: 200px;
     padding: 20px;
+
+    background: #ffffff00;
+
+    overflow: scroll;
+    overflow-x: hidden;
 }
 
 #title {

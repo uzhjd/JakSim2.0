@@ -5,13 +5,12 @@ function setPtList() {
     axios.get('/product/myPt')
         .then((response) => {
             var ptData = response.data;
-            var ptCnt = ptData[0]['pptCnt'];
 
             for(var i = 0; i < ptData.length; i++) {
                 var option = document.createElement("option");
 
                 option.text = ptData[i]['trainerName'] + " 트레이너";
-                option.value = JSON.stringify({pptCnt : ptData[i]['pptCnt'], trainerId : ptData[i]['trainerId']});
+                option.value = JSON.stringify({pptCnt : ptData[i]['pptCnt'], trainerId : ptData[i]['trainerId'], tType : ptData[i]['tType']});
 
                 ptList.appendChild(option);
             }
@@ -21,28 +20,25 @@ function setPtList() {
         .catch(error => {
             console.error(error);
         });
-
 }
 
 // pt권을 변경하는 코드
 function changePtList(selectedPt, type) {
-    // console.log(selectedPt);
+    var ptCnt, trainerId, tType;
 
-    if(type === 0){
-        setPtCnt(selectedPt['pptCnt']);
-        setTrainerBrief(selectedPt['trainerId']);
+    if(type === 0) {
+        ptCnt = selectedPt['pptCnt'];
+        trainerId = selectedPt['trainerId'];
+        tType = selectedPt['ttype'];
+    } else if (type === 1) {
+        ptCnt = JSON.parse(selectedPt.value).pptCnt;
+        trainerId = JSON.parse(selectedPt.value).trainerId;
+        tType = JSON.parse(selectedPt.value).tType;
     }
-    else if (type === 1) {
-        // console.log(JSON.parse(selectedPt.value).pptCnt);
-        var cnt = JSON.parse(selectedPt.value).pptCnt;
-        var trainerId = JSON.parse(selectedPt.value).trainerId;
-        console.log(typeof(selectedPt));
 
-        setPtCnt(cnt);
-        setTrainerBrief(trainerId);
-    }
-    buildCalendar();
-
+    setPtCnt(ptCnt);
+    setTrainerBrief(trainerId);
+    buildCalendar(trainerId, tType);
 }
 
 

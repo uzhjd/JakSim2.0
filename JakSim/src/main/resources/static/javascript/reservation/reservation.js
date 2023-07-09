@@ -7,6 +7,7 @@ function setDate(date) {
 function setMyReservation(date) {
     var reservation = document.getElementById('reservation_list');
     var ptList = document.getElementById('trainer_list');
+    var button = document.getElementById('resCancle');
     var trainerId = JSON.parse(ptList.options[ptList.selectedIndex].value).trainerId;
     var formattedDate = date.split(". ").join("-");
     var type;
@@ -15,8 +16,7 @@ function setMyReservation(date) {
         trainerId: trainerId,
         dt: formattedDate
     };
-console.log(data.dt);
-console.log(typeof data.dt);
+
     axios.post('/reservation/search', data)
         .then((response) => {
             if(response.data['tstartT'] != null) {
@@ -30,11 +30,14 @@ console.log(typeof data.dt);
 
                     reservation.textContent = response.data['tstartT'] + " - " + response.data['tendT'] + " ( " + type + " )";
                 }
-            } else reservation.textContent = "";
 
+                button.style.display = 'inline-block';
 
-
-            console.log(response.data);
+                button.addEventListener('click', () => resCancle(response.data['pidx'], response.data['ridx'], type));
+            } else {
+                reservation.textContent = "▶ 예약 정보가 없습니다.";
+                button.style.display = 'none';
+            }
         })
         .catch(error => {
             console.error(error);
@@ -45,6 +48,19 @@ function resRegister() {
 
 }
 
-function resCancle() {
-
+function resCancle(pIdx, rIdx, type) {
+    var url = '/reservation/cancle/' + pIdx + '/' + rIdx;
+console.log(" click " + rIdx);
+    axios.get(url)
+        .then((response) => {
+            if(response.data) {
+                alert(type + ' 예약이 취소되었습니다!');
+                setMyReservation(document.getElementById("reservation_date").innerText);
+            } else {
+                alert('예약이 취소되지 않았습니다!');
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
 }

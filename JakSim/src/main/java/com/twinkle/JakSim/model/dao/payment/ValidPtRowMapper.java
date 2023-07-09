@@ -13,6 +13,7 @@ public class ValidPtRowMapper implements RowMapper<ValidPtResponse> {
                                         .trainerId(rs.getString("USER_ID"))
                                         .trainerName(rs.getString("USER_NAME"))
                                         .pIdx(rs.getInt("P_IDX"))
+                                        .tType(rs.getInt("TP_TYPE"))
                                         .pPtCnt(rs.getInt("P_PT_CNT"))
                                         .build();
 

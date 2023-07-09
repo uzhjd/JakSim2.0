@@ -67,7 +67,7 @@ public class PaymentDao {
     public List<ValidPtResponse> findAllValidPt(String userId, LocalDate today) {
         List<ValidPtResponse> list = new ArrayList<>();
 
-        this.sql = "select pro.user_id, u.user_name, pay.p_idx, pay.p_pt_cnt " +
+        this.sql = "select pro.user_id, pro.tp_type, u.user_name, pay.p_idx, pay.p_pt_cnt " +
                 "from payment as pay inner join product as pro on pay.tp_idx = pro.tp_idx " +
                 "inner join user_info as u on pro.user_id = u.user_id " +
                 "where pay.user_id = ? and p_refund = '0' and p_pt_cnt > '0' and p_pt_period >= (? - p_c_dt)";

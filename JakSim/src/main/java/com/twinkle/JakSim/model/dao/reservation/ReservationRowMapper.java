@@ -14,6 +14,7 @@ public class ReservationRowMapper implements RowMapper<ReservationResponse> {
 
         ReservationResponse reservationResponse = ReservationResponse.builder()
                                             .rIdx(rs.getInt("R_IDX"))
+                                            .pIdx((rs.getInt("P_IDX")))
                                             .tStartT(rs.getTime("T_START_T").toLocalTime().format(formatter))
                                             .tEndT(rs.getTime("T_END_T").toLocalTime().format(formatter))
                                             .tPeople(rs.getInt("T_PEOPLE"))

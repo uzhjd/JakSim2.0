@@ -57,9 +57,9 @@ public class ReservationController {
         return ResponseEntity.ok().body(response);
     }
 
-    @GetMapping("/cancle/{pIdx}/{rIdx}/")
-    public ResponseEntity<Boolean> resCancle(@AuthenticationPrincipal User user, @PathVariable("rIdx") int rIdx,
-                              @PathVariable("pIdx") int pIdx) {
+    @GetMapping("/cancle/{pIdx}/{rIdx}")
+    public ResponseEntity<Boolean> resCancle(@AuthenticationPrincipal User user, @PathVariable("pIdx") int pIdx,
+                              @PathVariable("rIdx") int rIdx) {
         Boolean response = reservationService.delete(pIdx, rIdx);
 
         return ResponseEntity.ok().body(response);

@@ -8,14 +8,16 @@
 
     float: right;
     width: 450px;
-    height: 300px;
+    height: 290px;
 }
 
 #trainer-details {
-    border: 2px solid rgba(196, 196, 196, 1);
-    padding: 10px;
+    height: 288px;
+    padding: 20px;
+
     border-radius: 20px;
-    padding: 20px
+    border: 2px solid rgba(196, 196, 196, 1);
+
 }
 
 .trainer-info {

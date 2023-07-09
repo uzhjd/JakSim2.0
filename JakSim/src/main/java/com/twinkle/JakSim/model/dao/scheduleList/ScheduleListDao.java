@@ -35,7 +35,7 @@ public class ScheduleListDao {
         return timetableList;
     }
 
-    public List<TimetableResponse> findTrainerSchedule(String trainerId, LocalDate date, int tType) {
+    public List<TimetableResponse> findTrainerSchedule(String trainerId, String date, int tType) {
         List<TimetableResponse> timetableList = new ArrayList<>();
         Object[] params;
 
@@ -45,7 +45,7 @@ public class ScheduleListDao {
             params = new Object[]{trainerId, date};
         } else {
             sql += " and t_type = ?";
-            params = new Object[]{trainerId, date, tType};
+            params = new Object[]{trainerId, date, 1};
         }
 
         try {

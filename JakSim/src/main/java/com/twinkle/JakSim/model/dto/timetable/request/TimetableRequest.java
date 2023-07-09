@@ -3,6 +3,7 @@ package com.twinkle.JakSim.model.dto.timetable.request;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
@@ -14,8 +15,8 @@ public class TimetableRequest {
     private String trainerId;
 
     @NotBlank
-    private LocalDate tDate;
+    private String dt;
 
-    @NotBlank
+    @NotNull
     private int tType;
 }

@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 @RestController
 @RequestMapping("/timetable")
@@ -15,12 +16,10 @@ public class TimetableRestController {
 
     ScheduleListService scheduleListService;
 
-    // 4
     @PostMapping("/details")
-    public ResponseEntity<List<TimetableResponse>> myTrainerTimetable(@RequestBody TimetableRequest timetableRequest) {
-
+    public ResponseEntity<List<TimetableResponse>> myTrainerTimetable(@Valid @RequestBody TimetableRequest timetableRequest) {
         List<TimetableResponse> response = scheduleListService.findTrainerTimetable(timetableRequest.getTrainerId(),
-                timetableRequest.getTDate(), timetableRequest.getTType());
+                                                                timetableRequest.getDt(), timetableRequest.getTType());
 
         return ResponseEntity.ok(response);
     }

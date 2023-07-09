@@ -1,6 +1,5 @@
 function setTrainerBrief(trainerId) {
-    var gender;
-    var trainerData;
+    var gender,trainerData;
     var url = '/trainer/briefInfo/' + trainerId;
 
     axios.get(url)

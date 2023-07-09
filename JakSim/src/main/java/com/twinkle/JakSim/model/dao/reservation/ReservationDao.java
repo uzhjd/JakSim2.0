@@ -38,7 +38,7 @@ public class ReservationDao {
     }
 
     public Boolean delete(int rIdx) {
-        this.sql = "delete from reservation where t_idx = ?";
+        this.sql = "delete from reservation where r_idx = ?";
 
         try {
             int rowsAffected = jdbcTemplate.update(this.sql, rIdx);

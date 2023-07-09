@@ -32,7 +32,7 @@ public class ScheduleListService {
         return timetableList;
     }
 
-    public List<TimetableResponse> findTrainerTimetable(String trainerId, LocalDate date, int tType) {
+    public List<TimetableResponse> findTrainerTimetable(String trainerId, String date, int tType) {
         List<TimetableResponse> timetableList = new ArrayList<>();
 
         try {

@@ -14,5 +14,7 @@ public class ValidPtResponse {
 
     private int pIdx;
 
+    public int tType;
+
     private int pPtCnt;
 }

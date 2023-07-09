@@ -13,6 +13,8 @@ import java.time.LocalTime;
 public class ReservationResponse {
     private int rIdx;
 
+    private int pIdx;
+
     private String tStartT;
 
     private String tEndT;
@@ -20,12 +22,4 @@ public class ReservationResponse {
     private int tPeople;
 
     private int tType;
-//
-//    public void setTStartT(String time) {
-//        this.tStartT = LocalTime.parse(time);
-//    }
-//
-//    public void setTEndT(String time) {
-//        this.tEndT = LocalTime.parse(time);
-//    }
 }
