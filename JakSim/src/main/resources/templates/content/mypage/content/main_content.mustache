@@ -15,23 +15,34 @@
             <span>{{user_info.email}}</span>
             <button class="jaksim_btn" onclick="window.location.href='/mypage/{{user_info.id}}/profile'">인증 및 수정</button>
         </div>
+        <div class="mypage_table_row jaksim_font">
+            <span>회원탈퇴</span>
+            <button class="btn btn-danger" type="button" id="mypage_delete">탈퇴</button>
+        </div>
     </div>
 
     <div class="mypage_table_div">
         <div class="mypage_table_tableHead">
-            <a href="#"><span>보안설정</span></a>
+            <a href="#"><span>이력확인</span></a>
         </div>
         <div class="mypage_table_row">
-            <span>{{user_info.name}}</span>
-            <button>확인</button>
+            <span>결제내역 적을 자리임</span>
+            <button class="jaksim_btn">내역 확인</button>
         </div>
         <div class="mypage_table_row">
-             <span>{{user_info.tel}}</span>
-            <button>변경</button>
+            <a href="/editReview">
+                <span>{{review.reviewId}}</span>
+                <span>{{review.reviewContent}}</span>
+                <span>{{review.star}}</span>
+                <span>{{review.reviewModifyDate}}</span>
+            </a>
+            <button class="jaksim_btn">내역 확인</button>
         </div>
-        <div class="mypage_table_row">
-            <span>{{user_info.email}}</span>
-            <button>삭ㅋ젴</button>
+        <div class="mypage_table_row jaksim_font">
+            <span>[로그인 내역]</span>
+            <span>{{log.dt}}</span>
+            <span>{{log.ip}}</span>
+            <button class="jaksim_btn" type="button" onclick="window.location.href='/mypage/{{user_info.id}}/history/login';">내역 확인</button>
         </div>
     </div>
 
@@ -56,4 +67,3 @@
 </div>
 
 
-<button type="button" id="mypage_delete">회원삭제</button>

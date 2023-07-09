@@ -72,7 +72,7 @@ VALUES(NULL, '멸치탈출 트레이너는 나야나', 'https://www.instagram.co
 INSERT INTO TRAINER_DETAILS
 VALUES(NULL, '오늘밤 주인공은 나야나', 'https://www.instagram.com/tes9t6', '근육짱짐', 'ujeong', 3, 5);
 INSERT INTO TRAINER_DETAILS
-VALUES(NULL, '안녕 여기 1짱은 나다', 'https://www.instagram.com/test96', '가리봉짱짐', 'test96', 2, 5);
+VALUES(NULL, '안녕 여기 1짱은 나다', 'https://www.instagram.com/test96', '가리봉짱짐', 'test2', 2, 5);
 
 INSERT INTO TRAINER_IMAGE
 VALUES(NULL, 'wkdgyfla97', 'files/trainer/a.jpg');
@@ -118,7 +118,7 @@ VALUES(NULL, 'humble', 20, 400000, 1, '입근육을 만들자', 6);
 INSERT INTO PRODUCT
 VALUES(NULL, 'ujeong', 1, 10000, 0, '귀여워지고싶나용', 6);
 INSERT INTO PRODUCT
-VALUES(NULL, 'test96', 1, 20000, 0, '뒤지게패자', 6);
+VALUES(NULL, 'test2', 1, 20000, 0, '뒤지게패자', 6);
 
 
 COMMIT;

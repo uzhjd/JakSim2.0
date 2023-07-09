@@ -1,8 +1,12 @@
 package com.twinkle.JakSim.controller.mypage;
 
 import com.twinkle.JakSim.model.dto.account.LoginLogDto;
+import com.twinkle.JakSim.model.dto.review.ReviewRequestDto;
 import com.twinkle.JakSim.model.service.account.AccountService;
 import com.twinkle.JakSim.model.service.account.LoginLogService;
+import com.twinkle.JakSim.model.service.payment.PaymentService;
+import com.twinkle.JakSim.model.service.review.ReviewService;
+import com.twinkle.JakSim.model.service.trainer.TrainerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -23,6 +27,10 @@ public class MypageController {
     private final String defaultPath = "/content/mypage/";
     private final AccountService accountService;
     private final LoginLogService loginLogService;
+    private final PaymentService paymentService;
+    private final ReviewService reviewService;
+    private final TrainerService trainerService;
+
     @GetMapping("/auth")
     public String authPage(Model model){
         model.addAttribute("head_title", "개인페이지");
@@ -33,13 +41,19 @@ public class MypageController {
     public String mainPage(@PathVariable("username") String username, Model model){
         model.addAttribute("head_title", "개인페이지");
         model.addAttribute("user_info", accountService.findByUsername(username));
-        LoginLogDto logDto = loginLogService.findByUsernameRecent(username);
-        if(logDto.getIp() != null)
-            model.addAttribute("log", logDto);
+        model.addAttribute("log", loginLogService.findByUsernameRecent(username));
+
+        //payment 관련 서비스가 더 존재하는지 확인바람
+        //model.addAttribute("payment", paymentService.findValidPtList(username).get(0));
+
+        ReviewRequestDto review = reviewService.showMyReivew(username).get(0);
+        model.addAttribute("review", review);
+        //model.addAttribute("trainer_info", trainerService.findMyTrainer(review.getTrainerId()));
+
         return String.format(defaultPath + "mypage");
     }
 
-    @GetMapping("/{userId}/history")
+    @GetMapping("/{userId}/history/login")
     public String logPage(@PathVariable("userId") String username, Model model){
         model.addAttribute("head_title", username + "님 이력확인");
         model.addAttribute("user_info", accountService.findByUsername(username));

@@ -35,8 +35,7 @@ public class ReviewDao {
     }
 
     public List<ReviewRequestDto> getMyReview(String userId) {
-        this.sql = "SELECT * FROM REVIEW R JOIN REVIEW_IMAGE RI " +
-                "ON R.R_IDX = RI.R_IDX " +
+        this.sql = "SELECT * FROM REVIEW R " +
                 "WHERE USER_ID = ?";
 
         return jdbcTemplate.query(this.sql, new ReviewRowMapper(), userId);

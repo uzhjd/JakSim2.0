@@ -23,7 +23,7 @@ CREATE TABLE REVIEW_IMAGE(
 COMMIT;
 
 INSERT INTO REVIEW
-VALUES(NULL, 'ujeong', 1, '트레이너가 친절하고 PT가 맛있어요', 5, current_date, NULL);
+VALUES(NULL, 'test', 1, '트레이너가 친절하고 PT가 맛있어요', 5, current_date, NULL);
 INSERT INTO REVIEW
 VALUES(NULL, 'humble', 1, '이렇게 피티가 뭐같은적이 없음', 1, current_date, NULL);
 INSERT INTO REVIEW

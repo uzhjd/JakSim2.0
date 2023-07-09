@@ -64,10 +64,6 @@ section{
     border: 2px solid #E9E1FB;
 }
 
-#mypage_delete{
-    clear:both;
-    margin: 5rem;
-}
 
 #mypage_aside_username, #mypage_aside_email, #mypage_aside_loginspan{
     text-align: center;
