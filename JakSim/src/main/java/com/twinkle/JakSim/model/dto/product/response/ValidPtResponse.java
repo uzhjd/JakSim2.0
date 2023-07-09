@@ -10,6 +10,8 @@ public class ValidPtResponse {
 
     private String trainerId;
 
+    private String trainerName;
+
     private int pIdx;
 
     private int pPtCnt;

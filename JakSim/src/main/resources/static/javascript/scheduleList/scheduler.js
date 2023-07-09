@@ -1,8 +1,8 @@
-window.onload = function () { buildCalendar(); }    // 웹 페이지가 로드되면 buildCalendar 실행
-
 let nowMonth = new Date();  // 현재 달을 페이지를 로드한 날의 달로 초기화
 let today = new Date();     // 페이지를 로드한 날짜를 저장
 today.setHours(0, 0, 0, 0);    // 비교 편의를 위해 today의 시간을 초기화
+
+var setDt;
 
 // 달력 생성 : 해당 달에 맞춰 테이블을 만들고, 날짜를 채워 넣는다.
 function buildCalendar() {
@@ -48,15 +48,19 @@ function buildCalendar() {
             newDIV.onclick = function () { choiceDate(this); }
         }
     }
+
+    setDt = nowMonth.getFullYear().toString() + ". " +  leftPad(nowMonth.getMonth() + 1).toString() + ". ";
+    setDate(setDt + leftPad(nowMonth.getDate()).toString());
 }
 
 // 날짜 선택
 function choiceDate(newDIV) {
-    console.log(newDIV.innerHTML);
     if (document.getElementsByClassName("choiceDay")[0]) {                              // 기존에 선택한 날짜가 있으면
         document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");  // 해당 날짜의 "choiceDay" class 제거
     }
     newDIV.classList.add("choiceDay");           // 선택된 날짜에 "choiceDay" class 추가
+
+    setDate(setDt + newDIV.innerHTML);
 }
 
 // 이전달 버튼 클릭

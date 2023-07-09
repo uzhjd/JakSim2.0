@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Questrial&display=swap');
 
+* {
+    font-family: 'Questrial', sans-serif;
+}
+
 #timetable_layout {
     background-color : white;
     height: 900px;
@@ -12,13 +16,12 @@
 
 #scheduler {
     width: 800px;
-    height: 625px;
+    height: 621px;
     float: left;
-    padding: 5%;
+    padding: 30px 30px 15px;
 
     background-color: white;
-    padding-right: 5px;
-    border: 2px solid rgba(196, 196, 196, 1);
+    border: 2px solid #A584EE;
     border-radius: 5%;
 }
 
@@ -33,17 +36,42 @@ td {
     text-align: center;
 }
 
-.Calendar>thead>tr:first-child>td {
+.Calendar>thead>tr:first-child {
     font-family: 'Questrial', sans-serif;
     font-size: 2em;
     font-weight: bold;
 
-    color: #A584EE;
+    color: rgba(116, 116, 116, 1);
+
 }
 
-.Calendar>thead>tr:last-child>td {
+
+#sun {
+    color: #fd6a6a;
+}
+#sat {
+    color: #5d73fd;
+}
+
+.Calendar>thead>tr:last-child {
+    height: 100px;
     font-family: 'Questrial', sans-serif;
+    color: rgba(116, 116, 116, 1);
+
     font-weight: 1000;
+}
+
+#calbutton {
+    color: #A584EE;
+
+}
+
+#calMonth, #calYear {
+    padding-bottom: 5px;
+
+    font-family: 'Questrial', sans-serif;
+    color: rgba(116, 116, 116, 1);
+
 }
 
 .Calendar>tbody>tr>td>p {
@@ -68,11 +96,14 @@ td {
 
 .today {
     box-shadow:inset 0px 0px 0px 2px #A584EE;
+    color: rgba(116, 116, 116, 1);
     font-weight: 600;
     cursor: pointer;
 }
 
 .futureDay {
+
+    color: rgba(116, 116, 116, 1);
     background-color: #FFFFFF;
     cursor: pointer;
 }
@@ -88,7 +119,6 @@ td {
     font-weight: 600;
     cursor: pointer;
 }
-
 /*#timetable {*/
 /*    width: 30%;*/
 /*    height: 600px;*/

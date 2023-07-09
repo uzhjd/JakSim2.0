@@ -17,7 +17,6 @@ import java.util.List;
 public class ScheduleListController {
 
     private final ScheduleListService scheduleListService;
-    private final ReservationService reservationService;
 
     // 3
     @GetMapping("/details/trainerId/{trainerId}")

@@ -17,7 +17,7 @@ public class TrainerDetailResponse {
 
     private String insta;
 
-    private String introduce;
+    private String intro;
 
     private String gym;
 

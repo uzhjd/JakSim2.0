@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class TrainerRestapi {
 
-    TrainerService trainerService;
+    private final TrainerService trainerService;
 
     // 2
     @GetMapping("/briefInfo/{trainerId}")
     public ResponseEntity<TrainerDetailResponse> TrainerBreif(@PathVariable("trainerId") String trainerId) {
         TrainerDetailResponse response = trainerService.findTrainerBreif(trainerId);
-
+        System.out.println(trainerId);
         return ResponseEntity.ok(response);
     }
 

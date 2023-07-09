@@ -11,12 +11,12 @@ public class TrainerDetailRowMapper implements RowMapper<TrainerDetailResponse> 
     public TrainerDetailResponse mapRow(ResultSet rs, int rowNum) throws SQLException {
         TrainerDetailResponse trainerDetailResponse = new TrainerDetailResponse(rs.getString("USER_ID"),
                                                                     rs.getString("USER_NAME"),
-                                                                    rs.getInt("GENDER"),
-                                                                    rs.getString("INSTA"),
-                                                                    rs.getString("INTRO"),
-                                                                    rs.getString("GYM"),
-                                                                    rs.getInt("EXPERT1"),
-                                                                    rs.getInt("EXPERT2"));
+                                                                    rs.getInt("USER_GENDER"),
+                                                                    rs.getString("UT_INSTA"),
+                                                                    rs.getString("UT_INTRO"),
+                                                                    rs.getString("UT_GYM"),
+                                                                    rs.getInt("UT_EXPERT_1"),
+                                                                    rs.getInt("UT_EXPERT_2"));
 
         return trainerDetailResponse;
     }

@@ -58,7 +58,7 @@ public class ReservationDao {
         ReservationResponse reservationResponse = new ReservationResponse();
 
         this.sql = "select * from reservation as res inner join timetable as tt on res.t_idx = tt.t_idx " +
-                "where res.user_id = ? and tt.user_id = ? tt.t_date = ?";
+                "where res.user_id = ? and tt.user_id = ? and tt.t_date = ?";
 
         try {
             reservationResponse = jdbcTemplate.queryForObject(this.sql, new ReservationRowMapper(), userId, trainerId, tDate);

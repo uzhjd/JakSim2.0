@@ -51,8 +51,9 @@ public class ReservationController {
     // 5
     @PostMapping("/search")
     public ResponseEntity<ReservationResponse> reservation(@AuthenticationPrincipal User user,
-                                                           @RequestBody IsReservationRequest resCheckRequest) {
-        ReservationResponse response = reservationService.findReservation(user.getUsername(), resCheckRequest.getTrainerId(), resCheckRequest.getTDate());
+                                                           @Valid @RequestBody IsReservationRequest resCheckRequest) {
+
+        ReservationResponse response = reservationService.findReservation(user.getUsername(), resCheckRequest.getTrainerId(), LocalDate.parse(resCheckRequest.getDt()));
 
         return ResponseEntity.ok().body(response);
     }

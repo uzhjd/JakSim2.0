@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/JakSim/SQL/create/create_trainer_v2.sql" dialect="MariaDB" />
+    <file url="file://$PROJECT_DIR$/JakSim/SQL/create/payment.sql" dialect="MariaDB" />
+    <file url="file://$PROJECT_DIR$/JakSim/SQL/create/reservation.sql" dialect="MariaDB" />
+    <file url="file://$PROJECT_DIR$/JakSim/SQL/create/timetable.sql" dialect="MariaDB" />
+    <file url="file://$PROJECT_DIR$/JakSim/SQL/create/trainer.sql" dialect="MariaDB" />
+    <file url="file://$PROJECT_DIR$/JakSim/SQL/create/user.sql" dialect="MariaDB" />
+  </component>
+</project>
