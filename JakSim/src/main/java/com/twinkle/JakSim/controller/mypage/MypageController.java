@@ -1,7 +1,11 @@
 package com.twinkle.JakSim.controller.mypage;
 
 import com.twinkle.JakSim.model.dto.account.LoginLogDto;
+import com.twinkle.JakSim.model.dto.payment.PaymentDo;
 import com.twinkle.JakSim.model.dto.review.ReviewRequestDto;
+import com.twinkle.JakSim.model.dto.trainer.ProductDto;
+import com.twinkle.JakSim.model.dto.trainer.TrainerDto;
+import com.twinkle.JakSim.model.dto.trainer.response.TrainerDetailDto;
 import com.twinkle.JakSim.model.service.account.AccountService;
 import com.twinkle.JakSim.model.service.account.LoginLogService;
 import com.twinkle.JakSim.model.service.payment.PaymentService;
@@ -44,11 +48,17 @@ public class MypageController {
         model.addAttribute("log", loginLogService.findByUsernameRecent(username));
 
         //payment 관련 서비스가 더 존재하는지 확인바람
-        //model.addAttribute("payment", paymentService.findValidPtList(username).get(0));
+        PaymentDo paymentDo = paymentService.getRecentPayment(username);
+        ProductDto productDto = trainerService.getProductByTrainerIdx(paymentDo.getTp_idx());
+        TrainerDetailDto trainerDto = trainerService.findMyTrainer(String.format(""+ productDto.getPtId()));
+        System.out.println(trainerDto.toString());
+        model.addAttribute("payment", paymentDo);
+        model.addAttribute("product", productDto);
+        model.addAttribute("product_trainer");
+
 
         ReviewRequestDto review = reviewService.showMyReivew(username).get(0);
         model.addAttribute("review", review);
-        //model.addAttribute("trainer_info", trainerService.findMyTrainer(review.getTrainerId()));
 
         return String.format(defaultPath + "mypage");
     }

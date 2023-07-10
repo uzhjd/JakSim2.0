@@ -1,5 +1,6 @@
 package com.twinkle.JakSim.model.dao.payment;
 
+import com.twinkle.JakSim.model.dto.payment.PaymentDo;
 import com.twinkle.JakSim.model.dto.payment.response.PaymentDto;
 import com.twinkle.JakSim.model.dto.product.response.ValidPtDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,5 +82,16 @@ public class PaymentDao {
         }
 
         return list;
+    }
+
+    public PaymentDo findRecentByUsername(String username) {
+        String sql = "SELECT * FROM PAYMENT WHERE USER_ID = ?";
+        PaymentDo paymentDo = new PaymentDo();
+        try{
+            paymentDo = jdbcTemplate.queryForObject(sql, new PaymentDoRowMapper(), username);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return paymentDo;
     }
 }

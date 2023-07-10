@@ -1,5 +1,6 @@
 var nameChangeButton, telChangeButton;
 var nameInput, telInput;
+//animation
 var textA, textB, textZ, textK;
 window.onload = function() {
     var deleteButton = document.getElementById('mypage_delete');
@@ -8,12 +9,14 @@ window.onload = function() {
     nameInput = document.getElementById('profile_name_input');
     telInput = document.getElementById('profile_tel_input');
 
+    //animation
     textA = document.getElementById('textA');
     textB = document.getElementById('textB');
     textZ = document.getElementById('textZ');
     textK = document.getElementById('textK');
 
     setInterval(toggleText, 2000);
+    //animation
 
     deleteButton.addEventListener('click', deleteUser);
 
@@ -45,7 +48,6 @@ function toggleText(){
     textB.classList.toggle('hidden');
     textK.classList.toggle('hidden');
     textZ.classList.toggle('hidden');
-
 }
 
 function telChangeInput(){

@@ -1,8 +1,10 @@
 package com.twinkle.JakSim.controller.mypage;
 
 import com.twinkle.JakSim.model.dto.account.UserDto;
+import com.twinkle.JakSim.model.dto.inbody.InbodyDto;
 import com.twinkle.JakSim.model.service.account.AccountService;
 import com.twinkle.JakSim.model.service.account.FileService;
+import com.twinkle.JakSim.model.service.inbody.InbodyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
@@ -13,7 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @RequestMapping("/mypage/api")
@@ -21,6 +25,7 @@ import java.util.HashMap;
 public class MypageRestApi {
     private final AccountService accountService;
     private final FileService fileService;
+    private final InbodyService inbodyService;
     @PostMapping("/auth")
     public String authPassword(@RequestBody UserDto userDto, @AuthenticationPrincipal User user){
         return accountService.checkPassword(user.getUsername(), userDto.getPw()) ? user.getUsername() : null;
@@ -76,5 +81,10 @@ public class MypageRestApi {
     @PostMapping("/profile/check/tel")
     public boolean checkTel(@RequestBody UserDto data){
         return accountService.findByTel(data.getTel()) == null;
+    }
+
+    @GetMapping("/inbody/data")
+    public List<InbodyDto> getInbody(@AuthenticationPrincipal User user){
+        return inbodyService.getInbodies(user.getUsername());
     }
 }

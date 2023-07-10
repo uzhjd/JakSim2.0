@@ -97,4 +97,7 @@ public class TrainerService {
         return trainerDetailDto;
     }
 
+    public ProductDto getProductByTrainerIdx(int idx){
+        return trainerDao.getProductByTrainerIdx(idx);
+    }
 }

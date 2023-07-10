@@ -1,6 +1,7 @@
 package com.twinkle.JakSim.model.service.payment;
 
 import com.twinkle.JakSim.model.dao.payment.PaymentDao;
+import com.twinkle.JakSim.model.dto.payment.PaymentDo;
 import com.twinkle.JakSim.model.dto.product.response.ValidPtDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,5 +26,9 @@ public class PaymentService {
         }
 
         return list;
+    }
+
+    public PaymentDo getRecentPayment(String username) {
+        return paymentDao.findRecentByUsername(username);
     }
 }

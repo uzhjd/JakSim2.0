@@ -1,75 +1,1 @@
-<div class="mypage_container" style="background-">
-    <div class="mypage_table_div">
-        <div class="mypage_table_tableHead">
-            <a href="/mypage/{{user_info.id}}/profile"><span>내 프로필</span></a>
-        </div>
-        <div class="mypage_table_row  jaksim_font">
-            <input id="profile_name_input" type="text" value="{{user_info.name}}" class="jaksim_font profile_input" readonly>
-            <button class="jaksim_btn" id="profile_name_change">이름 수정</button>
-        </div>
-        <div class="mypage_table_row  jaksim_font">
-            <input id="profile_tel_input" type="text" value="{{user_info.tel}}" class="jaksim_font profile_input" readonly>
-            <button class="jaksim_btn" id="profile_tel_change">번호 수정</button>
-        </div>
-        <div class="mypage_table_row  jaksim_font">
-            <span>{{user_info.email}}</span>
-            <button class="jaksim_btn" onclick="window.location.href='/mypage/{{user_info.id}}/profile'">인증 및 수정</button>
-        </div>
-        <div class="mypage_table_row jaksim_font">
-            <span>{{user_info.c_dt}}</span>
-        </div>
-        <div class="mypage_table_row jaksim_font">
-            <span>회원탈퇴</span>
-            <button class="btn btn-danger" type="button" id="mypage_delete">탈퇴</button>
-        </div>
-    </div>
-
-    <div class="mypage_table_div">
-        <div class="mypage_table_tableHead">
-            <a href="#"><span>내역 확인</span></a>
-        </div>
-        <div class="mypage_table_row">
-            <span>결제내역 적을 자리임</span>
-            <button class="jaksim_btn">결제 확인</button>
-        </div>
-        <div class="mypage_table_row">
-            <span>최신 스케줄러 적을 자리임</span>
-            <button class="jaksim_btn">스케줄 확인</button>
-        </div>
-        <div class="mypage_table_row">
-            <span>{{review.reviewId}}</span>
-            <span>{{review.reviewContent}}</span>
-            <span>{{review.star}}</span>
-            <span>{{review.reviewModifyDate}}</span>
-            <button class="jaksim_btn">리뷰 확인</button>
-        </div>
-        <div class="mypage_table_row jaksim_font">
-            <span>[로그인 내역]</span>
-            <span>{{log.dt}}</span>
-            <span>{{log.ip}}</span>
-            <button class="jaksim_btn" type="button" onclick="window.location.href='/mypage/{{user_info.id}}/history/login';">로그인 기록 확인</button>
-        </div>
-    </div>
-
-    <div class="mypage_table_div">
-        <div class="mypage_table_tableHead">
-            <a href="/mypage/{{user_info.id}}/history/weight"><span>인바디</span></a>
-        </div>
-        <div class="mypage_table_row" id="textContainer">
-            <a href="#">
-                <span id="textA">AAAAA</span>
-                <span id="textB" class="hidden">BBBBB</span>
-            </a>
-        </div>
-        <div class="mypage_table_row" id="textContainer">
-            <a href="#">
-                <span id="textZ">ZZZZZZZZZ</span>
-                <span id="textK" class="hidden">KKKKK</span>
-            </a>
-        </div>
-
-    </div>
-
-</div>
-
-
+<div class="mypage_container" style="background-">    <div class="mypage_table_div">        <div class="mypage_table_tableHead">            <a href="/mypage/{{user_info.id}}/profile"><span>내 프로필</span></a>        </div>        <div class="mypage_table_row  jaksim_font">            <input id="profile_name_input" type="text" value="{{user_info.name}}" class="jaksim_font profile_input" readonly>            <button class="jaksim_btn" id="profile_name_change">이름 수정</button>        </div>        <div class="mypage_table_row  jaksim_font">            <input id="profile_tel_input" type="text" value="{{user_info.tel}}" class="jaksim_font profile_input" readonly>            <button class="jaksim_btn" id="profile_tel_change">번호 수정</button>        </div>        <div class="mypage_table_row  jaksim_font">            <span>{{user_info.email}}</span>            <button class="jaksim_btn" onclick="window.location.href='/mypage/{{user_info.id}}/profile'">인증 및 수정</button>        </div>        <div class="mypage_table_row jaksim_font">            <span>{{user_info.c_dt}}</span>        </div>        <div class="mypage_table_row jaksim_font">            <span>회원탈퇴</span>            <button class="btn btn-danger" type="button" id="mypage_delete">탈퇴</button>        </div>    </div>    <div class="mypage_table_div">        <div class="mypage_table_tableHead">            <a href="#"><span>내역 확인</span></a>        </div>        <div class="mypage_table_row">            <span>{{payment.c_dt}}</span>            <span>{{product.ptPrice}}</span>            <span></span>            <button class="jaksim_btn">결제 확인</button>        </div>        <div class="mypage_table_row">            <span>최신 스케줄러 적을 자리임</span>            <button class="jaksim_btn">스케줄 확인</button>        </div>        <div class="mypage_table_row">            <span>{{review.reviewId}}</span>            <span>{{review.reviewContent}}</span>            <span>{{review.star}}</span>            <span>{{review.reviewModifyDate}}</span>            <button class="jaksim_btn">리뷰 확인</button>        </div>        <div class="mypage_table_row jaksim_font">            <span>[로그인 내역]</span>            <span>{{log.dt}}</span>            <span>{{log.ip}}</span>            <button class="jaksim_btn" type="button" onclick="window.location.href='/mypage/{{user_info.id}}/history/login';">로그인 기록 확인</button>        </div>    </div>    <div class="mypage_table_div">        <div class="mypage_table_tableHead">            <a href="/mypage/{{user_info.id}}/history/weight"><span>인바디</span></a>        </div>        <div class="mypage_table_row" id="textContainer">            <a href="#">                <span id="textA">AAAAA</span>                <span id="textB" class="hidden">BBBBB</span>            </a>        </div>        <div class="mypage_table_row" id="textContainer">            <a href="#">                <span id="textZ">ZZZZZZZZZ</span>                <span id="textK" class="hidden">KKKKK</span>            </a>        </div>    </div></div>
