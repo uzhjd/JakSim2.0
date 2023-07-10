@@ -1,10 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Questrial&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
 
 #select-pt {
-    height: 50px;
-    padding: 15px;
+    height: 28px;
+    margin: 15px;
 
-    /*font-family: 'Questrial', sans-serif;*/
     font-size: 15px;
     font-weight: bold;
     color: rgba(116, 116, 116, 1);
@@ -15,8 +14,7 @@
 }
 
 #trainer_list {
-
-    font-family: 'Questrial', sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
     font-size: 15px;
     font-weight: bold;
     color: rgba(116, 116, 116, 1);

@@ -59,11 +59,11 @@ public class TrainerService {
 
     @Transactional
     public void registerTimetable(TimetableInsertDto timetable, String userId) {
-        TimetableResponse timetableDto = new TimetableResponse(timetable.getTIdx(), userId, LocalDate.parse(timetable.getTDate()),
-                LocalTime.parse(timetable.getTStartT()), LocalTime.parse(timetable.getTEndT()),
-                timetable.getTPeople(), timetable.getTType());
-
-        trainerDao.registerTimetable(timetableDto);
+//        TimetableResponse timetableDto = new TimetableResponse(timetable.getTIdx(), userId, LocalDate.parse(timetable.getTDate()),
+//                LocalTime.parse(timetable.getTStartT()), LocalTime.parse(timetable.getTEndT()),
+//                timetable.getTPeople(), timetable.getTType());
+//
+//        trainerDao.registerTimetable(timetableDto);
 
     }
 

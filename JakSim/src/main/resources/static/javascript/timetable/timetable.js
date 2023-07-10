@@ -1,14 +1,15 @@
-function setTimetable(trainerId, date, tType) {
+function setTimetable(id, date, tType) {
     var formattedDate = date.split(". ").join("-");
 
     const data = {
-        trainerId: trainerId,
+        trainerId: id,
         dt: formattedDate,
-        tType: tType
+        type: tType
     }
-console.log(data);
+
     axios.post('/timetable/details', data)
         .then((response) => {
+            console.log("response.data");
             console.log(response.data);
         })
         .catch(error => {

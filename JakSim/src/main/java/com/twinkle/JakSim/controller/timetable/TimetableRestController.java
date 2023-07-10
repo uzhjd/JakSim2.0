@@ -1,5 +1,6 @@
 package com.twinkle.JakSim.controller.timetable;
 
+import com.twinkle.JakSim.model.dao.scheduleList.ScheduleListDao;
 import com.twinkle.JakSim.model.dto.timetable.request.TimetableRequest;
 import com.twinkle.JakSim.model.dto.timetable.response.TimetableResponse;
 import com.twinkle.JakSim.model.service.scheduleList.ScheduleListService;
@@ -14,13 +15,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TimetableRestController {
 
-    ScheduleListService scheduleListService;
+    private final ScheduleListService scheduleListService;
 
     @PostMapping("/details")
     public ResponseEntity<List<TimetableResponse>> myTrainerTimetable(@Valid @RequestBody TimetableRequest timetableRequest) {
         List<TimetableResponse> response = scheduleListService.findTrainerTimetable(timetableRequest.getTrainerId(),
-                                                                timetableRequest.getDt(), timetableRequest.getTType());
+                timetableRequest.getDt(), timetableRequest.getType());
 
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok().body(response);
     }
 }

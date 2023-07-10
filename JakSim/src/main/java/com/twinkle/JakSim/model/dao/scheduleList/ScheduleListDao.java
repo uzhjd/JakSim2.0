@@ -45,7 +45,7 @@ public class ScheduleListDao {
             params = new Object[]{trainerId, date};
         } else {
             sql += " and t_type = ?";
-            params = new Object[]{trainerId, date, 1};
+            params = new Object[]{trainerId, date, tType};
         }
 
         try {

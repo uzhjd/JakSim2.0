@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Questrial&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
 
 #timetable {
     width: 450px;
@@ -10,7 +10,7 @@
     border: 2px solid rgba(196, 196, 196, 1);
     background: white;
 
-    font-family: 'Questrial', sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
     font-size: 15px;
     font-weight: bold;
     color: rgba(116, 116, 116, 1);
@@ -28,7 +28,7 @@
 }
 
 #title {
-    font-family: 'Questrial', sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
     font-size: 15px;
     font-weight: bold;
     color: #A584EE;
@@ -58,7 +58,7 @@
 }
 
 #reservationBtn, #timetable_user_inlist > button {
-    font-family: 'Questrial', sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
     font-size: 15px;
     font-weight: bold;
     color: rgba(116, 116, 116, 1);

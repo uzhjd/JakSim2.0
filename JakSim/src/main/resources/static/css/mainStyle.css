@@ -1,6 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+
 .container{
     width: 90%;
     margin: 1rem auto;
+}
+
+.jaksim_btn{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 15px;
+
+    border: 0.09rem solid #949494;
+    border-radius: 7px;
+    padding: 4px 6px 4px 6px;
+
+    background-color: #E9E1FB;
+    color: #747474;
+}
+.jaksim_btn:hover, .jaksim_btn:active, .jaksim_btn:disabled{
+    background-color: #C8B0FC;
+    border: 0.09rem solid #C8B0FC;
+    color: #FFFFFF;
+}
+
+.jaksim_font{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+
+    color: #747474;
 }
 
 #navi_userInfo{
@@ -8,7 +35,30 @@
 }
 
 #navi_profile_img{
-    width:2.3rem;
+    width: 40px;
+    height:40px;
     border-radius: 50%;
-    border: 0.15rem solid #8753F6;
+    border: 1px solid #C8B0FC;
+    object-fit: cover;
+}
+
+#nav_time{
+    margin: 0px 5px 0px 5px;
+    color:#C8B0FC;
+    text-align:center;
+    width: 40px;
+}
+
+#nav-head{
+    color: #C8B0FC;
+    font-weight: bold;
+}
+
+.nav_font{
+    font-family: 'Noto Sans KR', sans-serif;
+    color:#747474;
+}
+
+.nav-link:hover{
+    color: black;
 }

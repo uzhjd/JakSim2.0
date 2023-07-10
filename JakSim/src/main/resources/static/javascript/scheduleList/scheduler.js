@@ -52,12 +52,9 @@ function buildCalendar(trainerId, ptDay) {
         }
 
         if(leftPad(nowDay.getDate()) == ptDay[idx]) {
-            console.log(leftPad(nowDay.getDate()));
             newDIV.classList.add("ptDay");
-
             idx++;
         }
-
         nowColumn.appendChild(newDIV);
     }
 
@@ -100,7 +97,6 @@ function leftPad(value) {
 function setSchdule(trainerId, tType) {
     var ptDay = [];
     this.tType = tType;
-    console.log("seset");
     const url = '/scheduler/details/' + trainerId;
 
     axios.get(url)

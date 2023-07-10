@@ -18,5 +18,5 @@ public class TimetableRequest {
     private String dt;
 
     @NotNull
-    private int tType;
+    private int type;
 }
