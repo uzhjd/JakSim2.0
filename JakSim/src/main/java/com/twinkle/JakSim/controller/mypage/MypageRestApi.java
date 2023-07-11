@@ -97,4 +97,10 @@ public class MypageRestApi {
     public List<InbodyDto> getInbodyByPage(@AuthenticationPrincipal User user, @PathVariable("page") int page){
         return inbodyService.getInbodiesByPage(user.getUsername(), page);
     }
+
+    @PostMapping("/inbody/create")
+    public int createInbodyData(@AuthenticationPrincipal User user, @RequestBody InbodyDto data){
+        System.out.println(data.toString());
+        return inbodyService.create(user.getUsername(), data);
+    }
 }

@@ -3,7 +3,6 @@ package com.twinkle.JakSim.model.dao.inbody;
 import com.twinkle.JakSim.model.dto.inbody.InbodyDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -56,5 +55,20 @@ public class InbodyDao {
         }
 
         return (pageNum /= pageSize) + 1;
+    }
+
+    public int create(String username, InbodyDto data) {
+        String sql = "INSERT INTO INBODY(USER_ID, IN_HEIGHT, IN_WEIGHT, IN_SCORE, IN_FAT, IN_MUSCLE) " +
+                "VALUES(?, ?, ?, ?, ?, ?)";
+        int result = -1;
+
+        try{
+            result = jdbcTemplate.update(sql, username,
+                    data.getHeight(), data.getWeight(), data.getScore(), data.getFat(), data.getMuscle());
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        return result;
     }
 }

@@ -26,4 +26,7 @@ public class InbodyService {
         return inbodyDao.getTotalPage(username, 10);
     }
 
+    public int create(String username, InbodyDto data) {
+        return inbodyDao.create(username, data);
+    }
 }

@@ -26,6 +26,23 @@
                 <canvas id="inbodyChart"></canvas>
             </div>
             <span style="display:none" id="inbody_totalPage">{{totalPage}}</span>
+            <table style="width:80%; text-align:center;">
+                <thead>
+                    <th>신장</th>
+                    <th>체중</th>
+                    <th>인바디 점수</th>
+                    <th>체지방율</th>
+                    <th>골격근량</th>
+                </thead>
+                <tr>
+                    <td><input type="number" id="inbody_input_height" class="inbody_create_input"></td>
+                    <td><input type="number" id="inbody_input_weight" class="inbody_create_input"></td>
+                    <td><input type="number" id="inbody_input_score" class="inbody_create_input"></td>
+                    <td><input type="number" id="inbody_input_fat" class="inbody_create_input"></td>
+                    <td><input type="number" id="inbody_input_muscle" class="inbody_create_input"></td>
+                    <td><button id="inbody_create_button" class="jaksim_btn">추가</button></td>
+                </tr>
+            </table>
             <table style="width: 100%; text-align:center;" id="inbody_datatable">
                 <thead>
                     <th>체중</th>
@@ -34,9 +51,7 @@
                     <th>골격근량</th>
                     <th>작성 일자</th>
                 </thead>
-                <tbody id="table_tbody">
-
-                </tbody>
+                <tbody id="table_tbody"></tbody>
             </table>
             <div>
                 <button id="inbody_prevbutton"><-</button>

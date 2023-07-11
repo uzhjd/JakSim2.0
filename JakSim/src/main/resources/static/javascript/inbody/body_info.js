@@ -30,6 +30,30 @@ window.onload = function(){
     prevButton.addEventListener('click', prevButtonListener);
 
     checkNextPrevButton();
+
+    var createButton = document.getElementById('inbody_create_button');
+    createButton.addEventListener('click', createData);
+}
+
+function createData(){
+    var inbodyData = {
+        height: document.getElementById('inbody_input_height').value,
+        weight: document.getElementById('inbody_input_weight').value,
+        score: document.getElementById('inbody_input_score').value,
+        fat: document.getElementById('inbody_input_fat').value,
+        muscle: document.getElementById('inbody_input_muscle').value
+    };
+
+    axios.post('/mypage/api/inbody/create', inbodyData)
+        .then(response => {
+            if(response.data > 0){
+                alert('데이터가 추가되었습니다.');
+                window.location.reload();
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        })
 }
 
 function checkNextPrevButton(){
