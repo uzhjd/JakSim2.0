@@ -1,6 +1,7 @@
 package com.twinkle.JakSim.controller.payment;
 
 import com.twinkle.JakSim.model.dto.Enum.ErrorCode;
+import com.twinkle.JakSim.model.dto.payment.request.PaymentRequest;
 import com.twinkle.JakSim.model.dto.payment.response.ApproveResponse;
 import com.twinkle.JakSim.model.dto.payment.response.CancelResponse;
 import com.twinkle.JakSim.model.dto.payment.response.ReadyResponse;
@@ -9,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/payment")
@@ -22,9 +25,12 @@ public class KakaoPayController {
      */
     @PostMapping("/ready")
     public ReadyResponse readyToKakaoPay() {
+//    public ReadyResponse readyToKakaoPay(@Valid PaymentRequest paymentRequest) {
 
         return kakaoPayService.kakaoPayReady();
+//        return kakaoPayService.kakaoPayReady(paymentRequest.getProductName(), paymentRequest.getPtPrice());
     }
+
     /**
      * 결제 성공
      */
