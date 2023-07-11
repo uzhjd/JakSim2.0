@@ -87,15 +87,42 @@ function getData(){
             var html = '';
             var tbody = document.getElementById('table_tbody');
             response.data.forEach(item => {
-                html += '<tr>';
+                html += '<tr style="margin-top: 10px;">';
+                html += '<td style="font-size:12px;" id="in_id_'+item.id+'">' + item.id + '</td>';
+                html += '<td>' + item.height + '</td>';
                 html += '<td>' + item.weight + '</td>';
                 html += '<td>' + item.score + '</td>';
                 html += '<td>' + item.fat + '</td>';
                 html += '<td>' + item.muscle + '</td>';
                 html += '<td>' + item.c_dt + '</td>';
+                html += '<td>' + '<button class="delete_button" style="border: none; border-radius:50%; color:white; background-color:red;"> - </button>' + '</td>';
                 html += '</tr>';
             });
             tbody.innerHTML = html;
+
+            var delButtons = document.getElementsByClassName('delete_button');
+            for(var i=0; i<delButtons.length; i++){
+                delButtons[i].addEventListener('click', deleteData);
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        })
+}
+
+function deleteData(event){
+    var row = event.target.closest('tr');
+    var tdId = row.querySelector('td:first-child').id;
+    var itemId = document.getElementById(tdId).textContent;
+
+    axios.delete(`/mypage/api/inbody/del/${itemId}`)
+        .then(response => {
+            if(response.data > 0){
+                alert('데이터가 삭제되었습니다.');
+                window.location.reload();
+            }else{
+                alert('데이터가 삭제되지 않았습니다.');
+            }
         })
         .catch(error => {
             console.error(error);

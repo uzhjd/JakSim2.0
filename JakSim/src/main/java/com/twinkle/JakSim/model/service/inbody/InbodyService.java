@@ -29,4 +29,8 @@ public class InbodyService {
     public int create(String username, InbodyDto data) {
         return inbodyDao.create(username, data);
     }
+
+    public int delete(int id) {
+        return inbodyDao.delete(id);
+    }
 }

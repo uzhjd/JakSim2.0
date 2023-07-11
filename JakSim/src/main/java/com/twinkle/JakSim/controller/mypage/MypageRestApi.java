@@ -100,7 +100,11 @@ public class MypageRestApi {
 
     @PostMapping("/inbody/create")
     public int createInbodyData(@AuthenticationPrincipal User user, @RequestBody InbodyDto data){
-        System.out.println(data.toString());
         return inbodyService.create(user.getUsername(), data);
+    }
+
+    @DeleteMapping("/inbody/del/{id}")
+    public int deleteInbodyData(@PathVariable("id") int id){
+        return inbodyService.delete(id);
     }
 }

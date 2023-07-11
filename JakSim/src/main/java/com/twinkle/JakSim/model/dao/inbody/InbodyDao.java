@@ -71,4 +71,17 @@ public class InbodyDao {
 
         return result;
     }
+
+    public int delete(int id) {
+        String sql = "DELETE FROM INBODY WHERE IN_ID = ?";
+        int result = -1;
+
+        try{
+            result = jdbcTemplate.update(sql, id);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        return result;
+    }
 }

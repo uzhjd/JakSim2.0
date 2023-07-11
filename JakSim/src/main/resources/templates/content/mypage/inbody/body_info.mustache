@@ -1,8 +1,6 @@
 {{>layout/header}}
     <link rel="stylesheet" href="/css/mypage/mypageStyle.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/handlebars@4.7.7/dist/handlebars.min.js"></script>
-
     <script src="/javascript/inbody/body_info.js"></script>
 </head>
 
@@ -14,7 +12,6 @@
     </aside>
     <section>
         <div class="mypage_container">
-            <h1>Inbody</h1>
             <select name="inbody_selector" id="inbody_selector">
                 <option value="weight">체중</option>
                 <option value="score">총 점수</option>
@@ -45,6 +42,8 @@
             </table>
             <table style="width: 100%; text-align:center;" id="inbody_datatable">
                 <thead>
+                    <th>등록번호</th>
+                    <th>신장</th>
                     <th>체중</th>
                     <th>인바디 점수</th>
                     <th>체지방율</th>
