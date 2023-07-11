@@ -1,7 +1,7 @@
 {{>layout/header}}
     <link rel="stylesheet" href="/css/mypage/mypageStyle.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
-    <script src="/javascript/inbody/weight.js"></script>
+    <script src="/javascript/inbody/body_info.js"></script>
 </head>
 
 <body>
@@ -12,7 +12,7 @@
     </aside>
     <section>
         <div class="mypage_container">
-            <h1>weight</h1>
+            <h1>Inbody</h1>
             <select name="inbody_selector" id="inbody_selector">
                 <option value="weight">체중</option>
                 <option value="score">총 점수</option>
@@ -24,6 +24,26 @@
                 <canvas id="inbodyChart"></canvas>
             </div>
 
+            <table style="width: 100%; text-align:center;">
+                <thead>
+                    <th>체중</th>
+                    <th>인바디 점수</th>
+                    <th>체지방율</th>
+                    <th>골격근량</th>
+                    <th>작성 일자</th>
+                </thead>
+                <tbody>
+                {{#inbody_log}}
+                    <tr>
+                        <td>{{weight}}</td>
+                        <td>{{score}}</td>
+                        <td>{{fat}}</td>
+                        <td>{{muscle}}</td>
+                        <td>{{c_dt}}</td>
+                    </tr>
+                {{/inbody_log}}
+                </tbody>
+            </table>
         </div>
     </section>
 </div>

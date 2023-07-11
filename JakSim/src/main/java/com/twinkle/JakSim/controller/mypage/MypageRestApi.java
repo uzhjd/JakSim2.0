@@ -87,4 +87,9 @@ public class MypageRestApi {
     public List<InbodyDto> getInbody(@AuthenticationPrincipal User user){
         return inbodyService.getInbodies(user.getUsername());
     }
+
+    @GetMapping("/inbody/{page}")
+    public List<InbodyDto> getInbodyByPage(@AuthenticationPrincipal User user, @PathVariable("page") int page){
+        return inbodyService.getInbodiesByPage(user.getUsername(), page);
+    }
 }

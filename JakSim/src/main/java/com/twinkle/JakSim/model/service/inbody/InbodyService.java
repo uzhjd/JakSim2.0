@@ -5,6 +5,7 @@ import com.twinkle.JakSim.model.dto.inbody.InbodyDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 @Service
@@ -13,6 +14,12 @@ public class InbodyService {
     private final InbodyDao inbodyDao;
 
     public List<InbodyDto> getInbodies(String username) {
-        return inbodyDao.getInbodies(username);
+        return inbodyDao.getInbodiesAsc(username);
     }
+
+    public List<InbodyDto> getInbodiesByPage(String username, int page){
+        int pageSize = 10;
+        return inbodyDao.getInbodiesByPages(username, page, pageSize);
+    }
+
 }

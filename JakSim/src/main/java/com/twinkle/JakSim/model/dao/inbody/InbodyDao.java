@@ -3,6 +3,7 @@ package com.twinkle.JakSim.model.dao.inbody;
 import com.twinkle.JakSim.model.dto.inbody.InbodyDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -12,8 +13,8 @@ import java.util.List;
 public class InbodyDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    public List<InbodyDto> getInbodies(String username) {
-        String sql = "SELECT * FROM INBODY WHERE USER_ID = ?";
+    public List<InbodyDto> getInbodiesAsc(String username) {
+        String sql = "SELECT * FROM INBODY WHERE USER_ID = ? ORDER BY IN_C_DT ASC";
         List<InbodyDto> inbodyList = new ArrayList<>();
         try{
             inbodyList = jdbcTemplate.query(sql, new InbodyRowMapper() ,username);
@@ -21,5 +22,26 @@ public class InbodyDao {
             System.out.println(e.getMessage());
         }
         return inbodyList;
+    }
+
+    /**
+     * 페이지 단위로 받아오기
+     * @param username 사용자 계정
+     * @param pageNum 페이지 번호 -> 1, 2, ... 등의 페이지 번호
+     * @param pageSize 페이지 사이즈 -> 페이지 안에 몇 개를 보여줄 것인지
+     * @return List로 반환됩니다.
+     */
+    public List<InbodyDto> getInbodiesByPages(String username, int pageNum, int pageSize){
+        int offset = (pageNum - 1) * pageSize;
+        String sql = "SELECT * FROM INBODY WHERE USER_ID = ? LIMIT ? OFFSET ?";
+        List<InbodyDto> result = new ArrayList<>();
+
+        try{
+            result = jdbcTemplate.query(sql, new InbodyRowMapper(),username, pageSize, offset);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        return result;
     }
 }

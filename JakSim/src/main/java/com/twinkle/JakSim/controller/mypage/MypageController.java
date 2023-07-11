@@ -8,6 +8,7 @@ import com.twinkle.JakSim.model.dto.trainer.TrainerDto;
 import com.twinkle.JakSim.model.dto.trainer.response.TrainerDetailDto;
 import com.twinkle.JakSim.model.service.account.AccountService;
 import com.twinkle.JakSim.model.service.account.LoginLogService;
+import com.twinkle.JakSim.model.service.inbody.InbodyService;
 import com.twinkle.JakSim.model.service.payment.PaymentService;
 import com.twinkle.JakSim.model.service.review.ReviewService;
 import com.twinkle.JakSim.model.service.trainer.TrainerService;
@@ -34,6 +35,7 @@ public class MypageController {
     private final PaymentService paymentService;
     private final ReviewService reviewService;
     private final TrainerService trainerService;
+    private final InbodyService inbodyService;
 
     @GetMapping("/auth")
     public String authPage(Model model){
@@ -78,11 +80,13 @@ public class MypageController {
         return String.format(defaultPath + "profile");
     }
 
-    @GetMapping("/{userId}/history/weight")
+    @GetMapping("/{userId}/history/inbody")
     public String weightPage(@PathVariable("userId") String username, Model model){
         model.addAttribute("head_title", "체중 그래프");
+        model.addAttribute("access_log", loginLogService.findByUsernameRecent(username));
         model.addAttribute("user_info", accountService.findByUsername(username));
+        model.addAttribute("inbody_log", inbodyService.getInbodies(username));
 
-        return String.format(defaultPath + "inbody/weight");
+        return String.format(defaultPath + "inbody/body_info");
     }
 }
