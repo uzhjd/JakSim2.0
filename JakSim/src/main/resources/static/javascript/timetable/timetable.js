@@ -27,7 +27,7 @@ function setTimetable(pIdx, id, date, tType) {
                 timetableList.appendChild(timetable);
             } else {
                 for(var i = 0; i < response.data.length; i++) {
-                    timetable.textContent = " " + response.data[i]['tstartT'] + " - " + response.data[i]['tendT'] + " ( " + type[response.data[i]['ttype']] + " ) ";
+                    timetable.textContent = " " + response.data[i]['tstartT'].substr(0, 5) + " - " + response.data[i]['tendT'].substr(0, 5) + " ( " + type[response.data[i]['ttype']] + " ) ";
 
                     if(response.data[i]['ttype'] == 2) {
                         timetable.textContent += response.data[i]['tpeolple'];
