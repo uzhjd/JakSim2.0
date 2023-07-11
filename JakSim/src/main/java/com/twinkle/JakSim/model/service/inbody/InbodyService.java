@@ -22,4 +22,8 @@ public class InbodyService {
         return inbodyDao.getInbodiesByPages(username, page, pageSize);
     }
 
+    public int getTotalPage(String username){
+        return inbodyDao.getTotalPage(username, 10);
+    }
+
 }

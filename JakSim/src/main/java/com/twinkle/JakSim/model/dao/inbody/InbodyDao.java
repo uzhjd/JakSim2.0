@@ -33,7 +33,7 @@ public class InbodyDao {
      */
     public List<InbodyDto> getInbodiesByPages(String username, int pageNum, int pageSize){
         int offset = (pageNum - 1) * pageSize;
-        String sql = "SELECT * FROM INBODY WHERE USER_ID = ? LIMIT ? OFFSET ?";
+        String sql = "SELECT * FROM INBODY WHERE USER_ID = ? ORDER BY IN_ID DESC LIMIT ? OFFSET ?";
         List<InbodyDto> result = new ArrayList<>();
 
         try{
@@ -43,5 +43,18 @@ public class InbodyDao {
         }
 
         return result;
+    }
+
+    public int getTotalPage(String username, int pageSize){
+        String sql = "SELECT COUNT(*) FROM INBODY WHERE USER_ID=?";
+        int pageNum = 0;
+
+        try{
+            pageNum = jdbcTemplate.queryForObject(sql, Integer.class, username);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        return (pageNum /= pageSize) + 1;
     }
 }

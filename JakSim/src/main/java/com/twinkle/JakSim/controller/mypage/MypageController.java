@@ -82,10 +82,10 @@ public class MypageController {
 
     @GetMapping("/{userId}/history/inbody")
     public String weightPage(@PathVariable("userId") String username, Model model){
-        model.addAttribute("head_title", "체중 그래프");
+        model.addAttribute("head_title", "인바디");
         model.addAttribute("access_log", loginLogService.findByUsernameRecent(username));
         model.addAttribute("user_info", accountService.findByUsername(username));
-        model.addAttribute("inbody_log", inbodyService.getInbodies(username));
+        model.addAttribute("totalPage", inbodyService.getTotalPage(username));
 
         return String.format(defaultPath + "inbody/body_info");
     }
