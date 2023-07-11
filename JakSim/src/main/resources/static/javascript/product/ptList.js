@@ -1,6 +1,5 @@
 function setPtList() {
     var ptList = document.getElementById('trainer_list');
-    ptList.addEventListener("change", () => changePtList(ptList.options[ptList.selectedIndex], 1));
 
     axios.get('/product/myPt')
         .then((response) => {
@@ -15,7 +14,8 @@ function setPtList() {
                 ptList.appendChild(option);
             }
 
-            changePtList(ptData[0], 0);
+            changePtList(ptData[0], 0, ptData[0]['pidx']);
+            ptList.addEventListener("change", () => changePtList(ptList.options[ptList.selectedIndex], 1, ptData[0]['pidx']));
         })
         .catch(error => {
             console.error(error);
@@ -23,7 +23,7 @@ function setPtList() {
 }
 
 // pt권을 변경하는 코드
-function changePtList(selectedPt, type) {
+function changePtList(selectedPt, type, pIdx) {
     var ptCnt, trainerId, tType;
 
     if(type === 0) {
@@ -38,7 +38,7 @@ function changePtList(selectedPt, type) {
 
     setPtCnt(ptCnt);
     setTrainerBrief(trainerId);
-    setSchdule(trainerId, tType);
+    setSchdule(trainerId, tType, pIdx);
 }
 
 

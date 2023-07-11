@@ -6,7 +6,7 @@ import lombok.*;
 @Builder
 @ToString
 @AllArgsConstructor
-public class PaymentDto {
+public class PtTicketResponse {
 
     private int pPtCnt;
 }

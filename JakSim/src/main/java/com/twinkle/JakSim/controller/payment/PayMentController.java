@@ -1,6 +1,21 @@
-//package com.twinkle.JakSim.controller.payment;
-//
-//public class PayMentController {
+package com.twinkle.JakSim.controller.payment;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("https://kapi.kakao.com/v1/payment")
+@RequiredArgsConstructor
+public class PayMentController {
+
+    @PostMapping("/ready")
+    public void paymentReady() {
+
+    }
+
+}
 //
 //    @Autowired
 //    UserService userService;

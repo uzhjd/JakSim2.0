@@ -1,6 +1,6 @@
 package com.twinkle.JakSim.model.dao.payment;
 
-import com.twinkle.JakSim.model.dto.payment.response.PaymentDto;
+import com.twinkle.JakSim.model.dto.payment.response.PtTicketResponse;
 import com.twinkle.JakSim.model.dto.product.response.ValidPtResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -24,7 +24,7 @@ public class PaymentDao {
         this.sql = "select p_pt_cnt from payment where p_idx = ?";
 
         try {
-            PaymentDto paymentDto = jdbcTemplate.queryForObject(this.sql, new PaymentRowMappper(), pIdx);
+            PtTicketResponse paymentDto = jdbcTemplate.queryForObject(this.sql, new PaymentRowMappper(), pIdx);
 
             if(paymentDto.getPPtCnt() > 0) {
                 result = true;

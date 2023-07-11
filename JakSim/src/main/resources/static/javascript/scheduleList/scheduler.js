@@ -2,7 +2,7 @@ let nowMonth = new Date();  // 현재 달을 페이지를 로드한 날의 달�
 let today = new Date();     // 페이지를 로드한 날짜를 저장
 today.setHours(0, 0, 0, 0);    // 비교 편의를 위해 today의 시간을 초기화
 
-var setDt, trainerId, tType;
+var pIdx, setDt, trainerId, tType;
 
 // 달력 생성 : 해당 달에 맞춰 테이블을 만들고, 날짜를 채워 넣는다.
 function buildCalendar(trainerId, ptDay) {
@@ -60,7 +60,7 @@ function buildCalendar(trainerId, ptDay) {
 
     setDt = nowMonth.getFullYear().toString() + ". " +  leftPad(nowMonth.getMonth() + 1).toString() + ". ";
     setDate(setDt + leftPad(nowMonth.getDate()).toString());
-    setTimetable(trainerId, setDt + leftPad(nowMonth.getDate()).toString(), tType);
+    setTimetable(pIdx, trainerId, setDt + leftPad(nowMonth.getDate()).toString(), tType);
 }
 
 // 날짜 선택
@@ -71,7 +71,7 @@ function choiceDate(newDIV) {
     newDIV.classList.add("choiceDay");           // 선택된 날짜에 "choiceDay" class 추가
 
     setDate(setDt + newDIV.innerHTML);
-    setTimetable(trainerId, setDt + newDIV.innerHTML, tType);
+    setTimetable(pIdx, trainerId, setDt + newDIV.innerHTML, tType);
 }
 
 // 이전달 버튼 클릭
@@ -94,9 +94,10 @@ function leftPad(value) {
     return value;
 }
 
-function setSchdule(trainerId, tType) {
+function setSchdule(trainerId, tType, pIdx) {
     var ptDay = [];
     this.tType = tType;
+    this.pIdx = pIdx;
     const url = '/scheduler/details/' + trainerId;
 
     axios.get(url)
