@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,5 +25,9 @@ public class TimetableService {
         }
 
         return timetableDtoList;
+    }
+
+    public Optional<TimetableDto> findMyTimetableRecent(String username){
+        return timetableDao.findMyTimetableRecent(username);
     }
 }

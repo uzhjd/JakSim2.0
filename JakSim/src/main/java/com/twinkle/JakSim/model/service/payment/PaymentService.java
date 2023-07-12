@@ -28,7 +28,7 @@ public class PaymentService {
         return list;
     }
 
-    public PaymentDo getRecentPayment(String username) {
+    public Optional<PaymentDo> getRecentPayment(String username) {
         return paymentDao.findRecentByUsername(username);
     }
 }

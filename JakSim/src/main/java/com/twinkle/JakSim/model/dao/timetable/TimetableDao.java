@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class TimetableDao {
@@ -51,5 +52,18 @@ public class TimetableDao {
         }
 
         return timetableDtoList;
+    }
+
+    public Optional<TimetableDto> findMyTimetableRecent(String username) {
+        String sql = "SELECT * FROM TIMETABLE WHERE USER_ID = ? LIMIT 1";
+        TimetableDto timetableDto = null;
+
+        try{
+            timetableDto = jdbcTemplate.queryForObject(sql, new TimetableRowMapper(), username);
+        }catch (Exception e){
+            System.out.println("Dao: " + e.getMessage());
+        }
+
+        return Optional.ofNullable(timetableDto);
     }
 }

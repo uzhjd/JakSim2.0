@@ -21,6 +21,7 @@ public class TimetableDto {
 
     private LocalTime tEndT;
 
+
     private int tPeople;
 
     private int tType;

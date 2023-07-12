@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class ReviewDao {
@@ -34,11 +36,16 @@ public class ReviewDao {
         return jdbcTemplate.query(this.sql, new ReviewRowMapper(), utIdx);
     }
 
-    public List<ReviewRequestDto> getMyReview(String userId) {
+    public Optional<List<ReviewRequestDto>> getMyReview(String userId) {
         this.sql = "SELECT * FROM REVIEW R " +
                 "WHERE USER_ID = ?";
-
-        return jdbcTemplate.query(this.sql, new ReviewRowMapper(), userId);
+        List<ReviewRequestDto> reviewList = null;
+        try {
+            reviewList = jdbcTemplate.query(this.sql, new ReviewRowMapper(), userId);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return Optional.ofNullable(reviewList);
     }
 
 

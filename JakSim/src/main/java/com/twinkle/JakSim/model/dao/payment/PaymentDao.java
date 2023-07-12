@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class PaymentDao {
@@ -84,14 +85,14 @@ public class PaymentDao {
         return list;
     }
 
-    public PaymentDo findRecentByUsername(String username) {
+    public Optional<PaymentDo> findRecentByUsername(String username) {
         String sql = "SELECT * FROM PAYMENT WHERE USER_ID = ?";
-        PaymentDo paymentDo = new PaymentDo();
+        PaymentDo paymentDo = null;
         try{
             paymentDo = jdbcTemplate.queryForObject(sql, new PaymentDoRowMapper(), username);
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         }
-        return paymentDo;
+        return Optional.ofNullable(paymentDo);
     }
 }

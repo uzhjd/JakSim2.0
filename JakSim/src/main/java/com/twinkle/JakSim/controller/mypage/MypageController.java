@@ -1,33 +1,29 @@
 package com.twinkle.JakSim.controller.mypage;
 
-import com.twinkle.JakSim.model.dto.account.LoginLogDto;
 import com.twinkle.JakSim.model.dto.payment.PaymentDo;
 import com.twinkle.JakSim.model.dto.review.ReviewRequestDto;
+import com.twinkle.JakSim.model.dto.timetable.response.TimetableDto;
 import com.twinkle.JakSim.model.dto.trainer.ProductDto;
-import com.twinkle.JakSim.model.dto.trainer.TrainerDto;
-import com.twinkle.JakSim.model.dto.trainer.response.TrainerDetailDto;
 import com.twinkle.JakSim.model.service.account.AccountService;
 import com.twinkle.JakSim.model.service.account.LoginLogService;
 import com.twinkle.JakSim.model.service.inbody.InbodyService;
 import com.twinkle.JakSim.model.service.payment.PaymentService;
 import com.twinkle.JakSim.model.service.review.ReviewService;
+import com.twinkle.JakSim.model.service.timetable.TimetableService;
 import com.twinkle.JakSim.model.service.trainer.TrainerService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.security.Principal;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/mypage")
 @RequiredArgsConstructor
-//@PreAuthorize("authentication")
 public class MypageController {
     private final String defaultPath = "/content/mypage/";
     private final AccountService accountService;
@@ -36,6 +32,7 @@ public class MypageController {
     private final ReviewService reviewService;
     private final TrainerService trainerService;
     private final InbodyService inbodyService;
+    private final TimetableService timetableService;
 
     @GetMapping("/auth")
     public String authPage(Model model){
@@ -43,24 +40,42 @@ public class MypageController {
         return String.format(defaultPath + "auth");
     }
 
+    /**
+     * <h1>GPT의 조언</h1>
+     * - 다음과 같은 고려사항을 살펴보시고 판단해주세요
+     * <ol>
+     *     <li>데이터의 양</li>
+     *     <li>성능 요구사항</li>
+     *     <li>비즈니스 로직 복잡성</li>
+     *     <li>코드의 유연성과 확장성</li>
+     * </ol>
+     * <p>작성자의 판단</p>
+     * <span>
+     *     보기 나름이지만, 본인의 생각으로는 이 정도 수준의 jdbc 통신으로 네트워크 오버헤드가 발생한다고 판단하기 어렵다 봅니다.
+     *     개인적인 생각으로는 코드의 유연성, 비즈니스 로직의 복잡성을 이유로 현재와 같이 소스코드를 유지하는 것도 방법이라고 판단해서 남겨놓습니다.
+     * </span>
+     * @param username
+     * @param model
+     * @return
+     */
     @GetMapping("/{username}")
     public String mainPage(@PathVariable("username") String username, Model model){
         model.addAttribute("head_title", "개인페이지");
         model.addAttribute("user_info", accountService.findByUsername(username));
         model.addAttribute("log", loginLogService.findByUsernameRecent(username));
 
-        //payment 관련 서비스가 더 존재하는지 확인바람
-        PaymentDo paymentDo = paymentService.getRecentPayment(username);
-        ProductDto productDto = trainerService.getProductByTrainerIdx(paymentDo.getTp_idx());
-        TrainerDetailDto trainerDto = trainerService.findMyTrainer(String.format(""+ productDto.getPtId()));
-        System.out.println(trainerDto.toString());
-        model.addAttribute("payment", paymentDo);
-        model.addAttribute("product", productDto);
-        model.addAttribute("product_trainer");
+        Optional<PaymentDo> payment = paymentService.getRecentPayment(username);
+        Optional<List<ReviewRequestDto>> reviewList = reviewService.showMyReivew(username);
+        Optional<TimetableDto> timetable = timetableService.findMyTimetableRecent(username);
 
+        if(payment.isPresent()){
+            ProductDto productDto = trainerService.getProductByTrainerIdx(payment.get().getTp_idx());
+            model.addAttribute("payment", payment.get());
+            model.addAttribute("product", productDto);
+        }
 
-        ReviewRequestDto review = reviewService.showMyReivew(username).get(0);
-        model.addAttribute("review", review);
+        reviewList.ifPresent(reviewRequestDtos -> {if (!reviewRequestDtos.isEmpty()) {model.addAttribute("review", reviewRequestDtos.get(0));}});
+        timetable.ifPresent(item -> model.addAttribute("timetable", item));
 
         return String.format(defaultPath + "mypage");
     }
@@ -81,7 +96,7 @@ public class MypageController {
     }
 
     @GetMapping("/{userId}/history/inbody")
-    public String weightPage(@PathVariable("userId") String username, Model model){
+    public String inbodyPage(@PathVariable("userId") String username, Model model){
         model.addAttribute("head_title", "인바디");
         model.addAttribute("access_log", loginLogService.findByUsernameRecent(username));
         model.addAttribute("user_info", accountService.findByUsername(username));
