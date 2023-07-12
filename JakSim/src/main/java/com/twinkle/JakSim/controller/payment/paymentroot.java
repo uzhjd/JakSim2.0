@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class paymentroot {
 
-    @GetMapping("/main")
+    @GetMapping()
     public String scheduler(@AuthenticationPrincipal User user) {
 
 
