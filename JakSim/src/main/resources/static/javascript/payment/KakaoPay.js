@@ -13,13 +13,24 @@ function kakaopay() {
 
     axios.post('/payment/ready', data)
         .then((response) => {
+            var httpStatus = response.status;
+
             console.log(response);
 
-            if (response.data.status === 500) {
+            // if (response.data.status === 500) {
+            // } else {
+            //     var box = response.next_redirect_pc_url;
+            //     // window.open(box); // open a new window
+            //     location.href = box;
+            // }
+            if(httpStatus == 500) {
                 alert("Payment with Kakao Pay failed.");
+
             } else {
-                var box = response.next_redirect_pc_url;
-                // window.open(box); // open a new window
+                console.log("연결은 우선 성공!!!!");
+                var box = response.data.next_redirect_pc_url;
+                console.log("success");
+                // window.open(box); // 새창으로 열기 (모달로 열어버릴까?)
                 location.href = box;
             }
         })

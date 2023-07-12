@@ -9,9 +9,14 @@ import com.twinkle.JakSim.model.service.payment.KakaoPayService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.DefaultResponseErrorHandler;
+import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/payment")
@@ -27,7 +32,10 @@ public class KakaoPayController {
     public ReadyResponse readyToKakaoPay() {
 //    public ReadyResponse readyToKakaoPay(@Valid PaymentRequest paymentRequest) {
 
-        return kakaoPayService.kakaoPayReady();
+        ReadyResponse kakaoReady = kakaoPayService.kakaoPayReady();
+        System.out.println("kakaoReay: {}" + kakaoReady);
+        return kakaoReady;
+//        return kakaoPayService.kakaoPayReady();
 //        return kakaoPayService.kakaoPayReady(paymentRequest.getProductName(), paymentRequest.getPtPrice());
     }
 
