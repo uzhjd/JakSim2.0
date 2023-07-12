@@ -30,6 +30,10 @@ public class MypageRestApi {
     public String authPassword(@RequestBody UserDto userDto, @AuthenticationPrincipal User user){
         return accountService.checkPassword(user.getUsername(), userDto.getPw()) ? user.getUsername() : null;
     }
+    @DeleteMapping("/delete")
+    public int deleteUser(@AuthenticationPrincipal User user){
+        return accountService.delete(user.getUsername());
+    }
     @GetMapping("/sessiontime")
     public int getSessionTime(HttpServletRequest request){
         HttpSession session = request.getSession(false);

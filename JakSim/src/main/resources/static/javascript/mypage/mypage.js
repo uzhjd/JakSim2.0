@@ -110,11 +110,11 @@ var deleteUser = function(){
     var data = {id : document.getElementById('navi_username').innerHTML};
     console.log(data);
 
-    axios.delete('/account/delete')
+    axios.delete('/mypage/api/delete')
         .then(response => {
             if(response.data === 1){
                 alert('회원정보가 삭제되었습니다.');
-                window.location.href='/account/delprocess';
+                window.location.href='/logout';
             }else{
                 alert('????? 와 안되누?');
             }

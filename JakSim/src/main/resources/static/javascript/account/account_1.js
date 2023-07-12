@@ -1,15 +1,12 @@
+var accountNextButton;
+var isLength = false, isCheck = false;
+
 window.onload = function(){
     var idCheckButton = document.getElementById('account_id_check');
-    var accountNextButton = document.getElementById('account_1_next');
+     accountNextButton = document.getElementById('account_1_next');
 
     idCheckButton.addEventListener('click', idCheck);
-    accountNextButton.addEventListener('click', sessionStore);
 };
-
-function sessionStore(){
-
-    sessionStorage.setItem('pw', )
-}
 
 function idCheck(){
     var userId = document.getElementById('account_userid');
@@ -25,7 +22,7 @@ function idCheck(){
             }else{
                 result.innerHTML = '';
                 sessionStorage.setItem('id', document.getElementById('account_userid').value);
-                passwordDiv(document.getElementById('account_span_container'), document.getElementById('account_password_container'));
+                passwordDiv(document.getElementById('account_span_container'), document.getElementById('account_input_container'));
             }
         })
         .catch(error => {
@@ -37,7 +34,8 @@ function passwordDiv(spanContainer, inputContainer){
     var passwordSpan = document.createElement('span');
     var passwordInput = document.createElement('input')
     var confirmPasswordInput = document.createElement('input');
-    var passwordCheckButton = document.createElement('button');
+    var failMessage = document.createElement('span');
+    var failDiv = document.getElementById('account_span_message_container');
 
     passwordSpan.innerHTML = '비밀번호';
     passwordSpan.classList.add('account_span');
@@ -48,21 +46,47 @@ function passwordDiv(spanContainer, inputContainer){
     confirmPasswordInput.classList.add('account_input');
     confirmPasswordInput.type = 'password';
 
-    passwordCheckButton.textContent = '비밀번호 확인';
-    passwordCheckButton.classList.add('account_button');
-    passwordCheckButton.addEventListener('click', function(){
-        if(checkPassowrd(passwordInput.value, confirmPasswordInput.value)){
-            sessionStorage.setItem('pw', passwordInput.value);
-            document.getElementById('account_1_next').disabled=false;
+    failMessage.style.color = 'red';
+
+    passwordInput.addEventListener('input', function(event){
+        password = event.target.value;
+        if(password.length < 8){
+            failMessage.innerHTML = '8자 이상 작성해주세요';
+            failMessage.style.color = 'red';
+            isLength = false;
         }else{
-            document.getElementById('account_1_next').disabled=true;
+            failMessage.innerHTML = '';
+            isLength = true;
         }
-    });
+        isNext();
+    })
+    confirmPasswordInput.addEventListener('input', function(event){
+        confirm = event.target.value;
+        if(confirm === passwordInput.value){
+            isCheck = true;
+            sessionStorage.setItem('pw', confirm);
+            failMessage.innerHTML = '비밀번호 확인이 완료되었습니다.';
+            failMessage.style.color = 'blue';
+        }else{
+            isCheck = false;
+            failMessage.innerHTML = '비밀번호를 확인해주세요';
+            failMessage.style.color = 'red';
+        }
+        isNext();
+    })
 
     spanContainer.appendChild(passwordSpan);
     inputContainer.appendChild(passwordInput);
     inputContainer.appendChild(confirmPasswordInput);
-    inputContainer.appendChild(passwordCheckButton);
+    failDiv.appendChild(failMessage);
+}
+
+function isNext(){
+    if(isCheck && isLength){
+        accountNextButton.disabled = false;
+    }else{
+        accountNextButton.disabled = true;
+    }
 }
 
 function checkPassowrd(pw, confirmPwd){

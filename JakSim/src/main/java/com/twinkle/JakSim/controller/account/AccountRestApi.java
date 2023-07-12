@@ -54,9 +54,4 @@ public class AccountRestApi {
         System.out.println(data.toString());
         return accountService.update(data.getId(), data.getPw());
     }
-
-    @DeleteMapping("/delete")
-    public int deleteUser(@AuthenticationPrincipal User user){
-        return accountService.delete(user.getUsername());
-    }
 }
