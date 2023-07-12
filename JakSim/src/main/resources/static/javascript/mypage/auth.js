@@ -1,12 +1,31 @@
+var span;
+
 window.onload = function(){
     var pwButton = document.getElementById('pwButton');
+    span = document.getElementById('mypage_failureSpan');
     pwButton.addEventListener('click', checkPassword);
+
+    var pwInput = document.getElementById('pwInput');
+    pwInput.addEventListener('keypress', function(event){
+        console.log(event.keyCode);
+        if(event.key==='Enter'){
+            event.preventDefault();
+
+            pwValue = event.target.value;
+            var data = {pw: pwValue};
+            sendPw(data);
+        }
+    })
 }
 
 var checkPassword = function(){
     var data = {pw : document.getElementById('pwInput').value}
-    var span = document.getElementById('mypage_failureSpan');
 
+
+    sendPw(data);
+}
+
+function sendPw(data){
     axios.post('/mypage/api/auth', data)
         .then(response => {
             if(response.data !== ''){

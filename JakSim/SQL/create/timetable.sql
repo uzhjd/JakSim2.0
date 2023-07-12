@@ -16,6 +16,13 @@ COMMIT;
 INSERT INTO TIMETABLE
 VALUES(NULL, 'test', '2023/05/23', '11:00', '12:00', '3', '0');
 INSERT INTO TIMETABLE
+VALUES(NULL, 'test', '2023/08/15', '20:00', '22:00', '3', '0');
+INSERT INTO TIMETABLE
+VALUES(NULL, 'test', '2023/08/15', '21:00', '12:00', '3', '0');
+INSERT INTO TIMETABLE
+VALUES(NULL, 'test', '2023/09/19', '11:00', '12:00', '3', '0');
+
+INSERT INTO TIMETABLE
 VALUES(NULL, 'wkdgyfla97', '2023/05/25', '11:00', '12:00', '1', '1');
 INSERT INTO TIMETABLE
 VALUES(NULL, 'test96', '2023/05/23', '09:00', '10:00', '3', '0');
@@ -23,3 +30,8 @@ INSERT INTO TIMETABLE
 VALUES(NULL, 'test96', '2023/05/25', '10:00', '11:00', '1', '1');
 INSERT INTO TIMETABLE
 VALUES(NULL, 'test96', sysdate(), '11:00', '12:00', '2', '1');
+
+select T_IDX, USER_ID, T_DATE, T_START_T, T_END_T, T_PEOPLE, T_TYPE, (T_DATE - CURRENT_DATE) AS DIFFDATE, (T_START_T - CURRENT_TIME) AS DIFFTIME,
+from timetable
+where (t_date - current_date) >=0 and user_id = 'test'
+order by DIFFDATE asc, DIFFTIME asc;

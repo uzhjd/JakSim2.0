@@ -57,6 +57,10 @@ function createData(){
 }
 
 function checkNextPrevButton(){
+    if(totalPage == 1){
+        nextButton.disabled = true;
+        prevButton.disabled = true;
+    }
     if(page >= totalPage){
         nextButton.disabled = true;
     }else if(page <= 1){
@@ -132,6 +136,10 @@ function deleteData(event){
 function getChart(option){
     axios.get('/mypage/api/inbody/data')
         .then(response => {
+            if(response.data.length === 0)
+                response.data = [{
+                    id: 0, height: 0, weight: 0, score: 0, fat: 0, muscle: 0, c_dt: Date.now()
+                }];
             response.data.forEach(function(data){
                 showChart(response.data, response.data.map(data => data['c_dt']), option);
             })
@@ -145,8 +153,13 @@ function showChart(chartData, label, option){
     if(chart){chart.destroy();}
 
     var data = chartData.map(data => data[option]);
-    var maxItem = Math.max(...data);
-    var minItem = Math.min(...data);
+    for(var i=0; i<data.length; i++){
+        if(data[i] === 0){
+            data.splice(i, 1);
+            label.splice(i, 1);
+            i--;
+        }
+    }
 
     var canvas = document.getElementById('inbodyChart').getContext('2d');
     if(option === 'weight'){

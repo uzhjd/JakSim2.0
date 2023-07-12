@@ -67,6 +67,7 @@ public class MypageController {
         Optional<PaymentDo> payment = paymentService.getRecentPayment(username);
         Optional<List<ReviewRequestDto>> reviewList = reviewService.showMyReivew(username);
         Optional<TimetableDto> timetable = timetableService.findMyTimetableRecent(username);
+        //Optional<TimetableDto> soonTimetable = timetableService.findMyTimetableSoon(username); 미완성
 
         if(payment.isPresent()){
             ProductDto productDto = trainerService.getProductByTrainerIdx(payment.get().getTp_idx());
@@ -76,6 +77,7 @@ public class MypageController {
 
         reviewList.ifPresent(reviewRequestDtos -> {if (!reviewRequestDtos.isEmpty()) {model.addAttribute("review", reviewRequestDtos.get(0));}});
         timetable.ifPresent(item -> model.addAttribute("timetable", item));
+        //soonTimetable.ifPresent(item -> model.addAttribute("soon", item)); 미완성
 
         return String.format(defaultPath + "mypage");
     }

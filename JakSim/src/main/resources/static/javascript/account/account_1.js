@@ -3,7 +3,7 @@ var isLength = false, isCheck = false;
 
 window.onload = function(){
     var idCheckButton = document.getElementById('account_id_check');
-     accountNextButton = document.getElementById('account_1_next');
+    accountNextButton = document.getElementById('account_1_next');
 
     idCheckButton.addEventListener('click', idCheck);
 };

@@ -66,4 +66,21 @@ public class TimetableDao {
 
         return Optional.ofNullable(timetableDto);
     }
+
+    public Optional<List<TimetableDto>> findMyTimetableSoon(String username) {
+        String sql = "select T_IDX, USER_ID, T_DATE, T_START_T, T_END_T, T_PEOPLE, T_TYPE, (T_DATE - CURRENT_DATE) AS DIFFDATE, (T_START_T - CURRENT_TIME) AS DIFFTIME " +
+                "from timetable " +
+                "where (t_date - current_date) >=0 and user_id = ? " +
+                "order by DIFFDATE asc, DIFFTIME desc " +
+                "LIMIT 5";
+        List<TimetableDto> timeList = new ArrayList<>();
+
+        try{
+            timeList = jdbcTemplate.query(sql, new TimetableRowMapper(), username);
+        }catch (Exception e){
+            System.out.println("Soon dao: " + e.getMessage());
+        }
+
+        return Optional.ofNullable(timeList);
+    }
 }
