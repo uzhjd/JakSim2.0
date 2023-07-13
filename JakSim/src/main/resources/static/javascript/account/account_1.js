@@ -1,41 +1,68 @@
 var accountNextButton;
-var isLength = false, isCheck = false;
+var isLength = false, isCheck = false, isUsername = false, isUsernameLength = false;
+var userId;
+var divCnt=0, isDiv=false;
+var spanContainer, inputContainer, passwordSpan, passwordInput, confirmPasswordInput, failMessage, failDiv;
 
 window.onload = function(){
-    var idCheckButton = document.getElementById('account_id_check');
     accountNextButton = document.getElementById('account_1_next');
+    spanContainer = document.getElementById('account_span_container');
+    inputContainer = document.getElementById('account_input_container');
 
-    idCheckButton.addEventListener('click', idCheck);
+    userId = document.getElementById('account_userid');
+    userId.addEventListener('input', idCheck);
 };
 
 function idCheck(){
-    var userId = document.getElementById('account_userid');
-    var data = {id : userId.value};
-    var result = document.getElementById('account_id_result')
-    console.log(userId);
-
-    axios.post('/account/checkid', data)
-        .then(response => {
-            if(response.data !== 0){
-                result.style.color='red';
-                result.innerHTML = '아이디가 중복입니다.';
-            }else{
-                result.innerHTML = '';
-                sessionStorage.setItem('id', document.getElementById('account_userid').value);
-                passwordDiv(document.getElementById('account_span_container'), document.getElementById('account_input_container'));
-            }
-        })
-        .catch(error => {
-            console.error(error);
-        })
+    var result = document.getElementById('account_id_result');
+    var pattern = /^[a-zA-Z0-9]+$/;
+    if(userId.value.length > 4){
+        if(pattern.test(userId.value)){
+            isUsernameLength = true;
+            axios.post('/account/checkid', {id : userId.value})
+                .then(response => {checkId(response.data, result);})
+                .catch(error => {console.error(error);});
+        }else{
+            result.innerHTML = '영문과 숫자를 포함해서 작성해주세요';
+            result.style.color = 'red';
+        }
+    }else{
+        result.innerHTML = '5자 이상 작성해주세요';
+        result.style.color = 'red';
+        isUsernameLength = false;
+        isNext();
+    }
 };
 
-function passwordDiv(spanContainer, inputContainer){
-    var passwordSpan = document.createElement('span');
-    var passwordInput = document.createElement('input')
-    var confirmPasswordInput = document.createElement('input');
-    var failMessage = document.createElement('span');
-    var failDiv = document.getElementById('account_span_message_container');
+function checkId(res, text){
+    if(res === 1){
+        text.style.color = 'red';
+        text.innerHTML = '해당 아이디는 사용할 수 없습니다.';
+        divCnt = 0;
+        if(isDiv){
+            removePasswordDiv();
+        }
+        isUsername = false;
+    }else{
+        text.innerHTML = '아이디가 확인되었습니다.';
+        text.style.color='blue';
+        sessionStorage.setItem('id', document.getElementById('account_userid').value);
+        if(divCnt < 1){
+            passwordDiv();
+        }
+        divCnt += 1;
+        isUsername = true;
+    }
+
+    isNext();
+}
+
+function passwordDiv(){
+    passwordSpan = document.createElement('span');
+    passwordInput = document.createElement('input')
+    confirmPasswordInput = document.createElement('input');
+    failMessage = document.createElement('span');
+    failDiv = document.getElementById('account_span_message_container');
 
     passwordSpan.innerHTML = '비밀번호';
     passwordSpan.classList.add('account_span');
@@ -50,12 +77,11 @@ function passwordDiv(spanContainer, inputContainer){
 
     passwordInput.addEventListener('input', function(event){
         password = event.target.value;
-        if(password.length < 8){
-            failMessage.innerHTML = '8자 이상 작성해주세요';
-            failMessage.style.color = 'red';
+        if(password.length < 7){
+            checkPassword(failMessage);
             isLength = false;
         }else{
-            failMessage.innerHTML = '';
+            checkPassword(failMessage);
             isLength = true;
         }
         isNext();
@@ -65,12 +91,10 @@ function passwordDiv(spanContainer, inputContainer){
         if(confirm === passwordInput.value){
             isCheck = true;
             sessionStorage.setItem('pw', confirm);
-            failMessage.innerHTML = '비밀번호 확인이 완료되었습니다.';
-            failMessage.style.color = 'blue';
+            checkPassword(failMessage);
         }else{
             isCheck = false;
-            failMessage.innerHTML = '비밀번호를 확인해주세요';
-            failMessage.style.color = 'red';
+            checkPassword(failMessage);
         }
         isNext();
     })
@@ -79,16 +103,38 @@ function passwordDiv(spanContainer, inputContainer){
     inputContainer.appendChild(passwordInput);
     inputContainer.appendChild(confirmPasswordInput);
     failDiv.appendChild(failMessage);
+
+    isDiv = true;
+}
+
+function removePasswordDiv(){
+    spanContainer.removeChild(passwordSpan);
+    inputContainer.removeChild(passwordInput);
+    inputContainer.removeChild(confirmPasswordInput);
+    failDiv.removeChild(failMessage);
+
+    isDiv = false;
 }
 
 function isNext(){
-    if(isCheck && isLength){
+    if(isCheck && isLength && isUsername && isUsernameLength){
         accountNextButton.disabled = false;
     }else{
         accountNextButton.disabled = true;
     }
 }
 
-function checkPassowrd(pw, confirmPwd){
-    return pw === confirmPwd;
+function checkPassword(fail){
+    if(isLength && isCheck){
+        fail.innerHTML = '비밀번호 확인이 완료되었습니다.';
+        fail.style.color = 'blue';
+    }else if(!isLength){
+         fail.innerHTML = '비밀번호는 8자 이상이어야 합니다.';
+         fail.style.color = 'red';
+     }else if(!isCheck){
+        fail.innerHTML = '비밀번호가 일치하지 않습니다.';
+        fail.style.color = 'red';
+    }else{
+        fail.innerHTML = '';
+    }
 }

@@ -7,25 +7,27 @@
 {{>layout/navi}}
 
 <div class="container">
-    <h1 class="account_banner">작심득근</h1>
     <div class="account_container" id="account_parent_container">
+        <h1 class="account_head">작심득근</h1>
         <div>
-            <span class="account_span">아이디</span>
+            <div class="input_container">
+                <p class="jaksim_font">아이디</p>
+                <input class="account_input" id="account_userid" type="text" placeholder="아이디를 여기에 입력해주세요"/>
+            </div>
+
+            <span id="account_id_result"></span>
+
+            <div class="input_container">
+                <div id="account_span_container"></div>
+                <div id="account_input_container"></div>
+                <div id="account_span_message_container"></div>
+            </div>
         </div>
 
-        <div class="input_container">
-            <input class="account_input" id="account_userid" type="text" placeholder="아이디를 여기에 입력해주세요"/>
-            <button class="account_button" type="button" id="account_id_check">중복 확인</button>
+        <div>
+            <a href="/" class="btn btn-secondary">이전</a>
+            <button id="account_1_next" class="btn btn-primary" onclick="window.location.href='/account/2'" disabled>이동</button>
         </div>
-        <span id="account_id_result"></span>
-
-        <div class="input_container">
-            <div id="account_span_container"></div>
-            <div id="account_input_container"></div>
-            <div id="account_span_message_container"></div>
-        </div>
-        <a href="/" class="btn btn-secondary">이전</a>
-        <button id="account_1_next" class="btn btn-primary" onclick="window.location.href='/account/2'" disabled>이동</button>
     </div>
 </div>
 
