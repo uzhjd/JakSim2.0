@@ -24,7 +24,7 @@ public class KakaoPayRestController {
     private final KakaoPayService kakaoPayService;
     private final PaymentService paymentService;
 
-    // 결제 요청
+    // 결제 요청 (준비)
     @PostMapping("/ready")
     public ReadyResponse readyToKakaoPay(@AuthenticationPrincipal User user,
                                          @Valid @RequestBody PaymentRequest paymentRequest) {
@@ -47,12 +47,10 @@ public class KakaoPayRestController {
         return new ResponseEntity<>(kakaoApprove, HttpStatus.OK);
     }
 
-    /**
-     * 결제 실패
-     */
+    // 결제 실패
     @GetMapping("/fail")
     public void fail() {
-//        throw new BusinessLogicException(ErrorCode.PAY_FAILED);
+        throw new BusinessLogicException(ErrorCode.PAY_FAILED);
     }
 
     /**

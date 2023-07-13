@@ -1,6 +1,5 @@
 package com.twinkle.JakSim.controller.payment;
 
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class paymentroot {
 
+    // 결제 진행 중 취소
     @GetMapping()
     public String scheduler() {
         return "content/payment/KakaoPay";
