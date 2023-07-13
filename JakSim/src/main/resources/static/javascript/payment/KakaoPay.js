@@ -1,14 +1,15 @@
 window.onload = function () {
     var payBtn = document.getElementById("kakaopayBtn");
-    payBtn.addEventListener('click', kakaopay);
+
+    // 세은님께 데이터 받기
+    payBtn.addEventListener('click', () => kakaopay("남유정 트레이너 1달 사용권", 1, 10));
 }
 
-function kakaopay() {
-    console.log("cllclcickk");
-
+function kakaopay(ptTitle, tpIdx, ptPrice) {
      var data = {
-         productName: "남유정 트레이너 1달 사용권",
-         ptPrice: 10000
+         ptTitle: ptTitle,
+         tpIdx: tpIdx,
+         ptPrice: ptPrice
      };
 
     axios.post('/payment/ready', data)
@@ -17,21 +18,12 @@ function kakaopay() {
 
             console.log(response);
 
-            // if (response.data.status === 500) {
-            // } else {
-            //     var box = response.next_redirect_pc_url;
-            //     // window.open(box); // open a new window
-            //     location.href = box;
-            // }
             if(httpStatus == 500) {
-                alert("Payment with Kakao Pay failed.");
-
+                alert("500: Payment with Kakao Pay failed.");
             } else {
-                console.log("연결은 우선 성공!!!!");
                 var box = response.data.next_redirect_pc_url;
-                console.log("success");
-                // window.open(box); // 새창으로 열기 (모달로 열어버릴까?)
-                location.href = box;
+
+                window.open(box, "", "width=500, height=800");
             }
         })
         .catch(error => {

@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class paymentroot {
 
     @GetMapping()
-    public String scheduler(@AuthenticationPrincipal User user) {
-
-
+    public String scheduler() {
         return "content/payment/KakaoPay";
     }
 }

@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor
 public enum ErrorCode {
     PAY_FAILED(HttpStatus.BAD_REQUEST, "결제 실패"),
-    PAY_CANCEL(HttpStatus.BAD_REQUEST, "진행 중이던 결제 취소");
+    PAY_CANCEL(HttpStatus.BAD_REQUEST, "진행 중인 결제 취소");
 
     private final HttpStatus status;
     private final String message;

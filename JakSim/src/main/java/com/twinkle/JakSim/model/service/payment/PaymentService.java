@@ -1,6 +1,7 @@
 package com.twinkle.JakSim.model.service.payment;
 
 import com.twinkle.JakSim.model.dao.payment.PaymentDao;
+import com.twinkle.JakSim.model.dto.payment.response.ApproveResponse;
 import com.twinkle.JakSim.model.dto.product.response.ValidPtResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,4 +31,8 @@ public class PaymentService {
 
         return list;
     }
+
+//    public Boolean savePaymentDetails(String userId, ApproveResponse paymentDetails) {
+//        return paymentDao.savePaymentDetails(userId, paymentDetails);
+//    }
 }

@@ -1,5 +1,6 @@
 package com.twinkle.JakSim.model.service.payment;
 
+import com.twinkle.JakSim.model.dto.payment.request.PaymentRequest;
 import com.twinkle.JakSim.model.dto.payment.response.ApproveResponse;
 import com.twinkle.JakSim.model.dto.payment.response.CancelResponse;
 import com.twinkle.JakSim.model.dto.payment.response.ReadyResponse;
@@ -22,13 +23,13 @@ import java.io.IOException;
 @RequiredArgsConstructor
 @Transactional
 public class KakaoPayService {
+
     static final String cid = "TC0ONETIME"; // 가맹점 테스트 코드
 //    static final String admin_Key = "${ADMIN_KEY}";
+    static final String admin_Key = "04b96e410ef97e9ba8dfe96ea57746bf"; // 공개 조심! 본인 애플리케이션의 어드민 키를 넣어주세요
     private ReadyResponse kakaoReady;
 
-    /**
-     * 카카오 요구 헤더값
-     */
+    // 카카오 요구 헤더값
     private HttpHeaders getHeaders() {
         HttpHeaders httpHeaders = new HttpHeaders();
 
@@ -40,31 +41,22 @@ public class KakaoPayService {
         return httpHeaders;
     }
 
-    public ReadyResponse kakaoPayReady() {
-//    public ReadyResponse kakaoPayReady(String tpIdx, int ptPrice) {
+    // 결제 요청
+    public ReadyResponse kakaoPayReady(String userId, PaymentRequest paymentRequest) {
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();         // 카카오페이 요청 양식
 
-        // 카카오페이 요청 양식
-        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
-        parameters.add("cid", cid);
-        // 가맹점 주문 번호
-        parameters.add("partner_order_id", "1234");
-        // 가맹점 회원 ID
-        parameters.add("partner_user_id", "gorany");
-        // 상품명
-        parameters.add("item_name", "갤럭시 s9");
-//        parameters.add("item_name", tpIdx);
-        // 상품 개수
-        parameters.add("quantity", "1");
-          // 총 금액
-        parameters.add("total_amount", "2100");
-//        parameters.add("total_amount", String.valueOf(ptPrice));
-        // 부가세
-        parameters.add("vat_amount", "0");
-        // 상품 비과세 금액
-        parameters.add("tax_free_amount", "0");
-        parameters.add("approval_url", "http://localhost:8080/payment/success"); // 성공 시 redirect url
-        parameters.add("cancel_url", "http://localhost:8080/payment/cancel"); // 취소 시 redirect url
-        parameters.add("fail_url", "http://localhost:8080/payment/fail"); // 실패 시 redirect url
+        parameters.add("cid", cid);                                                     // 가맹점 코드
+        parameters.add("partner_order_id", "1234");                                     // 가맹점 주문 번호
+        parameters.add("partner_user_id", userId);                                      // 가맹점 회원 ID
+        parameters.add("item_name", String.valueOf(paymentRequest.getPtTitle()));       // 상품명
+        parameters.add("item_code", String.valueOf(paymentRequest.getTpIdx()));         // 상품 코드
+        parameters.add("quantity", "1");                                                // 상품 개수
+        parameters.add("total_amount", String.valueOf(paymentRequest.getPtPrice()));    // 총 금액
+        parameters.add("vat_amount", "0");                                              // 부가세
+        parameters.add("tax_free_amount", "0");                                         // 상품 비과세 금액
+        parameters.add("approval_url", "http://localhost:8080/payment/success");        // 성공 시 redirect url
+        parameters.add("cancel_url", "http://localhost:8080/payment/cancel");           // 취소 시 redirect url
+        parameters.add("fail_url", "http://localhost:8080/payment/fail");               // 실패 시 redirect url
 
         // 파라미터, 헤더
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
@@ -80,22 +72,40 @@ public class KakaoPayService {
             }
         });
 
-        kakaoReady = restTemplate.postForObject(
-                "https://kapi.kakao.com/v1/payment/ready",
-                requestEntity,
-                ReadyResponse.class);
-
+        kakaoReady = restTemplate.postForObject("https://kapi.kakao.com/v1/payment/ready",
+                                                                                requestEntity, ReadyResponse.class);
 
         return kakaoReady;
+    }
+
+    // 결제 완료 승인
+    public ApproveResponse approveResponse(String userId, String pgToken) {
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+
+        parameters.add("cid", cid);
+        parameters.add("tid", kakaoReady.getTid());
+        parameters.add("partner_order_id", "1234");
+        parameters.add("partner_user_id", userId);
+        parameters.add("pg_token", pgToken);
+
+        // 파라미터, 헤더
+        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
+
+        // 외부에 보낼 url
+        RestTemplate restTemplate = new RestTemplate();
+
+        ApproveResponse approveResponse = restTemplate.postForObject("https://kapi.kakao.com/v1/payment/approve",
+                requestEntity, ApproveResponse.class);
+
+        return approveResponse;
     }
 
     /**
      * 결제 환불
      */
     public CancelResponse kakaoCancel() {
-
-        // 카카오페이 요청
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+
         parameters.add("cid", cid);
         parameters.add("tid", "환불할 결제 고유 번호");
         parameters.add("cancel_amount", "환불 금액");
@@ -108,38 +118,10 @@ public class KakaoPayService {
         // 외부에 보낼 url
         RestTemplate restTemplate = new RestTemplate();
 
-        CancelResponse cancelResponse = restTemplate.postForObject(
-                "https://kapi.kakao.com/v1/payment/cancel",
-                requestEntity,
-                CancelResponse.class);
+        CancelResponse cancelResponse = restTemplate.postForObject("https://kapi.kakao.com/v1/payment/cancel",
+                                                                                requestEntity, CancelResponse.class);
 
         return cancelResponse;
-    }
-    /**
-     * 결제 완료 승인
-     */
-    public ApproveResponse approveResponse(String pgToken) {
-
-        // 카카오 요청
-        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
-        parameters.add("cid", cid);
-        parameters.add("tid", kakaoReady.getTid());
-        parameters.add("partner_order_id", "가맹점 주문 번호");
-        parameters.add("partner_user_id", "가맹점 회원 ID");
-        parameters.add("pg_token", pgToken);
-
-        // 파라미터, 헤더
-        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
-
-        // 외부에 보낼 url
-        RestTemplate restTemplate = new RestTemplate();
-
-        ApproveResponse approveResponse = restTemplate.postForObject(
-                "https://kapi.kakao.com/v1/payment/approve",
-                requestEntity,
-                ApproveResponse.class);
-
-        return approveResponse;
     }
 
 
