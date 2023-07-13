@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 @Getter
-//@ToString
 public class PaymentRequest {
 
     @NotEmpty

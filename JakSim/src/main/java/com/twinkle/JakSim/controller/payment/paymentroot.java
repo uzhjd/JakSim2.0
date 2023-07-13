@@ -18,4 +18,10 @@ public class paymentroot {
     public String scheduler() {
         return "content/payment/KakaoPay";
     }
+
+    // 결제 진행 중 취소
+    @GetMapping("/cancel")
+    public String cancel() {
+        return "content/payment/KakaoPayCancle";
+    }
 }
