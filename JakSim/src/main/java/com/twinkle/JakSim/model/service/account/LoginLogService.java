@@ -24,7 +24,8 @@ public class LoginLogService {
         return loginLogDao.findByUsernameRecent(username);
     }
 
-    public List<LoginLogDto> findByUsername(String username) {
-        return loginLogDao.findByUsername(username);
+    public List<LoginLogDto> findByUsername(String username, int pageNum) {
+        int pageSize = 20;
+        return loginLogDao.findByUsername(username, pageNum, pageSize);
     }
 }

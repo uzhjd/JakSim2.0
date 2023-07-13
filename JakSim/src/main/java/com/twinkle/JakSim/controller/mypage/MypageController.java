@@ -39,7 +39,6 @@ public class MypageController {
         model.addAttribute("head_title", "개인페이지");
         return String.format(defaultPath + "auth");
     }
-
     /**
      * <h1>GPT의 조언</h1>
      * - 다음과 같은 고려사항을 살펴보시고 판단해주세요
@@ -86,7 +85,7 @@ public class MypageController {
     public String logPage(@PathVariable("userId") String username, Model model){
         model.addAttribute("head_title", username + "님 이력확인");
         model.addAttribute("user_info", accountService.findByUsername(username));
-        model.addAttribute("access_log", loginLogService.findByUsername(username));
+
         return String.format(defaultPath + "log");
     }
 

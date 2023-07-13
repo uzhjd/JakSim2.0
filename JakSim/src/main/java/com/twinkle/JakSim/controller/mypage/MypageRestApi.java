@@ -1,9 +1,11 @@
 package com.twinkle.JakSim.controller.mypage;
 
+import com.twinkle.JakSim.model.dto.account.LoginLogDto;
 import com.twinkle.JakSim.model.dto.account.UserDto;
 import com.twinkle.JakSim.model.dto.inbody.InbodyDto;
 import com.twinkle.JakSim.model.service.account.AccountService;
 import com.twinkle.JakSim.model.service.account.FileService;
+import com.twinkle.JakSim.model.service.account.LoginLogService;
 import com.twinkle.JakSim.model.service.inbody.InbodyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -26,6 +28,7 @@ public class MypageRestApi {
     private final AccountService accountService;
     private final FileService fileService;
     private final InbodyService inbodyService;
+    private final LoginLogService loginLogService;
     @PostMapping("/auth")
     public String authPassword(@RequestBody UserDto userDto, @AuthenticationPrincipal User user){
         return accountService.checkPassword(user.getUsername(), userDto.getPw()) ? user.getUsername() : null;
@@ -110,5 +113,10 @@ public class MypageRestApi {
     @DeleteMapping("/inbody/del/{id}")
     public int deleteInbodyData(@PathVariable("id") int id){
         return inbodyService.delete(id);
+    }
+
+    @GetMapping("/{userId}/history/{page}")
+    public List<LoginLogDto> getLoginList(@PathVariable("userId") String username, @PathVariable("page")int pageNum){
+        return loginLogService.findByUsername(username, pageNum);
     }
 }

@@ -40,12 +40,13 @@ public class LoginLogDao {
         return logDto;
     }
 
-    public List<LoginLogDto> findByUsername(String username) {
-        String sql = "SELECT * FROM LOGIN_LOG WHERE USER_ID = ? ORDER BY L_DT desc";
+    public List<LoginLogDto> findByUsername(String username, int pageNum, int pageSize) {
+        int offset = (pageNum - 1) * pageSize;
+        String sql = "SELECT * FROM LOGIN_LOG WHERE USER_ID = ? ORDER BY L_DT desc LIMIT ? OFFSET ?";
         List<LoginLogDto> resultList = new ArrayList<>();
 
         try{
-            resultList = jdbcTemplate.query(sql, new LoginLogMapper(), username);
+            resultList = jdbcTemplate.query(sql, new LoginLogMapper(), username, pageSize, offset);
         }catch (EmptyResultDataAccessException e){
             System.out.println("로그인 기록이 없다는데?");
         }
