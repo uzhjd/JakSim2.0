@@ -40,8 +40,6 @@ public class PaymentDao {
         return result;
     }
 
-    // INSERT INTO PAYMENT (USER_ID, TP_IDX, P_PT_CNT, P_PT_PERIOD, P_REFUND)
-    //VALUES ('ujeong', 2, 3, 3, 0);
     public Boolean savePaymentDetails(String userId, ApproveResponse paymentDetails) {
         Boolean result = true;
 
@@ -49,7 +47,6 @@ public class PaymentDao {
                 "values (?, ?, ?, 0, ?, ?)";
 
         try {
-                                                                                                    // 횟수, pt기간
             jdbcTemplate.update(this.sql, userId, paymentDetails.getItem_code(), paymentDetails.getCreated_at(), paymentDetails.getPtTimes(), paymentDetails.getPtPeriod());
         } catch (EmptyResultDataAccessException e) {
             result = false;

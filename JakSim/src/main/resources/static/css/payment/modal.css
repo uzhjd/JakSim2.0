@@ -1,6 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
 
-#cancle {
+#modal_navi {
+    height: 56px;
+    padding: 13px 16px;
+    background-color: #F6F6F6;
+
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #C8B0FC;
+}
+
+#title {
     margin-top: 80px;
 }
 
@@ -19,7 +30,7 @@ hr {
 }
 
 img {
-    width: 80%;
-    margin-left: 10%;
+    width: 60%;
+    margin: 30px 20%;
     opacity: 30%;
 }
