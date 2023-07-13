@@ -23,4 +23,10 @@ public class PaymentRequest {
 
     @NotNull
     private int ptPrice;
+
+    @NotNull
+    private int ptTimes;
+
+    @NotNull
+    private int ptPeriod;
 }

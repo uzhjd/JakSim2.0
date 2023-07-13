@@ -74,6 +74,8 @@ public class KakaoPayService {
 
         kakaoReady = restTemplate.postForObject("https://kapi.kakao.com/v1/payment/ready",
                                                                                 requestEntity, ReadyResponse.class);
+        kakaoReady.setPtTimes(paymentRequest.getPtTimes());
+        kakaoReady.setPtPeriod(paymentRequest.getPtPeriod());
 
         return kakaoReady;
     }
@@ -96,6 +98,9 @@ public class KakaoPayService {
 
         ApproveResponse approveResponse = restTemplate.postForObject("https://kapi.kakao.com/v1/payment/approve",
                 requestEntity, ApproveResponse.class);
+
+        approveResponse.setPtTimes(kakaoReady.getPtTimes());
+        approveResponse.setPtPeriod(kakaoReady.getPtPeriod());
 
         return approveResponse;
     }

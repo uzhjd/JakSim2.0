@@ -32,7 +32,7 @@ public class PaymentService {
         return list;
     }
 
-//    public Boolean savePaymentDetails(String userId, ApproveResponse paymentDetails) {
-//        return paymentDao.savePaymentDetails(userId, paymentDetails);
-//    }
+    public Boolean savePaymentDetails(String userId, ApproveResponse paymentDetails) {
+        return paymentDao.savePaymentDetails(userId, paymentDetails);
+    }
 }

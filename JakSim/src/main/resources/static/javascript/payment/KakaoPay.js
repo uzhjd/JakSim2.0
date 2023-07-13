@@ -2,14 +2,16 @@ window.onload = function () {
     var payBtn = document.getElementById("kakaopayBtn");
 
     // 세은님께 데이터 받기
-    payBtn.addEventListener('click', () => kakaopay("남유정 트레이너 1달 사용권", 1, 10));
+    payBtn.addEventListener('click', () => kakaopay("남유정 트레이너 10회 사용권", 1, 10, 10, 90));
 }
 
-function kakaopay(ptTitle, tpIdx, ptPrice) {
+function kakaopay(ptTitle, tpIdx, ptPrice, ptTimes, ptPeriod) {
      var data = {
          ptTitle: ptTitle,
          tpIdx: tpIdx,
-         ptPrice: ptPrice
+         ptPrice: ptPrice,
+         ptTimes: ptTimes,
+         ptPeriod: ptPeriod
      };
 
     axios.post('/payment/ready', data)

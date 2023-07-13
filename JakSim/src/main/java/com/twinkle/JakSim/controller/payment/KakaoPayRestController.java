@@ -38,10 +38,10 @@ public class KakaoPayRestController {
 
         if(kakaoApprove != null) {
             System.out.println(kakaoApprove);
-//            if(paymentService.savePaymentDetails(user.getUsername(), kakaoApprove)) {
-//                return new ResponseEntity<>(kakaoApprove, HttpStatus.OK);
-//
-//            }
+            if(paymentService.savePaymentDetails(user.getUsername(), kakaoApprove)) {
+                return new ResponseEntity<>(kakaoApprove, HttpStatus.OK);
+
+            }
         }
 
         return new ResponseEntity<>(kakaoApprove, HttpStatus.OK);

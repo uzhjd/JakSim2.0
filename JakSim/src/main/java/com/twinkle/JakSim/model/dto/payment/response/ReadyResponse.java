@@ -2,6 +2,7 @@ package com.twinkle.JakSim.model.dto.payment.response;
 
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Getter
@@ -10,9 +11,16 @@ import java.util.Date;
 public class ReadyResponse {
 
     private String tid; // 결제 고유 번호
+
     private String next_redirect_mobile_url; // 모바일 웹일 경우 받는 결제페이지 url
+
     private String next_redirect_pc_url; // pc 웹일 경우 받는 결제 페이지
+
     private Date created_at;
+
+    private int ptTimes;
+
+    private int ptPeriod;
 
 //    // 결제 고유 번호 (최대 20자)
 //    private String tid;
