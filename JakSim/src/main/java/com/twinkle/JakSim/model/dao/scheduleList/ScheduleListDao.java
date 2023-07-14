@@ -49,6 +49,8 @@ public class ScheduleListDao {
             params = new Object[]{trainerId, date, tType};
         }
 
+        sql += " order by t_start_t";
+
         try {
             timetableList = jdbcTemplate.query(this.sql, new TimetableRowMapper(), params);
         } catch (Exception e) {

@@ -12,40 +12,39 @@ function setTimetable(pIdx, id, date, tType) {
 
     axios.post('/timetable/details', data)
         .then((response) => {
-            var timetable = document.createElement("div");
-            var radioBox = document.createElement("input");
-            console.log("total_data");
-            console.log(response.data);
             var childDivs = timetableList.querySelectorAll("div");
 
             childDivs.forEach(function (childDiv) {
                 timetableList.removeChild(childDiv);
             });
+            console.log(response.data);
 
             if(response.data.length == 0) {
-                timetable.textContent = "※ 시간표 정보가 없습니다.";
-                button.style.display = 'none';
+                var timetable = document.createElement("div");
+                timetable.innerHTML = "※ 시간표 정보가 없습니다.";
                 timetableList.appendChild(timetable);
+
+                button.style.display = 'none';
             } else {
                 for(var i = 0; i < response.data.length; i++) {
-                    timetable.textContent = " " + response.data[i]['tstartT'].substr(0, 5) + " - " + response.data[i]['tendT'].substr(0, 5) + " ( " + type[response.data[i]['ttype']] + " ) ";
+                    var radioBox = document.createElement("input");
+                    var timetable = document.createElement("div");
+
+                    timetable.innerHTML = " " + response.data[i]['tstartT'].substr(0, 5) + " - " + response.data[i]['tendT'].substr(0, 5) + " ( " + type[response.data[i]['ttype']] + " ) ";
 
                     if(response.data[i]['ttype'] == 2) {
-                        timetable.textContent += response.data[i]['tpeolple'];
+                        timetable.innerHTML += response.data[i]['tpeolple'];
                     }
 
                     button.style.display = 'inline-block';
 
                     radioBox.setAttribute("type", "radio");
                     radioBox.setAttribute("name", ("timetable_" + (i + 1)));
-                    // 인원수 체크
-                    // 타입 체크
-                    radioBox.setAttribute("value", pIdx);
-                    // radioBox.setAttribute("disabled", "false");
+                    radioBox.setAttribute("value", response.data[i]['tidx']);
+                    // radioBox.setAttribute("disabled", "false"); // 인원수 체크
                     timetable.insertBefore(radioBox, timetable.firstChild);
 
                     timetableList.appendChild(timetable);
-                    console.log(timetableList);
                 }
             }
 
