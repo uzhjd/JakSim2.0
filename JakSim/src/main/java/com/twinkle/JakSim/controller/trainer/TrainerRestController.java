@@ -1,6 +1,5 @@
 package com.twinkle.JakSim.controller.trainer;
 
-import com.twinkle.JakSim.model.dto.trainer.TrainerInsertDto;
 import com.twinkle.JakSim.model.dto.trainer.response.TrainerDetailResponse;
 import com.twinkle.JakSim.model.service.trainer.TrainerService;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/trainer")
 @RequiredArgsConstructor
-public class TrainerRestapi {
+public class TrainerRestController {
 
     private final TrainerService trainerService;
 
@@ -21,7 +20,7 @@ public class TrainerRestapi {
     @GetMapping("/briefInfo/{trainerId}")
     public ResponseEntity<TrainerDetailResponse> TrainerBreif(@PathVariable("trainerId") String trainerId) {
         TrainerDetailResponse response = trainerService.findTrainerBreif(trainerId);
-        System.out.println(trainerId);
+
         return ResponseEntity.ok(response);
     }
 

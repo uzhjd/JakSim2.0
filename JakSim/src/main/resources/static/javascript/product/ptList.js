@@ -36,6 +36,7 @@ function changePtList(selectedPt, type, pIdx) {
         tType = JSON.parse(selectedPt.value).tType;
     }
 
+    setPtType(tType);
     setPtCnt(ptCnt);
     setTrainerBrief(trainerId);
     setSchdule(trainerId, tType, pIdx);
@@ -47,6 +48,13 @@ function setPtCnt(ptCnt) {
     var cnt = document.getElementById("pt_cnt");
 
     cnt.innerHTML = "남은 PT 횟수 : " + ptCnt + "회";
+}
+
+function setPtType(tType) {
+    var arr = ['상담', '1:1', '단체'];
+    var type = document.getElementById("pt_type");
+
+    type.innerHTML = arr[tType];
 }
 
 

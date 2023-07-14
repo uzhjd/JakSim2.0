@@ -137,10 +137,9 @@ public class TrainerDao {
 
         try {
             trainerDetailResponse = jdbcTemplate.queryForObject(this.sql, new TrainerDetailRowMapper(), trainerId);
-            System.out.println("wewewe");
         } catch (EmptyResultDataAccessException e) {
             System.out.println(e);
-        }System.out.println("dao");
+        }
 
         return trainerDetailResponse;
     }

@@ -14,6 +14,7 @@ function setTimetable(pIdx, id, date, tType) {
         .then((response) => {
             var timetable = document.createElement("div");
             var radioBox = document.createElement("input");
+            console.log("total_data");
             console.log(response.data);
             var childDivs = timetableList.querySelectorAll("div");
 
@@ -36,14 +37,15 @@ function setTimetable(pIdx, id, date, tType) {
                     button.style.display = 'inline-block';
 
                     radioBox.setAttribute("type", "radio");
-                    radioBox.setAttribute("name", ("timetable_" + i + 1));
+                    radioBox.setAttribute("name", ("timetable_" + (i + 1)));
                     // 인원수 체크
                     // 타입 체크
                     radioBox.setAttribute("value", pIdx);
                     // radioBox.setAttribute("disabled", "false");
                     timetable.insertBefore(radioBox, timetable.firstChild);
-console.log(timetable.textContent);
+
                     timetableList.appendChild(timetable);
+                    console.log(timetableList);
                 }
             }
 

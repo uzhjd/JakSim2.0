@@ -95,6 +95,7 @@ function leftPad(value) {
 }
 
 function setSchdule(trainerId, tType, pIdx) {
+    console.log("type", tType)
     var ptDay = [];
     this.tType = tType;
     this.pIdx = pIdx;

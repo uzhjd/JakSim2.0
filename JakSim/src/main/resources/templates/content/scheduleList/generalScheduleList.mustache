@@ -24,10 +24,10 @@
 <!--        </ul>-->
 <!--    </div>-->
     <div id="select-pt">
-        <span id="pt_cnt">
-        </span>
-        <select name="ptList" id="trainer_list" ="selectbox">
-        </select>
+        <span id="pt_type"></span>
+        <span id="pt_cnt"></span>
+
+        <select name="ptList" id="trainer_list" ="selectbox"></select>
     </div>
     <div id="scheduler">
         <table class="Calendar">
@@ -51,6 +51,7 @@
                     <td id="sat">토</td>
                 </tr>
             </thead>
+
             <tbody>
             </tbody>
         </table>
@@ -91,13 +92,17 @@
     <div id="timetable">
         <div id="timetableDetail">
             <p id="title">예약시간</p>
+
             <div id = timetableList></div>
+
             <button id="reservationBtn" class="jaksim_btn" type="button" >예약하기</button>
         </div>
         <div id="timetable_date_wrapper">
             <div id="reservation_date"></div>
+
             <div id="timetable_user_inlist">
                 <span id="reservation_list"></span>
+
                 <button id="resCancleBtn" class="jaksim_btn">예약 취소</button>
             </div>
         </div>
