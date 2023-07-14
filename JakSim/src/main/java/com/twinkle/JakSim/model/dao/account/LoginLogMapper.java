@@ -14,12 +14,10 @@ public class LoginLogMapper implements RowMapper<LoginLogDto> {
     public LoginLogDto mapRow(ResultSet rs, int rowNum) throws SQLException {
         LoginLogDto logDto = new LoginLogDto();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
         logDto.setIp(rs.getString("L_IP"));
         logDto.setUser_id(rs.getString("USER_ID"));
         logDto.setId(rs.getInt("L_ID"));
-        logDto.setDt(LocalDateTime.parse(rs.getString("L_DT"), formatter));
+        logDto.setDt(rs.getString("L_DT"));
 
         return logDto;
     }

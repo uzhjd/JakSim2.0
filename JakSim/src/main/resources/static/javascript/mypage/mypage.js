@@ -1,7 +1,6 @@
 var nameChangeButton, telChangeButton;
 var nameInput, telInput;
-//animation
-var textA, textB, textZ, textK;
+
 window.onload = function() {
     var deleteButton = document.getElementById('mypage_delete');
     nameChangeButton = document.getElementById('profile_name_change');

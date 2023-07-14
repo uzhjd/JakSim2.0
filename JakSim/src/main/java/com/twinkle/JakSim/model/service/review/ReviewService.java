@@ -22,7 +22,6 @@ public class ReviewService {
     @Transactional
     public void insertReview(ReviewRequestDto review) {
         reviewDao.insertReview(review);
-
     }
     @Transactional
     public List<ReviewRequestDto> showReview(int utIdx) {

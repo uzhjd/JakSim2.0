@@ -23,7 +23,7 @@ CREATE TABLE REVIEW_IMAGE(
 COMMIT;
 
 INSERT INTO REVIEW
-VALUES(NULL, 'test', 1, '가나다라마바사아자차카타파하 하고 싶은 말은 많아도 할 수가 없네~~~ 송창식 선생님의 노래입니다. 저도 입이 있는 사람이지만 어째서...', 5, current_date, NULL);
+VALUES(NULL, 'test', 1, '가나다라마바사아자차카타파하 하고 싶은 말은 많아도 할 수가 없네~~~ 송창식 선생님의 노래입니다. 저도 입이 있는 사람이지만 어째서...', 5, current_timestamp, NULL);
 INSERT INTO REVIEW
 VALUES(NULL, 'humble', 1, '이렇게 피티가 뭐같은적이 없음', 1, current_date, NULL);
 INSERT INTO REVIEW

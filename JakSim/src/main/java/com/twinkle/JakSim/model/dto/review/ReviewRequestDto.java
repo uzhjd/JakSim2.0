@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -16,8 +17,8 @@ public class ReviewRequestDto {
     private int trainerId;
     private String reviewContent;
     private int star;
-    private LocalDateTime reviewCreateDate;
-    private LocalDateTime reviewModifyDate;
+    private String reviewCreateDate;
+    private String reviewModifyDate;
 
     private int reviewImageId;
     private String reviewImagePath;
