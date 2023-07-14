@@ -54,7 +54,7 @@ function setPtType(tType) {
     var arr = ['상담', '1:1', '단체'];
     var type = document.getElementById("pt_type");
 
-    type.innerHTML = arr[tType];
+    type.innerHTML = arr[tType] + " PT권";
 }
 
 
