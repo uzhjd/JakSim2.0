@@ -1,9 +1,6 @@
 package com.twinkle.JakSim.controller.mypage;
 
-import com.twinkle.JakSim.model.dto.payment.PaymentDo;
-import com.twinkle.JakSim.model.dto.review.ReviewRequestDto;
-import com.twinkle.JakSim.model.dto.timetable.response.TimetableDto;
-import com.twinkle.JakSim.model.dto.trainer.ProductDto;
+import com.twinkle.JakSim.model.dto.payment.PaymentDtoForMypage;
 import com.twinkle.JakSim.model.service.account.AccountService;
 import com.twinkle.JakSim.model.service.account.LoginLogService;
 import com.twinkle.JakSim.model.service.inbody.InbodyService;
@@ -18,8 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/mypage")
@@ -41,7 +36,7 @@ public class MypageController {
     }
     /**
      * <h1>GPT의 조언</h1>
-     * - 다음과 같은 고려사항을 살펴보시고 판단해주세요
+     * - 다음과 같은 고려사항을 살펴보시고 판단해주세요(팀원과의 확인 후에는 삭제해주세요)
      * <ol>
      *     <li>데이터의 양</li>
      *     <li>성능 요구사항</li>
@@ -63,20 +58,14 @@ public class MypageController {
         model.addAttribute("user_info", accountService.findByUsername(username));
         model.addAttribute("log", loginLogService.findByUsernameRecent(username));
 
-        Optional<PaymentDo> payment = paymentService.getRecentPayment(username);
-        Optional<List<ReviewRequestDto>> reviewList = reviewService.showMyReivew(username);
-        Optional<TimetableDto> timetable = timetableService.findMyTimetableRecent(username);
-        //Optional<TimetableDto> soonTimetable = timetableService.findMyTimetableSoon(username); 미완성
-
-        if(payment.isPresent()){
-            ProductDto productDto = trainerService.getProductByTrainerIdx(payment.get().getTp_idx());
-            model.addAttribute("payment", payment.get());
-            model.addAttribute("product", productDto);
-        }
-
-        reviewList.ifPresent(reviewRequestDtos -> {if (!reviewRequestDtos.isEmpty()) {model.addAttribute("review", reviewRequestDtos.get(0));}});
-        timetable.ifPresent(item -> model.addAttribute("timetable", item));
-        //soonTimetable.ifPresent(item -> model.addAttribute("soon", item)); 미완성
+        paymentService.getRecentPaymentBy3(username).ifPresent(item -> {
+            if(!item.isEmpty()){
+                model.addAttribute("payment", item);
+            }
+        });
+        reviewService.showMyReivew(username).ifPresent(reviewRequestDtos -> {if (!reviewRequestDtos.isEmpty()) {
+            model.addAttribute("reviewList", reviewRequestDtos);
+        }});
 
         return String.format(defaultPath + "mypage");
     }

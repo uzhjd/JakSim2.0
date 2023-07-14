@@ -9,14 +9,8 @@ window.onload = function() {
     nameInput = document.getElementById('profile_name_input');
     telInput = document.getElementById('profile_tel_input');
 
-    //animation
-    textA = document.getElementById('textA');
-    textB = document.getElementById('textB');
-    textZ = document.getElementById('textZ');
-    textK = document.getElementById('textK');
-
-    setInterval(toggleText, 2000);
-    //animation
+    reviewCheck();
+    paymentCheck();
 
     deleteButton.addEventListener('click', deleteUser);
 
@@ -43,11 +37,49 @@ window.onload = function() {
     })
 }
 
-function toggleText(){
-    textA.classList.toggle('hidden');
-    textB.classList.toggle('hidden');
-    textK.classList.toggle('hidden');
-    textZ.classList.toggle('hidden');
+function paymentCheck(){
+    function priceFormat(){
+        var prices = document.getElementsByClassName('mypage_pay_price');
+        Array.from(prices).forEach((item) => {
+            item.innerHTML = item.innerHTML.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        });
+    };
+
+    function typeToString(){
+        var types = document.getElementsByClassName('mypage_pay_type');
+        Array.from(types).forEach((item) => {
+            switch(item.innerHTML){
+                case '0':
+                    item.innerHTML = '[개인]';
+                    break;
+                case '1':
+                    item.innerHTML = '[단체]';
+                    break;
+            }
+        })
+    };
+
+    function lengthOfTitle(){
+        var titles = document.getElementsByClassName('mypage_pay_content');
+        Array.from(titles).forEach((item, index) => {
+            if(item.innerHTML.length > 20){
+                item.innerHTML = item.innerHTML.substring(0, 20) + "...";
+            }
+        });
+    };
+
+    priceFormat();
+    typeToString();
+    lengthOfTitle();
+}
+
+function reviewCheck(){
+    var reviews = document.getElementsByClassName('mypage_review_content');
+    Array.from(reviews).forEach((item, index) => {
+        if(item.innerHTML.length > 40){
+            item.innerHTML = item.innerHTML.substring(0, 40) + "...";
+        }
+    });
 }
 
 function telChangeInput(){
@@ -123,5 +155,3 @@ var deleteUser = function(){
             console.error(error);
         });
 }
-
-

@@ -1,7 +1,8 @@
 package com.twinkle.JakSim.model.service.payment;
 
 import com.twinkle.JakSim.model.dao.payment.PaymentDao;
-import com.twinkle.JakSim.model.dto.payment.PaymentDo;
+import com.twinkle.JakSim.model.dto.payment.PaymentDtoForMypage;
+import com.twinkle.JakSim.model.dto.payment.response.PaymentDo;
 import com.twinkle.JakSim.model.dto.product.response.ValidPtDto;
 import com.twinkle.JakSim.model.dto.trainer.ProductDto;
 import lombok.RequiredArgsConstructor;
@@ -29,8 +30,8 @@ public class PaymentService {
         return list;
     }
 
-    public Optional<PaymentDo> getRecentPayment(String username) {
-        return paymentDao.findRecentByUsername(username);
+    public Optional<List<PaymentDtoForMypage>> getRecentPaymentBy3(String username) {
+        return paymentDao.findRecentByUsernameBy3(username);
     }
 
     /**
@@ -50,7 +51,7 @@ public class PaymentService {
      * @param page 몇 번째 페이지인지
      * @return 요청에 맞춘 데이터
      */
-    public List<PaymentDo> getPageItem(String username, int page) {
+    public List<PaymentDtoForMypage> getPageItem(String username, int page) {
         int pageSize = 10;
         return paymentDao.getRecentByPage(username, page, pageSize);
     }

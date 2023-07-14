@@ -148,8 +148,13 @@ section{
     display:flex;
     align-items: center;
 }
-.mypage_table_row > span, .mypage_table_row > input{
+
+.mypage_table_row > span, .mypage_table_row > input, .mypage_table_row > table{
     margin-right: auto;
+}
+
+.mypage_table_innerRow > span{
+    margin-right: 30px;
 }
 
 #profile_preview{
@@ -162,21 +167,6 @@ section{
 
 .profile_input{
     border: none;
-}
-
-@keyframes slideIn{
-    0%{
-        transform: translateX(100%);
-    }
-    100%{
-        transform: translateX(0);
-    }
-}
-
-@keyframes fadeInOut {
-  0% { opacity: 0; }
-  50% { opacity: 1; }
-  100% { opacity: 0; }
 }
 
 .hidden{

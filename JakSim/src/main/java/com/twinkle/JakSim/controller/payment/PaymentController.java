@@ -1,7 +1,6 @@
 package com.twinkle.JakSim.controller.payment;
 
-import com.twinkle.JakSim.model.dto.payment.PaymentDo;
-import com.twinkle.JakSim.model.dto.trainer.ProductDto;
+import com.twinkle.JakSim.model.dto.payment.PaymentDtoForMypage;
 import com.twinkle.JakSim.model.service.payment.PaymentService;
 import com.twinkle.JakSim.model.service.trainer.TrainerService;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +36,7 @@ public class PaymentController {
         paymentService.getPaymentByIdx(p_idx).ifPresent(
                 item -> {
                     model.addAttribute("payment", item);
-                    model.addAttribute("product",paymentService.getProductByIdx(item.getTp_idx()));
+                    model.addAttribute("product", paymentService.getProductByIdx(item.getTp_idx()));
                 }
         );
         return String.format(defaultPage + "pay_detail");
@@ -45,7 +44,7 @@ public class PaymentController {
 
     @GetMapping("/pay/api/{page}")
     @ResponseBody
-    public List<PaymentDo> payListItem(@AuthenticationPrincipal User user, @PathVariable("page") int page){
+    public List<PaymentDtoForMypage> payListItem(@AuthenticationPrincipal User user, @PathVariable("page") int page){
         return paymentService.getPageItem(user.getUsername(), page);
     }
 }

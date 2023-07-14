@@ -1,7 +1,8 @@
 package com.twinkle.JakSim.model.dao.payment;
 
 import com.twinkle.JakSim.model.dao.trainer.ProductRowMapper;
-import com.twinkle.JakSim.model.dto.payment.PaymentDo;
+import com.twinkle.JakSim.model.dto.payment.PaymentDtoForMypage;
+import com.twinkle.JakSim.model.dto.payment.response.PaymentDo;
 import com.twinkle.JakSim.model.dto.payment.response.PaymentDto;
 import com.twinkle.JakSim.model.dto.product.response.ValidPtDto;
 import com.twinkle.JakSim.model.dto.trainer.ProductDto;
@@ -88,15 +89,21 @@ public class PaymentDao {
         return list;
     }
 
-    public Optional<PaymentDo> findRecentByUsername(String username) {
-        String sql = "SELECT * FROM PAYMENT WHERE USER_ID = ?";
-        PaymentDo paymentDo = null;
+    public Optional<List<PaymentDtoForMypage>> findRecentByUsernameBy3(String username) {
+        String sql = "SELECT P.P_IDX, P.P_C_DT, P.P_PT_PERIOD, P.P_PT_CNT, T.TP_TITLE, T.TP_TYPE, T.TP_TIMES, T.TP_PRICE " +
+                "FROM PAYMENT P, PRODUCT T " +
+                "WHERE P.USER_ID = ? " +
+                "ORDER BY P_IDX DESC " +
+                "LIMIT 3";
+        List<PaymentDtoForMypage> paymentList = new ArrayList<>();
+
         try{
-            paymentDo = jdbcTemplate.queryForObject(sql, new PaymentDoRowMapper(), username);
+            paymentList = jdbcTemplate.query(sql, new PaymentDtoForMypageRowMapper(), username);
         }catch (Exception e){
             System.out.println("Error: " + e.getMessage());
         }
-        return Optional.ofNullable(paymentDo);
+
+        return Optional.of(paymentList);
     }
 
     public int getTotalPage(String username) {
@@ -112,13 +119,13 @@ public class PaymentDao {
         return result;
     }
 
-    public List<PaymentDo> getRecentByPage(String username, int page, int pageSize){
+    public List<PaymentDtoForMypage> getRecentByPage(String username, int page, int pageSize){
         String sql = "SELECT * FROM PAYMENT WHERE USER_ID = ? ORDER BY P_IDX DESC LIMIT ? OFFSET ?";
         int offset = (page - 1) * pageSize;
-        List<PaymentDo> payList = new ArrayList<>();
+        List<PaymentDtoForMypage> payList = new ArrayList<>();
 
         try{
-            payList = jdbcTemplate.query(sql, new PaymentDoRowMapper(), username, pageSize, offset);
+            payList = jdbcTemplate.query(sql, new PaymentDtoForMypageRowMapper(), username, pageSize, offset);
         }catch (Exception e){
             System.out.println(e.getMessage());
         }

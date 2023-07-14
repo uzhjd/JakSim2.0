@@ -38,7 +38,9 @@ public class ReviewDao {
 
     public Optional<List<ReviewRequestDto>> getMyReview(String userId) {
         this.sql = "SELECT * FROM REVIEW R " +
-                "WHERE USER_ID = ?";
+                "WHERE USER_ID = ? " +
+                "ORDER BY R_IDX DESC " +
+                "LIMIT 3";
         List<ReviewRequestDto> reviewList = null;
         try {
             reviewList = jdbcTemplate.query(this.sql, new ReviewRowMapper(), userId);

@@ -1,4 +1,4 @@
-package com.twinkle.JakSim.model.dto.payment;
+package com.twinkle.JakSim.model.dto.payment.response;
 
 import lombok.Data;
 
