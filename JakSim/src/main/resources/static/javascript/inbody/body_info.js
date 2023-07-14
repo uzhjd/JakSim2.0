@@ -33,6 +33,12 @@ window.onload = function(){
 
     var createButton = document.getElementById('inbody_create_button');
     createButton.addEventListener('click', createData);
+
+    var test = document.getElementById('testImage');
+    test.src = '/image/Training.jpg';
+
+    var image = document.getElementById('test_image'); //image 태그를 아이디로 불러오기
+    image.src = `${image_path}`;
 }
 
 function createData(){

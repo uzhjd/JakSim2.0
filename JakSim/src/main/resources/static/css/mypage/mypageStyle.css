@@ -14,6 +14,30 @@ section{
     width: 70%;
 }
 
+#auth_head{
+    font-weight: bold;
+    color: #C8B0FC;
+    cursor: pointer;
+    margin: 100px 0px 0px 0px;
+}
+
+#pwInput{
+    border: none;
+    border-bottom: 1px solid black;
+
+    margin-top: 20px;
+    margin-right: 5px;
+    width: 60%;
+
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 17px;
+    color: black;
+}
+
+#auth_pwContainer{
+    padding: 100px 300px;
+}
+
 #mypage_aside_profileImgContainer{
     margin-top: 3rem;
     width: 100%;

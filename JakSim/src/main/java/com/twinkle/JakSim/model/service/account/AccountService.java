@@ -37,8 +37,6 @@ public class AccountService {
         userDto.setName(member.getName());
         userDto.setGender(member.getGender());
         userDto.setTel(member.getTel());
-        userDto.setQuestion(member.getQuestion());
-        userDto.setAnswer(member.getAnswer());
         userDto.setBirth(member.getBirth());
         userDto.setEmail(member.getEmail());
         userDto.setRole(member.getRole());

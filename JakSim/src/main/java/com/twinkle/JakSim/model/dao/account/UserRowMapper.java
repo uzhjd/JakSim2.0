@@ -18,8 +18,6 @@ public class UserRowMapper implements RowMapper<UserDto> {
         userDto.setGender(Integer.parseInt(rs.getString("USER_GENDER")));
         userDto.setTel(rs.getString("USER_TEL"));
         userDto.setEmail(rs.getString("USER_EMAIL"));
-        userDto.setQuestion(Integer.parseInt(rs.getString("USER_QUESTION")));
-        userDto.setAnswer(rs.getString("USER_ANSWER"));
         userDto.setBirth(rs.getString("USER_BIRTH"));
         userDto.setC_dt(rs.getString("USER_C_DT"));
         userDto.setRole(Integer.parseInt(rs.getString("USER_ROLE")));

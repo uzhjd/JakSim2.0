@@ -13,13 +13,12 @@ public class UserDao {
     private JdbcTemplate jdbcTemplate;
 
     public int insertMember(UserDto user){
-        String sql = "INSERT INTO USER_INFO(user_id, user_pw, user_name, user_gender, user_tel, user_email, user_question, user_answer, user_birth, user_c_dt, user_role) " +
-                "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, current_timestamp, ?)";
+        String sql = "INSERT INTO USER_INFO(user_id, user_pw, user_name, user_gender, user_tel, user_email,, user_birth, user_c_dt, user_role) " +
+                "VALUES(?, ?, ?, ?, ?, ?, ?, current_timestamp, ?)";
         int result = -1;
         try{
             result = jdbcTemplate.update(sql,
-                    user.getId(), user.getPw(), user.getName(), user.getGender(), user.getTel(), user.getEmail(),
-                    user.getQuestion(), user.getAnswer(), user.getBirth(), user.getRole());
+                    user.getId(), user.getPw(), user.getName(), user.getGender(), user.getTel(), user.getEmail(), user.getBirth(), user.getRole());
         }catch(EmptyResultDataAccessException e){
             return -1;
         }
@@ -92,7 +91,8 @@ public class UserDao {
 
     public int updateEmail(String email, String username) {
         String sql = "UPDATE USER_INFO " +
-                "SET USER_EMAIL = ? " +
+                "SET USER_EMAIL = ? ," +
+                "USER_M_DT = CURRENT_TIMESTAMP " +
                 "WHERE USER_ID = ?";
         int result = -1;
         try{
@@ -106,7 +106,8 @@ public class UserDao {
 
     public int updateName(String name, String username) {
         String sql = "UPDATE USER_INFO " +
-                "SET USER_NAME = ? " +
+                "SET USER_NAME = ? ," +
+                "USER_M_DT = CURRENT_TIMESTAMP " +
                 "WHERE USER_ID = ?";
         int result = -1;
         try{
@@ -119,7 +120,8 @@ public class UserDao {
 
     public int updateTel(String tel, String username) {
         String sql = "UPDATE USER_INFO " +
-                "SET USER_TEL = ? " +
+                "SET USER_TEL = ? ," +
+                "USER_M_DT = CURRENT_TIMESTAMP " +
                 "WHERE USER_ID = ?";
         int result = -1;
         try{

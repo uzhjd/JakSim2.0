@@ -44,8 +44,6 @@ class JakSimApplicationTests {
 		userDto.setGender(0);
 		userDto.setBirth("2023-03-30");
 		userDto.setTel("13");
-		userDto.setQuestion(0);
-		userDto.setAnswer("Questions");
 		userDto.setRole(2); // 0->Admin 1->Trainer 2->User
 
 		accountRestApi.AccountAction(userDto);
