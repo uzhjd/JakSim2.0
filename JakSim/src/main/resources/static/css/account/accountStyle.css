@@ -9,11 +9,36 @@
     border-bottom: 1px solid black;
 
     margin-top: 20px;
-    width: 50%;
+    width: 100%;
 
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 17px;
     color: black;
+}
+
+.account_input_3{
+    border: none;
+    border-bottom: 1px solid black;
+
+    margin-top: 20px;
+    width: 80%;
+
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 17px;
+    color: black;
+}
+
+.account_input_code{
+     border: none;
+     border-bottom: 1px solid black;
+
+     margin-top: 20px;
+     margin-right: 5px;
+     width: 60%;
+
+     font-family: 'Noto Sans KR', sans-serif;
+     font-size: 17px;
+     color: black;
 }
 
 .login_input::placeholder{
@@ -25,20 +50,22 @@
 }
 
 .account_container{
-    width: 70%;
-    margin: 1rem auto;
+    width: 700px;
+    margin: 100px auto;
 
     border: 0.5px solid gray;
     border-radius: 20px;
 
-    padding: 100px;
+    padding: 30px 100px;
 }
 
 .account_head{
-    margin: 30px auto;
-
     font-family: 'Noto Sans KR', sans-serif;
     color: #C8B0FC;
+}
+
+.account_head:hover{
+    cursor: pointer;
 }
 
 #account_confirm_id, #account_confirm_pw, #account_confirm_tel{

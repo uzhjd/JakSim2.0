@@ -4,6 +4,14 @@ window.onload = function(){
     nextButton.addEventListener('click', storageDataSession)
 }
 
+function validateKorean(input){
+    var pattern = /^[ㄱ-ㅎㅏ-ㅣ가-힣]+$/;
+    if(!pattern.test(input.value)){
+        input.value = '';
+        //document.getElementById('account_2_failMessage').innerHTML = '한글로만 작성해주세요';
+    }
+}
+
 function storageDataSession(){
     var name = document.getElementById('account_name').value;
     var birth = document.getElementById('account_birth').value;
@@ -23,5 +31,5 @@ function storageDataSession(){
 
 function selectGender(){
     var maleRadioButton = document.getElementById('account_gender_male');
-    return maleRadioButton.checked ? 1 : 2;
+    return maleRadioButton.checked ? 0 : 1;
 }

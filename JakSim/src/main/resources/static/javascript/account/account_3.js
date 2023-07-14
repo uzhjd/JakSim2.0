@@ -1,6 +1,6 @@
 var answerCode = '';
 var buttonCnt = 0;
-var timeSpan, emailCheckInput, checkButton, time, intervalId, nextButton, phoneSpan;
+var timeSpan, emailCheckInput, checkButton, time, intervalId, nextButton, phoneSpan, resendButton;
 var isEmail = false, isPhone = false;
 var emailCheckButton;
 var timeout;
@@ -13,16 +13,25 @@ window.onload = function(){
 
     nextButton.addEventListener('click', nextPage);
     emailCheckButton.addEventListener('click', function(){
-        dupMail();
+        if(checkEmailFormat()){
+            dupMail();
+            document.getElementById('account_check_dupmail').innerHTML = '';
+        }else{
+            document.getElementById('account_check_dupmail').innerHTML = '이메일 형식을 다시 확인해주세요';
+        }
     });
     phoneCheckButton.addEventListener('click', checkPhone);
 };
+
+function checkEmailFormat(){
+    var pattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+    return pattern.test(document.getElementById('account_email').value);
+}
 
 function dupMail(){
     axios.post('/account/checkemail', {email : document.getElementById('account_email').value})
         .then(response => {
             if(response.data){
-                alert('이메일이 전송되었습니다.');
                 document.getElementById('account_check_dupmail').innerHTML = '';
                 sendMail(emailCheckButton);
             }else{
@@ -42,6 +51,7 @@ function nextPage(){
 }
 
 function sendMail(){
+    alert('이메일이 전송되었습니다.');
     var email = {email: document.getElementById('account_email').value};
     axios.post('/account/emailaction', email)
         .then(response => {
@@ -60,13 +70,23 @@ function sendMail(){
 function createCheckDiv(container) {
   if (!emailCheckInput) {
     emailCheckInput = document.createElement('input');
-    emailCheckInput.classList.add('account_input');
+    emailCheckInput.classList.add('account_input_code');
     container.appendChild(emailCheckInput);
   }
 
+  if(!resendButton){
+      resendButton = document.createElement('button');
+      resendButton.classList.add('jaksim_btn');
+      resendButton.textContent = '재전송';
+      resendButton.addEventListener('click', function () {
+          sendMail();
+      });
+      container.appendChild(resendButton);
+    }
+
   if (!checkButton) {
     checkButton = document.createElement('button');
-    checkButton.classList.add('account_button');
+    checkButton.classList.add('jaksim_btn');
     checkButton.textContent = '확인';
     checkButton.style.marginLeft = '10px';
     checkButton.addEventListener('click', function () {
@@ -74,6 +94,8 @@ function createCheckDiv(container) {
     });
     container.appendChild(checkButton);
   }
+
+
 
   if (!timeSpan) {
     timeSpan = document.createElement('span');
@@ -120,14 +142,15 @@ function stopTimer(){
     cancelAnimationFrame(requestId);
 }
 
-
 function checkCode(){
     (answerCode === emailCheckInput.value) && (time !== 0) ? isEmail = true : isEmail = false;
     if(!isEmail || timeout){
         document.getElementById('account_codeCheck_fail').innerHTML = '인증번호를 다시 확인해주세요';
+        document.getElementById('account_codeCheck_fail').style.color='red';
     }
     else{
-        document.getElementById('account_codeCheck_fail').innerHTML = '';
+        document.getElementById('account_codeCheck_fail').innerHTML = '인증번호가 확인되었습니다';
+        document.getElementById('account_codeCheck_fail').style.color = 'blue';
     }
     isEmail && isPhone ? nextButton.disabled = false : nextButton.disabled = true;
 }
@@ -135,20 +158,29 @@ function checkCode(){
 function checkPhone(){
     var data = {tel : document.getElementById('account_tel').value};
     phoneSpan = document.getElementById('account_phone_span');
-    axios.post('/account/checktel', data)
-        .then(response => {
-            console.log(response.data);
-            if(response.data === 0){
-                isPhone = true;
-                phoneSpan.innerHTML = '확인 되었습니다.';
-                phoneSpan.style.color='black';
-                isEmail && isPhone ? nextButton.disabled = false : nextButton.disabled = true;
-            }else{
-                phoneSpan.innerHTML = '등록된 번호 입니다.';
-                phoneSpan.style.color='red';
-                isPhone = false;
-                isEmail && isPhone ? nextButton.disabled = false : nextButton.disabled = true; 
-            }
-        })
-        .catch(error => {console.error(error)})
+    var pattern = /^[0-9]+$/;
+
+    console.log(data['tel'] + " ::: " + data['tel'].length);
+
+    if(data['tel'].length < 6 || !pattern.test(data['tel'])){
+        phoneSpan.innerHTML = '전화번호를 다시 확인해주세요'
+        phoneSpan.style.color = 'red';
+    }else{
+        axios.post('/account/checktel', data)
+            .then(response => {
+                console.log(response.data);
+                if(response.data === 0){
+                    isPhone = true;
+                    phoneSpan.innerHTML = '확인 되었습니다.';
+                    phoneSpan.style.color='black';
+                    isEmail && isPhone ? nextButton.disabled = false : nextButton.disabled = true;
+                }else{
+                    phoneSpan.innerHTML = '등록된 번호 입니다.';
+                    phoneSpan.style.color='red';
+                    isPhone = false;
+                    isEmail && isPhone ? nextButton.disabled = false : nextButton.disabled = true;
+                }
+            })
+            .catch(error => {console.error(error)})
+    }
 }

@@ -7,14 +7,16 @@
 {{>layout/navi}}
 
     <div class="container">
-        <h1 class="account_banner">여기다가 로고라도\n붙여주셈</h1>
         <div class="account_container">
+            <div style="text-align: center;">
+                <h1 onclick="window.location.href='/';" class="account_head">작심득근</h1>
+            </div>
 
             <div><span class="account_span">전화번호</span></div>
             <div class="input_container">
-                <input type="tel" class="account_input" placeholder="Tel" id="account_tel">
-                <button class="account_button" type="button" id="account_phone_button">인증하기</button>
-                <span id="account_phone_span" style="margin-bottom: 50px;"></span>
+                <input type="tel" class="account_input_3" placeholder="Tel" id="account_tel">
+                <button class="jaksim_btn" type="button" id="account_phone_button">인증하기</button>
+                <p id="account_phone_span" style="margin-bottom: 50px;"></p>
             </div>
 
 
@@ -23,9 +25,9 @@
             </div>
 
             <div class="input_container">
-                <input class="account_input" type="text" placeholder="Email" id="account_email"/>
-                <button class="account_button" type="button" id="account_email_button">인증하기</button>
-                <span id="account_check_dupmail"></span>
+                <input class="account_input_3" type="email" placeholder="Email" id="account_email"/>
+                <button class="jaksim_btn" type="button" id="account_email_button">인증하기</button>
+                <p id="account_check_dupmail" style="color:red;"></p>
             </div>
             <span style="color:red;" id="account_email_counter"></span>
 

@@ -15,7 +15,7 @@ window.onload = function(){
 
 function idCheck(){
     var result = document.getElementById('account_id_result');
-    var pattern = /^[a-zA-Z0-9]+$/;
+    var pattern =  /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]+$/;
     if(userId.value.length > 4){
         if(pattern.test(userId.value)){
             isUsernameLength = true;
@@ -66,12 +66,15 @@ function passwordDiv(){
 
     passwordSpan.innerHTML = '비밀번호';
     passwordSpan.classList.add('account_span');
+    passwordSpan.classList.add('jaksim_font');
 
     passwordInput.classList.add('account_input');
     passwordInput.type = 'password';
+    passwordInput.placeholder = '비밀번호를 입력해주세요';
 
     confirmPasswordInput.classList.add('account_input');
     confirmPasswordInput.type = 'password';
+    confirmPasswordInput.placeholder = '비밀번호 확인';
 
     failMessage.style.color = 'red';
 

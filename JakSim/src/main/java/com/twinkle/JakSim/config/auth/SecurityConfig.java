@@ -21,7 +21,6 @@ public class SecurityConfig {
     private CustomAuthSuccessHandler customAuthSuccessHandler;
     @Autowired
     private CustomAuthFailureHandler customAuthFailureHandler;
-
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
