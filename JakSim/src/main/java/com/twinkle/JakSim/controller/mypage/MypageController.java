@@ -1,13 +1,10 @@
 package com.twinkle.JakSim.controller.mypage;
 
-import com.twinkle.JakSim.model.dto.payment.PaymentDtoForMypage;
 import com.twinkle.JakSim.model.service.account.AccountService;
 import com.twinkle.JakSim.model.service.account.LoginLogService;
 import com.twinkle.JakSim.model.service.inbody.InbodyService;
 import com.twinkle.JakSim.model.service.payment.PaymentService;
 import com.twinkle.JakSim.model.service.review.ReviewService;
-import com.twinkle.JakSim.model.service.timetable.TimetableService;
-import com.twinkle.JakSim.model.service.trainer.TrainerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,15 +22,14 @@ public class MypageController {
     private final LoginLogService loginLogService;
     private final PaymentService paymentService;
     private final ReviewService reviewService;
-    private final TrainerService trainerService;
     private final InbodyService inbodyService;
-    private final TimetableService timetableService;
 
     @GetMapping("/auth")
     public String authPage(Model model){
         model.addAttribute("head_title", "개인페이지");
         return String.format(defaultPath + "auth");
     }
+
     /**
      * <h1>GPT의 조언</h1>
      * - 다음과 같은 고려사항을 살펴보시고 판단해주세요(팀원과의 확인 후에는 삭제해주세요)
@@ -75,6 +71,7 @@ public class MypageController {
         model.addAttribute("head_title", username + "님 이력확인");
         model.addAttribute("user_info", accountService.findByUsername(username));
 
+        model.addAttribute("access_log", loginLogService.findByUsername(username, 2));
         return String.format(defaultPath + "log");
     }
 
