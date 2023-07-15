@@ -11,8 +11,8 @@ import java.time.LocalTime;
 @Getter
 public class IsReservationRequest {
 
-    @NotBlank
-    private String dt;
+//    @NotBlank
+    private LocalDate dt;
 
     @NotBlank
     private String trainerId;

@@ -2,12 +2,11 @@ let nowMonth = new Date();  // 현재 달을 페이지를 로드한 날의 달�
 let today = new Date();     // 페이지를 로드한 날짜를 저장
 today.setHours(0, 0, 0, 0);    // 비교 편의를 위해 today의 시간을 초기화
 
-var pIdx, setDt, trainerId, tType;
+var pIdx, setDt, trainerId, tType, ptCnt;
+var ptDay =[];
 
 // 달력 생성 : 해당 달에 맞춰 테이블을 만들고, 날짜를 채워 넣는다.
-function buildCalendar(trainerId, ptDay) {
-    this.trainerId = trainerId;
-
+function buildCalendar(sortedPtDay) {
     let firstDate = new Date(nowMonth.getFullYear(), nowMonth.getMonth(), 1);     // 이번달 1일
     let lastDate = new Date(nowMonth.getFullYear(), nowMonth.getMonth() + 1, 0);  // 이번달 마지막날
     let idx = 0;
@@ -51,7 +50,7 @@ function buildCalendar(trainerId, ptDay) {
             newDIV.onclick = function () { choiceDate(this); }
         }
 
-        if(leftPad(nowDay.getDate()) == ptDay[idx]) {
+        if(leftPad(nowDay.getDate()) == sortedPtDay[idx]) {
             newDIV.classList.add("ptDay");
             idx++;
         }
@@ -60,7 +59,7 @@ function buildCalendar(trainerId, ptDay) {
 
     setDt = nowMonth.getFullYear().toString() + ". " +  leftPad(nowMonth.getMonth() + 1).toString() + ". ";
     setDate(setDt + leftPad(nowMonth.getDate()).toString());
-    setTimetable(pIdx, trainerId, setDt + leftPad(nowMonth.getDate()).toString(), tType);
+    setTimetable(setDt + leftPad(nowMonth.getDate()).toString());
 }
 
 // 날짜 선택
@@ -71,18 +70,18 @@ function choiceDate(newDIV) {
     newDIV.classList.add("choiceDay");           // 선택된 날짜에 "choiceDay" class 추가
 
     setDate(setDt + newDIV.innerHTML);
-    setTimetable(pIdx, trainerId, setDt + newDIV.innerHTML, tType);
+    setTimetable(setDt + newDIV.innerHTML);
 }
 
 // 이전달 버튼 클릭
 function prevCalendar() {
     nowMonth = new Date(nowMonth.getFullYear(), nowMonth.getMonth() - 1, nowMonth.getDate());   // 현재 달을 1 감소
-    buildCalendar();    // 달력 다시 생성
+    buildCalendar(ptDay.sort());    // 달력 다시 생성
 }
 // 다음달 버튼 클릭
 function nextCalendar() {
     nowMonth = new Date(nowMonth.getFullYear(), nowMonth.getMonth() + 1, nowMonth.getDate());   // 현재 달을 1 증가
-    buildCalendar();    // 달력 다시 생성
+    buildCalendar(ptDay.sort());    // 달력 다시 생성
 }
 
 // input값이 한자리 숫자인 경우 앞에 '0' 붙혀주는 함수
@@ -94,19 +93,21 @@ function leftPad(value) {
     return value;
 }
 
-function setSchdule(trainerId, tType, pIdx) {
-    var ptDay = [];
+function setSchdule(trainerId, tType, pIdx, ptCnt) {
+    this.ptDay = [];
+    this.trainerId = trainerId;
     this.tType = tType;
     this.pIdx = pIdx;
+    this.ptCnt = ptCnt;
     const url = '/scheduler/details/' + trainerId;
 
     axios.get(url)
         .then((response) => {
             response.data.forEach(function(schdule) {
-                ptDay.push(schdule['tdate'].split("-")[2]);
+                this.ptDay.push(schdule['tdate'].split("-")[2]);
             });
 
-            buildCalendar(trainerId, ptDay.sort());
+            buildCalendar(ptDay.sort());
         })
         .catch(error => {
             console.error(error);

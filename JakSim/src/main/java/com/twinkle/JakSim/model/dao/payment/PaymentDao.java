@@ -56,11 +56,11 @@ public class PaymentDao {
         return result;
     }
 
-    public void decreasePt(int pIdx) {
+    public void decreasePt(int ptCnt, int pIdx) {
         this.sql = "update payment set p_pt_cnt = ? where p_idx = ? limit 1";
 
         try {
-            jdbcTemplate.update(this.sql, pIdx-1);
+            jdbcTemplate.update(this.sql, ptCnt-1, pIdx);
         } catch (EmptyResultDataAccessException e) {
             System.out.println(e);
         }

@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
 
-#content {
-
-}
-
 .wrapper {
     width: 100%;
     margin: 10px auto;
@@ -12,11 +8,17 @@
 
 .payment_form {
     position: absolute;
-    margin: 90px 170px;
+    margin: 90px 130px;
+    width: 300px;
 
     border-color: #E9E1FB;
     border-radius: 20px;
     border-width: 10px;
+}
+
+#form_title {
+    width: 60px;
+    display: inline-block;
 }
 
 .value_font {
@@ -28,6 +30,6 @@
 
 #paymentDetailsBtn {
     float: right;
-    margin: 10px 10px;
+    margin: 20px 30px;
 }
 

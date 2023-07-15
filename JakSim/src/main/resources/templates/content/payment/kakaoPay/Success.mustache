@@ -16,12 +16,12 @@
     <hr>
     <div class="wrapper">
         <div class="payment_form">
-            <span class="jaksim_font">상품명</span><span id="item_name" class="value_font">{{name}}</span><br>
-            <span class="jaksim_font">PT 횟수</span><span id="ptTimes" class="value_font"> : {{cnt}}</span><br>
-            <span class="jaksim_font">PT 기간</span><span id="ptPeriod" class="value_font"> : {{period}}</span><br>
-            <span class="jaksim_font">결제 금액</span><span id="amount" class="value_font"> : {{price}}</span><br>
-            <span class="jaksim_font">결제 수단</span><span id="payment_method_type" class="value_font"> : {{method}}</span><br>
-            <span class="jaksim_font">결제 일자</span><span id="approved_at" class="value_font"> : {{date}}</span><br>
+            <span class="jaksim_font" id="form_title">상품명</span><span id="item_name" class="value_font"> : {{kakaoApprove.item_name}}</span><br>
+            <span class="jaksim_font" id="form_title">PT 횟수</span><span id="ptTimes" class="value_font"> : {{kakaoApprove.ptTimes}}</span><br>
+            <span class="jaksim_font" id="form_title">PT 기간</span><span id="ptPeriod" class="value_font"> : {{kakaoApprove.ptPeriod}}</span><br>
+            <span class="jaksim_font" id="form_title">결제 금액</span><span id="amount" class="value_font"> : {{kakaoApprove.amount.total}}</span><br>
+            <span class="jaksim_font" id="form_title">결제 수단</span><span id="payment_method_type" class="value_font"> : {{kakaoApprove.payment_method_type}}</span><br>
+            <span class="jaksim_font" id="form_title">결제 일자</span><span id="approved_at" class="value_font"> : {{kakaoApprove.approved_at}}</span><br>
         </div>
         <div class="image">
             <img src="/image/payment.png">

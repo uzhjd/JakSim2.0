@@ -39,7 +39,7 @@ function changePtList(selectedPt, type, pIdx) {
     setPtType(tType);
     setPtCnt(ptCnt);
     setTrainerBrief(trainerId);
-    setSchdule(trainerId, tType, pIdx);
+    setSchdule(trainerId, tType, pIdx, ptCnt);
 }
 
 

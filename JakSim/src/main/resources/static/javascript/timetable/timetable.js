@@ -1,11 +1,10 @@
-function setTimetable(pIdx, id, date, tType) {
+function setTimetable(date) {
+    var type = ['상담', '1:1', '단체'];
     var formattedDate = date.split(". ").join("-");
     var timetableList = document.getElementById("timetableList");
-    var button = document.getElementById('reservationBtn');
-    var type = ['상담', '1:1', '단체'];
 
     const data = {
-        trainerId: id,
+        trainerId: trainerId,
         dt: formattedDate,
         type: tType
     }
@@ -17,14 +16,14 @@ function setTimetable(pIdx, id, date, tType) {
             childDivs.forEach(function (childDiv) {
                 timetableList.removeChild(childDiv);
             });
-            console.log(response.data);
+            // console.log(response.data);
 
             if(response.data.length == 0) {
                 var timetable = document.createElement("div");
                 timetable.innerHTML = "※ 시간표 정보가 없습니다.";
                 timetableList.appendChild(timetable);
 
-                button.style.display = 'none';
+                // button.style.display = 'none';
             } else {
                 for(var i = 0; i < response.data.length; i++) {
                     var radioBox = document.createElement("input");
@@ -36,22 +35,23 @@ function setTimetable(pIdx, id, date, tType) {
                         timetable.innerHTML += response.data[i]['tpeolple'];
                     }
 
-                    button.style.display = 'inline-block';
 
                     radioBox.setAttribute("type", "radio");
-                    radioBox.setAttribute("name", ("timetable_" + (i + 1)));
+                    radioBox.setAttribute("name", ("timetable"));
                     radioBox.setAttribute("value", response.data[i]['tidx']);
                     // radioBox.setAttribute("disabled", "false"); // 인원수 체크
                     timetable.insertBefore(radioBox, timetable.firstChild);
 
                     timetableList.appendChild(timetable);
                 }
+                // // tIdx넘겨줄때 라디오 버튼이 클릭된 애로 넘겨주기!
+                // console.log(document.querySelector('input[name="timetable"]:checked').value); // 라디오 버튼 체크된 값(checked value)
+                // console.log("Dddd");
+                // 임시로 넣음
+                selectedTIdx = 6;
+                button.style.display = 'inline-block';
             }
-
-            // tIdx넘겨줄때 라디오 버튼이 클릭된 애로 넘겨주기!
-            button.addEventListener('click', (event) => resRegister(event, pIdx, response.data[0]['tidx'], id, formattedDate));
-        })
-        .catch(error => {
+        }).catch(error => {
             console.error(error);
         });
 }

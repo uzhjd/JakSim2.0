@@ -7,12 +7,12 @@ function setTrainerBrief(trainerId) {
     axios.get(url)
         .then((response) => {
             trainerData = response.data;
-
-            document.getElementById("trainerId").innerText = trainerData['userId'];
-            document.getElementById("trainerName").innerText = "[ " + trainerData['userName'] + " 트레이너 ]";
+console.log("trainerData");
+console.log(trainerData);
+            document.getElementById("trainerName").innerText = trainerData['userName'] + " 트레이너";
+            document.getElementById("trainerName").href = "/trainer/" + trainerData['userId'];
             document.getElementById("gender").innerText = gender[trainerData['gender']];
             document.getElementById("insta").href = trainerData['insta'];
-            document.getElementById("intro").innerText = trainerData['intro'];
             document.getElementById("gym").innerText = trainerData['gym'];
             document.getElementById("expert").innerText = expertSample[trainerData['expert1']] + ", " + expertSample[trainerData['expert2']];
         })

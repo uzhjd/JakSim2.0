@@ -1,3 +1,5 @@
+var formattedDate;
+
 function setDate(date) {
     document.getElementById("reservation_date").innerText = date;
 
@@ -9,7 +11,7 @@ function setMyReservation(date) {
     var ptList = document.getElementById('trainer_list');
     var button = document.getElementById('resCancleBtn');
     var trainerId = JSON.parse(ptList.options[ptList.selectedIndex].value).trainerId;
-    var formattedDate = date.split(". ").join("-");
+    formattedDate = date.split(". ").join("-");
     var type = ['상담', '1:1', '단체'];
 
     const data = {
@@ -19,6 +21,8 @@ function setMyReservation(date) {
 
     axios.post('/reservation/search', data)
         .then((response) => {
+            console.log("reservation 확인");
+            console.log(response.data);
             if(response.data['tstartT'] != null) {
                 if(response.data['ttype'] == 2) {
                     reservation.textContent = response.data['tstartT'] + " - " + response.data['tendT'] + " ( " + type[response.data['ttype']] + " " + response.data['tpeolple'] +" )";
@@ -39,25 +43,32 @@ function setMyReservation(date) {
         });
 }
 
-function resRegister(event, pIdx, tIdx, id, formattedDate) {
-    data = {
-        pIdx: pIdx,
-        tIdx: tIdx,
-        trainerId: id,
-        tDate:formattedDate
+function resRegister(tIdx, formattedDate) {
+    var warn = ["지난 날에 대한 예약은 할 수 없습니다.",
+                "이미 등록된 예약이 있습니다.",
+                "이미 등록된 예약이 있습니다.",
+                "해당 시간표는 존재하지 않습니다.",
+                "예약이 올바르게 되지 않았습니다.",
+                "예약이 올바르게 되었습니다."
+                ];
+
+    const data = {
+        p_idx: pIdx,
+        t_idx: tIdx,
+        trainerId: trainerId,
+        ptCnt: ptCnt,
+        date: formattedDate
     };
-console.log("event");
-console.log(event);
-    axios.post('/reservation/register')
+
+    console.log(data);
+
+    axios.post('/reservation/register', data)
         .then((response) => {
-            console.log("response.data");
-            console.log(response.data);
-            // if(response.data) {
-            //     alert(type + ' 예약이 취소되었습니다!');
-            //     setMyReservation(document.getElementById("reservation_date").innerText);
-            // } else {
-            //     alert('예약이 취소되지 않았습니다!');
-            // }
+            alert(warn[response.data]);
+
+            if(response.data == 5) {
+                setMyReservation(formattedDate);
+            }
         })
         .catch(error => {
             console.error(error);

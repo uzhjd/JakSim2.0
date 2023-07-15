@@ -38,18 +38,13 @@ public class PaymentController {
         ApproveResponse kakaoApprove = kakaoPayService.approveResponse(user.getUsername(), pgToken);
 
         if(kakaoApprove != null) {
-            System.out.println(kakaoApprove);
             if(paymentService.savePaymentDetails(user.getUsername(), kakaoApprove)) {
+                kakaoApprove.setApproved_at(kakaoApprove.getApproved_at().replace("T", " "));
+                model.addAttribute("kakaoApprove", kakaoApprove);
+
                 return "content/payment/kakaoPay/Success";
             }
         }
-
-        model.addAttribute("name", kakaoApprove.getItem_name());
-        model.addAttribute("cnt", kakaoApprove.getPtTimes());
-        model.addAttribute("period", kakaoApprove.getPtPeriod());
-        model.addAttribute("price", kakaoApprove.getAmount().getTotal());
-        model.addAttribute("method", kakaoApprove.getPayment_method_type());
-        model.addAttribute("date", kakaoApprove.getApproved_at().split("T")[0]);
 
         // 일단은 에러처리 안함.
         return "content/payment/kakaoPay/Success";
