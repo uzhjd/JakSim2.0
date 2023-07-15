@@ -15,10 +15,11 @@
 <h6 id="mypage_aside_email" class="jaksim_font">{{user_info.email}}</h6>
 
 <div id="mypage_aside_nav">
-    <ul>
+    <ul style="margin: 50px auto;">
         <li><a href="/mypage/{{session_user.username}}/profile" class="jaksim_font">내프로필</a></li>
-        <li><a href="/mypage/{{session_user.username}}/history" class="jaksim_font">이력관리</a></li>
-        <li><a href="/mypage/{{session_user.username}}/security" class="jaksim_font">보안관리</a></li>
+        <li><a href="/mypage/{{session_user.username}}/history" class="jaksim_font">내가 작성한 리뷰</a></li>
+        <li><a href="/mypage/{{session_user.username}}/security" class="jaksim_font">결제 목록</a></li>
+        <li><a href="/mypage/{{user_info.id}}/history/inbody" class="jaksim_font">인바디</a></li>
     </ul>
 </div>
 

@@ -44,6 +44,13 @@ function createData(){
         muscle: document.getElementById('inbody_input_muscle').value
     };
 
+    console.log(inbodyData['height'] + ' ::: ' + inbodyData['weight']);
+
+    if(inbodyData['height'] === '' || inbodyData['weight'] === ''){
+        alert('신장과 체중은 반드시 작성해주세요');
+        return ;
+    }
+
     axios.post('/mypage/api/inbody/create', inbodyData)
         .then(response => {
             if(response.data > 0){
@@ -154,12 +161,12 @@ function showChart(chartData, label, option){
 
     var data = chartData.map(data => data[option]);
     for(var i=0; i<data.length; i++){
-        if(data[i] === 0){
-            data.splice(i, 1);
-            label.splice(i, 1);
-            i--;
-        }
-    }
+                if(data[i] === 0){
+                    data.splice(i, 1);
+                    label.splice(i, 1);
+                    i--;
+                }
+            }
 
     var canvas = document.getElementById('inbodyChart').getContext('2d');
     if(option === 'weight'){

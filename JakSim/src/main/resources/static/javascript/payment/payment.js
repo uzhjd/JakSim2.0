@@ -32,7 +32,7 @@ function getPay(){
                     html += `<td><span>${refundTranslate(item.refund)}</span></td>`;
                     html += `<td><span>${item.idx}</span></td>`;
                     html += `<td><span>이름</span></td>`; //트레이너 이름
-                    html += `<td><span>가격</span></td>`;   //가격
+                    html += `<td><span>가격</span></td>`; //가격
                     html += `<td><span>${item.c_dt}</span></td>`;
                     html += `<td><button class="jaksim_btn" onclick="window.location.href='/pay/detail/${item.idx}'"+>상세 조회</button></td>`;
                     html += '<tr>';

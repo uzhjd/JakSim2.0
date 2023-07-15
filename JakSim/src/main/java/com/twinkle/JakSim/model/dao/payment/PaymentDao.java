@@ -119,13 +119,13 @@ public class PaymentDao {
         return result;
     }
 
-    public List<PaymentDtoForMypage> getRecentByPage(String username, int page, int pageSize){
+    public List<PaymentDo> getRecentByPage(String username, int page, int pageSize){
         String sql = "SELECT * FROM PAYMENT WHERE USER_ID = ? ORDER BY P_IDX DESC LIMIT ? OFFSET ?";
         int offset = (page - 1) * pageSize;
-        List<PaymentDtoForMypage> payList = new ArrayList<>();
+        List<PaymentDo> payList = new ArrayList<>();
 
         try{
-            payList = jdbcTemplate.query(sql, new PaymentDtoForMypageRowMapper(), username, pageSize, offset);
+            payList = jdbcTemplate.query(sql, new PaymentDoRowMapper(), username, pageSize, offset);
         }catch (Exception e){
             System.out.println(e.getMessage());
         }

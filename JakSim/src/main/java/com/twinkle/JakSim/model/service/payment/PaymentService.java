@@ -51,7 +51,7 @@ public class PaymentService {
      * @param page 몇 번째 페이지인지
      * @return 요청에 맞춘 데이터
      */
-    public List<PaymentDtoForMypage> getPageItem(String username, int page) {
+    public List<PaymentDo> getPageItem(String username, int page) {
         int pageSize = 10;
         return paymentDao.getRecentByPage(username, page, pageSize);
     }

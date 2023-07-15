@@ -49,7 +49,7 @@ function paymentCheck(){
         Array.from(types).forEach((item) => {
             switch(item.innerHTML){
                 case '0':
-                    item.innerHTML = '[개인]';
+                    item.innerHTML = '[1:1]';
                     break;
                 case '1':
                     item.innerHTML = '[단체]';
@@ -61,8 +61,8 @@ function paymentCheck(){
     function lengthOfTitle(){
         var titles = document.getElementsByClassName('mypage_pay_content');
         Array.from(titles).forEach((item, index) => {
-            if(item.innerHTML.length > 20){
-                item.innerHTML = item.innerHTML.substring(0, 20) + "...";
+            if(item.innerHTML.length > 23){
+                item.innerHTML = item.innerHTML.substring(0, 23) + "...";
             }
         });
     };
