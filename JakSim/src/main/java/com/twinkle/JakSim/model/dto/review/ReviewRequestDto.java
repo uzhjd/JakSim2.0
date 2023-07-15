@@ -20,6 +20,6 @@ public class ReviewRequestDto {
     private String reviewCreateDate;
     private String reviewModifyDate;
 
-    private int reviewImageId;
-    private String reviewImagePath;
+    //private int reviewImageId;
+    //private String reviewImagePath;
 }

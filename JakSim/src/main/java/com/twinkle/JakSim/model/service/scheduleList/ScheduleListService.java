@@ -1,13 +1,12 @@
 package com.twinkle.JakSim.model.service.scheduleList;
 
 import com.twinkle.JakSim.model.dao.scheduleList.ScheduleListDao;
-import com.twinkle.JakSim.model.dto.timetable.response.TimetableDto;
+import com.twinkle.JakSim.model.dto.timetable.response.TimetableResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 @Service
@@ -16,9 +15,10 @@ public class ScheduleListService {
 
     private final ScheduleListDao scheduleListDao;
 
-    public List<TimetableDto> findSchedule(String userId, String trainerId) {
-        List<TimetableDto> timetableList = new ArrayList<>();
+    public List<TimetableResponse> findSchedule(String userId, String trainerId) {
+        List<TimetableResponse> timetableList = new ArrayList<>();
 
+        // 트레이너가 실제하는지에 대한 익셉션 처리 필요
         LocalDate today = LocalDate.now();
         LocalDate firstDate = today.withDayOfMonth(1);
         LocalDate lastDate = today.withDayOfMonth(firstDate.lengthOfMonth());
@@ -32,15 +32,13 @@ public class ScheduleListService {
         return timetableList;
     }
 
-    public List<TimetableDto> findAllSchedule(String trainerId, int tType) {
-        List<TimetableDto> timetableList = new ArrayList<>();
-
-        LocalDate today = LocalDate.now();
-        LocalDate firstDate = today.withDayOfMonth(1);
-        LocalDate lastDate = today.withDayOfMonth(firstDate.lengthOfMonth());
+    public List<TimetableResponse> findTrainerTimetable(String trainerId, String date, int tType) {
+        List<TimetableResponse> timetableList = new ArrayList<>();
 
         try {
-            timetableList = scheduleListDao.findAllSchedule(trainerId, firstDate, lastDate, tType);
+            timetableList = scheduleListDao.findTrainerSchedule(trainerId, date, tType);
+
+            // 트레이너가 실제하는지에 대한 익셉션 처리 필요
         } catch (Exception e) {
             System.out.println(e);
         }

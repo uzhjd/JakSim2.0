@@ -14,18 +14,16 @@ public class TrainerSearchRowMapper implements RowMapper<TrainerSearchDto> {
 
         trainerSearchDto.setTrainerId(rs.getInt("UT_IDX"));
         trainerSearchDto.setUserName(rs.getString("USER_NAME"));
-        trainerSearchDto.setInsta(rs.getString("UT_INSTA"));
-        trainerSearchDto.setIntroduce(rs.getString("UT_INTRO"));
+        trainerSearchDto.setUserId(rs.getString("USER_ID"));
+
         trainerSearchDto.setGym(rs.getString("UT_GYM"));
         trainerSearchDto.setExpert1(rs.getInt("UT_EXPERT_1"));
         trainerSearchDto.setExpert2(rs.getInt("UT_EXPERT_2"));
-        trainerSearchDto.setPtTimes(rs.getInt("TP_TIMES"));
-        trainerSearchDto.setPtPrice(rs.getInt("TP_PRICE"));
-        trainerSearchDto.setPtTitle(rs.getString("TP_TITLE"));
-        trainerSearchDto.setCareerContent(rs.getString("TCAR_CONTENT"));
+
         trainerSearchDto.setCertName(rs.getString("TC_NAME"));
-        trainerSearchDto.setCertImage(rs.getString("TC_IMAGE"));
         trainerSearchDto.setImagePath(rs.getString("TI_PATH"));
+
+        trainerSearchDto.setAvgRstar(rs.getDouble("AVG_R_STAR"));
 
         return trainerSearchDto;
     }

@@ -4,6 +4,7 @@ DROP TABLE REVIEW_IMAGE;
 CREATE TABLE REVIEW(
     R_IDX INT(8) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     USER_ID VARCHAR(30) NOT NULL,
+    TRAINER_ID VARCHAR(30) NOT NULL,
     UT_IDX INT(8) NOT NULL,
     R_CONTENT VARCHAR(1000) NOT NULL,
     R_STAR INT(1) NOT NULL DEFAULT '3',
@@ -13,25 +14,11 @@ CREATE TABLE REVIEW(
     FOREIGN KEY(UT_IDX) REFERENCES TRAINER_DETAILS(UT_IDX) ON DELETE CASCADE
 );
 
-CREATE TABLE REVIEW_IMAGE(
-    RI_IDX INT(8) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    R_IDX INT(8) NOT NULL,
-    RI_PATH VARCHAR(1000) NOT NULL,
-    FOREIGN KEY (R_IDX) REFERENCES REVIEW(R_IDX) ON DELETE CASCADE
-);
-
 COMMIT;
 
 INSERT INTO REVIEW
-VALUES(NULL, 'test', 1, '가나다라마바사아자차카타파하 하고 싶은 말은 많아도 할 수가 없네~~~ 송창식 선생님의 노래입니다. 저도 입이 있는 사람이지만 어째서...', 5, current_timestamp, NULL);
+VALUES(NULL, 'ujeong','wkdgyfla97', 1, '트레이너가 친절하고 PT가 맛있어요', 5, current_date, NULL);
 INSERT INTO REVIEW
-VALUES(NULL, 'humble', 1, '이렇게 피티가 뭐같은적이 없음', 1, current_date, NULL);
+VALUES(NULL, 'humble', 'wkdgyfla97', 1, '이렇게 피티가 뭐같은적이 없음', 1, current_date, NULL);
 INSERT INTO REVIEW
-VALUES(NULL, 'test96', 1, '무릎이 박살남', 2, current_date, NULL);
-
-INSERT INTO REVIEW_IMAGE
-VALUES(NULL, 1, 'files/review/1.jpg');
-INSERT INTO REVIEW_IMAGE
-VALUES(NULL, 2, 'files/review/2.jpg');
-INSERT INTO REVIEW_IMAGE
-VALUES(NULL, 4, 'files/review/3.jpg');
+VALUES(NULL, 'uzhjd', 'wkdgyfla97', 1, '무릎이 박살남', 2, current_date, NULL);

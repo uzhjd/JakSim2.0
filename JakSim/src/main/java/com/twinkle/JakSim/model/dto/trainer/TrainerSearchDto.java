@@ -11,6 +11,8 @@ public class TrainerSearchDto {
 
     private int trainerId;
 
+    private String userId;
+
     private String userName;
 
     private String insta;
@@ -29,5 +31,7 @@ public class TrainerSearchDto {
     private String certImage;
 
     private String imagePath;
+
+    private double avgRstar;
 
 }

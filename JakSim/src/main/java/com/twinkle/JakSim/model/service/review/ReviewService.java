@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,16 +19,17 @@ public class ReviewService {
     private ReviewDao reviewDao;
 
     @Transactional
-    public void insertReview(ReviewRequestDto review) {
-        reviewDao.insertReview(review);
-    }
-    @Transactional
-    public List<ReviewRequestDto> showReview(int utIdx) {
-        return reviewDao.getTrainerReview(utIdx);
+    public void insertReview(ReviewRequestDto review, String userId, int trainerIdx) {
+        reviewDao.insertReview(review, userId, trainerIdx);
     }
 
     @Transactional
-    public Optional<List<ReviewRequestDto>> showMyReivew(String userId) {
+    public List<ReviewRequestDto> showReview(String trainerId) {
+        return reviewDao.getTrainerReview(trainerId);
+    }
+
+    @Transactional
+    public List<ReviewRequestDto> showMyReview(String userId) {
         return reviewDao.getMyReview(userId);
     }
 
@@ -42,5 +42,4 @@ public class ReviewService {
     public void deleteReview(String userId) {
         reviewDao.deleteReview(userId);
     }
-
 }

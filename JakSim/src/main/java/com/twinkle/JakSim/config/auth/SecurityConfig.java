@@ -21,6 +21,7 @@ public class SecurityConfig {
     private CustomAuthSuccessHandler customAuthSuccessHandler;
     @Autowired
     private CustomAuthFailureHandler customAuthFailureHandler;
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -36,7 +37,7 @@ public class SecurityConfig {
         http.csrf().disable();
         http.authorizeHttpRequests().antMatchers( "/", "/trainerUpdate/**",
                         "/scheduler/**", "/trainerDelete", "/reservation/**",
-                        "/trainerRegister/**", "/trainer/**",
+                        "/trainerRegister/**", "/trainer/trainerSearch", "/trainer/**",
                         "/javascript/**", "/css/**", "/image/**").permitAll()
                 .antMatchers("/login/**", "/find/**", "/account/**").hasAnyRole("ANONYMOUS")
                 .anyRequest().authenticated();
