@@ -1,5 +1,3 @@
-
-
 #account_head{
     margin-top: 1vh;
     margin-left: 1vh;
@@ -13,7 +11,7 @@
     margin-top: 4px;
     left:1vh;
     position:absolute;
-    font-weight: bold;
+    /*font-weight: bold;*/
 }
 .input_container > .input_input{
     padding-left: 15vh;
@@ -23,7 +21,7 @@
 
     border: 1px solid gray;
     border-radius: 5px;
-    width: 50%;
+    width: 70%;
 }
 .input_container > #user_id_check{
     height:1px;
@@ -61,4 +59,3 @@
     border: 1px solid black;
     padding: 5px;
 }
-

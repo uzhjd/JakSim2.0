@@ -1,88 +1,74 @@
 {{>layout/header}}
 <link rel="stylesheet" href="/css/trainer/trainerSearch.css">
 <script src="https://kit.fontawesome.com/05995ac069.js" crossorigin="anonymous"></script>
-<body>
+
 {{>layout/navi}}
+
 <div id="index_container">
-    <div id="findTrainer_container">
-        <div id="location">
-            <a onclick="road()" style="cursor: pointer;"><i class="fa-sharp fa-solid fa-location-dot fa-xl" style="color: #ca7cfd;" id="location"></i></a>
-            <input readonly type="text" placeholder="주소를 입력하세요" id="input-address" style="pointer-events: none; width: 350px; border: white; border-radius: 5px; "/>
-            <br>
-        </div>
+    <div id="findTrainerWrapper">
+        <div id="findTrainer_container" style="width: 1000px;">
+            <div id="location" style="width: 1000px;">
+                <a onclick="road()" style="cursor: pointer;"><i class="fa-sharp fa-solid fa-location-dot fa-xl" style="color: #ca7cfd;" id="location"></i></a>
+                <input readonly type="text" class="jaksim_font" placeholder="주소를 입력하세요" id="input-address" style="pointer-events: none; width: 350px; border: white; border-radius: 5px; "/>
+                <br>
+            </div>
 
-        <div id="button_container">
-            <input type="radio" name="toggle" value="#바디프로필" id="toggle-body-profile" class="toggle-btn">
-            <label for="toggle-body-profile" class="toggle-label">바디프로필</label>
+            <div id="button_container">
+                <input type="radio" name="toggle" value="0" id="toggle-body-profile" class="toggle-btn">
+                <label for="toggle-body-profile" class="toggle-label jaksim_font">바디프로필</label>
 
-            <input type="radio" name="toggle" value="#파워리프팅" id="toggle-power-lifting" class="toggle-btn">
-            <label for="toggle-power-lifting" class="toggle-label">파워리프팅</label>
+                <input type="radio" name="toggle" value="1" id="toggle-power-lifting" class="toggle-btn">
+                <label for="toggle-power-lifting" class="toggle-label jaksim_font">파워리프팅</label>
 
-            <input type="radio" name="toggle" value="#다이어트" id="toggle-diet" class="toggle-btn">
-            <label for="toggle-diet" class="toggle-label">다이어트</label>
+                <input type="radio" name="toggle" value="2" id="toggle-diet" class="toggle-btn">
+                <label for="toggle-diet" class="toggle-label jaksim_font">다이어트</label>
 
-            <input type="radio" name="toggle" value="#재활운동" id="toggle-rehab" class="toggle-btn">
-            <label for="toggle-rehab" class="toggle-label">재활운동</label>
+                <input type="radio" name="toggle" value="3" id="toggle-rehab" class="toggle-btn">
+                <label for="toggle-rehab" class="toggle-label jaksim_font">재활운동</label>
 
-            <input type="radio" name="toggle" value="#자세교정" id="toggle-posture" class="toggle-btn">
-            <label for="toggle-posture" class="toggle-label">자세교정</label>
+                <input type="radio" name="toggle" value="4" id="toggle-posture" class="toggle-btn">
+                <label for="toggle-posture" class="toggle-label jaksim_font">자세교정</label>
 
-            <input type="radio" name="toggle" value="#컨디셔닝" id="toggle-condition" class="toggle-btn">
-            <label for="toggle-condition" class="toggle-label">컨디셔닝</label>
-        </div>
+                <input type="radio" name="toggle" value="5" id="toggle-condition" class="toggle-btn">
+                <label for="toggle-condition" class="toggle-label jaksim_font">컨디셔닝</label>
+            </div>
 
-<!--        <span id="amount_trainer">200명의 트레이너</span> <br/>-->
+            <div class="trainer-container">
+                {{#trainers}}
+                    <div class="trainer-item" data-expert1="{{expert1}}" data-expert2="{{expert2}}">
+                        <a href="/trainer/{{userId}}">
+                            <div class="find_trainer_crop">
+                                <img src="{{imagePath}}" style="width: 250px; margin-left: 50px; margin-right: 0px;" alt="트레이너" class="find_trainer_profile">
+                            </div>
+                            <div>
+                                <span class="jaksim_font">{{gym}}</span>
+                            </div>
+                            <div>
+                                <span class="jaksim_font">{{userName}} <i class="fa-solid fa-star" style="color: #f3eb12;"></i> {{avgRstar}}</span>
+                            </div>
+                            <div>
+                                <span class="searchExpert1 jaksim_font">{{expert1}}</span>
+                                <span class="searchExpert2 jaksim_font">{{expert2}}</span>
+                            </div>
+                            <div>
+                                <span class="jaksim_font">{{certName}}</span>
+                            </div>
+                        </a>
+                    </div>
+                {{/trainers}}
+            </div>
 
-        <style>
-            .trainer-container {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: space-between;
-            }
-
-            .trainer-item {
-                width: calc(33.33% - 10px); /* Set the width of each item */
-                margin-bottom: 20px;
-                padding: 10px;
-                border: 1px solid #ccc;
-            }
-
-            .trainer-item a {
-                color: black;
-                text-decoration: none;
-            }
-        </style>
-
-        <div class="trainer-container">
-            {{#trainers}}
-                <div class="trainer-item">
-                    <a href="/trainer/{{trainerId}}">
-                        <div class="find_trainer_crop">
-                            <img src="{{imagePath}}" alt="트레이너" class="find_trainer_profile">
-                        </div>
-                        <div>
-                            <span>{{gym}}</span>
-                        </div>
-                        <div>
-                            <span>{{userName}} <i class="fa-solid fa-star" style="color: #f3eb12;"></i> </span>
-                        </div>
-                        <div>
-                            <span class="searchExpert1">{{expert1}}</span>
-                            <span class="searchExpert2">{{expert2}}</span>
-                        </div>
-                        <div>
-                            <span>{{certName}}</span>
-                        </div>
-                    </a>
-                </div>
-            {{/trainers}}
+            <div id="pagination">
+                <button id="prevButton" class="jaksim_btn" style="margin-right:5px;">이전</button>
+                <button id="nextButton" class="jaksim_btn" style="margin-left:5px;">다음</button>
+            </div>
         </div>
     </div>
 </div>
+
 {{>layout/footer}}
 
 <script>
-window.onload = function() {
   // Get all the trainer items
   var searchExpert1 = document.querySelectorAll('.searchExpert1');
   var searchExpert2 = document.querySelectorAll('.searchExpert2');
@@ -121,67 +107,96 @@ window.onload = function() {
     }
   }
 
+  //페이징기능
+  // Pagination variables
+  var currentPage = localStorage.getItem('currentPage') || 0;
+  var trainersPerPage = 6;
+  var trainerItems = document.querySelectorAll('.trainer-item');
 
-  
-};
+  // Update the trainers' display based on the current page
+  function updateTrainerDisplay() {
+    var startIndex = currentPage * trainersPerPage;
+    var endIndex = startIndex + trainersPerPage;
 
+    trainerItems.forEach(function (item, index) {
+      if (index >= startIndex && index < endIndex) {
+        item.style.display = 'block';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  }
 
-</script>
+  // Pagination button event listeners
+  var prevButton = document.getElementById('prevButton');
+  var nextButton = document.getElementById('nextButton');
 
-
-<script>
-
-// Get the radio buttons and expert spans
-  const toggleButtons = document.querySelectorAll('.toggle-btn');
-  const expert1Spans = document.querySelectorAll('.searchExpert1');
-  const expert2Spans = document.querySelectorAll('.searchExpert2');
-  const trainerContainer = document.querySelector('.trainer-container');
-
-  // Add event listeners to the radio buttons
-  toggleButtons.forEach((button) => {
-    button.addEventListener('change', handleToggle);
+  prevButton.addEventListener('click', function () {
+    if (currentPage > 0) {
+      currentPage--;
+      updateTrainerDisplay();
+      localStorage.setItem('currentPage', currentPage);
+    }
   });
 
-  function handleToggle() {
-    const selectedValue = this.value;
+  nextButton.addEventListener('click', function () {
+    var maxPage = Math.ceil(trainerItems.length / trainersPerPage) - 1;
+    if (currentPage < maxPage) {
+      currentPage++;
+      updateTrainerDisplay();
+      localStorage.setItem('currentPage', currentPage);
+    }
+  });
 
-    console.log(selectedValue);
+  // Update the trainer display based on the current page
+  updateTrainerDisplay();
+</script>
 
-    // Filter the trainers based on the selected value and expert spans
-    const filteredTrainers = Array.from(expert1Spans).filter((span, index) => {
-      const expert1 = span.textContent;
-      const expert2 = expert2Spans[index].textContent;
-      console.log(expert1);
-      console.log(expert2);
+<script>
+    window.addEventListener('DOMContentLoaded', function() {
+        const buttons = document.querySelectorAll('.toggle-btn');
+        const trainerItems = document.querySelectorAll('.trainer-item');
 
-      // Compare the selected value with expert1 and expert2
-      return expert1 === selectedValue || expert2 === selectedValue;
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                const selectedValue = button.value;
+
+                trainerItems.forEach(item => {
+                    const expert1Value = item.getAttribute('data-expert1');
+                    const expert2Value = item.getAttribute('data-expert2');
+                    if (selectedValue === expert1Value || selectedValue === 'all') {
+                        item.style.display = 'block';
+                    }
+                    else if (selectedValue === expert2Value || selectedValue === 'all') {
+                        item.style.display = 'block';
+                    }
+                    else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
     });
+</script>
 
-    // Rearrange the trainers in the trainer container
-    filteredTrainers.forEach((span) => {
-      const trainerItem = span.closest('.trainer-item');
-      trainerContainer.prepend(trainerItem);
+<script>
+  //주소찾기
+  function road() {
+    const popup = window.open("/address-search","Popup", "width=800, height=700");
+
+    popup.onbeforeunload = function(data) {
+      console.log(data)
+      console.log("데이터 체크")
+    }
+
+    // 팝업창에 데이터 쓰기
+    popup.document.write(data);
+  }
+
+  function test() {
+    $.ajax({
+      url: "https://business.juso.go.kr/addrlink/addrLinkUrl.do?confmKey=U01TX0FVVEgyMDIzMDUwMjE0MTI1MDExMzczNzM=&returnUrl=http://localhost:3030/road-return&resultType=4",
+      type: "GET",
     });
   }
 </script>
-
-<script>
-        function road() {
-             const popup = window.open("/address-search","Popup", "width=800, height=700");
-
-             popup.onbeforeunload=(data)=>{
-                 console.log(data)
-                 console.log("데이터 체크")
-            }
-             // 팝업창에 데이터 쓰기
-             popup.document.write(data);
-        }
-
-        function test(){
-            $.ajax({
-                url: "https://business.juso.go.kr/addrlink/addrLinkUrl.do?confmKey=U01TX0FVVEgyMDIzMDUwMjE0MTI1MDExMzczNzM=&returnUrl=http://localhost:3030/road-return&resultType=4",
-                type: "GET",
-            })
-        }
-    </script>
