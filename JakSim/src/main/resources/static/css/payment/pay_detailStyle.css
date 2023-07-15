@@ -1,0 +1,77 @@
+#pay_detail_container{
+    font-family: 'Noto Sans KR', sans-serif;
+    width: 75%;
+    margin: 10px auto;
+}
+
+#pay_detail_head{
+    font-size: 30px;
+    font-weight: bold;
+}
+
+#pay_detail_status{
+    font-weight: bold;
+}
+
+#pay_detail_idx{
+    font-size:15px;
+    margin-left: 10px;
+}
+
+#pay_detail_wrapper{
+    border: 0.5px solid black;
+    border-radius: 10px;
+
+    padding: 15px;
+    margin: 20px auto;
+}
+
+#pay_detail_img{
+    width: 80px;
+    height: 80px;
+
+    border-radius: 10px;
+
+    object-fit: cover;
+}
+
+#pay_detail_refundstatus{
+    font_weight: bold;
+    font-size: 20px;
+}
+
+#pay_detail_table_span > span{
+    margin: auto 20px;
+    display: block;
+}
+
+#pay_detail_tablebuttons{
+    padding: 10px;
+}
+
+#pay_detail_tablebuttons > button{
+    margin: 10px;
+    display:block;
+    width: 100%;
+    height: 35px;
+}
+
+.pay_detail_midTitle{
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#pay_detail_trainerWrapper{
+    border-bottom: 0.5px solid black;
+    border-top: 2px solid black;
+}
+
+#pay_detail_trainerImg{
+    width: 100px;
+    height: 100px;
+
+    object-fit: cover;
+
+    border-radius: 10px;
+    margin: 10px;
+}

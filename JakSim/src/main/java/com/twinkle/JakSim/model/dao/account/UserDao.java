@@ -13,13 +13,12 @@ public class UserDao {
     private JdbcTemplate jdbcTemplate;
 
     public int insertMember(UserDto user){
-        String sql = "INSERT INTO USER_INFO(user_id, user_pw, user_name, user_gender, user_tel, user_email, user_question, user_answer, user_birth, user_c_dt, user_role) " +
-                "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, current_timestamp, ?)";
+        String sql = "INSERT INTO USER_INFO(user_id, user_pw, user_name, user_gender, user_tel, user_email,, user_birth, user_c_dt, user_role) " +
+                "VALUES(?, ?, ?, ?, ?, ?, ?, current_timestamp, ?)";
         int result = -1;
         try{
             result = jdbcTemplate.update(sql,
-                    user.getId(), user.getPw(), user.getName(), user.getGender(), user.getTel(), user.getEmail(),
-                    user.getQuestion(), user.getAnswer(), user.getBirth(), user.getRole());
+                    user.getId(), user.getPw(), user.getName(), user.getGender(), user.getTel(), user.getEmail(), user.getBirth(), user.getRole());
         }catch(EmptyResultDataAccessException e){
             return -1;
         }
@@ -76,6 +75,61 @@ public class UserDao {
         }catch (Exception e){
             System.out.println("회원삭제 실패");
         }
+        return result;
+    }
+
+    public UserDto findByEmail(String email) {
+        String sql = "SELECT * FROM USER_INFO WHERE USER_EMAIL = ?";
+        UserDto user = null;
+        try{
+            user = jdbcTemplate.queryForObject(sql, new UserRowMapper() ,email);
+        }catch (EmptyResultDataAccessException e){
+            System.out.println("데이터가 없다네예");
+        }
+        return user;
+    }
+
+    public int updateEmail(String email, String username) {
+        String sql = "UPDATE USER_INFO " +
+                "SET USER_EMAIL = ? ," +
+                "USER_M_DT = CURRENT_TIMESTAMP " +
+                "WHERE USER_ID = ?";
+        int result = -1;
+        try{
+            result = jdbcTemplate.update(sql, email, username);
+        }catch (Exception e){
+            System.out.println("모시깽이 에러");
+        }
+
+        return result;
+    }
+
+    public int updateName(String name, String username) {
+        String sql = "UPDATE USER_INFO " +
+                "SET USER_NAME = ? ," +
+                "USER_M_DT = CURRENT_TIMESTAMP " +
+                "WHERE USER_ID = ?";
+        int result = -1;
+        try{
+            result = jdbcTemplate.update(sql, name, username);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return result;
+    }
+
+    public int updateTel(String tel, String username) {
+        String sql = "UPDATE USER_INFO " +
+                "SET USER_TEL = ? ," +
+                "USER_M_DT = CURRENT_TIMESTAMP " +
+                "WHERE USER_ID = ?";
+        int result = -1;
+        try{
+            result = jdbcTemplate.update(sql, tel, username);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        System.out.println("result: " + result);
         return result;
     }
 }

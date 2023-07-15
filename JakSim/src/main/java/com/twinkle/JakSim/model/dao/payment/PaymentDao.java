@@ -3,6 +3,11 @@ package com.twinkle.JakSim.model.dao.payment;
 import com.twinkle.JakSim.model.dto.payment.response.ApproveResponse;
 import com.twinkle.JakSim.model.dto.payment.response.PtTicketResponse;
 import com.twinkle.JakSim.model.dto.product.response.ValidPtResponse;
+
+import com.twinkle.JakSim.model.dao.trainer.ProductRowMapper;
+import com.twinkle.JakSim.model.dto.payment.PaymentDtoForMypage;
+import com.twinkle.JakSim.model.dto.payment.response.PaymentDo;
+import com.twinkle.JakSim.model.dto.trainer.ProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -11,6 +16,8 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Repository
 public class PaymentDao {
@@ -92,5 +99,74 @@ public class PaymentDao {
         list = jdbcTemplate.query(this.sql, new ValidPtRowMapper(), userId, today);
 
         return list;
+    }
+
+    public Optional<List<PaymentDtoForMypage>> findRecentByUsernameBy3(String username) {
+        String sql = "SELECT P.P_IDX, P.P_C_DT, P.P_PT_PERIOD, P.P_PT_CNT, T.TP_TITLE, T.TP_TYPE, T.TP_TIMES, T.TP_PRICE " +
+                "FROM PAYMENT P, PRODUCT T " +
+                "WHERE P.USER_ID = ? " +
+                "ORDER BY P_IDX DESC " +
+                "LIMIT 3";
+        List<PaymentDtoForMypage> paymentList = new ArrayList<>();
+
+        try{
+            paymentList = jdbcTemplate.query(sql, new PaymentDtoForMypageRowMapper(), username);
+        }catch (Exception e){
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        return Optional.of(paymentList);
+    }
+
+    public int getTotalPage(String username) {
+        String sql = "SELECT COUNT(*) FROM PAYMENT WHERE USER_ID = ?";
+        int result =  0;
+
+        try{
+            result = Objects.requireNonNull(jdbcTemplate.queryForObject(sql, Integer.class, username)).intValue();
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        return result;
+    }
+
+    public List<PaymentDo> getRecentByPage(String username, int page, int pageSize){
+        String sql = "SELECT * FROM PAYMENT WHERE USER_ID = ? ORDER BY P_IDX DESC LIMIT ? OFFSET ?";
+        int offset = (page - 1) * pageSize;
+        List<PaymentDo> payList = new ArrayList<>();
+
+        try{
+            payList = jdbcTemplate.query(sql, new PaymentDoRowMapper(), username, pageSize, offset);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return payList;
+    }
+
+    public Optional<PaymentDo> getPaymentByIdx(int pIdx) {
+        String sql = "SELECT * FROM PAYMENT WHERE P_IDX = ?";
+        PaymentDo paymentDo = null;
+
+        try{
+            paymentDo = jdbcTemplate.queryForObject(sql, new PaymentDoRowMapper(), pIdx);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        return Optional.ofNullable(paymentDo);
+    }
+
+    public ProductDto getProductByIdx(int tpIdx) {
+        String sql = "SELECT * FROM PRODUCT WHERE TP_IDX = ?";
+        ProductDto productDto = null;
+
+        try{
+            productDto = jdbcTemplate.queryForObject(sql, new ProductRowMapper(), tpIdx);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        return productDto;
     }
 }

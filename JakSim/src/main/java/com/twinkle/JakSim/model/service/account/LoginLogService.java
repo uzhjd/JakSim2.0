@@ -5,6 +5,8 @@ import com.twinkle.JakSim.model.dto.account.LoginLogDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class LoginLogService {
@@ -20,5 +22,10 @@ public class LoginLogService {
 
     public LoginLogDto findByUsernameRecent(String username) {
         return loginLogDao.findByUsernameRecent(username);
+    }
+
+    public List<LoginLogDto> findByUsername(String username, int pageNum) {
+        int pageSize = 20;
+        return loginLogDao.findByUsername(username, pageNum, pageSize);
     }
 }

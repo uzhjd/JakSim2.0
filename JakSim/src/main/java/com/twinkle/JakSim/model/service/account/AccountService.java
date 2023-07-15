@@ -37,8 +37,6 @@ public class AccountService {
         userDto.setName(member.getName());
         userDto.setGender(member.getGender());
         userDto.setTel(member.getTel());
-        userDto.setQuestion(member.getQuestion());
-        userDto.setAnswer(member.getAnswer());
         userDto.setBirth(member.getBirth());
         userDto.setEmail(member.getEmail());
         userDto.setRole(member.getRole());
@@ -95,7 +93,7 @@ public class AccountService {
 
     private MimeMessage createMailForm(String email) throws MessagingException, UnsupportedEncodingException{
         String sender = "lsd4026@naver.com";
-        String title = "[작심득근] 회원가입 이메일 인증";
+        String title = "[작심득근] 이메일 인증";
 
         MimeMessage message = emailSender.createMimeMessage();
         message.addRecipients(MimeMessage.RecipientType.TO, email);
@@ -109,5 +107,21 @@ public class AccountService {
     private void sendEmail(String toMail) throws MessagingException, UnsupportedEncodingException{
         MimeMessage emailForm = createMailForm(toMail);
         emailSender.send(emailForm);
+    }
+
+    public UserDto findByEmail(String email) {
+        return userDao.findByEmail(email);
+    }
+
+    public boolean updateEmail(String email, String username) {
+        return userDao.updateEmail(email, username) > 0;
+    }
+
+    public boolean updateName(String name, String username) {
+        return userDao.updateName(name, username) > 0;
+    }
+
+    public boolean updateTel(String tel, String username) {
+        return userDao.updateTel(tel, username) > 0;
     }
 }

@@ -34,6 +34,11 @@ public class AccountRestApi {
         return accountService.findByTel(data.getTel()) == null ? 0 : 1;
     }
 
+    @PostMapping("/checkemail")
+    public boolean dupEmail(@RequestBody UserDto data){
+        return accountService.findByEmail(data.getEmail()) == null;
+    }
+
     @PostMapping("/emailaction")
     public String checkEmail(@RequestBody UserDto data){
         return accountService.validateEmail(data.getEmail());
@@ -46,11 +51,7 @@ public class AccountRestApi {
 
     @PutMapping("/changepw")
     public int updatePassword(@RequestBody UserDto data){
+        System.out.println(data.toString());
         return accountService.update(data.getId(), data.getPw());
-    }
-
-    @DeleteMapping("/delete")
-    public int deleteUser(@AuthenticationPrincipal User user){
-        return accountService.delete(user.getUsername());
     }
 }

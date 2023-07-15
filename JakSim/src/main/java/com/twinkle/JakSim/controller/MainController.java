@@ -15,11 +15,18 @@ import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
 @Controller
+@RequiredArgsConstructor
 public class MainController {
     @Autowired
     TrainerService trainerService;
+
+    private final FileService fileService;
     @GetMapping("/")
-    public String mainPage(Model model) {
+    public String mainPage(Model model, @AuthenticationPrincipal User info) {
+        if(info != null) {
+            model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
+            model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
+        }
         model.addAttribute("head_title", "작심득근");
         model.addAttribute("trainers", trainerService.searchTrainerForMainPage());
         return "content/index";

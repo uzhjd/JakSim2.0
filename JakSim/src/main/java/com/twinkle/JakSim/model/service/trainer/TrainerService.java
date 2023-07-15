@@ -257,4 +257,7 @@ public class TrainerService {
         return trainerDetailResponse;
     }
 
+    public ProductDto getProductByTrainerIdx(int idx){
+        return trainerDao.getProductByTrainerIdx(idx);
+    }
 }

@@ -21,8 +21,8 @@ public class ReviewService {
     @Transactional
     public void insertReview(ReviewRequestDto review, String userId, int trainerIdx) {
         reviewDao.insertReview(review, userId, trainerIdx);
-
     }
+
     @Transactional
     public List<ReviewRequestDto> showReview(String trainerId) {
         return reviewDao.getTrainerReview(trainerId);
@@ -42,5 +42,4 @@ public class ReviewService {
     public void deleteReview(String userId) {
         reviewDao.deleteReview(userId);
     }
-
 }
