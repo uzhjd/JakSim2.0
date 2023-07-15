@@ -1,4 +1,8 @@
-@import url('https://fonts.googleapis.com/css?family=Questrial&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+
+* {
+    font-family: 'Noto Sans KR', sans-serif;
+}
 
 #timetable_layout {
     background-color : white;
@@ -12,13 +16,12 @@
 
 #scheduler {
     width: 800px;
-    height: 625px;
+    height: 580px;
     float: left;
-    padding: 5%;
+    padding: 30px 30px 15px;
 
     background-color: white;
-    padding-right: 5px;
-    border: 2px solid rgba(196, 196, 196, 1);
+    border: 2px solid #A584EE;
     border-radius: 5%;
 }
 
@@ -33,17 +36,42 @@ td {
     text-align: center;
 }
 
-.Calendar>thead>tr:first-child>td {
-    font-family: 'Questrial', sans-serif;
+.Calendar>thead>tr:first-child {
+    font-family: 'Noto Sans KR', sans-serif;
     font-size: 2em;
     font-weight: bold;
 
-    color: #A584EE;
+    color: rgba(116, 116, 116, 1);
+
 }
 
-.Calendar>thead>tr:last-child>td {
-    font-family: 'Questrial', sans-serif;
+
+#sun {
+    color: #fd6a6a;
+}
+#sat {
+    color: #5d73fd;
+}
+
+.Calendar>thead>tr:last-child {
+    height: 100px;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: rgba(116, 116, 116, 1);
+
     font-weight: 1000;
+}
+
+#calbutton {
+    color: #A584EE;
+
+}
+
+#calMonth, #calYear {
+    padding-bottom: 5px;
+
+    font-family: 'Noto Sans KR', sans-serif;
+    color: rgba(116, 116, 116, 1);
+
 }
 
 .Calendar>tbody>tr>td>p {
@@ -58,7 +86,7 @@ td {
     border-radius: 45px;
     line-height: 45px;
 
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
     text-align: center;
 }
 
@@ -68,11 +96,14 @@ td {
 
 .today {
     box-shadow:inset 0px 0px 0px 2px #A584EE;
+    color: rgba(116, 116, 116, 1);
     font-weight: 600;
     cursor: pointer;
 }
 
 .futureDay {
+
+    color: rgba(116, 116, 116, 1);
     background-color: #FFFFFF;
     cursor: pointer;
 }
@@ -87,6 +118,11 @@ td {
     color: #fff;
     font-weight: 600;
     cursor: pointer;
+}
+
+.ptDay {
+    color: #1cc81c;
+    font-weight: bold;
 }
 
 /*#timetable {*/

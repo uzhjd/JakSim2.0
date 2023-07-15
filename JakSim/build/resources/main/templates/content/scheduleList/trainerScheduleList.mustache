@@ -1,0 +1,51 @@
+{{>layout/header}}
+    <script src="javascript/scheduler/scheduleList.js"></script>
+    <link rel="stylesheet" href="css/styles/scheduleListStyle.css">
+</head>
+<body>
+{{>layout/navi}}
+<div class="container">
+    <div id="scheduler">
+        <table class="Calendar">
+            <thead>
+                <tr>
+                    <td onClick="prevCalendar();" style="cursor:pointer;">&#60;</td>
+                    <td colspan="5">
+                        <span id="calYear"></span>년
+                        <span id="calMonth"></span>월
+                    </td>
+                    <td onClick="nextCalendar();" style="cursor:pointer;">&#62;</td>
+                </tr>
+
+                <tr colspan="15">
+                    <td>일</td>
+                    <td>월</td>
+                    <td>화</td>
+                    <td>수</td>
+                    <td>목</td>
+                    <td>금</td>
+                    <td>토</td>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div id="timetable">
+        <div id="timetableDetail">
+            <form class="todayTimetable" method="post" action="/Reservation/register">
+                <p id="todayTimetableTitle">예약시간</p>
+                <label><input type="radio" name="time" value="time_1" disabled> 09:00 - 10:00 (3/3)</label>
+                <label><input type="radio" name="time" value="time_2"> 10:00 - 11:00 (2/3)</label>
+                <label><input type="radio" name="time" value="time_3"> 11:00 - 12:00 (2/3)</label>
+                <label><input type="radio" name="time" value="time_4"> 02:00 - 03:00 (1/3)</label>
+                <label><input type="radio" name="time" value="time_5" disabled> 03:00 - 04:00 (3/3)</label>
+                <label><input type="radio" name="time" value="time_6" disabled> 04:00 - 05:00 (3/3)</label>
+                <button id="reservationBtn" type="button" >
+                    예약하기
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{{>layout/footer}}

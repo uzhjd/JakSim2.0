@@ -1,31 +1,51 @@
-@import url('https://fonts.googleapis.com/css?family=Questrial&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
 
 #trainer2 {
-    font-family: 'Questrial', sans-serif;
-    font-size: 15px;
-    font-weight: bold;
-    color: rgba(116, 116, 116, 1);
-
     float: right;
-    width: 400px;
-    height: 200px;
+    width: 450px;
+    height: 230px;
 }
 
 #trainer-details {
-    border: 2px solid rgba(196, 196, 196, 1);
-    padding: 10px;
+    height: 228px;
+    padding: 20px;
+
     border-radius: 20px;
-    padding: 20px
+    border: 2px solid rgba(196, 196, 196, 1);
+
 }
 
 .trainer-info {
-    width: 90px;
-    height: 90px;
+    width: 130px;
+    height: 130px;
     border-radius: 50%;
 }
 
 #trainerDetail {
-    float: right;
-    margin-right: 50px;
+    width: 270px;
+    display: inline-block;
+    padding-left: 30px;
+}
+
+#trainerName {
+    font-size: 20px;
+    margin-bottom: 5px;
+
+    color: #747474;
+    text-decoration: none;
+}
+
+#trainerName:hover {
+    color: #C8B0FC;
+}
+
+#insta {
+    width: 50px;
+    height: 50px;
+}
+
+#insta>img {
+    width: 25px;
+    height: 25px;
 }
 

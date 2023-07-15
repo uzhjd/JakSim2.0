@@ -1,19 +1,15 @@
 package com.twinkle.JakSim.model.dao.trainer;
 
-import com.twinkle.JakSim.model.dao.account.UserRowMapper;
 import com.twinkle.JakSim.model.dao.timetable.TimetableRowMapper;
-import com.twinkle.JakSim.model.dto.account.UserDto;
-import com.twinkle.JakSim.model.dto.timetable.response.TimetableDto;
+import com.twinkle.JakSim.model.dto.timetable.response.TimetableResponse;
 import com.twinkle.JakSim.model.dto.trainer.TrainerInsertDto;
 import com.twinkle.JakSim.model.dto.trainer.*;
-import com.twinkle.JakSim.model.dto.trainer.response.TrainerDetailDto;
+import com.twinkle.JakSim.model.dto.trainer.response.TrainerDetailResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 @Repository
@@ -247,27 +243,27 @@ public class TrainerDao {
 
     }
 
-    public TrainerDetailDto findMyTrainer(String userId) {
-        TrainerDetailDto trainerDetailDto = new TrainerDetailDto();
+    public TrainerDetailResponse findTrainerBreif(String trainerId) {
+        TrainerDetailResponse trainerDetailResponse = new TrainerDetailResponse();
 
-        this.sql = "select * from trainer_details where user_id = ?";
+        this.sql = "select * from trainer_details as t inner join user_info as u on t.user_id = u.user_id where t.user_id = ?";
 
         try {
-            trainerDetailDto = jdbcTemplate.queryForObject(this.sql, new TrainerDetailRowMapper(), userId);
+            trainerDetailResponse = jdbcTemplate.queryForObject(this.sql, new TrainerDetailRowMapper(), trainerId);
         } catch (EmptyResultDataAccessException e) {
             System.out.println(e);
         }
 
-        return trainerDetailDto;
+        return trainerDetailResponse;
     }
 
-    public List<TimetableDto> getTimetable(String userId) {
+    public List<TimetableResponse> getTimetable(String userId) {
         this.sql = "SELECT * FROM TIMETABLE WHERE USER_ID = ?";
 
         return jdbcTemplate.query(this.sql, new TimetableRowMapper(), userId);
     }
 
-    public void registerTimetable(TimetableDto timetable) {
+    public void registerTimetable(TimetableResponse timetable) {
         this.sql = "INSERT INTO TIMETABLE VALUES(NULL, ?, ?, ?, ?, ?, ?)";
 
         jdbcTemplate.update(this.sql, timetable.getUserId(), timetable.getTDate(),         //DATE는 안넣어도 될 것 같은데..timetable.getTDate(),
@@ -275,7 +271,7 @@ public class TrainerDao {
                 timetable.getTPeople(), timetable.getTType());
     }
 
-    public void updateTimetable(TimetableDto timetable, String userId) {
+    public void updateTimetable(TimetableResponse timetable, String userId) {
         this.sql = "UPDATE TIMETABLE " +
                 "SET T_START_T = ?, " +
                 "T_END_T = ?, " +
