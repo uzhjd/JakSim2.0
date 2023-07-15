@@ -1,6 +1,8 @@
 package com.twinkle.JakSim.model.dao.trainer;
 
+import com.twinkle.JakSim.model.dao.account.UserRowMapper;
 import com.twinkle.JakSim.model.dao.timetable.TimetableRowMapper;
+import com.twinkle.JakSim.model.dto.account.UserDto;
 import com.twinkle.JakSim.model.dto.timetable.response.TimetableResponse;
 import com.twinkle.JakSim.model.dto.trainer.TrainerInsertDto;
 import com.twinkle.JakSim.model.dto.trainer.*;

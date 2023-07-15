@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class SchedulerMain {
 
-    @GetMapping()
+    @GetMapping("")
     public String scheduler(@AuthenticationPrincipal User user) {
         String isUser = "ROLE_USER";
 

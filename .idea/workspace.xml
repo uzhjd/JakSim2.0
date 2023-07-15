@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="913a33fb-40e7-4553-9afd-79dcbfe53255" name="Changes" comment="commit : trainerUpdate for Merge">
+      <change beforePath="$PROJECT_DIR$/JakSim/.gradle/7.6.1/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/.gradle/7.6.1/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/.gradle/7.6.1/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/.gradle/7.6.1/checksums/md5-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/.gradle/7.6.1/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/.gradle/7.6.1/checksums/sha1-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/controller/scheduleList/SchedulerController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/controller/scheduleList/SchedulerMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/controller/scheduleList/SchedulerMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/dao/trainer/TrainerDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/dao/trainer/TrainerDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/service/payment/KakaoPayService.java" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/service/payment/KakaoPayService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/service/payment/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/service/payment/PaymentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/service/trainer/TrainerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/service/trainer/TrainerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/resources/static/javascript/payment/kakaoPay.js" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/resources/static/javascript/payment/kakaoPay.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/JakSim">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <task path="$PROJECT_DIR$/JakSim">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="JakSim" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="JakSim" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="JakSim" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="5" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2RjRRAi5gTVqWWc4JLPE8Jhc9vf" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "jdk.selected.JAVA_MODULE": "11",
+    "last_opened_file_path": "C:/projects/JakSim",
+    "project.structure.last.edited": "Facets",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.31839082",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\projects\JakSim2.0\JakSim\src\main\resources\static\image" />
+      <recent name="C:\projects\JakSim2.0\JakSim\src\main\resources\templates\content\review" />
+      <recent name="C:\projects\JakSim2.0\JakSim\src\main\resources\templates\content\trainer" />
+      <recent name="C:\projects\JakSim2.0\JakSim\src\main\resources\static\css\trainer" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.twinkle.JakSim.model.dao.trainer" />
+      <recent name="com.twinkle.JakSim.model.dto.trainer" />
+      <recent name="com.twinkle.JakSim.model.dto.timetable" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.JakSimApplication">
+    <configuration name="JakSimApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.twinkle.JakSim.JakSimApplication" />
+      <module name="JakSim.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.twinkle.JakSim.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JakSim [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/JakSim" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>false</ForceTestExec>
+      <method v="2" />
+    </configuration>
+    <configuration name="JakSim [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/JakSim" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>false</ForceTestExec>
+      <method v="2" />
+    </configuration>
+    <configuration name="JakSim2.0 [buildEnvironment]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="buildEnvironment" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>false</ForceTestExec>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.JakSimApplication" />
+        <item itemvalue="Gradle.JakSim [clean]" />
+        <item itemvalue="Gradle.JakSim [build]" />
+        <item itemvalue="Gradle.JakSim2.0 [buildEnvironment]" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="913a33fb-40e7-4553-9afd-79dcbfe53255" name="Changes" comment="" />
+      <created>1687761499481</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1687761499481</updated>
+    </task>
+    <task id="LOCAL-00001" summary="commit : 0627">
+      <created>1687846535129</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1687846535129</updated>
+    </task>
+    <task id="LOCAL-00002" summary="commit : trainerControlPage_0703">
+      <created>1688347838239</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1688347838239</updated>
+    </task>
+    <task id="LOCAL-00003" summary="commit : css_0704">
+      <created>1688402850272</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1688402850272</updated>
+    </task>
+    <task id="LOCAL-00004" summary="commit : merge">
+      <created>1688434506005</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1688434506005</updated>
+    </task>
+    <task id="LOCAL-00005" summary="commit : trainerUpdate for Merge">
+      <created>1689422923488</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1689422923488</updated>
+    </task>
+    <task id="LOCAL-00006" summary="commit : trainerUpdate for Merge">
+      <created>1689423097803</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1689423097803</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="commit : 0627" />
+    <MESSAGE value="commit : trainerControlPage_0703" />
+    <MESSAGE value="commit : css_0704" />
+    <MESSAGE value="commit : merge" />
+    <MESSAGE value="commit : trainerUpdate for Merge" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit : trainerUpdate for Merge" />
+  </component>
+</project>
