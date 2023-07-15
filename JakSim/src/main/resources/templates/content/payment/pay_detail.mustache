@@ -1,5 +1,6 @@
 {{>layout/header}}
     <link rel="stylesheet" href="/css/payment/pay_detailStyle.css">
+    <script src="/javascript/payment/pay_detail.js"></script>
 </head>
 
 <body>
@@ -9,7 +10,7 @@
         <p id="pay_detail_head">등록 상세</p>
         <div>
             <span id="pay_detail_status">{{payment.c_dt}} 주문</span>
-            <span id="pay_detail_idx">주문 번호 {{payment.idx}}</span>
+            <span>주문 번호 </span><span id="pay_detail_idx">{{payment.idx}}</span>
         </div>
 
         <div id="pay_detail_wrapper">
