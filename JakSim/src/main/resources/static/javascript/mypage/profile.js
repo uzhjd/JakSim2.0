@@ -55,6 +55,7 @@ function checkEmail(){
         .then(response=>{
             if(response.data){
                 document.getElementById('profile_dup_span').innerHTML = '';
+                changeEmailButton.disabled = true;
                 validateEmail();
             }else{
                 document.getElementById('profile_dup_span').innerHTML = '이미 등록된 이메일입니다.';
@@ -67,37 +68,60 @@ function checkEmail(){
 
 function validateEmail(){
     codeInput = document.createElement('input');
+    var codeResendButton = document.createElement('button');
     var codeCheckButton = document.createElement('button');
     validateFail = document.createElement('span');
     timeSpan = document.createElement('span');
     timeout = false;
 
+    codeInput.classList.add('profile_emailInput');
+    codeInput.classList.add('jaksim_font');
+
+    codeResendButton.classList.add('jaksim_btn');
+    codeResendButton.textContent = '재전송';
+    codeResendButton.style.margin = 'auto 3px';
+
+
     codeCheckButton.classList.add('jaksim_btn');
     codeCheckButton.textContent = '확인';
+    codeCheckButton.style.margin = 'auto 3px';
     codeCheckButton.addEventListener('click', codeCheck);
     timeSpan.style.color = 'red';
 
+
     validateFail.style.color = 'red';
 
-    axios.post('/mypage/api/email/check', {email: emailInput.value})
+    var data = {email: emailInput.value};
+    sendCode(data);
+
+    codeResendButton.addEventListener('click', function(){
+        sendCode(data);
+    });
+
+    validateDiv.appendChild(codeInput);
+    validateDiv.appendChild(codeResendButton);
+    validateDiv.appendChild(codeCheckButton);
+    validateDiv.appendChild(timeSpan);
+    validateDiv.appendChild(validateFail);
+
+
+}
+
+function sendCode(data){
+    showValidateTime();
+    axios.post('/mypage/api/email/check', data)
         .then(response => {
             code = response.data;
         })
         .catch(error => {
             console.error(error);
     });
-
-    validateDiv.appendChild(codeInput);
-    validateDiv.appendChild(codeCheckButton);
-    validateDiv.appendChild(timeSpan);
-    validateDiv.appendChild(validateFail);
-
-    showValidateTime();
 }
 
 function codeCheck(){
     if(code === codeInput.value && !timeout){
         updateEmail();
+        stopTimer();
     }else{
         validateFail.innerHTML = '인증번호를 다시 확인해주세요';
     }

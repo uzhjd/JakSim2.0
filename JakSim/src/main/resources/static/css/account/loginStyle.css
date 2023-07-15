@@ -2,7 +2,7 @@
 
 .login_input{
     border: none;
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid #949494;
 
     margin-top: 20px;
     width: 100%;
@@ -14,6 +14,10 @@
 
 .login_input::placeholder{
     color: #BFBFBF;
+}
+
+.login_input:focus{
+    outline: none;
 }
 
 #login_head{

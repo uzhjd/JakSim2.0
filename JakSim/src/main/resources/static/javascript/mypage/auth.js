@@ -6,6 +6,8 @@ window.onload = function(){
     pwButton.addEventListener('click', checkPassword);
 
     var pwInput = document.getElementById('pwInput');
+    pwInput.focus();
+
     pwInput.addEventListener('keypress', function(event){
         console.log(event.keyCode);
         if(event.key==='Enter'){
@@ -20,8 +22,6 @@ window.onload = function(){
 
 var checkPassword = function(){
     var data = {pw : document.getElementById('pwInput').value}
-
-
     sendPw(data);
 }
 

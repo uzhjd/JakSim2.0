@@ -23,7 +23,7 @@ section{
 
 #pwInput{
     border: none;
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid #949494;
 
     margin-top: 20px;
     margin-right: 5px;
@@ -32,6 +32,10 @@ section{
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 17px;
     color: black;
+}
+
+#pwInput:focus{
+    outline:none;
 }
 
 #auth_pwContainer{
@@ -217,4 +221,35 @@ input[type='number']::webkit-inner-spin-button{
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 12px;
     color: #747474;
+}
+
+#profile_head{
+    font-size: 20px;
+}
+
+.profile_mid_title{
+    width: 200px;
+    background-color:#EFEFEF;
+    text-align:center;
+    color:black;
+
+    border-top: 0.09rem solid #CFCFCF;
+    border-bottom: 0.09rem solid #CFCFCF;
+    border-right: 0.09rem solid #CFCFCF;
+}
+
+.profile_item_wrapper{
+    width: 700px;
+    padding: 30px;
+
+    border-top: 0.09rem solid #CFCFCF;
+    border-bottom: 0.09rem solid #CFCFCF;
+}
+
+.profile_emailInput{
+    width: 300px;
+    border:none;
+    border-bottom: 2px solid black;
+    /*margin-right: 10px;*/
+
 }
