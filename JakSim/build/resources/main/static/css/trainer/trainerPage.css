@@ -18,7 +18,7 @@ h1, h2, h3, h4, h5, h6 {
 #trainer_Detail_Container {
     margin-top: 10px;
   margin-left: 300px;
-  margin-right: 300px;
+  width: min-content;
 }
 
 #trainer-info {
@@ -60,15 +60,16 @@ h1, h2, h3, h4, h5, h6 {
        }
 
  #pt-info {
-    display: flex;
     align-items: center;
     border: 1px solid gray;
     border-radius: 10px;
-    padding: 25px 25px;
+    padding: 25px;
     margin-top: 20px;
     margin-bottom: 20px;
     margin-left: 30px;
     margin-right: 30px;
+
+    overflow: hidden;
 
   }
 
@@ -76,17 +77,20 @@ h1, h2, h3, h4, h5, h6 {
     margin-right: 10px; /* Adjust the value as needed */
     font-size: 15px;
     margin-left: 15px;
+    border: none;
   }
-  #payButton{
-    justify-content: flex-end;
-    float: right;
+
+  .trainer_pay {
+    float: right; /* 오른쪽으로 부유(floating) */
+  }
+
+  .payButton{
     background-color: #A584EE;
     color: black;
     border: none;
     border-radius: 5px;
     padding: 10px 20px;
-    margin-left: 665px;
-    margin-right: 10px;
+
     font-size: 15px;
     font-weight: bold;
     text-decoration: none;
@@ -95,6 +99,7 @@ h1, h2, h3, h4, h5, h6 {
 .review {
   background-color: #E9E1FB;
   border: 2px solid #E9E1FB;
+  width: 800px;
   border-radius: 10px;
   padding: 20px;
   margin-left: 50px;
@@ -145,3 +150,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
+td {
+    padding-right: 10px;
+}

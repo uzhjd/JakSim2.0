@@ -1,6 +1,3 @@
-{{>layout/header}}
-<body>
-{{>layout/navi}}
 <style>
     * {
         font-family: Noto Sans KR;
@@ -57,8 +54,6 @@
     .right_info {
         color: rgba(29.000000171363354, 29.000000171363354, 32.00000189244747, 1);
         position: relative;
-        font-size: 25px;
-        font-weight: 600;
         margin-top: 30px;
         margin-bottom: 50px;
 
@@ -127,34 +122,48 @@
     }
 
     th {
-    padding-bottom: 10px;
+        padding-bottom: 10px;
     }
 
     td {
         border-bottom: 1px solid #dedede;
         padding-top: 20px;
-        padding-bottom: 5px;
+        padding-bottom: 10px;
     }
 
+    #searchIcon {
+      color: #a584ee;
+    }
+
+    #searchIcon:hover {
+        color: #c6b4ec;
+    }
+
+
+    .search-input::placeholder {
+        color: rgb(182, 187, 195);
+    }
+
+.pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    
+
+    
+
 </style>
+
 <script src="https://kit.fontawesome.com/05995ac069.js" crossorigin="anonymous"></script>
-<main>
-    <nav class="sideBar" style="width: 170px;">
-        <ul>
-            <div class="menuPart">
-                <li ><a href="/trainer/trainerControl">PT 시간 등록</a></li>
-                <li class="active"><a href="/trainer/ptUserInfo">전체 회원 정보 조회</a></li>
-            </div>
-        </ul>
-    </nav>
-    <div class="main">
+
         <div>
-            <h3 class="right_info">전체 회원 정보 조회</h3>
+            <h3 class="right_info jaksim_title_font">전체 회원 정보 조회</h3>
         </div>
         <div class="search-container">
             <div class="search-input-container">
-                <input style="width: 222px;" type="text" class="search-input" placeholder="검색어를 입력하세요" id="search-input">
-                <a onclick="searchUsers()" class="search-icon"><i class="fa-solid fa-magnifying-glass fa-sm"></i></a>
+                <input style="width: 222px;" type="text" class="search-input" placeholder="회원명을 입력하세요" id="search-input">
+                <a onclick="searchUsers()" class="search-icon"><i id="searchIcon" class="fa-solid fa-magnifying-glass fa-sm"></i></a>
             </div>
         </div>
         <div class="user_data-container">
@@ -171,45 +180,152 @@
                 </thead>
                 <tbody id="table-body">
                     {{#ptUser}}
-                        <tr>
-                            <td>{{userName}}</td>
-                            <td>{{ptType}}</td>
-                            <td>{{userId}}</td>
-                            <td>{{tel}}</td>
-                            <td>{{gender}}</td>
-                            <td>{{ptCnt}}</td>
+                        <tr class="hidden-row">
+                            <td><input style="width: 50px;
+                    margin-right: 20px;
+                    margin-left: 20px; border: white; text-align: center; pointer-events: none;" type="text" name="userName" value="{{userName}}" readonly>
+                            </td>
+                            <td><input style="width: 50px;
+                    margin-right: 20px;
+                    margin-left: 20px; border: white; text-align: center; pointer-events: none;" type="text" name="ptType" value="{{ptType}}" readonly>
+                            </td>
+                            <td><input style="width: 100px;
+                    margin-right: 20px;
+                    margin-left: 20px; border: white; text-align: center; pointer-events: none;" type="text" name="userId" value="{{userId}}" readonly>
+                            </td>
+                            <td><input style="width: 100px;
+                    margin-right: 20px;
+                    margin-left: 20px; border: white; text-align: center; pointer-events: none;" type="text" name="tel" value="{{tel}}" readonly>
+                                </td>
+                            <td><input style="width: 50px;
+                    margin-right: 20px;
+                    margin-left: 20px; border: white; text-align: center; pointer-events: none;" type="text" name="gender" value="{{gender}}" readonly>
+                            </td>
+                            <td><input style="width: 50px;
+                    margin-right: 20px;
+                    margin-left: 20px; border: white; text-align: center; pointer-events: none;" type="text" name="ptCnt" value="{{ptCnt}}" readonly>
+                            </td>
                         </tr>
                     {{/ptUser}}
                     </tbody>
                 </table>
+                <div class="pagination">
+                <button id="prev-page" class="jaksim_btn" style="padding-left: 10px; padding-right: 10px;padding-bottom: 6px;padding-top: 6px;">이전</button>
+                <span id="current-page" style="
+    padding-top: 5px;
+    margin-left: 10px;
+    margin-right: 10px;">Page 1</span>
+                <button id="next-page" class="jaksim_btn" style="padding-left: 10px; padding-right: 10px;padding-bottom: 6px;padding-top: 6px;">다음</button>
+            </div>
         </div>
-<!--            <div class="pagination">-->
-<!--                <button id="prev-page">이전</button>-->
-<!--                <span id="current-page">Page 1</span>-->
-<!--                <button id="next-page">다음</button>-->
-<!--            </div>-->
+        
+            
         </div>
-    </main>
-{{>layout/footer}}
-
 <script>
-    function searchUsers() {
-        // 검색어 입력란의 값을 가져옵니다.
-        var keyword = document.getElementById("search-input").value.toLowerCase();
+window.onload = function() {
+    var rows = document.getElementById("table-body").getElementsByTagName("tr");
 
-        // 회원 리스트의 각 행을 가져옵니다.
+    var searchButton = document.querySelector(".search-icon");
+        searchButton.addEventListener("click", searchUsers);
+        
+        function searchUsers() {
+            var keyword = document.getElementById("search-input").value.toLowerCase();
+            var rows = document.getElementById("table-body").getElementsByTagName("tr");
+
+            for (var i = 0; i < rows.length; i++) {
+                var userName = rows[i].getElementsByTagName("td")[0].getElementsByTagName("input")[0].value.toLowerCase();
+
+                // Hide all rows by default
+                rows[i].style.display = "none";
+
+                if (userName.indexOf(keyword) !== -1) {
+                    rows[i].style.display = "";
+                }
+            }
+        }
+
+    setInitialDisplayState();
+
+    for (var i = 0; i < rows.length; i++) {
+        var ptType = rows[i].getElementsByTagName("td")[1].getElementsByTagName("input")[0];
+        var gender = rows[i].getElementsByTagName("td")[4].getElementsByTagName("input")[0];
+
+        console.log(ptType.value);
+
+        // Convert ptType value to text
+        if (ptType.value === "0") {
+            ptType.value = "개인";
+            console.log(ptType.value);
+        } else if (ptType.value === "1") {
+            ptType.value = "단체";
+        }
+
+        // Convert gender value to text
+        if (gender.value === "0") {
+            gender.value = "남자";
+        } else if (gender.value === "1") {
+            gender.value = "여자";
+        }
+    }
+
+    function setInitialDisplayState() {
         var rows = document.getElementById("table-body").getElementsByTagName("tr");
 
-        // 각 행을 순회하면서 검색어와 일치하는 회원명을 찾습니다.
         for (var i = 0; i < rows.length; i++) {
-            var userName = rows[i].getElementsByTagName("td")[0].innerText.toLowerCase();
-
-            // 회원명과 검색어를 비교하여 일치하지 않는 행을 숨깁니다.
-            if (userName.indexOf(keyword) === -1) {
-                rows[i].style.display = "none";
+            if (i < rowsPerPage) {
+                rows[i].classList.remove("hidden-row");
             } else {
-                rows[i].style.display = ""; // 일치하는 경우 보이도록 설정합니다.
+                rows[i].classList.add("hidden-row");
             }
         }
     }
+
+    function updateRowsDisplay() {
+        var rows = document.getElementById("table-body").getElementsByTagName("tr");
+
+        var startIndex = (currentPage - 1) * rowsPerPage;
+        var endIndex = startIndex + rowsPerPage - 1;
+
+        for (var i = 0; i < rows.length; i++) {
+            if (i >= startIndex && i <= endIndex) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+        }
+
+        var currentPageElement = document.getElementById("current-page");
+        currentPageElement.textContent = "Page " + currentPage;
+    }
+
+    var currentPage = 1;
+    var rowsPerPage = 5;
+
+    setInitialDisplayState();
+    updateRowsDisplay();
+
+    var prevPageButton = document.getElementById("prev-page");
+    var nextPageButton = document.getElementById("next-page");
+
+    prevPageButton.addEventListener("click", function() {
+        if (currentPage > 1) {
+            currentPage--;
+            updateRowsDisplay();
+        }
+    });
+
+    nextPageButton.addEventListener("click", function() {
+        var totalRows = document.getElementById("table-body").getElementsByTagName("tr").length;
+        var maxPage = Math.ceil(totalRows / rowsPerPage);
+
+        if (currentPage < maxPage) {
+            currentPage++;
+            updateRowsDisplay();
+        }
+    });
+
+   
+}
 </script>
+
+

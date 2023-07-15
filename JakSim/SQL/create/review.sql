@@ -28,7 +28,7 @@ VALUES(NULL, 'ujeong','wkdgyfla97', 1, '트레이너가 친절하고 PT가 맛�
 INSERT INTO REVIEW
 VALUES(NULL, 'humble', 'wkdgyfla97', 1, '이렇게 피티가 뭐같은적이 없음', 1, current_date, NULL);
 INSERT INTO REVIEW
-VALUES(NULL, 'test96', 'wkdgyfla97', 1, '무릎이 박살남', 2, current_date, NULL);
+VALUES(NULL, 'uzhjd', 'wkdgyfla97', 1, '무릎이 박살남', 2, current_date, NULL);
 
 --INSERT INTO REVIEW_IMAGE
 --VALUES(NULL, 1, 'files/review/1.jpg');
