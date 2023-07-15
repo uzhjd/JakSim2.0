@@ -38,6 +38,9 @@ dependencies {
 
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	implementation 'commons-fileupload:commons-fileupload:1.4'
+	implementation 'org.apache.commons:commons-io:1.3.2'
 }
 
 tasks.named('test') {

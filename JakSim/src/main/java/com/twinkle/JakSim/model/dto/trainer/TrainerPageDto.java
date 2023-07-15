@@ -4,14 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TrainerSearchDto {
+public class TrainerPageDto {
 
     private int trainerId;
-
-    private String userId;
 
     private String userName;
 
@@ -31,7 +31,5 @@ public class TrainerSearchDto {
     private String certImage;
 
     private String imagePath;
-
-    private double avgRstar;
 
 }

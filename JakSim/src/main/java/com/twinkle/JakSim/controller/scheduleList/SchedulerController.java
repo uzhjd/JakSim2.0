@@ -38,18 +38,18 @@ public class SchedulerController {
         return "content/scheduleList/generalScheduleList";
     }
 
-    @GetMapping("/details/{trainerId}")
-    public String generalscheDetails(@AuthenticationPrincipal User user, @PathVariable("trainerId") String trainerId,
-                                                                                                        Model model) {
-        try {
-            List<TimetableDto> scheduleList = scheduleListService.findSchedule(user.getUsername(), trainerId);
-            model.addAttribute("schedulerList", scheduleList);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-        return "content/scheduleList/generalScheduleList";
-    }
+//    @GetMapping("/details/{trainerId}")
+//    public String generalscheDetails(@AuthenticationPrincipal User user, @PathVariable("trainerId") String trainerId,
+//                                                                                                        Model model) {
+//        try {
+//            List<TimetableDto> scheduleList = scheduleListService.findSchedule(user.getUsername(), trainerId);
+//            model.addAttribute("schedulerList", scheduleList);
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        }
+//
+//        return "content/scheduleList/generalScheduleList";
+//    }
 
     @GetMapping("/details/{tType}")
     public String trainerscheDetails(@AuthenticationPrincipal User user, @PathVariable("tType") int tType,

@@ -2,8 +2,10 @@ package com.twinkle.JakSim.model.service.payment;
 
 import com.twinkle.JakSim.model.dao.payment.PaymentDao;
 import com.twinkle.JakSim.model.dto.product.response.ValidPtDto;
+import com.twinkle.JakSim.model.dto.trainer.ProductDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -26,4 +28,6 @@ public class PaymentService {
 
         return list;
     }
+
+
 }

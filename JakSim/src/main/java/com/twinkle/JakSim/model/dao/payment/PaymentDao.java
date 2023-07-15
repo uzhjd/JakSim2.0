@@ -2,6 +2,7 @@ package com.twinkle.JakSim.model.dao.payment;
 
 import com.twinkle.JakSim.model.dto.payment.response.PaymentDto;
 import com.twinkle.JakSim.model.dto.product.response.ValidPtDto;
+import com.twinkle.JakSim.model.dto.trainer.ProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -82,4 +83,5 @@ public class PaymentDao {
 
         return list;
     }
+
 }

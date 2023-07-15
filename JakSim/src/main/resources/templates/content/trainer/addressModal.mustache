@@ -126,8 +126,9 @@
         <input hidden="hidden" type="text" name="countPerPage" value="10"/><!— 요청 변수 설정 (페이지당 출력 개수. countPerPage 범위 : 0 < n <= 100) —>
         <input hidden="hidden" type="text" name="resultType" value="json"/>
         <input hidden="hidden" type="text" name="confmKey" value="U01TX0FVVEgyMDIzMDUwMjIwNTEyMTExMzczOTg=" />
-        <input class="searchAddress" type="text" name="keyword" value="" onkeydown="enterSearch();"/><!— 요청 변수 설정 (키워드) —>
-        <input type="button" onClick="getAddr();" value="주소 검색"/></div>
+        <input class="searchAddress jaksim_font" type="text" name="keyword" value="" onkeydown="enterSearch();"/><!— 요청 변수 설정 (키워드) —>
+        <input type="button" class="jaksim_font" onClick="getAddr();" value="주소 검색"/></div>
+
     <div id="list" ></div>
 </form>
 </body>

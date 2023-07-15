@@ -16,5 +16,4 @@ public class ProductDto {
     private String ptTitle;
     private int ptPeriod; //만료를 위한 PT 기간
 
-    //private String ptContent;
 }
