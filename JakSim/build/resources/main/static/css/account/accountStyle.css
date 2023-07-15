@@ -1,46 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+
 .input_container{
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin: 10px auto;
 }
+
 .account_input{
     border: none;
     border-bottom: 1px solid black;
 
-    padding:3px;
-    margin: 0.3rem;
+    margin-top: 20px;
+    width: 100%;
 
-    width: 60%;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 17px;
+    color: black;
 }
+
+.account_input_3{
+    border: none;
+    border-bottom: 1px solid black;
+
+    margin-top: 20px;
+    width: 80%;
+
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 17px;
+    color: black;
+}
+
+.account_input_code{
+     border: none;
+     border-bottom: 1px solid black;
+
+     margin-top: 20px;
+     margin-right: 5px;
+     width: 60%;
+
+     font-family: 'Noto Sans KR', sans-serif;
+     font-size: 17px;
+     color: black;
+}
+
+.login_input::placeholder{
+    color: #BFBFBF;
+}
+
 .account_input:focus{
     outline: none;
 }
-.account_span{
-    font-weight: bold;
-    margin-right: 1rem;
-    color: #777777;
-}
-.account_button{
-    color:white;
-    background-color: #8753F6;
-    border: none;
-    border-radius: 5px;
-    padding: 5px;
-}
-.account_button:hover, .account_button:active, .account_button:disabled{
-    background-color: #a379ff;
-    color: #b7b7b7;
-}
+
 .account_container{
-    width: 70%;
-    margin: 1rem auto;
-    border: 1px solid black;
-    border-radius: 10px;
-    padding:3rem
+    width: 700px;
+    margin: 100px auto;
+
+    border: 0.5px solid gray;
+    border-radius: 20px;
+
+    padding: 30px 100px;
 }
-.account_banner{
-    margin: 3rem auto;
-    width: 25%;
-    background-color: #8753F6;
+
+.account_head{
+    font-family: 'Noto Sans KR', sans-serif;
+    color: #C8B0FC;
+}
+
+.account_head:hover{
+    cursor: pointer;
 }
 
 #account_confirm_id, #account_confirm_pw, #account_confirm_tel{

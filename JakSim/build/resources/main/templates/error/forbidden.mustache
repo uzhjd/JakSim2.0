@@ -5,14 +5,18 @@
 {{>layout/navi}}
 
 <div class="container">
-    <h1>여기 들어오시면 안되는데...</h1>
+    <h1>권한이 없는 페이지입니다.</h1>
+    <hr>
 
-    <div>
-        <span>여기서부터는 접근할 수 없는 페이지입니다.</span>
-        <span>이미 로그인을 하셨거나, 다른 계정으로 접근하시는 경우 다시 확인하시고 접속해주시기 바랍니다.</span>
+    <div style="text-align:center;">
+        <img src="/image/error/403.png" alt="Error" class="error_img">
+
+        <div>
+            <p>죄송합니다만, 현재 사용자분의 권한으로는 접근할 수 없는 페이지입니다.</p>
+        </div>
+
+        <button onclick="window.location.href='/'" class="jaksim_btn">홈으로 이동하기</button>
     </div>
-
-    <a href="/" class="btn btn-primary">홈 화면으로 이동하기</a>
 </div>
 
 {{>layout/footer}}
