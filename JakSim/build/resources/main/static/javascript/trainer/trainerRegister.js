@@ -1,5 +1,5 @@
 window.addEventListener('load', function(){
-    if(window.location.href==='http://localhost:8080/trainer/search/' ||
+    if(window.location.href==='http://localhost:8080/Jaksim/trainer/search/' ||
     window.location.href==='http://localhost:8080/trainer/search/0/0'||window.location.href==='http://localhost:8080/trainer/search/0/1'||window.location.href==='http://localhost:8080/trainer/search/0/2'||window.location.href==='http://localhost:8080/trainer/search/0/3'||window.location.href==='http://localhost:8080/trainer/search/0/4'||window.location.href==='http://localhost:8080/trainer/search/0/5'){
         button_init(); //특정 url에서만 사용되는게 아니어서 이렇게 작성함
         const checkedBtnValue = window.location.pathname.slice(-1);

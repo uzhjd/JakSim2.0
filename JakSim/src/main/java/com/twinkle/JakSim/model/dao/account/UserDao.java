@@ -13,7 +13,7 @@ public class UserDao {
     private JdbcTemplate jdbcTemplate;
 
     public int insertMember(UserDto user){
-        String sql = "INSERT INTO USER_INFO(user_id, user_pw, user_name, user_gender, user_tel, user_email,, user_birth, user_c_dt, user_role) " +
+        String sql = "INSERT INTO USER_INFO(user_id, user_pw, user_name, user_gender, user_tel, user_email, user_birth, user_c_dt, user_role) " +
                 "VALUES(?, ?, ?, ?, ?, ?, ?, current_timestamp, ?)";
         int result = -1;
         try{
