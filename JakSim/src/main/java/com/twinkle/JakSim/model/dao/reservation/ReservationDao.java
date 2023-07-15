@@ -1,5 +1,6 @@
 package com.twinkle.JakSim.model.dao.reservation;
 
+import com.twinkle.JakSim.model.dto.reservation.response.ReservationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
@@ -15,26 +16,11 @@ public class ReservationDao {
     private JdbcTemplate jdbcTemplate;
     private String sql;
 
-    public Boolean isReservate(String userId, LocalDate tDate) {
-        Boolean result = true;
-
-        this.sql = "select * from reservation where user_id = ? and r_c_dt = ? ";
-
-        try {
-            jdbcTemplate.queryForObject(this.sql, new IsReservationRowMapper(), userId, tDate);
-        } catch(EmptyResultDataAccessException e) {
-            System.out.println("You have already booked");
-            System.out.println(e);
-            result = false;
-        }
-
-        return result;
-    }
 
     public Boolean register(String userId, int tIdx, int pIdx) {
         Boolean result = true;
 
-        this.sql = "insert into reservation " +
+        this.sql = "insert into reservation(t_idx, user_id, p_idx) " +
                 "values(?, ?, ?)";
 
         try {
@@ -52,7 +38,7 @@ public class ReservationDao {
     }
 
     public Boolean delete(int rIdx) {
-        this.sql = "delete from reservation where t_idx = ?";
+        this.sql = "delete from reservation where r_idx = ?";
 
         try {
             int rowsAffected = jdbcTemplate.update(this.sql, rIdx);
@@ -67,4 +53,37 @@ public class ReservationDao {
 
         return false;
     }
+
+    public ReservationResponse findReservation(String userId, String trainerId, LocalDate tDate) {
+        ReservationResponse reservationResponse = new ReservationResponse();
+
+        this.sql = "select * from reservation as res inner join timetable as tt on res.t_idx = tt.t_idx " +
+                "where res.user_id = ? and tt.user_id = ? and tt.t_date = ?";
+
+        try {
+            reservationResponse = jdbcTemplate.queryForObject(this.sql, new ReservationRowMapper(), userId, trainerId, tDate);
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println("예약이 없습니다.");
+        } catch(Exception e) {
+            System.out.println(e);
+        }
+
+        return reservationResponse;
+    }
+//    public Boolean isReservate(String userId, LocalDate tDate) {
+//        Boolean result = true;
+//
+//        this.sql = "select * from reservation where user_id = ? and r_c_dt = ? ";
+//
+//        try {
+//            jdbcTemplate.queryForObject(this.sql, new IsReservationRowMapper(), userId, tDate);
+//        } catch(EmptyResultDataAccessException e) {
+//            System.out.println("You have already booked");
+//            System.out.println(e);
+//            result = false;
+//        }
+//
+//        return result;
+//    }
+
 }

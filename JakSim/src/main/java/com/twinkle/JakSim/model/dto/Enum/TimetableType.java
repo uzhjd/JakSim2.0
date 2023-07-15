@@ -11,13 +11,13 @@ public enum TimetableType {
         this.type = type;
     }
 
-    public static TimetableType findByType(String types) {
-        for(TimetableType type : TimetableType.values()) {
-            if(type.equals(types)) {
-                return type;
-            }
-        }
-        throw new RuntimeException();
-    }
+//    public static TimetableType findByType(String types) {
+//        for(TimetableType type : TimetableType.values()) {
+//            if(type.equals(types)) {
+//                return type;
+//            }
+//        }
+//        throw new RuntimeException();
+//    }
 
 }
