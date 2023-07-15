@@ -14,12 +14,29 @@ public class ReviewController {
     @Autowired
     ReviewService reviewService;
 
+
+
+    @GetMapping("/registerReview/{trainerIdx}")
+    public String registerMyReview(Model model, @PathVariable("trainerIdx") int trainerIdx) {
+        model.addAttribute("head_title", "리뷰 등록");
+        model.addAttribute("trainerIdx", trainerIdx);
+
+        return "content/review/registerReview";
+    }
+    @PostMapping("/registerReview/{trainerIdx}")
+    public String registerReview(@PathVariable("trainerIdx") int trainerIdx, @AuthenticationPrincipal User info,
+                                 ReviewRequestDto reviewRequestDto) {
+        reviewService.insertReview(reviewRequestDto, info.getUsername(), trainerIdx);
+
+        return "redirect:/";
+    }
+
     @GetMapping("/editReview")
     public String editReview(Model model, @AuthenticationPrincipal User info,
                              ReviewRequestDto reviewRequestDto) {
         model.addAttribute("head_title", "리뷰 수정");
         model.addAttribute("userId", info);
-        model.addAttribute("review", reviewService.showMyReivew(info.getUsername()));
+        model.addAttribute("review", reviewService.showMyReview(info.getUsername()));
 
         return "content/review/editReview";
     }
@@ -28,27 +45,18 @@ public class ReviewController {
     public String editMyReview(Model model, @AuthenticationPrincipal User info,
                                ReviewRequestDto reviewRequestDto) {
         model.addAttribute("userId", info);
-        model.addAttribute("review", reviewService.showMyReivew(info.getUsername()));
+        model.addAttribute("review", reviewService.showMyReview(info.getUsername()));
         reviewService.editReview(reviewRequestDto, info.getUsername());
 
-        return "redirect:/editReview";
+        return "redirect:/trainer/trainerSearch";
     }
 
     @PostMapping("/deleteReview")
-    public String deleteMyReview(Model model, @AuthenticationPrincipal User info,
-                               ReviewRequestDto reviewRequestDto) {
-        //model.addAttribute("userId", info);
+    public String deleteMyReview(@RequestParam("trainerId") int trainerId, @AuthenticationPrincipal User info) {
         reviewService.deleteReview(info.getUsername());
+        System.out.println(trainerId);
 
-        return "redirect:/trainer/{trainerId}";
+        return "redirect:/trainer/trainerSearch";
     }
-
-//    @PostMapping("/trainer/ptTimetableUpdate")
-//    public String timetableDelete(@RequestParam("tIdx") int tIdx){
-//        trainerService.deleteTimetable(tIdx);
-//
-//        return "redirect:/trainer/trainerControl";
-//    }
-
 
 }

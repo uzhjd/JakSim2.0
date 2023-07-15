@@ -13,35 +13,27 @@ public class ReviewDao {
     private JdbcTemplate jdbcTemplate;
     private String sql;
 
-    public void insertReview(ReviewRequestDto review) {
-        this.sql = "INSERT INTO REVIEW VALUES(NULL, ?, ?, ?, ?, ?, ?)";
+    public void insertReview(ReviewRequestDto review, String userId, int trainerIdx) {
+        this.sql = "INSERT INTO REVIEW VALUES(NULL, ?, ?, ?, ?, current_date, NULL)";
 
-        jdbcTemplate.update(this.sql, review.getUserId(), review.getTrainerId(),
-                            review.getReviewContent(), review.getStar(),
-                            review.getReviewCreateDate(), review.getReviewModifyDate());
-
-        this.sql = "INSERT INTO REVIEW_IMAGE VALUES(NULL, ?, ?)";
-
-        jdbcTemplate.update(this.sql, review.getReviewId(), review.getReviewImagePath());
+        jdbcTemplate.update(this.sql, userId, trainerIdx,
+                            review.getReviewContent(), review.getStar());
 
     }
 
-    public List<ReviewRequestDto> getTrainerReview(int utIdx) {
-        this.sql = "SELECT * FROM REVIEW R JOIN REVIEW_IMAGE RI " +
-                "ON R.R_IDX = RI.R_IDX " +
-                "WHERE UT_IDX = ?";
+    public List<ReviewRequestDto> getTrainerReview(String trainerId) {
+        this.sql = "SELECT * FROM REVIEW " +
+                "WHERE TRAINER_ID = ?";
 
-        return jdbcTemplate.query(this.sql, new ReviewRowMapper(), utIdx);
+        return jdbcTemplate.query(this.sql, new ReviewRowMapper(), trainerId);
     }
 
     public List<ReviewRequestDto> getMyReview(String userId) {
-        this.sql = "SELECT * FROM REVIEW R JOIN REVIEW_IMAGE RI " +
-                "ON R.R_IDX = RI.R_IDX " +
+        this.sql = "SELECT * FROM REVIEW " +
                 "WHERE USER_ID = ?";
 
         return jdbcTemplate.query(this.sql, new ReviewRowMapper(), userId);
     }
-
 
     public void editReview(ReviewRequestDto review, String userId) {
         this.sql = "UPDATE REVIEW SET R_CONTENT = ?, R_STAR = ?, R_M_DT = current_date " +

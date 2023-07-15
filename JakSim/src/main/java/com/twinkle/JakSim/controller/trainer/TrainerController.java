@@ -3,6 +3,7 @@ package com.twinkle.JakSim.controller.trainer;
 import com.twinkle.JakSim.model.dto.timetable.TimetableInsertDto;
 import com.twinkle.JakSim.model.dto.trainer.TrainerInsertDto;
 import com.twinkle.JakSim.model.dto.trainer.*;
+import com.twinkle.JakSim.model.service.payment.PaymentService;
 import com.twinkle.JakSim.model.service.review.ReviewService;
 import com.twinkle.JakSim.model.service.trainer.TrainerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,23 +11,27 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class TrainerController {
     @Autowired
-    private TrainerService trainerService;
+    TrainerService trainerService;
     @Autowired
     ReviewService reviewService;
+    @Autowired
+    PaymentService paymentService;
 
-    @GetMapping("/trainerRegister")
-    public String trainerSignUp(Model model, @AuthenticationPrincipal User info) {
+    @GetMapping("/trainer/trainerRegister")
+    public String trainerSignUp(Model model,  @AuthenticationPrincipal User info) {
+
         model.addAttribute("head_title", "트레이너 등록");
         model.addAttribute("userId", info);
 
@@ -34,59 +39,87 @@ public class TrainerController {
     }
 
     @PostMapping("/trainerRegister")
-    public String trainerSignUp(TrainerInsertDto trainerDto, @AuthenticationPrincipal User info, Model model) {
+    public String trainerSignUp(TrainerInsertDto trainerDto, @AuthenticationPrincipal User info, Model model,
+                                @RequestParam("certImage1") MultipartFile certImage,
+                                @RequestParam("imagePath1") MultipartFile[] imagePath) throws IOException {
         model.addAttribute("head_title", "트레이너 등록");
-        System.out.println(trainerDto.toString());
-        trainerService.TrainerSignUp(trainerDto, info.getUsername());
 
-        return "content/trainer/trainerRegister";
+        for (MultipartFile file : imagePath) {
+            System.out.println("파일 이름: " + file.getOriginalFilename());
+            System.out.println("파일 크기: " + file.getSize());
+            // 파일 저장 등의 로직 수행
+        }
+
+        System.out.println("cert 파일 이름: " + certImage.getOriginalFilename());
+        System.out.println("cert 파일 크기: " + certImage.getSize());
+        trainerService.TrainerSignUp(trainerDto, info.getUsername(), certImage, imagePath);
+
+        return "redirect:/";
     }
 
-    @GetMapping("/trainerUpdate/{trainerId}")
-    public String trainerUpdate(Model model, @PathVariable("trainerId") int tIdx, @AuthenticationPrincipal User info) {
+    @GetMapping("/trainerUpdate/{userId}")
+    public String trainerUpdate(Model model, @PathVariable("userId") String userId, @AuthenticationPrincipal User info) {
         model.addAttribute("head_title", "트레이너 정보수정");
         model.addAttribute("userId", info);
-        model.addAttribute("trainer", trainerService.searchTrainer(tIdx));
+        model.addAttribute("trainer", trainerService.searchTrainer(userId));
+        model.addAttribute("product", trainerService.getProduct(userId));
+        model.addAttribute("cert", trainerService.getCert(userId));
+        model.addAttribute("career", trainerService.getCareer(userId));
+        model.addAttribute("imageList", trainerService.getTrainerImage(userId));
+        model.addAttribute("name", trainerService.searchTrainerName(userId));
 
-        return "content/trainer/trainerUpdate";
+        return "content/trainer/trainerPage";
     }
 
     @PostMapping("/trainerUpdate")
-    public String trainerUpdate(TrainerInsertDto trainerDto, @AuthenticationPrincipal User info, Model model) {
-        //String userId = info.getUsername();
-        model.addAttribute("head_title", "트레이너 정보수정");
-        System.out.println(trainerDto.toString());
-        trainerService.updateTrainer(trainerDto, info.getUsername());
+    public String trainerUpdate(TrainerInsertDto trainerDto, @AuthenticationPrincipal User info, Model model,
+                                @RequestParam("certImage1") MultipartFile certImage,
+                                @RequestParam("imagePath1") MultipartFile[] imagePath) throws IOException {
+        System.out.println("cert Multipart : " + certImage.getOriginalFilename());
+        System.out.println("cert Multipart : " + certImage.getSize());
 
-        return "content/trainer/trainerUpdate";
+        for(MultipartFile file : imagePath) {
+            System.out.println("image Multipart : " + file.getOriginalFilename());
+            System.out.println("image Multipart : " + file.getSize());
+            System.out.println("image Multipart : " + file.isEmpty());
+            System.out.println("image Multipart : " + file.equals(""));
+        }
+
+        System.out.println("redirect update : " +trainerDto.toString());
+        trainerService.updateTrainer(trainerDto, info.getUsername(), certImage, imagePath);
+
+        return "redirect:/trainerUpdate/" + info.getUsername();
     }
+
     @PostMapping("/trainerDelete")
-    public String trainerDelete(TrainerInsertDto trainerDto, @AuthenticationPrincipal User info, Model model) {
-        //String userId = info.getUsername();
+    public String trainerDelete(TrainerInsertDto trainerDto, @AuthenticationPrincipal User info) {
+        //System.out.println("컨트롤러 del : "+ trainerDto.toString());
+        trainerService.deleteTrainer(trainerDto ,info.getUsername());
 
-        model.addAttribute("head_title", "트레이너 정보수정");
-        System.out.println(trainerDto.toString());
-        trainerService.deleteTrainer(info.getUsername());
-
-        return "content/index";
+        return "redirect:/";
     }
 
-    @GetMapping("/trainer/{trainerId}")
-    public String viewTrainer(@PathVariable("trainerId") int tIdx, @AuthenticationPrincipal User info, Model model) throws SQLException {
+    @GetMapping("/trainer/{userId}")
+    public String viewTrainer(@PathVariable("userId") String userId, @AuthenticationPrincipal User info, Model model) throws SQLException {
         //String userId = info.getUsername();
         //model.addAttribute("user", userId);
+        //@PathVariable("trainerId") int trainerId,
 
         model.addAttribute("head_title", "트레이너 상세페이지");
-        model.addAttribute("userId", info);
-        model.addAttribute("trainer", trainerService.searchTrainer(tIdx));
-        model.addAttribute("review", reviewService.showReview(tIdx));
+        model.addAttribute("session", info);
+        model.addAttribute("trainer", trainerService.searchTrainer(userId));
+        model.addAttribute("review", reviewService.showReview(userId));
+        model.addAttribute("product", trainerService.getProduct(userId));
+        model.addAttribute("cert", trainerService.getCert(userId));
+        model.addAttribute("career", trainerService.getCareer(userId));
+        model.addAttribute("imageList", trainerService.getTrainerImage(userId));
 
-        //터미널 확인용
-        List<TrainerSearchDto> trainer = trainerService.searchTrainer(tIdx);
-        System.out.println(trainer.toString());
 
         return "content/trainer/trainerDetailPage";
     }
+
+
+
 
     @GetMapping("/trainer/trainerSearch")
     public String viewTrainerSearch(Model model, @AuthenticationPrincipal User info){
@@ -102,13 +135,13 @@ public class TrainerController {
         model.addAttribute("head_title", "트레이너 관리페이지");
         model.addAttribute("userId", info);
         model.addAttribute("timetable", trainerService.getTimetable(info.getUsername()));
+        model.addAttribute("name", trainerService.searchTrainerName(info.getUsername()));
 
-        return "content/trainer/trainerControlpage";
+        return "content/trainer/trainerPage2";
     }
     @PostMapping("/trainer/ptTimetableRegister")
     public String timetableRegister(Model model, @AuthenticationPrincipal User info, TimetableInsertDto timetable){
         model.addAttribute("userId", info);
-        System.out.println(timetable.toString());
         trainerService.registerTimetable(timetable, info.getUsername());
 
         return "redirect:/trainer/trainerControl";
@@ -125,8 +158,9 @@ public class TrainerController {
         model.addAttribute("head_title", "트레이너 관리페이지");
         model.addAttribute("userId", info);
         model.addAttribute("ptUser", trainerService.getMyPtUserInfo(info.getUsername()));
+        model.addAttribute("name", trainerService.searchTrainerName(info.getUsername()));
 
-        return "content/trainer/trainerControlUserInfopage";
+        return "content/trainer/trainerPage3";
     }
 
     @GetMapping("/modalTest")
@@ -139,4 +173,5 @@ public class TrainerController {
     public String addressTest() {
         return "content/trainer/addressModal";
     }
+
 }

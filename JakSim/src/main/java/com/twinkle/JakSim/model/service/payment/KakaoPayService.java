@@ -75,7 +75,8 @@ public class KakaoPayService {
                                                                                 requestEntity, ReadyResponse.class);
         kakaoReady.setPtTimes(paymentRequest.getPtTimes());
         kakaoReady.setPtPeriod(paymentRequest.getPtPeriod());
-
+        System.out.println(kakaoReady);
+        System.out.println("kakaoReady");
         return kakaoReady;
     }
 

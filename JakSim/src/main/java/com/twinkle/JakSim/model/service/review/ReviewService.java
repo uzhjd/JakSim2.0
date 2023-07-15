@@ -19,17 +19,17 @@ public class ReviewService {
     private ReviewDao reviewDao;
 
     @Transactional
-    public void insertReview(ReviewRequestDto review) {
-        reviewDao.insertReview(review);
+    public void insertReview(ReviewRequestDto review, String userId, int trainerIdx) {
+        reviewDao.insertReview(review, userId, trainerIdx);
 
     }
     @Transactional
-    public List<ReviewRequestDto> showReview(int utIdx) {
-        return reviewDao.getTrainerReview(utIdx);
+    public List<ReviewRequestDto> showReview(String trainerId) {
+        return reviewDao.getTrainerReview(trainerId);
     }
 
     @Transactional
-    public List<ReviewRequestDto> showMyReivew(String userId) {
+    public List<ReviewRequestDto> showMyReview(String userId) {
         return reviewDao.getMyReview(userId);
     }
 

@@ -14,6 +14,8 @@ function kakaoPay(ptTitle, tpIdx, ptPrice, ptTimes, ptPeriod) {
          ptPeriod: ptPeriod
      };
 
+console.log("data");
+console.log(data);
     axios.post('/payment/ready', data)
         .then((response) => {
             var httpStatus = response.status;

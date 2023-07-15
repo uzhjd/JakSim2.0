@@ -19,6 +19,6 @@ public class ReviewRequestDto {
     private LocalDateTime reviewCreateDate;
     private LocalDateTime reviewModifyDate;
 
-    private int reviewImageId;
-    private String reviewImagePath;
+    //private int reviewImageId;
+    //private String reviewImagePath;
 }

@@ -8,10 +8,11 @@
 .jaksim_btn{
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 15px;
+    /*font-weight: 500;*/
 
     border: 0.09rem solid #949494;
     border-radius: 7px;
-    padding: 4px 6px 4px 6px;
+    padding: 6px 6px 2px 6px;
 
     background-color: #E9E1FB;
     color: #747474;
@@ -25,9 +26,17 @@
 .jaksim_font{
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 15px;
-    font-weight: bold;
+    /*font-weight: bold;*/
 
     color: #747474;
+}
+
+.jaksim_title_font{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 19px;
+    font-weight: bold;
+
+    color: #000000;
 }
 
 #navi_userInfo{
@@ -45,8 +54,6 @@
 #nav_time{
     margin: 0px 5px 0px 5px;
     color:#C8B0FC;
-    text-align:center;
-    width: 40px;
 }
 
 #nav-head{
@@ -59,6 +66,54 @@
     color:#747474;
 }
 
-.nav-link:hover{
-    color: black;
+.jaksim_withdraw_btn{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+
+    border: 2px solid #ff0000;
+    border-radius: 7px;
+    padding: 6px 6px 6px 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 6px;
+    padding-top: 6px;
+
+    background-color: #ffffff;
+    color: #ff0000;
 }
+.jaksim_withdraw_btn:hover, .jaksim_withdraw_btn:active, .jaksim_withdraw_btn:disabled{
+    background-color: #ff0000;
+    border: 2px solid #ff0000;
+    color: #FFFFFF;
+}
+
+.jaksim_register_btn{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+
+    border: 2px solid #256BF4;
+    border-radius: 7px;
+    padding: 6px 6px 6px 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 6px;
+    padding-top: 6px;
+
+    background-color: #ffffff;
+    color: #256BF4;
+}
+.jaksim_register_btn:hover, .jaksim_register_btn:active, .jaksim_register_btn:disabled{
+    background-color: #256BF4;
+    border: 2px solid #256BF4;
+    color: #FFFFFF;
+}
+
+* {
+        font-family: 'Noto Sans KR', sans-serif;
+        font-size: 15px;
+        /*font-weight: bold;*/
+
+        color: #747474;
+    }
