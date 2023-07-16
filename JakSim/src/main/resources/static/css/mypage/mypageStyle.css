@@ -93,6 +93,10 @@ section{
     text-align: center;
 }
 
+.aside_item: hover, .aside_item:active{
+    color: #C8B0FC;
+}
+
 #mypage_aside_banner{
     margin: 2.5rem 1rem 2.5rem 1rem;
     padding: 10px;
@@ -129,11 +133,15 @@ section{
 
 .mypage_table_tableHead{
     background-color: #C8B0FC;
-    color: white;
     border-top-right-radius: 10px;
     border-top-left-radius:10px;
     padding: 5px;
     margin-top: 30px;
+}
+
+.mypage_table_tableHead > a > span{
+    color: white;
+    font-size: 20px;
 }
 
 .mypage_table_tableHead > a{
@@ -155,6 +163,10 @@ section{
 
 .mypage_table_row > span, .mypage_table_row > input, .mypage_table_row > table{
     margin-right: auto;
+}
+
+.mypage_table_innerRow{
+    width: 100%;
 }
 
 .mypage_table_innerRow > span{
@@ -251,5 +263,4 @@ input[type='number']::webkit-inner-spin-button{
     border:none;
     border-bottom: 2px solid black;
     /*margin-right: 10px;*/
-
 }

@@ -2,6 +2,7 @@ package com.twinkle.JakSim.model.service.review;
 
 import com.twinkle.JakSim.model.dao.review.ReviewDao;
 import com.twinkle.JakSim.model.dao.trainer.TrainerDao;
+import com.twinkle.JakSim.model.dto.review.ReviewDto;
 import com.twinkle.JakSim.model.dto.review.ReviewRequestDto;
 import com.twinkle.JakSim.model.dto.trainer.TrainerInsertDto;
 import com.twinkle.JakSim.model.dto.trainer.TrainerSearchDto;
@@ -47,5 +48,9 @@ public class ReviewService {
     @Transactional
     public void deleteReview(String userId) {
         reviewDao.deleteReview(userId);
+    }
+
+    public List<ReviewDto> getReviewItems(String username, int page) {
+        return reviewDao.getReviewItems(username, page);
     }
 }
