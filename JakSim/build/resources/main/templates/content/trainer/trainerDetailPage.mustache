@@ -1,6 +1,7 @@
 {{>layout/header}}
 <link rel="stylesheet" href="/css/trainer/trainerPage.css">
 <script src="https://kit.fontawesome.com/05995ac069.js" crossorigin="anonymous"></script>
+<script src="/javascript/payment/kakaoPay.js"></script>
 
 <body>
 {{>layout/navi}}
@@ -111,31 +112,26 @@
 
 
     </style>
-
     <span style="font-weight: bold; font-size: 16px;">PT 상품</span><br/>
-
     {{#product}}
-    
         
-        <div id="pt-info">
-        <input class="ptTitle" hidden="hidden" name="ptTitle" value="{{ptTitle}}" readonly/>
-        <input class="ptTimes" hidden="hidden" name="ptTimes" value="{{ptTimes}}" readonly/>
-        <input class="ptPrice" hidden="hidden" name="ptPrice" value="{{ptPrice}}" readonly/>
-        <input class="ptPeriod" hidden="hidden" name="ptPeriod" class="ptPeriod" value="{{ptPeriod}}"/>
+            <div id="pt-info">
+            <input class="ptTitle" hidden="hidden" name="ptTitle" value="{{ptTitle}}" readonly/>
+            <input class="ptTimes" hidden="hidden" name="ptTimes" value="{{ptTimes}}" readonly/>
+            <input class="ptPrice" hidden="hidden" name="ptPrice" value="{{ptPrice}}" readonly/>
+            <input class="ptPeriod" hidden="hidden" name="ptPeriod" class="ptPeriod" value="{{ptPeriod}}"/>
+
+            <span style="width: 155px;">{{ptTitle}}</span>
+        <span style="width: width: 101px;">{{ptTimes}}회 {{ptPrice}}원</span>
+
+            <div class="trainer_pay" style="margin-right: 20px;">
+                <button class="payButton" data-ptId="{{ptId}}">결제하기</button>
+            </div>
+             </div>
         
-        <span>{{ptTitle}}</span>
-        <span>{{ptTimes}}회 {{ptPrice}}원</span>
-    
-        <div class="trainer_pay" style="margin-right: 20px;">
-            <button class="payButton" data-ptId="{{ptId}}">결제하기</a>
-        </div>
-    </div>
     {{/product}}
-
-
     <br/>
     <hr>
-
     <div id="review-container">
         <span class="jaksim_font" style="font-weight: bold; font-size: 16px;">PT 리뷰</span>
         <br/>
@@ -181,7 +177,7 @@
 
 window.onload = function() {
 
-    var currentUser = "{{session_username}}";
+    var currentUser = "{{session_user.username}}";
     var reviewElements = document.querySelectorAll('.reviewLink');
     var deleteReviewForm = document.querySelectorAll('.delete_review_td');
 
@@ -386,20 +382,12 @@ payButtons.forEach(function(button) {
     var ptTimes = parseInt(ptInfo.querySelector('.ptTimes').value);
     var ptPeriod = parseInt(ptInfo.querySelector('.ptPeriod').value);
 
-    kakaopay(tpIdx, ptTitle, ptPrice, ptTimes, ptPeriod);
+    kakaoPay(ptTitle, tpIdx, ptPrice, ptTimes, ptPeriod);
   });
-});
-
-
-
-function kakaopay(tpIdx, ptTitle, ptPrice, ptTimes, ptPeriod) {
-  console.log("tpIdx:", tpIdx);
-  console.log("ptTitle:", ptTitle);
-  console.log("ptPrice:", ptPrice);
-  console.log("ptTimes:", ptTimes);
-  console.log("ptPeriod:", ptPeriod);
-  // 여기에 실제 결제 처리 로직을 추가
 }
+
+);
+
 
 
 </script>
