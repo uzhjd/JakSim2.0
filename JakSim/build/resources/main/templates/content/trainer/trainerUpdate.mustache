@@ -1,0 +1,241 @@
+<link rel="stylesheet" href="/css/trainer/trainerRegister.css">
+<link rel="stylesheet" href="/css/trainer/trainerSearch.css">
+
+<div>
+    <h3 class="right_info jaksim_title_font" style="position: relative;
+    margin-top: 30px;
+    margin-bottom: 50px;">트레이너 정보수정</h3>
+</div>
+
+<form action="/trainerUpdate" method="POST" enctype="multipart/form-data" onsubmit="return confirm('프로필을 저장하시겠습니까?');">
+    <div class="input_container">
+        <span class="input_span">인스타 링크</span>
+        <input class="input_input" value="{{#trainer}}{{insta}}{{/trainer}}" type="text" name="insta">
+    </div>
+    <div class="input_container">
+        <span class="input_span">자기소개</span>
+        <input name="introduce" class="input_input" id="trainer_create_introduce" value="{{#trainer}}{{introduce}}{{/trainer}}" cols="30" rows="10" required />
+    </div>
+    <div class="input_container">
+        <span class="input_span">소속 헬스장</span>
+        <input class="input_input" type="text" value="{{#trainer}}{{gym}}{{/trainer}}" name="gym" required>
+    </div>
+    <span style="font-weight:bold">전문분야</span>
+    <span style="font-size: 12px;">2개를 선택해주세요</span><br>
+    <select name="expert1" class="input_select" style="margin-left: 0px;" value="{{#trainer}}{{expert1}}{{/trainer}}">
+        <option value="0">바디프로필</option>
+        <option value="1">파워리프팅</option>
+        <option value="2">다이어트</option>
+        <option value="3">재활운동</option>
+        <option value="4">자세교정</option>
+        <option value="5">컨디셔닝</option>
+    </select>
+    <select name="expert2" class="input_select" value="{{#trainer}}{{expert2}}{{/trainer}}" style="margin-top: 5px; margin-left: 10px;">
+        <option value="0">바디프로필</option>
+        <option value="1">파워리프팅</option>
+        <option value="2">다이어트</option>
+        <option value="3">재활운동</option>
+        <option value="4">자세교정</option>
+        <option value="5">컨디셔닝</option>
+    </select>
+
+    {{#cert}}
+    <div class="input_container">
+        <span class="input_span">자격증</span>
+        <input class="input_input" style="margin-bottom: 5px;" type="text" name="certName" value="{{certName}}" id="certName">
+        <input hidden="hidden" type="number" name="certId" value="{{certId}}"/>
+        <div id="create_cert_div"></div>
+    </div>
+    {{/cert}}
+    <span style="font-weight:bold" class="jaksim_font">자격증 이미지 등록</span><br>
+    <span style="font-size: 12px;">자격증 이미지는 1개만 등록 가능합니다.</span><br>
+    <input accept="image/*" type="file" name="certImage1" class="jaksim_font" onchange="previewCertImage(event)" /><br/>
+    <img id="preview-cert-image" src="{{#cert}}{{certImage}}{{/cert}}" alt="Cert Image" width="220" height="220"><br/>
+    
+    {{#career}}
+    <div class="input_container">
+        <span class="input_span">경력사항</span>
+        <input class="input_input jaksim_font" style="margin-bottom: 5px;" type="text" name="careerContent" value="{{careerContent}}" id="careerContent">
+        <input hidden="hidden" type="number" name="careerId" value="{{careerId}}"/>
+        <div id="create_career_div"></div>
+    </div>
+    {{/career}}
+
+    <div class="input_container">
+        <span style="font-weight:bold">PT 상품 등록</span><br>
+        {{#product}}
+        <select name="ptType" class="input_select ptTypeSelect{{ptId}}" 
+        style="margin-bottom: 5px; height: 26px; font-size: 13px; padding: 3px;">
+            <option value="0" style="font-size: 13px;">개인</option>
+            <option value="1" style="font-size: 13px;">단체</option>
+        </select>
+        <input type="hidden" name="ptTypeValue" value="{{ptType}}"> <br/>
+
+        <input hidden="hidden" type="number" name="ptId" class="ptIdIndex" value="{{ptId}}"/>
+
+        <span class="input_span jaksim_font">횟수</span>
+        <input class="input_input jaksim_font" type="number" name="ptTimes" id="ptTimes" value="{{ptTimes}}" style="margin-bottom:5px;">
+        <br>
+        <span class="input_span jaksim_font">PT 제목</span>
+        <input class="input_input jaksim_font" type="text" name="ptTitle" id="ptTitle" value="{{ptTitle}}" style="margin-bottom:5px;">
+        <br>
+        <span class="input_span jaksim_font">가격</span>
+        <input class="input_input jaksim_font" type="number" name="ptPrice" id="ptPrice" value="{{ptPrice}}" style="margin-bottom: 5px;"/>
+        <br>
+        <span class="input_span jaksim_font">유효기간</span>
+        <input class="input_input jaksim_font" type="number" name="ptPeriod" id="ptPeriod" value="{{ptPeriod}}" style="margin-bottom:5px;"/>
+        <br/>
+        {{/product}}
+    </div>
+
+    <div class="input_class">
+        <span style="font-weight:bold" class="jaksim_font">이미지 등록</span><br>
+        <span style="font-size: 12px;">첫번째 이미지는 프로필 이미지로 사용됩니다.</span><br>
+        
+        <input accept="image/*" type="file" name="imagePath1" onchange="previewImage2(event)" multiple/>
+        <div id="image-preview-container">
+            {{#imageList}}
+            <img src="{{imagePath}}" alt="Image Preview" width="220" height="220">
+            {{/imageList}}
+        </div>
+        <input hidden="hidden" type="number" name="imageId" value="{{#imageList}}{{imageId}}{{/imageList}}"/>
+    </div>
+
+    <br>
+    {{#imageList}}
+        <input type="hidden" name="imagePath" value="{{imagePath}}">
+    {{/imageList}}
+    {{#cert}}
+        <input type="hidden" name="certImage" value="{{certImage}}">
+    {{/cert}}
+    <div style="display: flex;">
+        <button type="submit" class="jaksim_register_btn" style="height: 38px; padding-left: 10px; padding-right: 10px;padding-bottom: 6px;padding-top: 6px; margin-right: 10px;">저장하기</button>
+    
+</form>
+
+<form action="/trainerDelete" method="POST" onsubmit="return confirm('트레이너 정보를 삭제하시겠습니까?');">
+    {{#imageList}}
+        <input type="hidden" name="imagePath" value="{{imagePath}}">
+    {{/imageList}}
+    {{#cert}}
+        <input type="hidden" name="certImage" value="{{certImage}}">
+    {{/cert}}
+    <button type="submit" style="height: 38px;" class="jaksim_withdraw_btn">정보삭제</button>
+</form>
+</div>
+
+<style>
+#preview-image {
+    max-width: 500px;
+    max-height: 500px;
+    display: none;
+}
+
+#preview-image2 {
+    max-width: 500px;
+    max-height: 500px;
+    display: none;
+}
+</style>
+
+<script>
+window.onload = function() {
+    // 이전 코드 생략
+
+    var certImageValue = "{{#cert}}{{certImage}}{{/cert}}";
+    var previewCertImage = document.getElementById("preview-cert-image");
+
+    if (certImageValue === "") {
+        // certImage가 비어있을 경우 이미지 숨김
+        previewCertImage.style.display = "none";
+    }
+}
+</script>
+
+
+<script>
+function previewImage(event) {
+    var input = event.target;
+    var reader = new FileReader();
+
+    reader.onload = function(){
+        var preview = document.getElementById('preview-image');
+        preview.src = reader.result;
+        preview.style.display = 'block';
+    };
+
+    reader.readAsDataURL(input.files[0]);
+}
+
+function previewCertImage(event) {
+    var input = event.target;
+    var reader = new FileReader();
+
+    reader.onload = function(){
+        var preview = document.getElementById('preview-cert-image');
+        preview.src = reader.result;
+        preview.style.display = 'block';
+    };
+
+    reader.readAsDataURL(input.files[0]);
+}
+
+function previewImage2(event) {
+    var input = event.target;
+    var previewContainer = document.getElementById('image-preview-container');
+    previewContainer.innerHTML = ''; // 기존의 미리보기 이미지를 모두 지웁니다.
+
+    for (var i = 0; i < input.files.length; i++) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            var previewImage = document.createElement('img');
+            previewImage.src = e.target.result;
+            previewImage.style.maxWidth = '100px';
+            previewImage.style.maxHeight = '100px';
+            previewContainer.appendChild(previewImage);
+        };
+
+        reader.readAsDataURL(input.files[i]);
+    }
+}
+
+window.onload = function() {
+    // expert1 값에 따라 option 선택
+    var expert1Value = "{{#trainer}}{{expert1}}{{/trainer}}";
+    var expert1Select = document.getElementsByName("expert1")[0];  // expert1 select 요소 선택
+
+    // option value에 해당하는 인덱스를 찾아 선택
+    for (var i = 0; i < expert1Select.options.length; i++) {
+        if (expert1Select.options[i].value === expert1Value) {
+            expert1Select.selectedIndex = i;
+            break;
+        }
+    }
+
+    // expert2 값에 따라 option 선택
+    var expert2Value = "{{#trainer}}{{expert2}}{{/trainer}}";
+    var expert2Select = document.getElementsByName("expert2")[0];  // expert2 select 요소 선택
+
+    // option value에 해당하는 인덱스를 찾아 선택
+    for (var j = 0; j < expert2Select.options.length; j++) {
+        if (expert2Select.options[j].value === expert2Value) {
+            expert2Select.selectedIndex = j;
+            break;
+        }
+    }
+
+    {{#product}}
+    var ptTypeValue = parseInt("{{ptType}}");
+    var selectElement = document.querySelector('.ptTypeSelect{{ptId}}');
+
+    if (ptTypeValue === 0) {
+        // 개인을 선택
+        selectElement.selectedIndex = 0;
+    } else if (ptTypeValue === 1) {
+        // 단체를 선택
+        selectElement.selectedIndex = 1;
+    }
+    {{/product}}
+}
+</script>

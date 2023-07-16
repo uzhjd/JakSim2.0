@@ -1,0 +1,202 @@
+{{>layout/header}}
+<link rel="stylesheet" href="/css/trainer/trainerSearch.css">
+<script src="https://kit.fontawesome.com/05995ac069.js" crossorigin="anonymous"></script>
+
+{{>layout/navi}}
+
+<div id="index_container">
+    <div id="findTrainerWrapper">
+        <div id="findTrainer_container" style="width: 1000px;">
+            <div id="location" style="width: 1000px;">
+                <a onclick="road()" style="cursor: pointer;"><i class="fa-sharp fa-solid fa-location-dot fa-xl" style="color: #ca7cfd;" id="location"></i></a>
+                <input readonly type="text" class="jaksim_font" placeholder="주소를 입력하세요" id="input-address" style="pointer-events: none; width: 350px; border: white; border-radius: 5px; "/>
+                <br>
+            </div>
+
+            <div id="button_container">
+                <input type="radio" name="toggle" value="0" id="toggle-body-profile" class="toggle-btn">
+                <label for="toggle-body-profile" class="toggle-label jaksim_font">바디프로필</label>
+
+                <input type="radio" name="toggle" value="1" id="toggle-power-lifting" class="toggle-btn">
+                <label for="toggle-power-lifting" class="toggle-label jaksim_font">파워리프팅</label>
+
+                <input type="radio" name="toggle" value="2" id="toggle-diet" class="toggle-btn">
+                <label for="toggle-diet" class="toggle-label jaksim_font">다이어트</label>
+
+                <input type="radio" name="toggle" value="3" id="toggle-rehab" class="toggle-btn">
+                <label for="toggle-rehab" class="toggle-label jaksim_font">재활운동</label>
+
+                <input type="radio" name="toggle" value="4" id="toggle-posture" class="toggle-btn">
+                <label for="toggle-posture" class="toggle-label jaksim_font">자세교정</label>
+
+                <input type="radio" name="toggle" value="5" id="toggle-condition" class="toggle-btn">
+                <label for="toggle-condition" class="toggle-label jaksim_font">컨디셔닝</label>
+            </div>
+
+            <div class="trainer-container">
+                {{#trainers}}
+                    <div class="trainer-item" data-expert1="{{expert1}}" data-expert2="{{expert2}}">
+                        <a href="/trainer/{{userId}}">
+                            <div class="find_trainer_crop">
+                                <img src="{{imagePath}}" style="width: 250px; margin-left: 50px; margin-right: 0px;" alt="트레이너" class="find_trainer_profile">
+                            </div>
+                            <div>
+                                <span class="jaksim_font">{{gym}}</span>
+                            </div>
+                            <div>
+                                <span class="jaksim_font">{{userName}} <i class="fa-solid fa-star" style="color: #f3eb12;"></i> {{avgRstar}}</span>
+                            </div>
+                            <div>
+                                <span class="searchExpert1 jaksim_font">{{expert1}}</span>
+                                <span class="searchExpert2 jaksim_font">{{expert2}}</span>
+                            </div>
+                            <div>
+                                <span class="jaksim_font">{{certName}}</span>
+                            </div>
+                        </a>
+                    </div>
+                {{/trainers}}
+            </div>
+
+            <div id="pagination">
+                <button id="prevButton" class="jaksim_btn" style="margin-right:5px;">이전</button>
+                <button id="nextButton" class="jaksim_btn" style="margin-left:5px;">다음</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{>layout/footer}}
+
+<script>
+  // Get all the trainer items
+  var searchExpert1 = document.querySelectorAll('.searchExpert1');
+  var searchExpert2 = document.querySelectorAll('.searchExpert2');
+
+  if (searchExpert1.length === searchExpert2.length) {
+    for (var i = 0; i < searchExpert1.length; i++) {
+      var expert1Value = parseInt(searchExpert1[i].textContent);
+      var expert2Value = parseInt(searchExpert2[i].textContent);
+
+      // Update the expert labels based on the values
+      if (!isNaN(expert1Value)) {
+        searchExpert1[i].textContent = getExpertLabel(expert1Value);
+      }
+      if (!isNaN(expert2Value)) {
+        searchExpert2[i].textContent = getExpertLabel(expert2Value);
+      }
+    }
+  }
+
+  function getExpertLabel(value) {
+    switch (value) {
+      case 0:
+        return '#바디프로필';
+      case 1:
+        return '#파워리프팅';
+      case 2:
+        return '#다이어트';
+      case 3:
+        return '#재활운동';
+      case 4:
+        return '#자세교정';
+      case 5:
+        return '#컨디셔닝';
+      default:
+        return '';
+    }
+  }
+
+  //페이징기능
+  // Pagination variables
+  var currentPage = localStorage.getItem('currentPage') || 0;
+  var trainersPerPage = 6;
+  var trainerItems = document.querySelectorAll('.trainer-item');
+
+  // Update the trainers' display based on the current page
+  function updateTrainerDisplay() {
+    var startIndex = currentPage * trainersPerPage;
+    var endIndex = startIndex + trainersPerPage;
+
+    trainerItems.forEach(function (item, index) {
+      if (index >= startIndex && index < endIndex) {
+        item.style.display = 'block';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  }
+
+  // Pagination button event listeners
+  var prevButton = document.getElementById('prevButton');
+  var nextButton = document.getElementById('nextButton');
+
+  prevButton.addEventListener('click', function () {
+    if (currentPage > 0) {
+      currentPage--;
+      updateTrainerDisplay();
+      localStorage.setItem('currentPage', currentPage);
+    }
+  });
+
+  nextButton.addEventListener('click', function () {
+    var maxPage = Math.ceil(trainerItems.length / trainersPerPage) - 1;
+    if (currentPage < maxPage) {
+      currentPage++;
+      updateTrainerDisplay();
+      localStorage.setItem('currentPage', currentPage);
+    }
+  });
+
+  // Update the trainer display based on the current page
+  updateTrainerDisplay();
+</script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', function() {
+        const buttons = document.querySelectorAll('.toggle-btn');
+        const trainerItems = document.querySelectorAll('.trainer-item');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                const selectedValue = button.value;
+
+                trainerItems.forEach(item => {
+                    const expert1Value = item.getAttribute('data-expert1');
+                    const expert2Value = item.getAttribute('data-expert2');
+                    if (selectedValue === expert1Value || selectedValue === 'all') {
+                        item.style.display = 'block';
+                    }
+                    else if (selectedValue === expert2Value || selectedValue === 'all') {
+                        item.style.display = 'block';
+                    }
+                    else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    });
+</script>
+
+<script>
+  //주소찾기
+  function road() {
+    const popup = window.open("/address-search","Popup", "width=800, height=700");
+
+    popup.onbeforeunload = function(data) {
+      console.log(data)
+      console.log("데이터 체크")
+    }
+
+    // 팝업창에 데이터 쓰기
+    popup.document.write(data);
+  }
+
+  function test() {
+    $.ajax({
+      url: "https://business.juso.go.kr/addrlink/addrLinkUrl.do?confmKey=U01TX0FVVEgyMDIzMDUwMjE0MTI1MDExMzczNzM=&returnUrl=http://localhost:3030/road-return&resultType=4",
+      type: "GET",
+    });
+  }
+</script>
