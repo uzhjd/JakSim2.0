@@ -1,7 +1,9 @@
 package com.twinkle.JakSim.controller.payment;
 
+import com.twinkle.JakSim.model.dto.payment.PaymentDtoForMypage;
 import com.twinkle.JakSim.model.dto.payment.response.PaymentDo;
 import com.twinkle.JakSim.model.service.payment.PaymentService;
+import com.twinkle.JakSim.model.service.trainer.TrainerService;
 import com.twinkle.JakSim.model.dto.payment.response.ApproveResponse;
 import com.twinkle.JakSim.model.service.payment.KakaoPayService;
 import com.twinkle.JakSim.model.service.payment.PaymentService;
