@@ -23,5 +23,4 @@ public class TrainerRestController {
 
         return ResponseEntity.ok(response);
     }
-
 }
