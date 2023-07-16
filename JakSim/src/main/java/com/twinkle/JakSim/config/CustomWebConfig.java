@@ -10,7 +10,7 @@ public class CustomWebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         String connectPath = "/image/**";
-        String resourcePath = "file:///C:/projects/JakSim2.0/JakSim/src/main/resources/static/image/";
+        String resourcePath = "file:///C:/Users/ujeon/IdeaProjects/JakSim2.0/JakSim/src/main/resources/static/image/";
 
         registry.addResourceHandler(connectPath).addResourceLocations(resourcePath);
     }

@@ -33,7 +33,23 @@ window.onload = function() {
             checkTel();
             isTelChange = true;
         }
-    })
+    });
+
+    var viewReviewButtons = document.getElementsByClassName('mypage_viewReview');
+    Array.from(viewReviewButtons).forEach((button) => {
+        button.addEventListener('click', function(event){
+            var reviewId = event.target.closest('tr').querySelector('.jaksim_font td:first-child span').textContent;
+            window.location.href=`/editReview/${reivewId}`;
+        });
+    });
+
+    var viewPayButtons = document.getElementsByClassName('mypage_viewPayDetail');
+    Array.from(viewPayButtons).forEach((button) => {
+        button.addEventListener('click', function(event){
+            var payId = event.target.closest('tr').querySelector('td:first-child span').textContent;
+            window.location.href=`/payment/detail/${payId}`;
+        });
+    });
 }
 
 function paymentCheck(){

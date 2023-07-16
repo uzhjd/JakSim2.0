@@ -1,6 +1,7 @@
 window.onload = function () {
-    // setPayment();
-    var btn = document.getElementById("paymentDetailsBtn");
+    var btn = document.getElementById("modalCloseBtn");
 
-    // btn.addEventListener('click', () => paymentDetails());
+    btn.addEventListener('click', function () {
+        window.close();
+    });
 }

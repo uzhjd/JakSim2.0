@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.lang.reflect.Array;
 import java.util.List;
 
 @Controller
@@ -28,19 +29,12 @@ public class PaymentController {
 
     private final KakaoPayService kakaoPayService;
     private final PaymentService paymentService;
-
     private final String defaultPage = "/content/payment/";
-
-    // 결제 진행 중 취소
-    @GetMapping()
-    public String scheduler() {
-        return "content/payment/KakaoPay";
-    }
 
     // 결제 진행 중 취소
     @GetMapping("/cancel")
     public String cancel() {
-        return "content/payment/kakaoPay/Cancle";
+        return defaultPage + "kakaoPay/Cancle";
     }
 
     // 결제 승인 (성공)
@@ -51,14 +45,15 @@ public class PaymentController {
         if(kakaoApprove != null) {
             if(paymentService.savePaymentDetails(user.getUsername(), kakaoApprove)) {
                 kakaoApprove.setApproved_at(kakaoApprove.getApproved_at().replace("T", " "));
+
                 model.addAttribute("kakaoApprove", kakaoApprove);
 
-                return "content/payment/kakaoPay/Success";
+                return defaultPage + "kakaoPay/Success";
             }
         }
 
         // 일단은 에러처리 안함.
-        return "content/payment/kakaoPay/Success";
+        return defaultPage + "kakaoPay/Success";
     }
     
     ////////////////////////////////
