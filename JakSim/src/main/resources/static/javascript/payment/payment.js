@@ -20,7 +20,7 @@ function getPay(){
     /*!! 반드시 URL 링크 변경하시고 사용하길 바랍니다 !!*/
     /*!!! 필요시에 추가하시거나 가감하면서 진행하시면 됩니다. !!!*/
     var test = '/image/Training.jpg';
-    axios.get(`/pay/api/${nowPage}`)
+    axios.get(`/payment/api/${nowPage}`)
         .then(response => {
             html = '';
             var container = document.getElementById('pay_list_tbody');
@@ -34,7 +34,7 @@ function getPay(){
                     html += `<td><span>이름</span></td>`; //트레이너 이름
                     html += `<td><span>가격</span></td>`; //가격
                     html += `<td><span>${item.c_dt}</span></td>`;
-                    html += `<td><button class="jaksim_btn" onclick="window.location.href='/pay/detail/${item.idx}'"+>상세 조회</button></td>`;
+                    html += `<td><button class="jaksim_btn" onclick="window.location.href='/payment/detail/${item.idx}'"+>상세 조회</button></td>`;
                     html += '<tr>';
                 });
                 container.innerHTML = html;

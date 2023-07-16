@@ -127,7 +127,7 @@
         <span>{{ptTimes}}회 {{ptPrice}}원</span>
     
         <div class="trainer_pay" style="margin-right: 20px;">
-            <button class="payButton" data-ptId="{{ptId}}">결제하기</a>
+            <button class="payButton" data-ptId="{{ptId}}">결제하기</button>
         </div>
     </div>
     {{/product}}
@@ -181,7 +181,7 @@
 
 window.onload = function() {
 
-    var currentUser = "{{session_username}}";
+    var currentUser = "{{session_user.username}}";
     var reviewElements = document.querySelectorAll('.reviewLink');
     var deleteReviewForm = document.querySelectorAll('.delete_review_td');
 
