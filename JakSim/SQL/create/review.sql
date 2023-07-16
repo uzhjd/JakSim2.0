@@ -17,7 +17,7 @@ CREATE TABLE REVIEW(
 COMMIT;
 
 INSERT INTO REVIEW
-VALUES(NULL, 'ujeong','wkdgyfla97', 1, '트레이너가 친절하고 PT가 맛있어요', 5, current_date, NULL);
+VALUES(NULL, 'test','test2', 1, '트레이너가 친절하고 PT가 맛있어요', 5, current_date, NULL);
 INSERT INTO REVIEW
 VALUES(NULL, 'humble', 'wkdgyfla97', 1, '이렇게 피티가 뭐같은적이 없음', 1, current_date, NULL);
 INSERT INTO REVIEW
