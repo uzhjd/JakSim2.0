@@ -31,8 +31,8 @@ public class ReviewController {
         return "redirect:/";
     }
 
-    @GetMapping("/editReview")
-    public String editReview(Model model, @AuthenticationPrincipal User info,
+    @GetMapping("/editReview/{reviewIdx}")
+    public String editReview(@PathVariable("reviewIdx") int reviewIdx, Model model, @AuthenticationPrincipal User info,
                              ReviewRequestDto reviewRequestDto) {
         model.addAttribute("head_title", "리뷰 수정");
         model.addAttribute("userId", info);
