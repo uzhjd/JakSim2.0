@@ -59,4 +59,8 @@ public class ReviewController {
         return "redirect:/trainer/trainerSearch";
     }
 
+    @GetMapping("/review/list")
+    public String getList(){
+        return "content/review/review_list";
+    }
 }
