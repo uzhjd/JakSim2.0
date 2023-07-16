@@ -248,7 +248,9 @@ public class TrainerDao {
     public TrainerDetailResponse findTrainerBreif(String trainerId) {
         TrainerDetailResponse trainerDetailResponse = new TrainerDetailResponse();
 
-        this.sql = "select * from trainer_details as t inner join user_info as u on t.user_id = u.user_id where t.user_id = ?";
+        this.sql = "select * from trainer_details as t inner join user_info as u on t.user_id = u.user_id " +
+                "inner join trainer_image as img on u.user_id = img.user_id " +
+                "where t.user_id = ?";
 
         try {
             trainerDetailResponse = jdbcTemplate.queryForObject(this.sql, new TrainerDetailRowMapper(), trainerId);

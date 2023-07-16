@@ -22,4 +22,6 @@ public class TrainerDetailResponse {
     private int expert1;
 
     private int expert2;
+
+    private String imagePath;
 }

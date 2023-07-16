@@ -7,8 +7,8 @@ function setTrainerBrief(trainerId) {
     axios.get(url)
         .then((response) => {
             trainerData = response.data;
-console.log("trainerData");
-console.log(trainerData);
+
+            document.getElementById("trainer-info").src = trainerData['imagePath'];
             document.getElementById("trainerName").innerText = trainerData['userName'] + " 트레이너";
             document.getElementById("trainerName").href = "/trainer/" + trainerData['userId'];
             document.getElementById("gender").innerText = gender[trainerData['gender']];
