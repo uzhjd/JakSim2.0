@@ -15,7 +15,8 @@ public class TrainerDetailRowMapper implements RowMapper<TrainerDetailResponse> 
                                                                     rs.getString("UT_INSTA"),
                                                                     rs.getString("UT_GYM"),
                                                                     rs.getInt("UT_EXPERT_1"),
-                                                                    rs.getInt("UT_EXPERT_2"));
+                                                                    rs.getInt("UT_EXPERT_2"),
+                                                                    rs.getString("TI_PATH"));
 
         return trainerDetailResponse;
     }
