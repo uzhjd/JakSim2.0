@@ -20,7 +20,7 @@ public class AccountController {
 
         String pageSeq = "";
 
-        if(num == 5){ //이후에 숫자는 본인 재량껏 변경바람
+        if(num == 4){ //이후에 숫자는 본인 재량껏 변경바람
             model.addAttribute("head_title", "회원가입 성공");
             pageSeq = String.format(defaultPath + "account_fin");
         }else {

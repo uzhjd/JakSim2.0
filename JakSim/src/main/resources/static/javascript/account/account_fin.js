@@ -24,8 +24,6 @@ function createJSON(){
         birth: sessionStorage.getItem('birth'),
         gender: sessionStorage.getItem('gender'),
         tel : sessionStorage.getItem('tel'),
-        email : sessionStorage.getItem('email'),
-        question: sessionStorage.getItem('question'),
-        answer: sessionStorage.getItem('answer')
+        email : sessionStorage.getItem('email')
     };
 }
