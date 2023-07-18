@@ -5,74 +5,43 @@ var timeout;
 var code;
 
 window.onload = function(){
-    time = 600;
-
-    showValidTime();
-    sendEmail();
+    emailInit();
+    emailProcess();
 
     var checkButton = document.getElementById('validate_button');
     checkButton.addEventListener('click', checkCode);
+
+    var resendButton = document.getElementById('resend_button');
+    resendButton.addEventListener('click', emailProcess);
 }
 
-function showValidTime(){
-    validateTime = document.getElementById('find_validate_time');
-    timeout = false;
+function emailProcess(){
+    showValidTime();
+    sendMail();
+}
 
-    var startTime = Date.now();
-    var endTime = startTime + time*1000;
+function emailInit(){
+    time = 600;
+    timeSpan = document.getElementById('find_validate_time');
+    emailResult = document.getElementById('find_validate_fail');
+    sessionEmail = sessionStorage.getItem('userEmail');
+    code = document.getElementById('find_validate_input');
+}
 
-    function update(){
-        var currentTime = Date.now();
-        var remainTime = Math.max(0, endTime - currentTime);
-
-        var seconds = Math.floor(remainTime/1000);
-        var min = Math.floor(seconds / 60);
-        seconds = seconds%60;
-
-        min = min.toString().padStart(2, '0');
-        seconds = seconds.toString().padStart(2, '0');
-
-        validateTime.innerHTML = `${min} : ${seconds}`;
-
-        if(currentTime < endTime){
-            requestId = requestAnimationFrame(update);
-        }else{
-            timeout = true;
-            alert('시간이 초과되었습니다.');
-        }
+function next(result){
+    if(result === false){
+        return ;
     }
-    update();
-}
-
-function sendEmail(){
-    var codeInput = document.getElementById('find_validate_input');
-    axios.post('/find/api/email/action', {email : sessionStorage.getItem('userEmail')})
+    axios.post('/find/api/email/get', {email:sessionStorage.getItem('userEmail')})
         .then(response => {
-            code = response.data;
+            sessionStorage.clear();
+            document.getElementById('find_validate_success').innerHTML = response.data['id'];
         })
         .catch(error => {
-            console.error(error);
+            emailResult.innerHTML = '데이터 호출에 실패했습니다.';
         })
 }
 
-function stopTimer(){
-    cancelAnimationFrame(requestId);
-}
-
-function checkCode(){
-    var userCode = document.getElementById('find_validate_input');
-    console.log(timeout + " ;;; " + userCode.value);
-    console.log(userCode.value === code);
-    console.log(!timeout);
-    if(userCode.value === code && !timeout){
-        axios.post('/find/api/email/get', {email:sessionStorage.getItem('userEmail')})
-            .then(response => {
-                document.getElementById('find_validate_success').innerHTML = response.data['id'];
-            })
-            .catch(error => {
-                document.getElementById('find_validate_fail').innerHTML = '데이터 호출에 실패했습니다.';
-            })
-    }else{
-        document.getElementById('find_validate_fail').innerHTML = '인증에 실패했습니다.';
-    }
+function afterSend(){
+    console.log('이메일 전송 완료');
 }

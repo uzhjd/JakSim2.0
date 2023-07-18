@@ -39,11 +39,6 @@ public class AccountRestApi {
         return accountService.findByEmail(data.getEmail()) == null;
     }
 
-    @PostMapping("/emailaction")
-    public String checkEmail(@RequestBody UserDto data){
-        return accountService.validateEmail(data.getEmail());
-    }
-
     @PostMapping("/findtel")
     public UserDto findTel(@RequestBody UserDto data){
         return accountService.findByTel(data.getTel());
@@ -51,7 +46,6 @@ public class AccountRestApi {
 
     @PutMapping("/changepw")
     public int updatePassword(@RequestBody UserDto data){
-        System.out.println(data.toString());
         return accountService.update(data.getId(), data.getPw());
     }
 }

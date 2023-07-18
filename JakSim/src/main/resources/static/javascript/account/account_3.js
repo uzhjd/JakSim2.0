@@ -23,9 +23,16 @@ window.onload = function(){
     });
 };
 
+function afterSend(){
+    createTags();
+}
+
 function emailInit(){
     emailInput = document.getElementById('account_email');
     emailDupSpan = document.getElementById('account_check_dupmail');
+    parentDiv = document.getElementById('account_code_container');
+    code = document.getElementById('email_input');
+    time = 180;
 }
 
 function nextPage(){

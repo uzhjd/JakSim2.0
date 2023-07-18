@@ -39,7 +39,7 @@ public class SecurityConfig {
                         "/scheduler/**", "/trainerDelete", "/reservation/**",
                          "/trainer/trainerSearch",
                         "/javascript/**", "/css/**", "/image/**").permitAll()
-                .antMatchers("/login/**", "/find/**", "/account/**").hasAnyRole("ANONYMOUS")
+                .antMatchers("/login/**", "/find/**", "/account/**", "/email/**").hasAnyRole("ANONYMOUS")
                 .antMatchers("/trainer/trainerRegister/**").hasAuthority("USER_ROLE")
                 .anyRequest().authenticated();
         http
