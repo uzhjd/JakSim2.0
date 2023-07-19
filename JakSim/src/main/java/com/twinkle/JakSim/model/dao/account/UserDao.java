@@ -7,6 +7,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public class UserDao {
     @Autowired
@@ -26,7 +28,7 @@ public class UserDao {
         return result;
     }
 
-    public UserDto findByUserId(String userId){
+    public Optional<UserDto> findByUserId(String userId){
         String sql = "SELECT * FROM USER_INFO WHERE USER_ID = ?";
         UserDto userDto = null;
         try{
@@ -35,7 +37,7 @@ public class UserDao {
             System.out.println("데이터가 없다는디?");
         }
 
-        return userDto;
+        return Optional.ofNullable(userDto);
     }
 
     public UserDto findByTel(String userTel){

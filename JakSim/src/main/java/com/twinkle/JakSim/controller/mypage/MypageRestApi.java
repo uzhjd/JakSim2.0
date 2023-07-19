@@ -31,7 +31,7 @@ public class MypageRestApi {
     private final LoginLogService loginLogService;
     @PostMapping("/auth")
     public String authPassword(@RequestBody UserDto userDto, @AuthenticationPrincipal User user){
-        return accountService.checkPassword(user.getUsername(), userDto.getPw()) ? user.getUsername() : null;
+        return accountService.checkPassword(user.getUsername(), userDto.getPw()).get() ? user.getUsername() : null;
     }
     @DeleteMapping("/delete")
     public int deleteUser(@AuthenticationPrincipal User user){

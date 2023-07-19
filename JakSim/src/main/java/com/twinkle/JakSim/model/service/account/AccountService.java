@@ -3,8 +3,6 @@ package com.twinkle.JakSim.model.service.account;
 import com.twinkle.JakSim.model.dao.account.UserDao;
 import com.twinkle.JakSim.model.dto.account.UserDto;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.jdbc.pool.DataSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,10 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -46,7 +42,8 @@ public class AccountService {
     }
 
     public UserDto findByUsername(String id) {
-        return userDao.findByUserId(id);
+        Optional<UserDto> userDto = userDao.findByUserId(id);
+        return userDto.orElse(null);
     }
 
     public UserDto findByTel(String tel) {
@@ -57,8 +54,14 @@ public class AccountService {
         return userDao.updatePassword(user_id, passwordEncoder.encode(pw));
     }
 
-    public boolean checkPassword(String username, String pw) {
-        return passwordEncoder.matches(pw, userDao.findByUserId(username).getPw());
+    public AtomicBoolean checkPassword(String username, String pw) {
+        AtomicBoolean result = new AtomicBoolean(false);
+        userDao.findByUserId(username).ifPresent(
+                item -> {
+                    result.set(passwordEncoder.matches(pw, item.getPw()));
+                }
+        );
+        return result;
     }
 
     public int delete(String id) {

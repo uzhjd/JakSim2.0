@@ -25,8 +25,8 @@ public class AccountRestApi {
     }
 
     @PostMapping("/checkid")
-    public int checkId(@RequestBody UserDto data){
-        return accountService.findByUsername(data.getId()) == null ? 0 : 1;
+    public boolean checkId(@RequestBody UserDto data){
+        return accountService.findByUsername(data.getId()) == null;
     }
 
     @PostMapping("/checktel")
