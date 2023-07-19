@@ -1,5 +1,6 @@
 var isEmail = false, isPhone = false;
 var emailCheckButton;
+var phoneInput;
 
 
 window.onload = function(){
@@ -43,31 +44,39 @@ function afterConfirm(emailResult){
     isEmail && isPhone ? nextButton.disabled = false : nextButton.disabled = true;
 }
 
-function checkPhone(){
-    var data = {tel : document.getElementById('account_tel').value};
-    phoneSpan = document.getElementById('account_phone_span');
+function checkPhoneFormat(){
     var pattern = /^[0-9]+$/;
+    return pattern.test(phoneInput.value);
+}
 
-    console.log(data['tel'] + " ::: " + data['tel'].length);
+function checkPhoneLength(){
+    return phoneInput.value.length > 6;
+}
 
-    if(data['tel'].length < 6 || !pattern.test(data['tel'])){
-        phoneSpan.innerHTML = '전화번호를 다시 확인해주세요'
-        phoneSpan.style.color = 'red';
-    }else{
+function checkPhone(){
+    phoneInput = document.getElementById('account_tel');
+    phoneSpan = document.getElementById('account_phone_span');
+    phoneSpan.style.color = 'red';
+    var data = {tel : phoneInput.value};
+
+    checkPhoneFormat() ? phoneSpan.innerHTML = '' : phoneSpan.innerHTML = '숫자만 입력해주세요';
+    checkPhoneLength() ? phoneSpan.innerHTML = '' : phoneSpan.innerHTML = '전화번호를 다시 확인해주세요';
+
+    function success(){
+        isPhone = true;
+        phoneSpan.innerHTML = '확인 되었습니다.';
+        phoneSpan.style.color='blue';
+    }
+    function fail(){
+        isPhone = false;
+        phoneSpan.innerHTML = '등록된 번호 입니다.';
+    }
+
+    if(checkPhoneLength() && checkPhoneFormat()){
         axios.post('/account/checktel', data)
             .then(response => {
-                console.log(response.data);
-                if(response.data === 0){
-                    isPhone = true;
-                    phoneSpan.innerHTML = '확인 되었습니다.';
-                    phoneSpan.style.color='black';
-                    isEmail && isPhone ? nextButton.disabled = false : nextButton.disabled = true;
-                }else{
-                    phoneSpan.innerHTML = '등록된 번호 입니다.';
-                    phoneSpan.style.color='red';
-                    isPhone = false;
-                    isEmail && isPhone ? nextButton.disabled = false : nextButton.disabled = true;
-                }
+                response.data ? success() : fail();
+                isEmail && isPhone ? nextButton.disabled = false : nextButton.disabled = true;
             })
             .catch(error => {console.error(error)})
     }

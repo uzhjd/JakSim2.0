@@ -30,8 +30,8 @@ public class AccountRestApi {
     }
 
     @PostMapping("/checktel")
-    public int checkTel(@RequestBody UserDto data){
-        return accountService.findByTel(data.getTel()) == null ? 0 : 1;
+    public boolean checkTel(@RequestBody UserDto data){
+        return accountService.findByTel(data.getTel()) == null;
     }
 
     @PostMapping("/checkemail")

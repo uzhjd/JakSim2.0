@@ -92,14 +92,12 @@ function pwProcess(){
     }
 
     passwordInput.addEventListener('input', function(event){
-        password = event.target.value;
-        checkPwLength(password) ? pwLengthSuccess() : pwLengthFail();
+        checkPwLength(event.target.value) ? pwLengthSuccess() : pwLengthFail();
         isNext();
     });
 
     confirmPasswordInput.addEventListener('input', function(event){
-        confirm = event.target.value;
-        confirmPw(confirm) ? pwConfirmSuccess() : pwConfirmFail();
+        confirmPw(event.target.value) ? pwConfirmSuccess() : pwConfirmFail();
         isNext();
     });
 }
