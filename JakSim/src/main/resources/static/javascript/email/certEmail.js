@@ -6,6 +6,7 @@ var parentDiv; // 생성할 태그들 넣을 div
 var timeout, time, timeSpan; //타임아웃 여부, 시간값, 화면에 나타낼 시간값
 var emailResult;
 var code; // 사용자가 작성한 인증번호
+var requestId;
 
 function checkEmailFormat(){
     var pattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
@@ -26,16 +27,18 @@ function isRegistered(){
 }
 
 function isDuplicated(){
+    function success(){
+        emailDupSpan.innerHTML = '';
+        sendMail();
+    };
+    function fail(){
+        emailDupSpan.innerHTML = '이미 등록된 이메일입니다.'
+        emailDupSpan.style.color = 'red';
+    };
+
     axios.post('/account/checkemail', {email:emailInput.value})
         .then(response => {
-            //return boolean
-            if(response.data){
-                emailDupSpan.innerHTML = '';
-                sendMail()
-            }else{
-                emailDupSpan.innerHTML = '이미 등록된 이메일입니다.'
-                emailDupSpan.style.color = 'red';
-            }
+            (response.data) ? success() : fail();
         })
         .catch(error => {
             console.error(error);
@@ -43,11 +46,11 @@ function isDuplicated(){
 }
 
 function sendMail(){
-    data = (emailInput === undefined ? {email: sessionEmail} : {email:emailInput.value})
+    timeout = false;
+    data = ((emailInput === undefined) ? {email: sessionEmail} : {email:emailInput.value})
     alert('인증번호를 전송했습니다.');
     axios.post('/email/api/send', data)
         .then(response => {
-            console.log(response.data);
             answerCode = response.data;
             afterSend();
         })
@@ -58,7 +61,7 @@ function sendMail(){
 
 function createTags(){
     var html = '';
-    html += '<input id="email_input" class="email_input" >';
+    html += '<input id="code_input" class="email_input" >';
     html += '<button class="jaksim_btn" onclick="sendMail()">재전송</button>';
     html += '<button class="jaksim_btn" onclick="checkCode()" style="margin: 10px;">확인</button>';
     html += '<span class="email_time_font" id="timeSpan"></span>';
@@ -67,6 +70,7 @@ function createTags(){
 
     timeSpan = document.getElementById('timeSpan');
     emailResult = document.getElementById('email_result');
+    code = document.getElementById('code_input');
 
     showValidTime();
 }
@@ -90,13 +94,14 @@ function showValidTime(){
 
         timeSpan.innerHTML = `${min} : ${seconds}`;
 
-        if(currentTime < endTime){
-            requestId = requestAnimationFrame(update);
-        }else{
+        if(currentTime >= endTime){
             timeout = true;
             emailResult.innerHTML = '시간이 초과되었습니다.';
             emailResult.style.color = 'red';
         }
+
+        requestId = requestAnimationFrame(update);
+
     }
     update();
 }
@@ -107,16 +112,18 @@ function stopTimer(){
 
 function checkCode(){
     var result;
-    if(answerCode === code.value && !timeout){
+    function success(){
         stopTimer();
         emailResult.innerHTML = '이메일이 확인되었습니다.';
         emailResult.style.color='blue';
         result = true;
-    }else{
+    };
+    function fail(){
         emailResult.innerHTML = '인증번호를 다시 확인해주세요';
         emailResult.style.color = 'red';
         result = false;
-    }
+    };
 
-    next(result);
+    (answerCode === code.value && !timeout) ? success() : fail();
+    afterConfirm(result);
 }

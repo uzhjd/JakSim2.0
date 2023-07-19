@@ -28,14 +28,15 @@ function emailInit(){
     code = document.getElementById('find_validate_input');
 }
 
-function next(result){
+function afterConfirm(result){
+    var successSpan = document.getElementById('find_validate_success');
     if(result === false){
+        successSpan.innerHTML = '';
         return ;
     }
     axios.post('/find/api/email/get', {email:sessionStorage.getItem('userEmail')})
         .then(response => {
-            sessionStorage.clear();
-            document.getElementById('find_validate_success').innerHTML = response.data['id'];
+            successSpan.innerHTML = response.data['id'];
         })
         .catch(error => {
             emailResult.innerHTML = '데이터 호출에 실패했습니다.';
@@ -45,3 +46,8 @@ function next(result){
 function afterSend(){
     console.log('이메일 전송 완료');
 }
+
+window.addEventListener('beforeunload', function(){
+    sessionStorage.clear();
+    //페이지를 벗어날 때 세션에 있는 값을 제거함
+})

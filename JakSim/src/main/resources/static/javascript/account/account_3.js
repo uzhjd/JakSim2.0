@@ -1,10 +1,6 @@
-var answerCode = '';
-var buttonCnt = 0;
-var timeSpan, emailCheckInput, checkButton, time, intervalId, nextButton, phoneSpan, resendButton;
 var isEmail = false, isPhone = false;
 var emailCheckButton;
-var timeout;
-var requestId;
+
 
 window.onload = function(){
     emailCheckButton = document.getElementById('account_email_button');
@@ -31,7 +27,6 @@ function emailInit(){
     emailInput = document.getElementById('account_email');
     emailDupSpan = document.getElementById('account_check_dupmail');
     parentDiv = document.getElementById('account_code_container');
-    code = document.getElementById('email_input');
     time = 180;
 }
 
@@ -41,7 +36,7 @@ function nextPage(){
     window.location.href='/account/4';
 }
 
-function next(emailResult){
+function afterConfirm(emailResult){
     (emailResult) && (!timeout) ? isEmail = true : isEmail = false;
     console.log(emailResult);
     console.log(emailResult && !timeout);

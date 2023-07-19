@@ -1,11 +1,9 @@
 package com.twinkle.JakSim.controller.account;
 
-import com.twinkle.JakSim.model.dto.account.UserDto;
 import com.twinkle.JakSim.model.service.account.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
