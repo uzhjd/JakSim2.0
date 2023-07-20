@@ -10,15 +10,12 @@ import com.twinkle.JakSim.model.service.inbody.InbodyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -51,7 +48,7 @@ public class MypageRestApi {
     }
 
     @GetMapping("/user-info")
-    public UserDetails getUserInfo(@AuthenticationPrincipal User user){
+    public Principal getUserInfo(Principal user){
         return user;
     }
 

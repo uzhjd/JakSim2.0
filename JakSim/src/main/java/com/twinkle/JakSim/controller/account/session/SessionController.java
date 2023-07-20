@@ -1,0 +1,45 @@
+package com.twinkle.JakSim.controller.account.session;
+
+import com.twinkle.JakSim.model.dto.account.UserDto;
+import com.twinkle.JakSim.model.dto.account.session.SessionInfo;
+import com.twinkle.JakSim.model.dto.account.session.UserSession;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import java.security.Principal;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Controller
+@RequiredArgsConstructor
+public class SessionController {
+    private final SessionRegistry registry;
+
+    @GetMapping("/session-list")
+    public String sessions(Model model){
+        List<UserSession> userSessions = registry.getAllPrincipals().stream()
+                .map(p -> UserSession.builder()
+                        .username(((User)p).getUsername())
+                        .sessions(registry.getAllSessions(p,false)
+                                .stream().map(si ->SessionInfo.builder()
+                                        .lastRequest(si.getLastRequest())
+                                        .sessionId(si.getSessionId())
+                                        .build()
+                                ).collect(Collectors.toList()))
+                        .build())
+                .collect(Collectors.toList());
+
+        System.out.println("session-list");
+        System.out.println(registry.getAllPrincipals());
+        System.out.println(registry.toString());
+
+        model.addAttribute("sessionList", userSessions);
+        return "content/account/session/sessionList";
+    }
+}

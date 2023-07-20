@@ -22,24 +22,19 @@ import javax.servlet.http.HttpSession;
 public class CustomAuthenticationProvider implements AuthenticationProvider {
     private final BCryptPasswordEncoder passwordEncoder;
     private final CustomUserDetailService customUserDetailService;
-
-    @Autowired
-    private HttpSession session;
-
     private final FileService fileService;
-
+    private final HttpSession session;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
-        String password = (String)authentication.getCredentials();
+        String password = (String)authentication.getCredentials(); //내가 적은 값이 들어오는 거임
 
         UserDetails user = customUserDetailService.loadUserByUsername(username);
 
         if(user ==  null){
             throw new UsernameNotFoundException(username);
         }
-
         if(!passwordEncoder.matches(password, user.getPassword())){
             System.out.println("비밀번호 다름");
             throw new BadCredentialsException("Invalid user Password");
@@ -53,6 +48,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return authentication.equals(UsernamePasswordAuthenticationToken.class);
+        return authentication.equals(UsernamePasswordAuthenticationToken.class); //요기있네?!
     }
 }
