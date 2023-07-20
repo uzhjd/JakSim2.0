@@ -49,26 +49,26 @@ public class SecurityConfig {
                          "/trainer/trainerSearch",
                         "/javascript/**", "/css/**", "/image/**").permitAll()
                 .antMatchers("/login/**", "/find/**", "/account/**", "/email/**").hasAnyRole("ANONYMOUS")
-                .antMatchers("/trainer/trainerRegister/**").hasAuthority("USER_ROLE")
+                .antMatchers("/trainer/trainerRegister/**").hasAuthority("USER")
+                .antMatchers("/session/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated();
-        http
-                .formLogin()
+        http.formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login/action")
                 .successHandler(customAuthSuccessHandler)
                 .failureHandler(customAuthFailureHandler);
         http.logout()
                 .deleteCookies("JSESSIONID")
-                .invalidateHttpSession(true).logoutUrl("/logout").permitAll()
+                .invalidateHttpSession(true)
+                .logoutUrl("/logout").permitAll()
                 .logoutSuccessUrl("/");
         http.sessionManagement(
-                s -> s.sessionCreationPolicy(SessionCreationPolicy.ALWAYS) //STATELESS -> JWT 와 같은 클라이언트 토큰
-                        .sessionFixation(SessionManagementConfigurer.SessionFixationConfigurer::changeSessionId)
-                        .maximumSessions(3)
-                        .maxSessionsPreventsLogin(true)
-                        .expiredUrl("/session-expired")
+                s -> s.sessionCreationPolicy(SessionCreationPolicy.ALWAYS) //STATELESS -> JWT 와 같은 클라이언트 토큰, ALWAYS -> 우리같은 세션 방식에서 사용
+                        .sessionFixation(SessionManagementConfigurer.SessionFixationConfigurer::changeSessionId) //로그인 될 때마다 새로운 SessionID 생성
+                        .maximumSessions(1) //최대 몇 개의 계정을 접속시킬 것인지 -> 1 잘 됨
+                        .maxSessionsPreventsLogin(false) //false -> 초과된 사용자에게 로그인 허용하지 않음, true -> 초과된 사용자 로그인 허용 -> 이전 사용자 세션을 만료시킴
+                        .expiredUrl("/")//세션 만료 시 보낼 페이지
         );
-
         return http.build();
     }
 }

@@ -34,6 +34,7 @@ public class MypageRestApi {
     public int deleteUser(@AuthenticationPrincipal User user){
         return accountService.delete(user.getUsername());
     }
+
     @GetMapping("/sessiontime")
     public int getSessionTime(HttpServletRequest request){
         HttpSession session = request.getSession(false);

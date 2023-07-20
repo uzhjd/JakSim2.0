@@ -42,6 +42,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         session.setAttribute("session_user", user);
         session.setAttribute("session_profile", fileService.getSingeProfile(username));
+        session.setAttribute("isTrainer", user.getAuthorities().toString().equals("[TRAINER]") ? user.getAuthorities() : null);
 
         return new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities());
     }

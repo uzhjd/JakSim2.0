@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -15,6 +16,6 @@ import java.util.Date;
 public class SessionInfo {
     private String sessionId;
     private Principal principal;
-    private Date lastRequest;
+    private LocalDateTime lastRequest;
     private boolean expired;
 }

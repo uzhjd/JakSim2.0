@@ -32,13 +32,13 @@ public class CustomUserDetailService implements UserDetailsService {
         List<GrantedAuthority> authorities = new ArrayList<>();
         switch (siteUser.get().getRole()){
             case 0:
-                authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+                authorities.add(new SimpleGrantedAuthority("ADMIN"));
                 break;
             case 1:
-                authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+                authorities.add(new SimpleGrantedAuthority("USER"));
                 break;
             case 2:
-                authorities.add(new SimpleGrantedAuthority("ROLE_TRAINER"));
+                authorities.add(new SimpleGrantedAuthority("TRAINER"));
                 break;
         }
 
