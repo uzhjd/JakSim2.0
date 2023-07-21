@@ -36,6 +36,4 @@ public class CustomAuthFailureHandler implements AuthenticationFailureHandler {
             redirectStrategy.sendRedirect(request, response, "/login?errorCode=unknown");
         }
     }
-
-
 }

@@ -16,9 +16,8 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpSession;
 
-
-@RequiredArgsConstructor
 @Component
+@RequiredArgsConstructor
 public class CustomAuthenticationProvider implements AuthenticationProvider {
     private final BCryptPasswordEncoder passwordEncoder;
     private final CustomUserDetailService customUserDetailService;
@@ -32,11 +31,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         UserDetails user = customUserDetailService.loadUserByUsername(username);
 
-        if(user ==  null){
-            throw new UsernameNotFoundException(username);
-        }
         if(!passwordEncoder.matches(password, user.getPassword())){
-            System.out.println("비밀번호 다름");
             throw new BadCredentialsException("Invalid user Password");
         }
 

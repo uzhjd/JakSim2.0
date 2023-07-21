@@ -19,8 +19,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class CustomUserDetailService implements UserDetailsService {
-    @Autowired
-    private UserDao userDao;
+    private final UserDao userDao;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         final Optional<UserDto> siteUser = userDao.findByUserId(username);

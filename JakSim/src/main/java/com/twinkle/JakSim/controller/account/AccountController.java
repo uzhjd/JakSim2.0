@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 
 @Controller
@@ -17,20 +18,28 @@ public class AccountController {
 
     @GetMapping("/account/{num}")
     public String accountPages(@PathVariable("num") int num, Model model){
-        model.addAttribute("head_title", "회원가입");
-        String pageSeq = String.format(defaultPath + "account_" + num);
+        String pageSeq;
 
         if(num == 4){ //이후에 숫자는 본인 재량껏 변경바람
             model.addAttribute("head_title", "회원가입 성공");
             pageSeq = String.format(defaultPath + "account_fin");
+            return pageSeq;
         }
+
+        model.addAttribute("head_title", "회원가입");
+        pageSeq = String.format(defaultPath + "account_" + num);
 
         return pageSeq;
     }
 
     @GetMapping("/login")
-    public String loginPage(Model model){
+    public String loginPage(HttpServletRequest request, Model model){
         model.addAttribute("head_title", "로그인");
+
+        String uri = request.getHeader("Referer");
+        if(uri != null && !uri.contains("/login")){
+            request.getSession().setAttribute("prevPage", uri);
+        }
         return String.format(this.defaultPath + "login");
     }
 
