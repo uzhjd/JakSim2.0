@@ -6,53 +6,28 @@
 <style>
 #index_subTitle{
     margin-top: 7vh;
-    margin-left: 70px;
+    margin-left: 280px;
     margin-bottom: 30px;
 }
 #index_subTitle > h3 {
     color:#747474;
 }
-#index_trainer_container{
-    overflow:auto;
-}
-#index_trainer_table{
-    margin: 30px auto;
-    table-layout:fixed;
-    border-collapse: separate;
-    border-spacing: 6rem 1rem;
-}
+
 
 </style>
 
-<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <a href="/trainer/trainerSearch"><img src="/image/MainPage.png" class="d-block w-100" alt="..."></a>
-            </div>
-            <div class="carousel-item">
-                <img src="..." class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-                <img src="..." class="d-block w-100" alt="...">
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+<div>
+    <div>
+        <a href="/trainer/trainerSearch"><img src="/image/MainPage.png" style="width: 100%; height: auto;" alt="..."></a>
     </div>
 
     <div id="index_subTitle">
         <span class="jaksim_title_font" style="color: #747474;">새로운 트레이너님들을 소개합니다!</span>
     </div>
 
-    <div class="trainer-container" style="margin-top: 15px; width: 980px; margin-left: 250px;">
+    <div class="trainer-container" style="width: 100%; margin-top: 15px; margin-left: 0px; padding-left: 300px;">
         {{#trainers}}
-            <div class="trainer-item" style="width: 300px; border-radius: 10px;">
+            <div class="trainer-item" style="width: 300px; border-radius: 10px; margin-left: 10px; margin-right: 10px;">
                 <a href="/trainer/{{userId}}">
                     <div class="find_trainer_crop">
                         <img src="{{imagePath}}" style="width: 250px; margin-left: 30px; margin-right: 0px; margin-bottom: 10px" alt="트레이너" class="find_trainer_profile">
@@ -64,5 +39,5 @@
             </div>
         {{/trainers}}
     </div>
-
+</div>
 {{>layout/footer}}

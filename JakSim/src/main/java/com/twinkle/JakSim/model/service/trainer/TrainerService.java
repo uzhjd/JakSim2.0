@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.print.Pageable;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -133,8 +134,15 @@ public class TrainerService {
 
     }
     @Transactional
-    public List<TrainerSearchDto> searchAllTrainer() {
-        return trainerDao.getAllTrainerForSearch();
+    public List<TrainerSearchDto> searchAllTrainer(int page, int pageSize, int filter) {
+        return trainerDao.getAllTrainerForSearch(page, pageSize, filter);
+    }
+
+
+    @Transactional
+    public int getTrainerCnt(int filter) {
+
+        return trainerDao.getTrainerCount(filter);
     }
 
     @Transactional
@@ -177,7 +185,6 @@ public class TrainerService {
     public List<TrainerSearchDto> searchTrainerForTrainerPage(String userId) {
         return trainerDao.getTrainerForTrainerPage(userId);
     }
-
 
 
     @Transactional
@@ -229,10 +236,6 @@ public class TrainerService {
 
     }
 
-    @Transactional
-    public void updateTimetable(TimetableResponse timetable, String userId) {
-        trainerDao.updateTimetable(timetable, userId);
-    }
 
     @Transactional
     public void deleteTimetable(int tIdx) {
@@ -240,8 +243,13 @@ public class TrainerService {
     }
 
     @Transactional
-    public List<PtUserDto> getMyPtUserInfo(String userId) {
-        return trainerDao.getPtUserInfo(userId);
+    public List<PtUserDto> getMyPtUserInfo(int page, int pageSize, String userId, String ptUserName) {
+        return trainerDao.getPtUserInfo(page, pageSize, userId, ptUserName);
+    }
+
+    @Transactional
+    public int getPtUserCnt(String userId, String ptUserName) {
+        return trainerDao.getPtUserCnt(userId, ptUserName);
     }
 
 
@@ -257,7 +265,4 @@ public class TrainerService {
         return trainerDetailResponse;
     }
 
-//    public ProductDto getProductByTrainerIdx(int idx){
-//        return trainerDao.getProductByTrainerIdx(idx);
-//    }
 }

@@ -1,6 +1,7 @@
 {{>layout/header}}
 <link rel="stylesheet" href="/css/trainer/trainerSearch.css">
 <script src="https://kit.fontawesome.com/05995ac069.js" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 {{>layout/navi}}
 
@@ -41,29 +42,39 @@
                                 <img src="{{imagePath}}" style="width: 250px; margin-left: 50px; margin-right: 0px;" alt="트레이너" class="find_trainer_profile">
                             </div>
                             <div>
-                                <span class="jaksim_font">{{gym}}</span>
+                                <span>{{gym}}</span>
                             </div>
                             <div>
-                                <span class="jaksim_font">{{userName}} <i class="fa-solid fa-star" style="color: #f3eb12;"></i> {{avgRstar}}</span>
+                                <span>{{userName}} <i class="fa-solid fa-star" style="color: #f3eb12;"></i> {{avgRstar}}</span>
                             </div>
                             <div>
                                 <span class="searchExpert1 jaksim_font">{{expert1}}</span>
                                 <span class="searchExpert2 jaksim_font">{{expert2}}</span>
                             </div>
                             <div>
-                                <span class="jaksim_font">{{certName}}</span>
+                                <span>{{certName}}</span>
                             </div>
                         </a>
                     </div>
                 {{/trainers}}
             </div>
 
-            <div id="pagination">
-                <button id="prevButton" class="jaksim_btn" style="margin-right:5px;">이전</button>
-                <button id="nextButton" class="jaksim_btn" style="margin-left:5px;">다음</button>
-            </div>
+
+<div id="pagination">
+    <a href="/trainer/trainerSearch?page={{prevPage}}&pageSize={{trainersPerPage}}&filter={{filter}}" class="jaksim_btn" style="margin-right:5px;">이전</a>
+
+    {{#pageNumbers}}
+    <a href="/trainer/trainerSearch?page={{.}}&pageSize={{trainersPerPage}}&filter={{filter}}"  style="margin-left:5px; color: black;">{{.}}</a>
+    {{/pageNumbers}}
+
+    <a href="/trainer/trainerSearch?page={{nextPage}}&pageSize={{trainersPerPage}}&filter={{filter}}" class="jaksim_btn" style="margin-left:5px;">다음</a>
+</div>
+    
+
         </div>
     </div>
+
+
 </div>
 
 {{>layout/footer}}
@@ -106,77 +117,48 @@
         return '';
     }
   }
-
-  //페이징기능
-  // Pagination variables
-  var currentPage = localStorage.getItem('currentPage') || 0;
-  var trainersPerPage = 6;
-  var trainerItems = document.querySelectorAll('.trainer-item');
-
-  // Update the trainers' display based on the current page
-  function updateTrainerDisplay() {
-    var startIndex = currentPage * trainersPerPage;
-    var endIndex = startIndex + trainersPerPage;
-
-    trainerItems.forEach(function (item, index) {
-      if (index >= startIndex && index < endIndex) {
-        item.style.display = 'block';
-      } else {
-        item.style.display = 'none';
-      }
-    });
-  }
-
-  // Pagination button event listeners
-  var prevButton = document.getElementById('prevButton');
-  var nextButton = document.getElementById('nextButton');
-
-  prevButton.addEventListener('click', function () {
-    if (currentPage > 0) {
-      currentPage--;
-      updateTrainerDisplay();
-      localStorage.setItem('currentPage', currentPage);
-    }
-  });
-
-  nextButton.addEventListener('click', function () {
-    var maxPage = Math.ceil(trainerItems.length / trainersPerPage) - 1;
-    if (currentPage < maxPage) {
-      currentPage++;
-      updateTrainerDisplay();
-      localStorage.setItem('currentPage', currentPage);
-    }
-  });
-
-  // Update the trainer display based on the current page
-  updateTrainerDisplay();
+  
 </script>
 
 <script>
-    window.addEventListener('DOMContentLoaded', function() {
-        const buttons = document.querySelectorAll('.toggle-btn');
-        const trainerItems = document.querySelectorAll('.trainer-item');
+// 버튼 클릭 이벤트 핸들러 등록
+    $('.toggle-btn').on('click', function() {
+        // 클릭한 버튼의 값을 가져와서 filter 값으로 설정합니다.
+        var filterValue = $(this).val();
+        // 현재 페이지의 URL을 가져옵니다.
+        var currentUrl = new URL(window.location.href);
 
-        buttons.forEach(button => {
-            button.addEventListener('click', function() {
-                const selectedValue = button.value;
+                // 현재 페이지가 1일 때만 필터를 적용합니다.
+        if (currentUrl.searchParams.get('page') === '1') {
+            // 'filter' 매개변수의 값을 설정합니다.
+            currentUrl.searchParams.set('filter', filterValue);
+        } else {
+            // 'page' 매개변수의 값을 1로 설정합니다.
+            currentUrl.searchParams.set('page', '1');
+            // 'filter' 매개변수의 값을 설정합니다.
+            currentUrl.searchParams.set('filter', filterValue);
+        }
+        
 
-                trainerItems.forEach(item => {
-                    const expert1Value = item.getAttribute('data-expert1');
-                    const expert2Value = item.getAttribute('data-expert2');
-                    if (selectedValue === expert1Value || selectedValue === 'all') {
-                        item.style.display = 'block';
-                    }
-                    else if (selectedValue === expert2Value || selectedValue === 'all') {
-                        item.style.display = 'block';
-                    }
-                    else {
-                        item.style.display = 'none';
-                    }
-                });
-            });
-        });
+
+    window.location.href = currentUrl;
+        
     });
+
+
+  //Selecting a radio button based on a specific value
+  let specificValue = {{filter}}; // The value you want to select
+
+  let radioButtons = document.querySelectorAll('input[name="toggle"]');
+
+  radioButtons.forEach(radioButton => {
+    if (radioButton.value === String(specificValue)) {
+      radioButton.checked = true;
+    }
+  });
+
+
+    
 </script>
 
 <script>

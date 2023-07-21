@@ -9,7 +9,6 @@
 .jaksim_btn{
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 15px;
-    /*font-weight: 500;*/
 
     border: 0.09rem solid #949494;
     border-radius: 7px;
@@ -27,7 +26,6 @@
 .jaksim_font{
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 15px;
-    /*font-weight: bold;*/
 
     color: #747474;
 }
@@ -39,6 +37,8 @@
 
     color: #000000;
 }
+
+
 
 #navi_userInfo{
     margin-left:7px;

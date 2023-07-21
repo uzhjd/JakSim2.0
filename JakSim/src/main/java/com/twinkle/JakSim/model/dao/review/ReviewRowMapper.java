@@ -27,6 +27,8 @@ public class ReviewRowMapper implements RowMapper<ReviewRequestDto> {
             reviewRequestDto.setReviewModifyDate(rs.getTimestamp("R_M_DT").toLocalDateTime().format(formatter));
         }
 
+        reviewRequestDto.setAvgRstar(rs.getDouble("AVG_R_STAR"));
+
         return reviewRequestDto;
     }
 }

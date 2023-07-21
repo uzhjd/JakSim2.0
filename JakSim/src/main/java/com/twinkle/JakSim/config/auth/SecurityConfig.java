@@ -35,12 +35,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.csrf().disable();
-        http.authorizeHttpRequests().antMatchers( "/", "/trainerUpdate/**",
-                        "/scheduler/**", "/trainerDelete", "/reservation/**",
-                         "/trainer/trainerSearch",
+        http.authorizeHttpRequests().antMatchers( "/",
+                        "/trainer/trainerSearch",
                         "/javascript/**", "/css/**", "/image/**").permitAll()
                 .antMatchers("/login/**", "/find/**", "/account/**").hasAnyRole("ANONYMOUS")
-                .antMatchers("/trainer/trainerRegister/**").hasAuthority("USER_ROLE")
+                .antMatchers("/trainer/trainerRegister").hasAnyAuthority("ROLE_USER")
                 .anyRequest().authenticated();
         http
                 .formLogin()

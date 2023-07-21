@@ -80,6 +80,10 @@
         float: left;
         margin-top: 0px;
 
+        display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the content horizontally */
+
     }
 
     table {
@@ -163,7 +167,7 @@
         <div class="search-container">
             <div class="search-input-container">
                 <input style="width: 222px;" type="text" class="search-input" placeholder="회원명을 입력하세요" id="search-input">
-                <a onclick="searchUsers()" class="search-icon"><i id="searchIcon" class="fa-solid fa-magnifying-glass fa-sm"></i></a>
+                <a id="search-btn" class="search-icon"><i id="searchIcon" class="fa-solid fa-magnifying-glass fa-sm"></i></a>
             </div>
         </div>
         <div class="user_data-container">
@@ -209,20 +213,60 @@
                     {{/ptUser}}
                     </tbody>
                 </table>
-                <div class="pagination">
-                <button id="prev-page" class="jaksim_btn" style="padding-left: 10px; padding-right: 10px;padding-bottom: 6px;padding-top: 6px;">이전</button>
-                <span id="current-page" style="
-    padding-top: 5px;
-    margin-left: 10px;
-    margin-right: 10px;">Page 1</span>
-                <button id="next-page" class="jaksim_btn" style="padding-left: 10px; padding-right: 10px;padding-bottom: 6px;padding-top: 6px;">다음</button>
-            </div>
+
+        <div id="pagination" style="margin-top: 30px;">
+            <a href="/trainer/ptUserInfo?page={{prevPage}}&pageSize={{trainersPerPage}}&ptUserName={{ptUserName}}" class="jaksim_btn" style="padding-left: 10px; padding-right: 10px;padding-bottom: 6px;padding-top: 6px;">이전</a>
+
+            {{#pageNumbers}}
+            <a href="/trainer/ptUserInfo?page={{.}}&pageSize={{trainersPerPage}}&ptUserName={{ptUserName}}" style="margin-left:5px; color: black;">{{.}}</a>
+            {{/pageNumbers}}
+
+            <a href="/trainer/ptUserInfo?page={{nextPage}}&pageSize={{trainersPerPage}}&ptUserName={{ptUserName}}" class="jaksim_btn" style="padding-left: 10px; padding-right: 10px;padding-bottom: 6px;padding-top: 6px; margin-left: 5px;">다음</a>
         </div>
-        
+
+    </div>
             
-        </div>
+</div>
+
+<script>
+    // 검색 버튼 클릭 이벤트 핸들러 등록
+    document.getElementById('search-btn').addEventListener('click', function() {
+        // 검색어 입력란의 값을 가져옵니다.
+        var searchKeyword = document.getElementById('search-input').value;
+
+        // 현재 페이지의 URL을 가져옵니다.
+        var currentUrl = new URL(window.location.href);
+
+        // 기존 URL에 ptUserName 매개변수가 있는지 확인합니다.
+        var hasParam = currentUrl.searchParams.has('ptUserName');
+
+        if (currentUrl.searchParams.get('page') === '1') {
+            // 기존 URL에 ptUserName 매개변수가 있으면 값을 변경하고, 없으면 새로 추가합니다.
+            if (hasParam) {
+                currentUrl.searchParams.set('ptUserName', searchKeyword);
+            } else {
+                currentUrl.searchParams.append('ptUserName', searchKeyword);
+            }
+        } else {
+            // 'page' 매개변수의 값을 1로 설정합니다.
+            currentUrl.searchParams.set('page', '1');
+            if (hasParam) {
+                currentUrl.searchParams.set('ptUserName', searchKeyword);
+            } else {
+                currentUrl.searchParams.append('ptUserName', searchKeyword);
+            }
+        }
+
+        // 새로운 URL로 이동합니다.
+        window.location.href = currentUrl;
+    });
+</script>
+
+
 <script>
 window.onload = function() {
+    /*
+    //검색
     var rows = document.getElementById("table-body").getElementsByTagName("tr");
 
     var searchButton = document.querySelector(".search-icon");
@@ -245,7 +289,9 @@ window.onload = function() {
         }
 
     setInitialDisplayState();
+    */
 
+    // 글씨 change
     for (var i = 0; i < rows.length; i++) {
         var ptType = rows[i].getElementsByTagName("td")[1].getElementsByTagName("input")[0];
         var gender = rows[i].getElementsByTagName("td")[4].getElementsByTagName("input")[0];
@@ -268,6 +314,8 @@ window.onload = function() {
         }
     }
 
+    // 페이징
+    /*
     function setInitialDisplayState() {
         var rows = document.getElementById("table-body").getElementsByTagName("tr");
 
@@ -323,6 +371,7 @@ window.onload = function() {
             updateRowsDisplay();
         }
     });
+    */
 
    
 }

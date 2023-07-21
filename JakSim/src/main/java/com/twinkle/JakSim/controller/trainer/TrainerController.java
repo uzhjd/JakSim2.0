@@ -3,6 +3,7 @@ package com.twinkle.JakSim.controller.trainer;
 import com.twinkle.JakSim.model.dto.timetable.TimetableInsertDto;
 import com.twinkle.JakSim.model.dto.trainer.TrainerInsertDto;
 import com.twinkle.JakSim.model.dto.trainer.*;
+import com.twinkle.JakSim.model.service.account.FileService;
 import com.twinkle.JakSim.model.service.payment.PaymentService;
 import com.twinkle.JakSim.model.service.review.ReviewService;
 import com.twinkle.JakSim.model.service.trainer.TrainerService;
@@ -16,9 +17,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 public class TrainerController {
@@ -27,10 +31,14 @@ public class TrainerController {
     @Autowired
     ReviewService reviewService;
     @Autowired
-    PaymentService paymentService;
-
+    FileService fileService;
     @GetMapping("/trainer/trainerRegister")
     public String trainerSignUp(Model model,  @AuthenticationPrincipal User info) {
+
+        if(info != null) {
+            model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
+            model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
+        }
 
         model.addAttribute("head_title", "트레이너 등록");
         model.addAttribute("userId", info);
@@ -57,8 +65,14 @@ public class TrainerController {
         return "redirect:/";
     }
 
-    @GetMapping("/trainerUpdate/{userId}")
+    @GetMapping("/trainer/trainerUpdate/{userId}")
     public String trainerUpdate(Model model, @PathVariable("userId") String userId, @AuthenticationPrincipal User info) {
+
+        if(info != null) {
+            model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
+            model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
+        }
+
         model.addAttribute("head_title", "트레이너 정보수정");
         model.addAttribute("userId", info);
         model.addAttribute("trainer", trainerService.searchTrainer(userId));
@@ -101,9 +115,10 @@ public class TrainerController {
 
     @GetMapping("/trainer/{userId}")
     public String viewTrainer(@PathVariable("userId") String userId, @AuthenticationPrincipal User info, Model model) throws SQLException {
-        //String userId = info.getUsername();
-        //model.addAttribute("user", userId);
-        //@PathVariable("trainerId") int trainerId,
+        if(info != null) {
+            model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
+            model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
+        }
 
         model.addAttribute("head_title", "트레이너 상세페이지");
         model.addAttribute("session", info);
@@ -113,25 +128,66 @@ public class TrainerController {
         model.addAttribute("cert", trainerService.getCert(userId));
         model.addAttribute("career", trainerService.getCareer(userId));
         model.addAttribute("imageList", trainerService.getTrainerImage(userId));
-
+        //model.addAttribute("starAvg", reviewService.getStarAvg(userId));
 
         return "content/trainer/trainerDetailPage";
     }
 
 
-
-
     @GetMapping("/trainer/trainerSearch")
-    public String viewTrainerSearch(Model model, @AuthenticationPrincipal User info){
+    public String viewTrainerSearch(Model model, @AuthenticationPrincipal User info,
+                                    @RequestParam(value = "page", defaultValue = "1") int page,
+                                    @RequestParam(value = "pageSize", defaultValue = "3") int pageSize,
+                                    @RequestParam(value = "filter", defaultValue = "-1") int filter ) {
+
+        if (info != null) {
+            model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
+            model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
+        }
         model.addAttribute("head_title", "트레이너 찾기");
         model.addAttribute("userId", info);
-        model.addAttribute("trainers", trainerService.searchAllTrainer());
+
+        // 페이징을 위한 데이터 조회
+        List<TrainerSearchDto> trainers = trainerService.searchAllTrainer(page, pageSize, filter);
+        int totalTrainers = trainerService.getTrainerCnt(filter);
+
+        model.addAttribute("trainers", trainers);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("trainersPerPage", pageSize);
+        model.addAttribute("filter", filter);
+
+        int totalPages = (int) Math.ceil((double) totalTrainers / pageSize);
+
+        List<Integer> pageNumbers = new ArrayList<>();
+        for (int i = 1; i <= totalPages; i++) {
+            pageNumbers.add(i);
+        }
+        model.addAttribute("pageNumbers", pageNumbers);
+
+        // Pre-calculate previous and next page numbers
+        int prevPage = (page > 1) ? page - 1 : 1;
+        int nextPage = (page < totalPages) ? page + 1 : totalPages;
+
+        model.addAttribute("prevPage", prevPage);
+        model.addAttribute("nextPage", nextPage);
 
         return "content/trainer/trainerSearch";
     }
 
+    public int getTotalPages(int totalItems, int pageSize) {
+        return (int) Math.ceil((double) totalItems / pageSize);
+    }
+
+
+
     @GetMapping("/trainer/trainerControl")
     public String trainerControl(Model model, @AuthenticationPrincipal User info){
+
+        if(info != null) {
+            model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
+            model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
+        }
+
         model.addAttribute("head_title", "트레이너 관리페이지");
         model.addAttribute("userId", info);
         model.addAttribute("timetable", trainerService.getTimetable(info.getUsername()));
@@ -154,11 +210,42 @@ public class TrainerController {
     }
 
     @GetMapping("/trainer/ptUserInfo")
-    public String ptUserInfo(Model model, @AuthenticationPrincipal User info){
+    public String ptUserInfo(Model model, @AuthenticationPrincipal User info,
+                             @RequestParam(value = "page", defaultValue = "1") int page,
+                             @RequestParam(value = "pageSize", defaultValue = "1") int pageSize,
+                             @RequestParam(value = "ptUserName", defaultValue = "-") String ptUserName){
+
+        if(info != null) {
+            model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
+            model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
+        }
+
         model.addAttribute("head_title", "트레이너 관리페이지");
         model.addAttribute("userId", info);
-        model.addAttribute("ptUser", trainerService.getMyPtUserInfo(info.getUsername()));
+        model.addAttribute("ptUser", trainerService.getMyPtUserInfo(page, pageSize, info.getUsername(), ptUserName));
         model.addAttribute("name", trainerService.searchTrainerName(info.getUsername()));
+        model.addAttribute("ptUserName", ptUserName);
+
+        // 페이징을 위한 데이터 조회
+        int totalPtUsers = trainerService.getPtUserCnt(info.getUsername(), ptUserName);
+
+        model.addAttribute("currentPage", page);
+        model.addAttribute("trainersPerPage", pageSize);
+
+        int totalPages = (int) Math.ceil((double) totalPtUsers / pageSize);
+
+        List<Integer> pageNumbers = new ArrayList<>();
+        for (int i = 1; i <= totalPages; i++) {
+            pageNumbers.add(i);
+        }
+        model.addAttribute("pageNumbers", pageNumbers);
+
+        // Pre-calculate previous and next page numbers
+        int prevPage = (page > 1) ? page - 1 : 1;
+        int nextPage = (page < totalPages) ? page + 1 : totalPages;
+
+        model.addAttribute("prevPage", prevPage);
+        model.addAttribute("nextPage", nextPage);
 
         return "content/trainer/trainerPage3";
     }

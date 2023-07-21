@@ -1,7 +1,6 @@
 {{>layout/header}}
 <link rel="stylesheet" href="/css/trainer/trainerPage.css">
 <script src="https://kit.fontawesome.com/05995ac069.js" crossorigin="anonymous"></script>
-<script src="/javascript/payment/kakaoPay.js"></script>
 
 <body>
 {{>layout/navi}}
@@ -70,9 +69,11 @@
 
         <span class="jaksim_font" style="font-weight: bold; font-size: 16px;">자격증</span>
             <div id="trainer-cert">
-        {{#cert}}
+            {{#cert}}
                 <span class="jaksim_font">{{certName}}</span><br/>
-                <img src="{{certImage}}" alt="Trainer Image" width="220" height="220">
+            {{/cert}}
+{{#cert}}
+                <img src="{{certImage}}" alt="Trainer Image" width="220" height="220"><br/>
                 {{/cert}}
             </div>
 
@@ -114,18 +115,15 @@
     </style>
     <span style="font-weight: bold; font-size: 16px;">PT 상품</span><br/>
     {{#product}}
-        
             <div id="pt-info">
-            <input class="ptTitle" hidden="hidden" name="ptTitle" value="{{ptTitle}}" readonly/>
-            <input class="ptTimes" hidden="hidden" name="ptTimes" value="{{ptTimes}}" readonly/>
-            <input class="ptPrice" hidden="hidden" name="ptPrice" value="{{ptPrice}}" readonly/>
-            <input class="ptPeriod" hidden="hidden" name="ptPeriod" class="ptPeriod" value="{{ptPeriod}}"/>
-
             <span style="width: 155px;">{{ptTitle}}</span>
-        <span style="width: width: 101px;">{{ptTimes}}회 {{ptPrice}}원</span>
+            <span style="width: 101px;">{{ptTimes}}회 {{ptPrice}}원</span>
 
             <div class="trainer_pay" style="margin-right: 20px;">
-                <button class="payButton" data-ptId="{{ptId}}">결제하기</button>
+                <button class="payButton" data-ptId="{{ptId}}"
+                onclick="handlePayment('{{ptTitle}}', '{{ptTimes}}', '{{ptPrice}}', '{{ptPeriod}}', '{{ptId}}')"
+                >결제하기</button>
+
             </div>
              </div>
 
@@ -135,9 +133,17 @@
     <div id="review-container">
         <span class="jaksim_font" style="font-weight: bold; font-size: 16px;">PT 리뷰</span>
         <br/>
+            <div class="review-filters" style="margin-top: 10px;">
+                <i class="fa-solid fa-star fa-2xl" style="color: #f3eb12; margin-top: 20px;">
+                    <script>
+                    var reviewStarAvg = [{{#review}}"{{avgRstar}}",{{/review}}];
+                    var firstStar = reviewStarAvg.length > 0 ? reviewStarAvg[0] : '0.0';
+                    var starAvg = "<span style='font-size:19px;'>" + firstStar + "</span>";
 
-            <div class="review-filters">
-                <select id="review-filter" name="review-filter" class="jaksim_font" onchange="reviewFiltering()">
+                    document.write(starAvg);
+                    </script>
+                </i>
+                <select id="review-filter" name="review-filter" style="margin-left: 680px;" onchange="reviewFiltering()">
                     <option value="highest">별점 높은순</option>
                     <option value="lowest">별점 낮은순</option>
                     <option value="recent">최신순</option>
@@ -150,7 +156,7 @@
         <tr id="review-{{reviewId}}" class="jaksim_font">
             <td>작심{{reviewId}}</td>
             <td class="countStar" data-star="{{star}}">{{star}}</td>
-            <td>{{reviewContent}}</td>
+            <td style="width: 430px;">{{reviewContent}}</td>
             <td data-date="{{reviewCreateDate}}">{{reviewCreateDate}}</td>
             <td class="reviewLink"> {{userId}}
             </td>
@@ -208,15 +214,12 @@ window.onload = function() {
             }
         }
     }
-    
-
 
 
     var stars = document.querySelectorAll('.countStar');
     var expert1 = document.querySelectorAll('.expert1');
     var expert2 = document.querySelectorAll('.expert2');
 
-    
 
     for(var i=0; i<stars.length; i++) {
         var starCount = parseInt(stars[i].textContent);
@@ -368,26 +371,35 @@ window.onload = function() {
     }
   }
 
-  //tpIdx, ptTitle, ptPrice, pt_times, pt_period
-  //product인덱스, 제목, 가격, 횟수, 유효기간
+function handlePayment(ptTitle, ptTimes, ptPrice, ptPeriod, ptId) {
+    var data = {
+        ptTitle: ptTitle,
+        ptTimes: ptTimes,
+        ptPrice: ptPrice,
+        ptPeriod: ptPeriod,
+        tpIdx: ptId
+    };
+    
+console.log(data);
+axios.post('/payment/ready', data)
+        .then((response) => {
+            var httpStatus = response.status;
 
-var payButtons = document.querySelectorAll('.payButton');
+            console.log(response);
 
-payButtons.forEach(function(button) {
-  button.addEventListener('click', function() {
-    var ptInfo = this.parentNode.parentNode;
-    var tpIdx = parseInt(this.getAttribute('data-ptId'));
-    var ptTitle = ptInfo.querySelector('.ptTitle').value;
-    var ptPrice = parseInt(ptInfo.querySelector('.ptPrice').value);
-    var ptTimes = parseInt(ptInfo.querySelector('.ptTimes').value);
-    var ptPeriod = parseInt(ptInfo.querySelector('.ptPeriod').value);
+            if(httpStatus == 500) {
+                alert("500: Payment with Kakao Pay failed.");
+            } else {
+                var box = response.data.next_redirect_pc_url;
 
-    kakaoPay(ptTitle, tpIdx, ptPrice, ptTimes, ptPeriod);
-  });
+                window.open(box, "", "width=500, height=800");
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
 }
-
-);
-
 
 
 </script>

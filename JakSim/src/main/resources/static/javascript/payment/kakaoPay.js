@@ -1,9 +1,4 @@
-//window.onload = function () {
-    //var payBtn = document.getElementById("kakaopayBtn");
 
-    // 세은님께 데이터 받기
-    //payBtn.addEventListener('click', () => kakaoPay("남유정 트레이너 10회 사용권", 1, 10, 10, 90));
-//}
 
 function kakaoPay(ptTitle, tpIdx, ptPrice, ptTimes, ptPeriod) {
      var data = {

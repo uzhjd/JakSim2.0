@@ -25,7 +25,7 @@ import java.io.IOException;
 public class KakaoPayService {
 
     static final String cid = "TC0ONETIME"; // 가맹점 테스트 코드
-    static final String admin_Key = "${ADMIN_KEY}";
+    static final String admin_Key = "d6511f358af981143ff7d9a980df6e9a";
     private ReadyResponse kakaoReady;
 
     // 카카오 요구 헤더값

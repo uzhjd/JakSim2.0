@@ -30,14 +30,19 @@ public class ReviewService {
         return reviewDao.getTrainerReview(trainerId);
     }
 
+//    @Transactional
+//    public ReviewDto getStarAvg(String trainerId) {
+//        return reviewDao.getStarAvg(trainerId);
+//    }
+
     @Transactional
-    public List<ReviewRequestDto> showMyReview(String userId) {
-        return reviewDao.getMyReview(userId);
+    public List<ReviewRequestDto> showMyReview(String userId, int reviewIdx) {
+        return reviewDao.getMyReview(userId, reviewIdx);
     }
 
     @Transactional
     public Optional<List<ReviewRequestDto>> showMyReviewForMyPage(String userId) {
-        return reviewDao.getMyReviewForMypage(userId);
+        return reviewDao.getMyReviewForMyPage(userId);
     }
 
     @Transactional

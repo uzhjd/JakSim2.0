@@ -25,21 +25,33 @@ public class ReviewDao {
     }
 
     public List<ReviewRequestDto> getTrainerReview(String trainerId) {
-        this.sql = "SELECT * FROM REVIEW " +
-                "WHERE TRAINER_ID = ?";
+        this.sql = "SELECT R.*, AVG_R.AVG_R_STAR " +
+                "FROM REVIEW R " +
+                "JOIN (SELECT TRAINER_ID, ROUND(AVG(R_STAR), 1) AS AVG_R_STAR " +
+                "      FROM REVIEW " +
+                "      GROUP BY TRAINER_ID) AVG_R ON R.TRAINER_ID = AVG_R.TRAINER_ID " +
+                "WHERE R.TRAINER_ID = ?";
 
         return jdbcTemplate.query(this.sql, new ReviewRowMapper(), trainerId);
     }
 
-    public List<ReviewRequestDto> getMyReview(String userId) {
-        this.sql = "SELECT * FROM REVIEW " +
-                "WHERE USER_ID = ?";
 
-        return jdbcTemplate.query(this.sql, new ReviewRowMapper(), userId);
+//    public ReviewDto getStarAvg(String trainerId) {
+//        this.sql = "SELECT *, ROUND(AVG(R_STAR), 1) AS AVG_R_STAR " +
+//                "FROM REVIEW WHERE TRAINER_ID = ?";
+//
+//        return jdbcTemplate.queryForObject(this.sql, new ReviewDtoRowMapper(), trainerId);
+//
+//    }
+
+    public List<ReviewRequestDto> getMyReview(String userId, int reviewIdx) {
+        this.sql = "SELECT * FROM REVIEW " +
+                "WHERE USER_ID = ? AND R_IDX = ?";
+
+        return jdbcTemplate.query(this.sql, new ReviewRowMapper(), userId, reviewIdx);
     }
 
-
-    public Optional<List<ReviewRequestDto>> getMyReviewForMypage(String userId) {
+    public Optional<List<ReviewRequestDto>> getMyReviewForMyPage(String userId) {
         this.sql = "SELECT * FROM REVIEW R " +
                 "WHERE USER_ID = ? " +
                 "ORDER BY R_IDX DESC " +

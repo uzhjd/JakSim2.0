@@ -3,6 +3,7 @@ package com.twinkle.JakSim.model.dao.trainer;
 import com.twinkle.JakSim.model.dao.account.UserRowMapper;
 import com.twinkle.JakSim.model.dao.timetable.TimetableRowMapper;
 import com.twinkle.JakSim.model.dto.account.UserDto;
+import com.twinkle.JakSim.model.dto.review.ReviewDto;
 import com.twinkle.JakSim.model.dto.timetable.response.TimetableResponse;
 import com.twinkle.JakSim.model.dto.trainer.TrainerInsertDto;
 import com.twinkle.JakSim.model.dto.trainer.*;
@@ -12,6 +13,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import javax.swing.text.html.parser.Entity;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -21,6 +24,8 @@ public class TrainerDao {
 
     private String sql;
 
+
+    // 트레이너 등록
     public void insertTrainer(TrainerInsertDto trainer, String userId){
         this.sql = "INSERT INTO TRAINER_DETAILS VALUES(NULL, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, trainer.getIntroduce(), trainer.getInsta(),
@@ -56,21 +61,62 @@ public class TrainerDao {
         jdbcTemplate.update(sql, userId);
 
     }
-    public List<TrainerSearchDto> getAllTrainerForSearch() {
-        String sql = "SELECT DISTINCT td.user_id, td.UT_IDX, ti.TI_PATH, td.UT_GYM, ui.user_name, " +
-                "td.UT_EXPERT_1, td.UT_EXPERT_2, tc.TC_NAME, ROUND(AVG(r.R_STAR), 1) AS AVG_R_STAR" +
-                " FROM trainer_details td" +
-                " JOIN product p ON td.user_id = p.user_id" +
-                " JOIN trainer_career tca ON td.user_id = tca.user_id" +
-                " JOIN trainer_cert tc ON td.user_id = tc.user_id" +
-                " JOIN trainer_image ti ON td.user_id = ti.user_id" +
-                " JOIN user_info ui ON td.user_id = ui.user_id" +
-                " LEFT JOIN review r ON td.UT_IDX = r.UT_IDX" +
-                " GROUP BY td.user_id" +
-                " ORDER BY AVG_R_STAR DESC, td.UT_IDX ASC";
 
-        return jdbcTemplate.query(sql, new TrainerSearchRowMapper());
+
+    public List<TrainerSearchDto> getAllTrainerForSearch(int page, int pageSize, int filter) {
+        int offset = (page - 1) * pageSize;
+
+        if(filter == -1) {
+            String sql = "SELECT DISTINCT td.user_id, td.UT_IDX, ti.TI_PATH, td.UT_GYM, ui.user_name, " +
+                    "td.UT_EXPERT_1, td.UT_EXPERT_2, tc.TC_NAME, ROUND(AVG(r.R_STAR), 1) AS AVG_R_STAR" +
+                    " FROM trainer_details td" +
+                    " JOIN product p ON td.user_id = p.user_id" +
+                    " JOIN trainer_career tca ON td.user_id = tca.user_id" +
+                    " JOIN trainer_cert tc ON td.user_id = tc.user_id" +
+                    " JOIN trainer_image ti ON td.user_id = ti.user_id" +
+                    " JOIN user_info ui ON td.user_id = ui.user_id" +
+                    " LEFT JOIN review r ON td.UT_IDX = r.UT_IDX" +
+                    " GROUP BY td.user_id" +
+                    " ORDER BY AVG_R_STAR DESC, td.UT_IDX DESC" +
+                    " LIMIT ?, ?";
+
+            return jdbcTemplate.query(sql, new Object[]{offset, pageSize}, new TrainerSearchRowMapper());
+
+        }
+        else {
+            String sql = "SELECT DISTINCT td.user_id, td.UT_IDX, ti.TI_PATH, td.UT_GYM, ui.user_name, " +
+                    "td.UT_EXPERT_1, td.UT_EXPERT_2, tc.TC_NAME, ROUND(AVG(r.R_STAR), 1) AS AVG_R_STAR" +
+                    " FROM trainer_details td" +
+                    " JOIN product p ON td.user_id = p.user_id" +
+                    " JOIN trainer_career tca ON td.user_id = tca.user_id" +
+                    " JOIN trainer_cert tc ON td.user_id = tc.user_id" +
+                    " JOIN trainer_image ti ON td.user_id = ti.user_id" +
+                    " JOIN user_info ui ON td.user_id = ui.user_id" +
+                    " LEFT JOIN review r ON td.UT_IDX = r.UT_IDX" +
+                    "  where ut_expert_1 = ? or ut_expert_2 = ? " +
+                    " GROUP BY td.user_id" +
+                    " ORDER BY AVG_R_STAR DESC, td.UT_IDX DESC" +
+                    " LIMIT ?, ?";
+
+            return jdbcTemplate.query(sql, new Object[]{filter, filter, offset, pageSize}, new TrainerSearchRowMapper());
+        }
+
     }
+
+    public int getTrainerCount(int filter) {
+        if(filter == -1) {
+            String sql = "SELECT COUNT(*) FROM trainer_details";
+            return jdbcTemplate.queryForObject(sql, Integer.class);
+
+        }
+        else {
+            String sql = "SELECT COUNT(*) FROM trainer_details " +
+                    "WHERE ut_expert_1 = ? or ut_expert_2 = ?";
+            return jdbcTemplate.queryForObject(sql, new Object[]{filter, filter}, Integer.class);
+        }
+
+    }
+
 
     public List<TrainerSearchDto> getAllTrainerForMainPage() {
         String sql = "SELECT DISTINCT td.user_id, td.UT_IDX, ti.TI_PATH, td.UT_GYM, ui.user_name, " +
@@ -84,7 +130,7 @@ public class TrainerDao {
                 " LEFT JOIN review r ON td.UT_IDX = r.UT_IDX" +
                 " GROUP BY td.user_id" +
                 " ORDER BY td.UT_IDX DESC" +
-                " LIMIT 3";;
+                " LIMIT 3";
 
         return jdbcTemplate.query(sql, new TrainerSearchRowMapper());
     }
@@ -171,7 +217,6 @@ public class TrainerDao {
                 "TP_PERIOD = ? " +
                 "WHERE TP_IDX = ?";
 
-            System.out.println("dao : "+trainer.getPtId()[i]);
 
             jdbcTemplate.update(sql, trainer.getPtTimes()[i],
                     trainer.getPtPrice()[i], trainer.getPtType()[i], trainer.getPtTitle()[i],
@@ -270,7 +315,7 @@ public class TrainerDao {
     public void registerTimetable(TimetableResponse timetable) {
         this.sql = "INSERT INTO TIMETABLE VALUES(NULL, ?, ?, ?, ?, ?, ?)";
 
-        jdbcTemplate.update(this.sql, timetable.getUserId(), timetable.getTDate(),         //DATE는 안넣어도 될 것 같은데..timetable.getTDate(),
+        jdbcTemplate.update(this.sql, timetable.getUserId(), timetable.getTDate(),
                 timetable.getTStartT(), timetable.getTEndT(),
                 timetable.getTPeople(), timetable.getTType());
     }
@@ -293,24 +338,47 @@ public class TrainerDao {
         jdbcTemplate.update(this.sql, tIdx);
     }
 
-    public List<PtUserDto> getPtUserInfo(String userId) {
-        this.sql = "SELECT UI.USER_ID, UI.USER_NAME, UI.USER_TEL, UI.USER_GENDER, PD.TP_TYPE, P.P_PT_CNT " +
-                   "FROM USER_INFO UI JOIN PAYMENT P ON UI.USER_ID = P.USER_ID " +
-                   "JOIN PRODUCT PD ON P.TP_IDX = PD.TP_IDX WHERE PD.USER_ID = ?";
+    public List<PtUserDto> getPtUserInfo(int page, int pageSize, String userId, String ptUserName) {
+        int offset = (page - 1) * pageSize;
 
-        return jdbcTemplate.query(this.sql, new PtUserRowMapper(), userId);
+        if(ptUserName.equals("-")) {
+            String sql = "SELECT UI.USER_ID, UI.USER_NAME, UI.USER_TEL, UI.USER_GENDER, PD.TP_TYPE, P.P_PT_CNT " +
+                    "FROM USER_INFO UI JOIN PAYMENT P ON UI.USER_ID = P.USER_ID " +
+                    "JOIN PRODUCT PD ON P.TP_IDX = PD.TP_IDX WHERE PD.USER_ID = ?" +
+                    " LIMIT ?, ?";
+
+            return jdbcTemplate.query(sql, new Object[]{userId, offset, pageSize}, new PtUserRowMapper());
+
+        }
+        else {
+            String sql = "SELECT UI.USER_ID, UI.USER_NAME, UI.USER_TEL, UI.USER_GENDER, PD.TP_TYPE, P.P_PT_CNT " +
+                    "FROM USER_INFO UI JOIN PAYMENT P ON UI.USER_ID = P.USER_ID " +
+                    "JOIN PRODUCT PD ON P.TP_IDX = PD.TP_IDX WHERE PD.USER_ID = ? AND UI.USER_NAME = ?" +
+                    " LIMIT ?, ?";
+
+            return jdbcTemplate.query(sql,  new Object[]{userId, ptUserName, offset, pageSize}, new PtUserRowMapper());
+        }
+
     }
 
-//    public ProductDto getProductByTrainerIdx(int idx) {
-//        String sql = "SELECT * FROM PRODUCT WHERE TP_IDX = ?";
-//        ProductDto productDto = new ProductDto();
-//
-//        try{
-//            productDto = jdbcTemplate.queryForObject(sql, new ProductRowMapper(), idx);
-//        }catch (Exception e){
-//            System.out.println(e.getMessage());
-//        }
-//
-//        return productDto;
-//    }
+    public int getPtUserCnt(String userId, String ptUserName) {
+
+        if (ptUserName.equals("-")) {
+            String sql = "select count(*)" +
+                    " from user_info ui join payment p on ui.user_id = p.user_id" +
+                    " join product pd on p.tp_idx = pd.tp_idx where pd.user_id = ?";
+
+            return jdbcTemplate.queryForObject(sql, Integer.class, userId);
+        }
+        else {
+            String sql = "select count(*)" +
+                    " from user_info ui join payment p on ui.user_id = p.user_id" +
+                    " join product pd on p.tp_idx = pd.tp_idx where pd.user_id = ? and ui.user_name = ?";
+
+            return jdbcTemplate.queryForObject(sql, Integer.class, userId, ptUserName);
+        }
+
+    }
+
+
 }
