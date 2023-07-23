@@ -137,8 +137,10 @@ public class TrainerController {
     @GetMapping("/trainer/trainerSearch")
     public String viewTrainerSearch(Model model, @AuthenticationPrincipal User info,
                                     @RequestParam(value = "page", defaultValue = "1") int page,
-                                    @RequestParam(value = "pageSize", defaultValue = "3") int pageSize,
-                                    @RequestParam(value = "filter", defaultValue = "-1") int filter ) {
+                                    @RequestParam(value = "pageSize", defaultValue = "1") int pageSize,
+                                    @RequestParam(value = "filter", defaultValue = "-1") int filter,
+                                    @RequestParam(value = "address", defaultValue = "주소를 입력하세요") String address,
+                                    @RequestParam(value = "secondWord", defaultValue = "-") String secondWord) {
 
         if (info != null) {
             model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
@@ -147,14 +149,28 @@ public class TrainerController {
         model.addAttribute("head_title", "트레이너 찾기");
         model.addAttribute("userId", info);
 
+        if((!address.equals("주소를 입력하세요"))) {
+            // Separate the second word from the address using space as the delimiter
+            String[] addressParts = address.split(" ");
+            secondWord = addressParts[1];
+
+        }
+        model.addAttribute("secondWord", secondWord);
+
+
+
         // 페이징을 위한 데이터 조회
-        List<TrainerSearchDto> trainers = trainerService.searchAllTrainer(page, pageSize, filter);
-        int totalTrainers = trainerService.getTrainerCnt(filter);
+        List<TrainerSearchDto> trainers = trainerService.searchAllTrainer(page, pageSize, filter, secondWord);
+        int totalTrainers = trainerService.getTrainerCnt(filter, secondWord);
 
         model.addAttribute("trainers", trainers);
         model.addAttribute("currentPage", page);
         model.addAttribute("trainersPerPage", pageSize);
         model.addAttribute("filter", filter);
+
+        // Set the address and secondWord variables in the model
+        model.addAttribute("address", address);
+
 
         int totalPages = (int) Math.ceil((double) totalTrainers / pageSize);
 
@@ -173,12 +189,6 @@ public class TrainerController {
 
         return "content/trainer/trainerSearch";
     }
-
-    public int getTotalPages(int totalItems, int pageSize) {
-        return (int) Math.ceil((double) totalItems / pageSize);
-    }
-
-
 
     @GetMapping("/trainer/trainerControl")
     public String trainerControl(Model model, @AuthenticationPrincipal User info){
@@ -259,6 +269,11 @@ public class TrainerController {
     @GetMapping("/address-search")
     public String addressTest() {
         return "content/trainer/addressModal";
+    }
+
+    @GetMapping("/address-search2")
+    public String addressTestForRegister() {
+        return "content/trainer/addressModalForRegister";
     }
 
 }

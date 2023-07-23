@@ -134,15 +134,15 @@ public class TrainerService {
 
     }
     @Transactional
-    public List<TrainerSearchDto> searchAllTrainer(int page, int pageSize, int filter) {
-        return trainerDao.getAllTrainerForSearch(page, pageSize, filter);
+    public List<TrainerSearchDto> searchAllTrainer(int page, int pageSize, int filter, String address) {
+        return trainerDao.getAllTrainerForSearch(page, pageSize, filter, address);
     }
 
 
     @Transactional
-    public int getTrainerCnt(int filter) {
+    public int getTrainerCnt(int filter, String address) {
 
-        return trainerDao.getTrainerCount(filter);
+        return trainerDao.getTrainerCount(filter, address);
     }
 
     @Transactional

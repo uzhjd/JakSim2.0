@@ -1,5 +1,6 @@
 {{>layout/header}}
 <link rel="stylesheet" href="/css/trainer/trainerRegister.css">
+<script src="https://kit.fontawesome.com/05995ac069.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="/css/trainer/trainerSearch.css">
 <body>
 <style>
@@ -52,7 +53,7 @@
 {{>layout/navi}}
 <div id="trainer_create_container">
     <span class="jaksim_title_font" style="font-size: 20px; color: black;">트레이너 등록하기</span>
-    <form action="/trainerRegister" method="POST" enctype="multipart/form-data" onsubmit="return confirm('트레이너 등록을 하시겠습니까?');">
+    <form action="/trainerRegister" method="POST" enctype="multipart/form-data" onsubmit="return confirm('트레이너 등록을 진행하시겠습니까?');">
         <div class="input_container">
             <span class="input_span jaksim_font">인스타 링크</span>
             <input class="input_input jaksim_font" type="text" name="insta">
@@ -62,9 +63,14 @@
             <textarea name="introduce" class="jaksim_font" id="trainer_create_introduce" cols="30" rows="10" required></textarea>
         </div>
         <div class="input_container">
-            <span class="input_span jaksim_font">소속 헬스장</span>
-            <input class="input_input jaksim_font" type="text" name="gym" required>
+            <span class="input_span">소속 헬스장</span>
+            <input class="input_input" type="text" name="gym" required>
         </div>
+        <div class="input_container">
+                <a onclick="road()" style="cursor: pointer;"><i class="fa-sharp fa-solid fa-location-dot fa-xl" style="color: #ca7cfd;" id="location"></i>
+                <input readonly type="text" name="address" placeholder="헬스장 주소를 입력하세요" id="input-address" style="pointer-events: none; width: 350px; border: white; border-radius: 5px; "/></a>
+                <br>
+            </div>
         <br>
         <span style="font-weight:bold">전문분야</span>
             <span style="font-size: 12px;">2개를 선택해주세요</span><br>
@@ -138,6 +144,23 @@
 </div>
 
 {{>layout/footer}}
+<script>
+  //주소찾기
+  function road() {
+    const popup = window.open("/address-search2","Popup", "width=800, height=700");
+
+    popup.onbeforeunload = function(data) {
+      console.log(data)
+      console.log("데이터 체크")
+    }
+
+    // 팝업창에 데이터 쓰기
+    popup.document.write(data);
+  }
+
+
+</script>
+
 <script>
     document.getElementById('add-cert').onclick = function(){
     var certInput = document.getElementById('certName');

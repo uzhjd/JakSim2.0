@@ -265,31 +265,6 @@
 
 <script>
 window.onload = function() {
-    /*
-    //검색
-    var rows = document.getElementById("table-body").getElementsByTagName("tr");
-
-    var searchButton = document.querySelector(".search-icon");
-        searchButton.addEventListener("click", searchUsers);
-        
-        function searchUsers() {
-            var keyword = document.getElementById("search-input").value.toLowerCase();
-            var rows = document.getElementById("table-body").getElementsByTagName("tr");
-
-            for (var i = 0; i < rows.length; i++) {
-                var userName = rows[i].getElementsByTagName("td")[0].getElementsByTagName("input")[0].value.toLowerCase();
-
-                // Hide all rows by default
-                rows[i].style.display = "none";
-
-                if (userName.indexOf(keyword) !== -1) {
-                    rows[i].style.display = "";
-                }
-            }
-        }
-
-    setInitialDisplayState();
-    */
 
     // 글씨 change
     for (var i = 0; i < rows.length; i++) {
@@ -314,64 +289,7 @@ window.onload = function() {
         }
     }
 
-    // 페이징
-    /*
-    function setInitialDisplayState() {
-        var rows = document.getElementById("table-body").getElementsByTagName("tr");
-
-        for (var i = 0; i < rows.length; i++) {
-            if (i < rowsPerPage) {
-                rows[i].classList.remove("hidden-row");
-            } else {
-                rows[i].classList.add("hidden-row");
-            }
-        }
-    }
-
-    function updateRowsDisplay() {
-        var rows = document.getElementById("table-body").getElementsByTagName("tr");
-
-        var startIndex = (currentPage - 1) * rowsPerPage;
-        var endIndex = startIndex + rowsPerPage - 1;
-
-        for (var i = 0; i < rows.length; i++) {
-            if (i >= startIndex && i <= endIndex) {
-                rows[i].style.display = "";
-            } else {
-                rows[i].style.display = "none";
-            }
-        }
-
-        var currentPageElement = document.getElementById("current-page");
-        currentPageElement.textContent = "Page " + currentPage;
-    }
-
-    var currentPage = 1;
-    var rowsPerPage = 5;
-
-    setInitialDisplayState();
-    updateRowsDisplay();
-
-    var prevPageButton = document.getElementById("prev-page");
-    var nextPageButton = document.getElementById("next-page");
-
-    prevPageButton.addEventListener("click", function() {
-        if (currentPage > 1) {
-            currentPage--;
-            updateRowsDisplay();
-        }
-    });
-
-    nextPageButton.addEventListener("click", function() {
-        var totalRows = document.getElementById("table-body").getElementsByTagName("tr").length;
-        var maxPage = Math.ceil(totalRows / rowsPerPage);
-
-        if (currentPage < maxPage) {
-            currentPage++;
-            updateRowsDisplay();
-        }
-    });
-    */
+  
 
    
 }
