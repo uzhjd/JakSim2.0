@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="/css/trainer/trainerRegister.css">
 <link rel="stylesheet" href="/css/trainer/trainerSearch.css">
+<script src="https://kit.fontawesome.com/05995ac069.js" crossorigin="anonymous"></script>
 
 <div>
     <h3 class="right_info jaksim_title_font" style="position: relative;
@@ -20,6 +21,14 @@
         <span class="input_span">소속 헬스장</span>
         <input class="input_input" type="text" value="{{#trainer}}{{gym}}{{/trainer}}" name="gym" required>
     </div>
+        <div class="input_container">
+                <a onclick="road()" style="cursor: pointer;"><i class="fa-sharp fa-solid fa-location-dot fa-xl" style="color: #ca7cfd;" id="location"></i>
+                <input readonly type="text" value="{{#trainer}}{{address}}{{/trainer}}" name="address" placeholder="헬스장 주소를 입력하세요" id="input-address" style="pointer-events: none; width: 350px; border: white; border-radius: 5px; "/></a>
+                <br>
+            </div>
+        <br>
+
+
     <span style="font-weight:bold">전문분야</span>
     <span style="font-size: 12px;">2개를 선택해주세요</span><br>
     <select name="expert1" class="input_select" style="margin-left: 0px;" value="{{#trainer}}{{expert1}}{{/trainer}}">
@@ -238,4 +247,20 @@ window.onload = function() {
     }
     {{/product}}
 }
+</script>
+<script>
+  //주소찾기
+  function road() {
+    const popup = window.open("/address-search2","Popup", "width=800, height=700");
+
+    popup.onbeforeunload = function(data) {
+      console.log(data)
+      console.log("데이터 체크")
+    }
+
+    // 팝업창에 데이터 쓰기
+    popup.document.write(data);
+  }
+
+
 </script>

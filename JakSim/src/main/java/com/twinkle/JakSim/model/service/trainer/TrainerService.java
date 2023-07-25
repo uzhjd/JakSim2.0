@@ -23,6 +23,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -73,6 +74,10 @@ public class TrainerService {
     }
     @Transactional
     public void updateTrainer(TrainerInsertDto requestTrainer, String userId, MultipartFile certImage, MultipartFile[] imagePath) throws IOException {
+
+        System.out.println("CERT 입력값 : "+certImage.isEmpty());
+        System.out.println("CERT 기존 : "+requestTrainer.getCertImage().toString()==null);
+
         if(!certImage.isEmpty()) {
             String projectPath = System.getProperty("user.dir") +
                     "/JakSim/src/main/resources/static";
@@ -86,10 +91,11 @@ public class TrainerService {
                     file.delete();
                 }
 
-
+                String projectPath2 = System.getProperty("user.dir") +
+                        "/JakSim/src/main/resources/static/image/trainer";
                 UUID uuid = UUID.randomUUID();
                 String certName = uuid + "_" + certImage.getOriginalFilename();
-                File saveFile = new File(projectPath, certName);
+                File saveFile = new File(projectPath2, certName);
                 requestTrainer.setCertImage("/image/trainer/" + certName);
                 certImage.transferTo(saveFile);
             }
@@ -98,11 +104,11 @@ public class TrainerService {
             System.out.println("자격증 이미지없음");
         }
 
-        if(imagePath.length == 0) {
+        if(!imagePath[0].isEmpty()) {
             String projectPath = System.getProperty("user.dir") +
                     "/JakSim/src/main/resources/static";
 
-            if(requestTrainer.getImagePath().length==0 || requestTrainer.getImagePath() != null) {
+            if(requestTrainer.getImagePath().length!=0 || requestTrainer.getImagePath() != null) {
                 for (String image : requestTrainer.getImagePath()) {
                     String path = projectPath + image;
 
@@ -126,13 +132,13 @@ public class TrainerService {
             }
             requestTrainer.setImagePath(imagePaths.toArray(new String[0]));
         }
-        else {
-            System.out.println("이미지패스없음");
+        else if(requestTrainer.getImagePath() != null) {
+            System.out.println("새로운 이미지 없음");
         }
 
-        trainerDao.upDateTrainer(requestTrainer, userId);
-
+        trainerDao.upDateTrainer(requestTrainer, userId, imagePath);
     }
+
     @Transactional
     public List<TrainerSearchDto> searchAllTrainer(int page, int pageSize, int filter, String address) {
         return trainerDao.getAllTrainerForSearch(page, pageSize, filter, address);

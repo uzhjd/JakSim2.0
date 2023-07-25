@@ -89,25 +89,15 @@ public class TrainerController {
     public String trainerUpdate(TrainerInsertDto trainerDto, @AuthenticationPrincipal User info, Model model,
                                 @RequestParam("certImage1") MultipartFile certImage,
                                 @RequestParam("imagePath1") MultipartFile[] imagePath) throws IOException {
-        System.out.println("cert Multipart : " + certImage.getOriginalFilename());
-        System.out.println("cert Multipart : " + certImage.getSize());
 
-        for(MultipartFile file : imagePath) {
-            System.out.println("image Multipart : " + file.getOriginalFilename());
-            System.out.println("image Multipart : " + file.getSize());
-            System.out.println("image Multipart : " + file.isEmpty());
-            System.out.println("image Multipart : " + file.equals(""));
-        }
 
-        System.out.println("redirect update : " +trainerDto.toString());
         trainerService.updateTrainer(trainerDto, info.getUsername(), certImage, imagePath);
 
-        return "redirect:/trainerUpdate/" + info.getUsername();
+        return "redirect:/trainer/trainerUpdate/" + info.getUsername();
     }
 
     @PostMapping("/trainerDelete")
     public String trainerDelete(TrainerInsertDto trainerDto, @AuthenticationPrincipal User info) {
-        //System.out.println("컨트롤러 del : "+ trainerDto.toString());
         trainerService.deleteTrainer(trainerDto ,info.getUsername());
 
         return "redirect:/";

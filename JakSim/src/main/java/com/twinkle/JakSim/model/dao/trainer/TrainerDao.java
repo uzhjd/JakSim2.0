@@ -12,10 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.swing.text.html.parser.Entity;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class TrainerDao {
@@ -219,7 +222,7 @@ public class TrainerDao {
     }
 
     public List<TrainerPageDto> getTrainerPage(String userId) {   //리스트아닌것들
-        String sql = "SELECT DISTINCT tc.TC_IMAGE, td.UT_EXPERT_1, td.UT_EXPERT_2, ui.user_name, td.UT_GYM, td.UT_INSTA, td.UT_INTRO " +
+        String sql = "SELECT DISTINCT tc.TC_IMAGE, td.UT_EXPERT_1, td.UT_EXPERT_2, ui.user_name, td.UT_GYM, td.UT_INSTA, td.UT_INTRO, td.UT_ADDRESS  " +
                 "FROM trainer_details td " +
                 "JOIN user_info ui ON td.user_id = ui.user_id " +
                 "JOIN trainer_cert tc ON td.user_id = tc.user_id " +
@@ -262,7 +265,7 @@ public class TrainerDao {
         return jdbcTemplate.query(sql, new TrainerSearchRowMapper(), userId);
     }
 
-    public void upDateTrainer(TrainerInsertDto trainer, String userId){
+    public void upDateTrainer(TrainerInsertDto trainer, String userId, MultipartFile[] imagePath){
         this.sql = "UPDATE TRAINER_DETAILS " +
                 "SET UT_INTRO = ?," +
                 "UT_INSTA = ?," +
@@ -318,7 +321,9 @@ public class TrainerDao {
             }
         }
 
-        if (trainer.getImagePath() != null) {
+        if (!imagePath[0].isEmpty()) {
+            System.out.println("여기인가요??");
+
             this.sql = "DELETE FROM TRAINER_IMAGE WHERE USER_ID = ?";
             jdbcTemplate.update(sql, userId);
 
@@ -327,11 +332,13 @@ public class TrainerDao {
                 jdbcTemplate.update(sql, userId, image);
             }
         }
-        else if(trainer.getImagePath() == null) {
+        else {
             System.out.println("ImagePath null!!!!");
         }
 
     }
+
+
 
     public void deleteTrainer(String userId){
         this.sql = "DELETE FROM TRAINER_DETAILS WHERE USER_ID = ?";

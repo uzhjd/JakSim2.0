@@ -20,6 +20,7 @@ public class TrainerPageDto {
     private String gym;
     private int expert1;
     private int expert2;
+    private String address;
 
     private int ptTimes;
     private int ptPrice;
