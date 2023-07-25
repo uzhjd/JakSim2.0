@@ -2,6 +2,7 @@ package com.twinkle.JakSim.controller.administrator.session;
 
 import com.twinkle.JakSim.model.dto.administrator.session.SessionInfo;
 import com.twinkle.JakSim.model.dto.administrator.session.UserSession;
+import com.twinkle.JakSim.model.service.account.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SessionController {
     private final SessionRegistry registry;
+    private final AccountService accountService;
     private final String defaultPath = "content/administrator/session/";
 
     @GetMapping("/session/list")
@@ -28,6 +30,7 @@ public class SessionController {
         List<UserSession> userSessions = registry.getAllPrincipals().stream()
                 .map(p -> UserSession.builder()
                         .username(((User) p).getUsername())
+                        .role(checkRole(accountService.findByUsername(((User) p).getUsername()).getRole()))
                         .sessions(registry.getAllSessions(p, false)
                                 .stream().map(si -> SessionInfo.builder()
                                         .lastRequest(dateToLocalDateTime(si.getLastRequest()))
@@ -45,6 +48,19 @@ public class SessionController {
         model.addAttribute("amount_user", userSessions.size());
 
         return defaultPath + "sessionList";
+    }
+
+    private String checkRole(int role) {
+        switch (role){
+            case 0:
+                return "관리자";
+            case 1:
+                return "일반 사용자";
+            case 2:
+                return "트레이너";
+            default:
+                return "";
+        }
     }
 
     private LocalDateTime dateToLocalDateTime(Date date) {

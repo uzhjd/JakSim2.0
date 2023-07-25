@@ -4,31 +4,36 @@
 </head>
 
 <body>
-<p>Sessions</p>
 
-<p>접속 회원: {{amount_user}}</p>
+<div class="container">
+    <p>Sessions</p>
 
-<table id="session_list_table">
-    <tr>
-        <th>계정 명</th>
-        <th>세션 아이디</th>
-        <th>최근 요청</th>
-        <th>만료 여부</th>
-        <th>제한 버튼</th>
-    </tr>
-    {{#sessionList}}
+    <p>접속 회원: {{amount_user}}</p>
+
+    <table id="session_list_table">
         <tr>
-            <td><a href="/info/{{username}}">{{username}}</a></td>
-            {{#sessions}}
-                <td id="session_id">{{sessionId}}</td>
-                <td>{{lastRequest}}</td>
-                <td>{{expired}}</td>
-                <td>
-                    <button onclick="removeExpire()">세선 제거</button>
-                </td>
-            {{/sessions}}
+            <th>계정 명</th>
+            <th>등급</th>
+            <th>세션 아이디</th>
+            <th>최근 요청</th>
+            <th>만료 여부</th>
+            <th>제한 버튼</th>
         </tr>
-    {{/sessionList}}
-</table>
+        {{#sessionList}}
+            <tr>
+                <td><a href="/info/{{username}}">{{username}}</a></td>
+                <td>{{role}}</td>
+                {{#sessions}}
+                    <td id="session_id">{{sessionId}}</td>
+                    <td>{{lastRequest}}</td>
+                    <td>{{expired}}</td>
+                    <td>
+                        <button onclick="removeExpire()">세선 제거</button>
+                    </td>
+                {{/sessions}}
+            </tr>
+        {{/sessionList}}
+    </table>
+</div>
 {{>layout/footer}}
 </body>

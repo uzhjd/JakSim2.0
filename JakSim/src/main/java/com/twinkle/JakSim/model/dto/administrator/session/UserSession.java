@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 public class UserSession {
     private String username;
+    private String role;
     private List<SessionInfo> sessions;
     public int getCount(){
         return sessions.size();
