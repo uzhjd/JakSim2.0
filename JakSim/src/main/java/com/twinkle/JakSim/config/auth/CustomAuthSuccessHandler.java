@@ -23,12 +23,18 @@ public class CustomAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHand
         clearSession(request);
 
         String prevPage = (String) request.getSession().getAttribute("prevPage");
+        if(prevPage == null){
+            prevPage = "/";
+        }
         if(prevPage.equals("") || prevPage.contains("/account")){
             prevPage = "/";
         }
 
         setDefaultTargetUrl(prevPage);
+
         loginLogService.create(authentication.getName(), request.getRemoteAddr());
+        request.getSession().removeAttribute("prevPage");
+
         super.onAuthenticationSuccess(request, response, authentication);
     }
 

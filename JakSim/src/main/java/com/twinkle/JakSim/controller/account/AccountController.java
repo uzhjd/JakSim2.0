@@ -9,17 +9,18 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class AccountController {
     private final String defaultPath = "content/account/";
+
     @GetMapping("/account")
-    public String accountPage(Model model){
+    public String accountPage(Model model) {
         model.addAttribute("head_title", "회원가입");
         return String.format(this.defaultPath + "account");
     }
 
     @GetMapping("/account/{num}")
-    public String accountPages(@PathVariable("num") int num, Model model){
+    public String accountPages(@PathVariable("num") int num, Model model) {
         String pageSeq;
 
-        if(num == 4){ //이후에 숫자는 본인 재량껏 변경바람
+        if (num == 4) { //이후에 숫자는 본인 재량껏 변경바람
             model.addAttribute("head_title", "회원가입 성공");
             pageSeq = String.format(defaultPath + "account_fin");
             return pageSeq;
@@ -32,18 +33,19 @@ public class AccountController {
     }
 
     @GetMapping("/login")
-    public String loginPage(HttpServletRequest request, Model model){
+    public String loginPage(HttpServletRequest request, Model model) {
         model.addAttribute("head_title", "로그인");
 
-        String uri = request.getHeader("Referer");
-        if(uri != null && !uri.contains("/login")){
-            request.getSession().setAttribute("prevPage", uri);
+        String url = request.getHeader("Referer");
+
+        if (url != null && !url.contains("/login")) {
+            request.getSession().setAttribute("prevPage", url);
         }
         return String.format(this.defaultPath + "login");
     }
 
     @GetMapping("/account/delprocess")
-    public String deleteProcess(){
+    public String deleteProcess() {
         return "redirect:/logout";
     }
 }

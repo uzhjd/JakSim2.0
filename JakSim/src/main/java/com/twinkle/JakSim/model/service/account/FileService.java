@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -42,5 +43,9 @@ public class FileService {
 
     public UserImage getSingeProfile(String username){
         return fileDao.getRecentImage(username);
+    }
+
+    public List<UserImage> getAllImages(String username){
+        return fileDao.getAllImages(username);
     }
 }

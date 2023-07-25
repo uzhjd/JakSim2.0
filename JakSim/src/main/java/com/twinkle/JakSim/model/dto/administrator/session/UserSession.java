@@ -1,4 +1,4 @@
-package com.twinkle.JakSim.model.dto.account.session;
+package com.twinkle.JakSim.model.dto.administrator.session;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

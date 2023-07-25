@@ -1,0 +1,23 @@
+{{>layout/header}}
+</head>
+
+<body>
+    {{#user}}
+        {{id}}
+        {{name}}
+        {{email}}
+        {{tel}}
+        {{birth}}
+        {{c_dt}}
+        {{#m_dt}}
+            {{m_dt}}
+        {{/m_dt}}
+        {{role}}
+    {{/user}}
+    {{#imageList}}
+        <div>
+            <img src="{{path}}" alt="image" class="rounded" style="width:200px;">
+            {{dt}}
+        </div>
+    {{/imageList}}
+</body>
