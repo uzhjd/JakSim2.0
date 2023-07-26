@@ -165,12 +165,12 @@ public class PaymentDao {
         return payList;
     }
 
-    public Optional<PaymentDo> getPaymentByIdx(int pIdx) {
-        String sql = "SELECT * FROM PAYMENT WHERE P_IDX = ?";
+    public Optional<PaymentDo> getPaymentByIdx(String tid) {
+        String sql = "SELECT * FROM PAYMENT WHERE TID = ?";
         PaymentDo paymentDo = null;
 
         try{
-            paymentDo = jdbcTemplate.queryForObject(sql, new PaymentDoRowMapper(), pIdx);
+            paymentDo = jdbcTemplate.queryForObject(sql, new PaymentDoRowMapper(), tid);
         }catch (Exception e){
             System.out.println(e.getMessage());
         }

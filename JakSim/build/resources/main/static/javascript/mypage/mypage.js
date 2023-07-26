@@ -47,7 +47,7 @@ window.onload = function() {
     Array.from(viewPayButtons).forEach((button) => {
         button.addEventListener('click', function(event){
             var payId = event.target.closest('tr').querySelector('td:first-child span').textContent;
-            window.location.href=`/payment/detail/${payId}`;
+            window.location.href=`/payment/detail/T4c1333876b90283db38`;
         });
     });
 }

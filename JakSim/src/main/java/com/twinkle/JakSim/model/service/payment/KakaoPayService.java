@@ -4,6 +4,7 @@ import com.twinkle.JakSim.model.dto.payment.request.PaymentRequest;
 import com.twinkle.JakSim.model.dto.payment.request.RefundRequest;
 import com.twinkle.JakSim.model.dto.payment.response.ApproveResponse;
 import com.twinkle.JakSim.model.dto.payment.response.CancelResponse;
+import com.twinkle.JakSim.model.dto.payment.response.ListResponse;
 import com.twinkle.JakSim.model.dto.payment.response.ReadyResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
@@ -126,5 +127,23 @@ public class KakaoPayService {
                                                                                 requestEntity, CancelResponse.class);
 
         return cancelResponse;
+    }
+
+    public ListResponse kakaoList(String tid) {
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();         // 카카오페이 요청 양식
+
+        parameters.add("cid", cid);                                                     // 가맹점 코드
+        parameters.add("tid", String.valueOf(tid));
+
+        // 파라미터, 헤더
+        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
+
+        // 외부에 보낼 url
+        RestTemplate restTemplate = new RestTemplate();
+
+        ListResponse listResponse = restTemplate.postForObject("https://kapi.kakao.com/v1/payment/order",
+                requestEntity, ListResponse.class);
+
+        return listResponse;
     }
 }

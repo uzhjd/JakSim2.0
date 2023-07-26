@@ -61,5 +61,32 @@ function goReview(){
 }
 
 function rePay(){
+    var typeAndPeriodSpan = document.getElementById('pay_detail_type_period').innerHTML;
+    var divideData = typeAndPeriodSpan.split('/');
 
+    var data = {
+        ptTitle: document.getElementById('pay_detail_ptTitle').innerHTML,
+        tpIdx: document.getElementById('pay_detail_tpIdx').innerHTML,
+        ptPrice: document.getElementById('pay_detail_price').innerHTML,
+        ptTimes: divideData[0].trim(),
+        ptPeriod: divideData[1].trim().replace('일','')
+    };
+
+    axios.post('/payment/ready', data)
+        .then((response) => {
+            var httpStatus = response.status;
+
+            console.log(response);
+
+            if(httpStatus == 500) {
+                alert("500: Payment with Kakao Pay failed.");
+            } else {
+                var box = response.data.next_redirect_pc_url;
+
+                window.open(box, "", "width=500, height=800");
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
 }

@@ -2,6 +2,7 @@ package com.twinkle.JakSim.controller.payment;
 
 import com.twinkle.JakSim.model.dto.payment.PaymentDtoForMypage;
 import com.twinkle.JakSim.model.dto.payment.response.CancelResponse;
+import com.twinkle.JakSim.model.dto.payment.response.ListResponse;
 import com.twinkle.JakSim.model.dto.payment.response.PaymentDo;
 import com.twinkle.JakSim.model.service.payment.PaymentService;
 import com.twinkle.JakSim.model.service.trainer.TrainerService;
@@ -84,16 +85,19 @@ public class PaymentController {
         return String.format(defaultPage + "pay_list");
     }
 
-    @GetMapping("/detail/{idx}")
-    public String payDetailPage(@AuthenticationPrincipal User user, @PathVariable("idx") int p_idx, Model model){
+    @GetMapping("/detail/{tid}")
+    public String payDetailPage(@AuthenticationPrincipal User user, @PathVariable("tid") String tid, Model model) {
         model.addAttribute("head_title", "결제 내역 상세");
-        paymentService.getPaymentByIdx(p_idx).ifPresent(
+
+        paymentService.getPaymentByIdx(tid).ifPresent(
                 item -> {
                     System.out.println(item);
+                    model.addAttribute("apiResponse", kakaoPayService.kakaoList(tid));
                     model.addAttribute("payment", item);
                     model.addAttribute("product", paymentService.getProductByIdx(item.getTp_idx()));
                 }
         );
+
         return String.format(defaultPage + "pay_detail");
     }
 
