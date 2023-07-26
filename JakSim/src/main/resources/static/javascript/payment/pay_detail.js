@@ -1,4 +1,6 @@
 var rePayButton, reviewButton, refundButton;
+var pIdx;
+
 window.onload = function(){
     refundStatus();
 
@@ -10,6 +12,8 @@ window.onload = function(){
 
     refundButton = document.getElementById('pay_detail_refundbutton');
     refundButton.addEventListener('click', doRefund);
+
+    pIdx = document.getElementById('pay_detail_idx').innerHTML;
 }
 
 function refundStatus(){
@@ -25,13 +29,14 @@ function refundStatus(){
 }
 
 function doRefund(){
-    sessionStorage.setItem('pIdx', document.getElementById('pay_detail_idx').innerHTML);
+
 }
 
 function goReview(){
-    sessionStorage.setItem('pIdx', document.getElementById('pay_detail_idx').innerHTML);
+    var trainerId = document.getElementById('pay_detail_trainerId').innerHTML;
+    window.location.href=`/registerReview/${trainerId}`;
 }
 
 function rePay(){
-    sessionStorage.setItem('pIdx', document.getElementById('pay_detail_idx').innerHTML);
+
 }

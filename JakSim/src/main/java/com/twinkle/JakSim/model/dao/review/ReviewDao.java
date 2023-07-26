@@ -1,5 +1,6 @@
 package com.twinkle.JakSim.model.dao.review;
 
+import com.twinkle.JakSim.model.dto.review.ReviewDto;
 import com.twinkle.JakSim.model.dto.review.ReviewRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -52,6 +53,7 @@ public class ReviewDao {
         return Optional.ofNullable(reviewList);
     }
 
+
     public void editReview(ReviewRequestDto review, String userId) {
         this.sql = "UPDATE REVIEW SET R_CONTENT = ?, R_STAR = ?, R_M_DT = current_date " +
                 "WHERE USER_ID = ?";
@@ -68,4 +70,20 @@ public class ReviewDao {
 
     }
 
+//    public List<ReviewDto> getReviewItems(String username, int page) {
+//        int offset = (page-1) * 10;
+//        String sql = "SELECT R.R_IDX, R.USER_ID, R.TRAINER_ID, R.UT_IDX, R.R_CONTENT, R.R_STAR, R.R_C_DT, R.R_M_DT, U.USER_NAME " +
+//                "FROM REVIEW R, TRAINER_DETAILS T, USER_INFO U " +
+//                "WHERE R.TRAINER_ID = T.USER_ID AND T.USER_ID = U.USER_ID " +
+//                "AND R.USER_ID = ?";
+//        List<ReviewDto> reviewList = new ArrayList<>();
+//
+//        try{
+//            reviewList = jdbcTemplate.query(sql, new ReviewDtoRowMapper(), username);
+//        }catch (Exception e){
+//            System.out.println(e.getMessage());
+//        }
+//
+//        return reviewList;
+//    }
 }

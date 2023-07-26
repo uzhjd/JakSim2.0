@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="231c7099-b0e4-41bc-8586-662e764475b5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/dto/payment/request/RefundRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023-07-15__11_11__Changes_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023-07-15_오후_11_11_[Changes]1/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/.gradle/7.6.1/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/.gradle/7.6.1/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/.gradle/7.6.1/dependencies-accessors/dependencies-accessors.lock" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/.gradle/7.6.1/dependencies-accessors/dependencies-accessors.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JakSim/.gradle/7.6.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/.gradle/7.6.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JakSim/.gradle/7.6.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/.gradle/7.6.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JakSim/.gradle/7.6.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/.gradle/7.6.1/fileHashes/fileHashes.bin" afterDir="false" />
@@ -14,41 +18,70 @@
       <change beforePath="$PROJECT_DIR$/JakSim/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JakSim/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JakSim/build/classes/java/main/com/twinkle/JakSim/config/CustomWebConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/build/classes/java/main/com/twinkle/JakSim/config/CustomWebConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/build/classes/java/main/com/twinkle/JakSim/controller/payment/PaymentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/build/classes/java/main/com/twinkle/JakSim/controller/payment/PaymentController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/build/classes/java/main/com/twinkle/JakSim/config/auth/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/build/classes/java/main/com/twinkle/JakSim/config/auth/SecurityConfig.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JakSim/build/classes/java/main/com/twinkle/JakSim/controller/review/ReviewController.class" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/build/classes/java/main/com/twinkle/JakSim/controller/review/ReviewController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/build/classes/java/main/com/twinkle/JakSim/model/dao/trainer/TrainerDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/build/classes/java/main/com/twinkle/JakSim/model/dao/trainer/TrainerDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/build/classes/java/main/com/twinkle/JakSim/model/dao/trainer/TrainerDetailRowMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/build/classes/java/main/com/twinkle/JakSim/model/dao/trainer/TrainerDetailRowMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/build/classes/java/main/com/twinkle/JakSim/model/dto/trainer/response/TrainerDetailResponse$TrainerDetailResponseBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/build/classes/java/main/com/twinkle/JakSim/model/dto/trainer/response/TrainerDetailResponse$TrainerDetailResponseBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/build/classes/java/main/com/twinkle/JakSim/model/dto/trainer/response/TrainerDetailResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/build/classes/java/main/com/twinkle/JakSim/model/dto/trainer/response/TrainerDetailResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/build/classes/java/test/com/twinkle/JakSim/JakSimApplicationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/build/classes/java/test/com/twinkle/JakSim/JakSimApplicationTests.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/build/resources/main/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/build/resources/main/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/build/resources/main/static/css/scheduleList/trainerDetailsStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/build/resources/main/static/css/scheduleList/trainerDetailsStyle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/build/classes/java/main/com/twinkle/JakSim/model/dao/review/ReviewDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/build/classes/java/main/com/twinkle/JakSim/model/dao/review/ReviewDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/build/classes/java/main/com/twinkle/JakSim/model/dto/payment/response/ApproveAmountResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/build/classes/java/main/com/twinkle/JakSim/model/dto/payment/response/ApproveAmountResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/build/classes/java/main/com/twinkle/JakSim/model/dto/review/ReviewDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/build/classes/java/main/com/twinkle/JakSim/model/dto/review/ReviewDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/build/classes/java/main/com/twinkle/JakSim/model/service/review/ReviewService.class" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/build/classes/java/main/com/twinkle/JakSim/model/service/review/ReviewService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/build/classes/java/main/com/twinkle/JakSim/model/service/timetable/TimetableService.class" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/build/classes/java/main/com/twinkle/JakSim/model/service/timetable/TimetableService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/build/resources/main/static/css/mypage/mypageStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/build/resources/main/static/css/mypage/mypageStyle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/build/resources/main/static/css/payment/paymentSuccess.css" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/build/resources/main/static/css/payment/paymentSuccess.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/build/resources/main/static/image/trainer/12cc331b-24e3-435d-8cf3-dd915b28848d_스크린샷 2023-03-06 155332.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/build/resources/main/static/image/trainer/16109184-5beb-4486-bf07-2545ae5fc214_006.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/build/resources/main/static/image/trainer/30730372-8df0-455c-8314-3b08d22e4c78_006.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/build/resources/main/static/image/trainer/7f480e16-b940-493c-b6d3-610baec82ac4_스크린샷 2023-04-21 160136.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/build/resources/main/static/image/trainer/80d9d663-dc98-4072-82c7-081f83aa3fa8_PT트레이너.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/build/resources/main/static/image/trainer/80d9d663-dc98-4072-82c7-081f83aa3fa8_a.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/build/resources/main/static/image/trainer/80d9d663-dc98-4072-82c7-081f83aa3fa8_b.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/build/resources/main/static/image/trainer/9bf6808f-6c5b-45a9-b714-fd0115a62305_스크린샷 2023-03-02 161236.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/build/resources/main/static/image/trainer/a4010f52-74fe-4d27-b6aa-f950b38d8155_b.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/build/resources/main/static/image/trainer/ba77771c-9680-46e0-85d9-507ca1894f9d_PT트레이너.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/build/resources/main/static/image/trainer/ba77771c-9680-46e0-85d9-507ca1894f9d_a.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/build/resources/main/static/image/trainer/ba77771c-9680-46e0-85d9-507ca1894f9d_b.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/JakSim/build/resources/main/static/javascript/mypage/mypage.js" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/build/resources/main/static/javascript/mypage/mypage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/build/resources/main/static/javascript/payment/kakaoPay.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/build/resources/main/static/javascript/trainer/trainerBrief.js" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/build/resources/main/static/javascript/trainer/trainerBrief.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/build/resources/main/static/javascript/payment/pay_detail.js" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/build/resources/main/static/javascript/payment/pay_detail.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/build/resources/main/static/javascript/payment/payment.js" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/build/resources/main/static/javascript/payment/payment.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/build/resources/main/templates/content/mypage/aside/main_aside.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/build/resources/main/templates/content/mypage/aside/main_aside.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/build/resources/main/templates/content/mypage/auth.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/build/resources/main/templates/content/mypage/auth.mustache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JakSim/build/resources/main/templates/content/mypage/content/main_content.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/build/resources/main/templates/content/mypage/content/main_content.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/build/resources/main/templates/content/payment/KakaoPay.mustache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/build/resources/main/templates/content/scheduleList/generalScheduleList.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/build/resources/main/templates/content/scheduleList/generalScheduleList.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/build/resources/main/templates/content/scheduleList/trainerScheduleList.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/build/resources/main/templates/content/scheduleList/trainerScheduleList.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/build/tmp/compileJava/compileTransaction/stash-dir/KakaoPayRestController.class.uniqueId2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/build/tmp/compileJava/compileTransaction/stash-dir/KakaoPayService$1.class.uniqueId3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/build/tmp/compileJava/compileTransaction/stash-dir/KakaoPayService.class.uniqueId0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/build/tmp/compileJava/compileTransaction/stash-dir/PaymentController.class.uniqueId1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/build/resources/main/templates/content/payment/pay_detail.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/build/resources/main/templates/content/payment/pay_detail.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/build/resources/main/templates/content/trainer/trainerDetailPage.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/build/resources/main/templates/content/trainer/trainerDetailPage.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/build/resources/main/templates/layout/navi.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/build/resources/main/templates/layout/navi.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/build/tmp/compileJava/compileTransaction/stash-dir/PaymentController.class.uniqueId0" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/JakSim/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/build/tmp/compileTestJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/build/tmp/compileTestJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/config/CustomWebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/config/CustomWebConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/controller/payment/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/controller/payment/PaymentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/service/payment/KakaoPayService.java" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/service/payment/KakaoPayService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/src/main/resources/static/css/payment/paymentSuccess.css" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/resources/static/css/payment/paymentSuccess.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/config/auth/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/config/auth/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/controller/payment/BusinessLogicException.java" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/controller/payment/BusinessLogicException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/controller/review/ReviewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/controller/review/ReviewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/dao/review/ReviewDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/dao/review/ReviewDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/dto/payment/response/ApproveAmountResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/dto/payment/response/ApproveAmountResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/dto/review/ReviewDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/dto/review/ReviewDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/service/review/ReviewService.java" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/service/review/ReviewService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/service/timetable/TimetableService.java" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/service/timetable/TimetableService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/service/trainer/TrainerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/service/trainer/TrainerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/resources/static/css/mypage/mypageStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/resources/static/css/mypage/mypageStyle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/resources/static/image/trainer/12cc331b-24e3-435d-8cf3-dd915b28848d_스크린샷 2023-03-06 155332.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/resources/static/image/trainer/16109184-5beb-4486-bf07-2545ae5fc214_006.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/resources/static/image/trainer/30730372-8df0-455c-8314-3b08d22e4c78_006.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/resources/static/image/trainer/7f480e16-b940-493c-b6d3-610baec82ac4_스크린샷 2023-04-21 160136.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/resources/static/image/trainer/80d9d663-dc98-4072-82c7-081f83aa3fa8_PT트레이너.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/resources/static/image/trainer/80d9d663-dc98-4072-82c7-081f83aa3fa8_a.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/resources/static/image/trainer/80d9d663-dc98-4072-82c7-081f83aa3fa8_b.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/resources/static/image/trainer/9bf6808f-6c5b-45a9-b714-fd0115a62305_스크린샷 2023-03-02 161236.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/resources/static/image/trainer/a4010f52-74fe-4d27-b6aa-f950b38d8155_b.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/resources/static/image/trainer/ba77771c-9680-46e0-85d9-507ca1894f9d_PT트레이너.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/resources/static/image/trainer/ba77771c-9680-46e0-85d9-507ca1894f9d_a.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/resources/static/image/trainer/ba77771c-9680-46e0-85d9-507ca1894f9d_b.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/JakSim/src/main/resources/static/javascript/mypage/mypage.js" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/resources/static/javascript/mypage/mypage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/src/main/resources/static/javascript/payment/kakaoPay.js" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/resources/static/javascript/payment/kakaoPay/kakaoPay.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/src/main/resources/static/javascript/payment/kakaoPay/success.js" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/resources/static/javascript/payment/kakaoPay/success.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/resources/static/javascript/payment/pay_detail.js" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/resources/static/javascript/payment/pay_detail.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/resources/static/javascript/payment/payment.js" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/resources/static/javascript/payment/payment.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/resources/templates/content/mypage/aside/main_aside.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/resources/templates/content/mypage/aside/main_aside.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/resources/templates/content/mypage/auth.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/resources/templates/content/mypage/auth.mustache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JakSim/src/main/resources/templates/content/mypage/content/main_content.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/resources/templates/content/mypage/content/main_content.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/src/main/resources/templates/content/payment/KakaoPay.mustache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/src/main/resources/templates/content/payment/kakaoPay/Success.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/resources/templates/content/payment/kakaoPay/Success.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/src/main/resources/templates/content/scheduleList/trainerScheduleList.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/resources/templates/content/scheduleList/trainerScheduleList.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/resources/templates/content/payment/pay_detail.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/resources/templates/content/payment/pay_detail.mustache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JakSim/src/main/resources/templates/content/trainer/trainerDetailPage.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/resources/templates/content/trainer/trainerDetailPage.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/src/test/java/com/twinkle/JakSim/JakSimApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/test/java/com/twinkle/JakSim/JakSimApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/src/main/resources/templates/layout/navi.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/resources/templates/layout/navi.mustache" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,6 +141,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/ujeon/IdeaProjects/JakSim2.0&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -187,11 +221,37 @@
       <workItem from="1689431423021" duration="35000" />
       <workItem from="1689431537659" duration="4713000" />
       <workItem from="1689486065099" duration="1386000" />
-      <workItem from="1689488349067" duration="8297000" />
+      <workItem from="1689488349067" duration="8712000" />
+      <workItem from="1690288099486" duration="27000" />
+      <workItem from="1690295985806" duration="2161000" />
+      <workItem from="1690350024959" duration="306000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="upstream/master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

@@ -39,7 +39,7 @@ window.onload = function() {
     Array.from(viewReviewButtons).forEach((button) => {
         button.addEventListener('click', function(event){
             var reviewId = event.target.closest('tr').querySelector('.jaksim_font td:first-child span').textContent;
-            window.location.href=`/editReview/${reivewId}`;
+            window.location.href=`/editReview/${reviewId}`;
         });
     });
 
@@ -124,8 +124,13 @@ function nameChangeResult(){
     axios.put('/mypage/api/profile/update/name', {name: nameInput.value})
         .then(response => {
             console.log(response.data);
-            alert('이름이 정상적으로 변경되었습니다.');
-            window.location.reload();
+            if(response.data){
+                alert('이름이 정상적으로 변경되었습니다.');
+                window.location.reload();
+            }else{
+                alert('이름이 변경되지 않았습니다. 다시 시도해주세요');
+            }
+
         })
         .catch(error => {
             console.error(error);
@@ -163,7 +168,7 @@ var deleteUser = function(){
                 alert('회원정보가 삭제되었습니다.');
                 window.location.href='/logout';
             }else{
-                alert('????? 와 안되누?');
+                alert('회원정보가 삭제되지 않았습니다. 다시 시도해주세요');
             }
         })
         .catch(error => {
