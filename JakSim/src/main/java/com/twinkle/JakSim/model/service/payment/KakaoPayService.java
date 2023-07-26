@@ -1,6 +1,7 @@
 package com.twinkle.JakSim.model.service.payment;
 
 import com.twinkle.JakSim.model.dto.payment.request.PaymentRequest;
+import com.twinkle.JakSim.model.dto.payment.request.RefundRequest;
 import com.twinkle.JakSim.model.dto.payment.response.ApproveResponse;
 import com.twinkle.JakSim.model.dto.payment.response.CancelResponse;
 import com.twinkle.JakSim.model.dto.payment.response.ReadyResponse;
@@ -77,6 +78,7 @@ public class KakaoPayService {
         kakaoReady.setPtPeriod(paymentRequest.getPtPeriod());
         System.out.println(kakaoReady);
         System.out.println("kakaoReady");
+
         return kakaoReady;
     }
 
@@ -105,17 +107,14 @@ public class KakaoPayService {
         return approveResponse;
     }
 
-    /**
-     * 결제 환불
-     */
-    public CancelResponse kakaoCancel() {
+    // 결제 환불
+    public CancelResponse kakaoCancel(RefundRequest refundRequest) {
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
 
         parameters.add("cid", cid);
-        parameters.add("tid", "환불할 결제 고유 번호");
-        parameters.add("cancel_amount", "환불 금액");
-        parameters.add("cancel_tax_free_amount", "환불 비과세 금액");
-        parameters.add("cancel_vat_amount", "환불 부가세");
+        parameters.add("tid", refundRequest.getTid());
+        parameters.add("cancel_amount", String.valueOf(refundRequest.getCancel_amount()));
+        parameters.add("cancel_tax_free_amount", "0");
 
         // 파라미터, 헤더
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());

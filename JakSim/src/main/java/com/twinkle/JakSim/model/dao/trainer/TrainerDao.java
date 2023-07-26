@@ -301,16 +301,16 @@ public class TrainerDao {
         return jdbcTemplate.query(this.sql, new PtUserRowMapper(), userId);
     }
 
-//    public ProductDto getProductByTrainerIdx(int idx) {
-//        String sql = "SELECT * FROM PRODUCT WHERE TP_IDX = ?";
-//        ProductDto productDto = new ProductDto();
-//
-//        try{
-//            productDto = jdbcTemplate.queryForObject(sql, new ProductRowMapper(), idx);
-//        }catch (Exception e){
-//            System.out.println(e.getMessage());
-//        }
-//
-//        return productDto;
-//    }
+    public ProductDto getProductByTrainerIdx(int idx) {
+        String sql = "SELECT * FROM PRODUCT WHERE TP_IDX = ?";
+        ProductDto productDto = new ProductDto();
+
+        try{
+            productDto = jdbcTemplate.queryForObject(sql, new ProductRowMapper(), idx);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        return productDto;
+    }
 }

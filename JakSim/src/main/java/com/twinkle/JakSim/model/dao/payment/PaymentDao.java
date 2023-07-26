@@ -50,17 +50,37 @@ public class PaymentDao {
     public Boolean savePaymentDetails(String userId, ApproveResponse paymentDetails) {
         Boolean result = true;
 
-        this.sql = "insert into payment (user_id, tp_idx, p_c_dt, p_refund, p_pt_cnt, p_pt_period) " +
-                "values (?, ?, ?, 0, ?, ?)";
+        this.sql = "insert into payment (user_id, tp_idx, tid, p_c_dt, p_refund, p_pt_cnt, p_pt_period) " +
+                "values (?, ?, ?, ?, 0, ?, ?)";
 
         try {
-            jdbcTemplate.update(this.sql, userId, paymentDetails.getItem_code(), paymentDetails.getCreated_at(), paymentDetails.getPtTimes(), paymentDetails.getPtPeriod());
+            jdbcTemplate.update(this.sql, userId, paymentDetails.getItem_code(), paymentDetails.getTid(),
+                            paymentDetails.getCreated_at(), paymentDetails.getPtTimes(), paymentDetails.getPtPeriod());
         } catch (EmptyResultDataAccessException e) {
             result = false;
             System.out.println(e);
         }
 
         return result;
+    }
+
+    public Optional<PaymentDo> refund(String tid, String today) {
+        PaymentDo paymentDo = new PaymentDo();
+
+        String refundSql = "update payment set p_refund = ?, p_m_dt = ? where tid = ?";
+        String selectSql = "select * from payment where tid = ?";
+        System.out.println(today);
+        try {
+            jdbcTemplate.update(refundSql, 1, today, tid);
+
+            paymentDo = jdbcTemplate.queryForObject(selectSql, new PaymentDoRowMapper(), tid);
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println(e);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return Optional.of(paymentDo);
     }
 
     public void decreasePt(int ptCnt, int pIdx) {
@@ -102,9 +122,10 @@ public class PaymentDao {
     }
 
     public Optional<List<PaymentDtoForMypage>> findRecentByUsernameBy3(String username) {
-        String sql = "SELECT P.P_IDX, P.P_C_DT, P.P_PT_PERIOD, P.P_PT_CNT, T.TP_TITLE, T.TP_TYPE, T.TP_TIMES, T.TP_PRICE " +
+        String sql = "SELECT P.P_IDX, P.TID, P.P_C_DT, P.P_PT_PERIOD, P.P_PT_CNT, T.TP_TITLE, T.TP_TYPE, T.TP_TIMES, T.TP_PRICE " +
                 "FROM PAYMENT P, PRODUCT T " +
                 "WHERE P.USER_ID = ? " +
+                "AND T.TP_IDX = P.TP_IDX " +
                 "ORDER BY P_IDX DESC " +
                 "LIMIT 3";
         List<PaymentDtoForMypage> paymentList = new ArrayList<>();

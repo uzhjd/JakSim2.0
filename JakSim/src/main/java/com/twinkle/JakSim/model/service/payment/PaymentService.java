@@ -39,6 +39,12 @@ public class PaymentService {
         return paymentDao.savePaymentDetails(userId, paymentDetails);
     }
 
+    public Optional<PaymentDo> refund(String tid) {
+        String today = LocalDate.now().toString();
+
+        return paymentDao.refund(tid, today);
+    }
+
     public Optional<List<PaymentDtoForMypage>> getRecentPaymentBy3(String username) {
         return paymentDao.findRecentByUsernameBy3(username);
     }

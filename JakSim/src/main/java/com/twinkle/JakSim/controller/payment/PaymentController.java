@@ -1,6 +1,7 @@
 package com.twinkle.JakSim.controller.payment;
 
 import com.twinkle.JakSim.model.dto.payment.PaymentDtoForMypage;
+import com.twinkle.JakSim.model.dto.payment.response.CancelResponse;
 import com.twinkle.JakSim.model.dto.payment.response.PaymentDo;
 import com.twinkle.JakSim.model.service.payment.PaymentService;
 import com.twinkle.JakSim.model.service.trainer.TrainerService;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.lang.reflect.Array;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/payment")
@@ -46,6 +48,7 @@ public class PaymentController {
             if(paymentService.savePaymentDetails(user.getUsername(), kakaoApprove)) {
                 kakaoApprove.setApproved_at(kakaoApprove.getApproved_at().replace("T", " "));
 
+
                 model.addAttribute("kakaoApprove", kakaoApprove);
 
                 return defaultPage + "kakaoPay/Success";
@@ -55,8 +58,22 @@ public class PaymentController {
         // 일단은 에러처리 안함.
         return defaultPage + "kakaoPay/Success";
     }
-    
-    ////////////////////////////////
+
+    @GetMapping("/refundSuccess/{tid}")
+    public String approveRefund(@PathVariable("tid") String tid, Model model) {
+       paymentService.refund(tid).ifPresent(
+                item-> {
+                    model.addAttribute("refund", item);
+                }
+        );
+
+////        model.addAttribute("refund", paymentDetails);
+//        System.out.println("paymentDetails");
+//        System.out.println(paymentDetails);
+
+        return defaultPage + "kakaoPay/Refund";
+    }
+
     @GetMapping("/list")
     public String payListPage(@AuthenticationPrincipal User user, Model model){
         model.addAttribute("head_title", "결제 확인 목록");
@@ -72,6 +89,7 @@ public class PaymentController {
         model.addAttribute("head_title", "결제 내역 상세");
         paymentService.getPaymentByIdx(p_idx).ifPresent(
                 item -> {
+                    System.out.println(item);
                     model.addAttribute("payment", item);
                     model.addAttribute("product", paymentService.getProductByIdx(item.getTp_idx()));
                 }

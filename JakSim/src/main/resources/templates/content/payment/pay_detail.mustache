@@ -1,70 +1,72 @@
 {{>layout/header}}
-    <link rel="stylesheet" href="/css/payment/pay_detailStyle.css">
-    <script src="/javascript/payment/pay_detail.js"></script>
+<link rel="stylesheet" href="/css/payment/pay_detailStyle.css">
+<script src="/javascript/payment/pay_detail.js"></script>
 </head>
 
 <body>
 {{>layout/navi}}
 
-    <div id="pay_detail_container">
-        <p id="pay_detail_head">등록 상세</p>
-        <div>
-            <span id="pay_detail_status">{{payment.c_dt}} 주문</span>
-            <span>주문 번호 </span><span id="pay_detail_idx">{{payment.idx}}</span>
-        </div>
-
-        <div id="pay_detail_wrapper">
-            <table style="width:100%;">
-                <tbody>
-                    <tr>
-                        <td style="width: 70%;">
-                            <p id="pay_detail_refundstatus">{{payment.refund}}</p>
-                            <div style="display:flex; align-items: center;">
-                                <img src="/image/Training.jpg" alt="train" id="pay_detail_img" style="float:left;">
-                                <div id="pay_detail_table_span">
-                                    <span style="font-size: 20px;">{{product.ptTitle}}</span>
-                                    <span style="font-size: 17px;">{{product.ptType}} / {{product.ptPeriod}}일</span>
-                                    <span style="font-size: 17px;">{{product.ptPrice}}</span>
-                                    <span>{{payment.cnt}} / {{product.ptTimes}}</span>
-                                    <span style="display:none" id="pay_detail_trainerId">{{product.userId}}</span>
-                                </div>
-                            </div>
-                        </td>
-                        <td id="pay_detail_tablebuttons" style="width: 20%;">
-                            <button class="jaksim_btn" id="pay_detail_refundbutton">환불 신청하기</button>
-                            <button class="jaksim_btn" id="pay_detail_reviewbutton">리뷰 작성하기</button>
-                            <button class="jaksim_btn" id="pay_detail_repaybutton">재주문 하기</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <p class="pay_detail_midTitle">트레이너 정보</p>
-
-        <div id="pay_detail_trainerWrapper">
-            <table>
-                <tr>
-                    <th rowspan="4"><img id="pay_detail_trainerImg" src="/image/trainerNam.jpg" alt=""></th>
-                    <th style="width: 100px;">트레이너 명</th>
-                    <td><span>트레이너 이름 적어주세요</span></td>
-                </tr>
-                <tr>
-                    <th>소속 헬스장</th>
-                    <td><span>트레이너 헬스장 적어주세요</span></td>
-                </tr>
-                <tr>
-                    <th>전문 분야</th>
-                    <td>
-                        <span>트레이너 전문분야 적어주세요(반복문)</span>
-                    </td>
-                </tr>
-                <tr>
-                    <th>자격증</th>
-                    <td><span>트레이너 자격증 적어주세요(반복문)</span></td>
-                </tr>
-            </table>
-        </div>
+<div id="pay_detail_container">
+    <p id="pay_detail_head">등록 상세</p>
+    <div>
+        <span id="pay_detail_status">{{payment.c_dt}} 주문</span>
+        <span>주문 번호 </span><span id="pay_detail_idx">{{payment.idx}}</span>
     </div>
+
+    <div id="pay_detail_wrapper">
+        <table style="width:100%;">
+            <tbody>
+            <tr>
+                <td style="width: 70%;">
+                    <p id="pay_detail_refundstatus">{{payment.refund}}</p>
+                    <div style="display:flex; align-items: center;">
+                        <img src="/image/Training.jpg" alt="train" id="pay_detail_img" style="float:left;">
+                        <div id="pay_detail_table_span">
+                            <span style="font-size: 20px;" id="pay_detail_ptTitle">{{product.ptTitle}}</span>
+                            <span style="display:none" id="pay_detail_tpIdx">{{product.ptId}}</span>
+                            <span style="font-size: 17px;" id="pay_detail_tid">{{payment.tid}}</span>
+                            <span style="font-size: 17px;" id="pay_detail_type_period">{{product.ptType}} / {{product.ptPeriod}}일</span>
+                            <span style="font-size: 17px;" id="pay_detail_price">{{product.ptPrice}}</span>
+                            <span>{{payment.cnt}} / {{product.ptTimes}}</span>
+                            <span style="display:none" id="pay_detail_trainerId">{{product.userId}}</span>
+                        </div>
+                    </div>
+                </td>
+                <td id="pay_detail_tablebuttons" style="width: 20%;">
+                    <button class="jaksim_btn" id="pay_detail_refundbutton">환불 신청하기</button>
+                    <button class="jaksim_btn" id="pay_detail_reviewbutton">리뷰 작성하기</button>
+                    <button class="jaksim_btn" id="pay_detail_repaybutton">재주문 하기</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p class="pay_detail_midTitle">트레이너 정보</p>
+
+    <div id="pay_detail_trainerWrapper">
+        <table>
+            <tr>
+                <th rowspan="4"><img id="pay_detail_trainerImg" src="/image/trainerNam.jpg" alt=""></th>
+                <th style="width: 100px;">트레이너 명</th>
+                <td><span>트레이너 이름 적어주세요</span></td>
+            </tr>
+            <tr>
+                <th>소속 헬스장</th>
+                <td><span>트레이너 헬스장 적어주세요</span></td>
+            </tr>
+            <tr>
+                <th>전문 분야</th>
+                <td>
+                    <span>트레이너 전문분야 적어주세요(반복문)</span>
+                </td>
+            </tr>
+            <tr>
+                <th>자격증</th>
+                <td><span>트레이너 자격증 적어주세요(반복문)</span></td>
+            </tr>
+        </table>
+    </div>
+</div>
 
 {{>layout/footer}}

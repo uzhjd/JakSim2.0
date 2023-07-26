@@ -28,7 +28,30 @@ function refundStatus(){
     }
 }
 
-function doRefund(){
+function doRefund() {
+    console.log("refund");
+
+    var data = {
+        tid: document.getElementById('pay_detail_tid').innerHTML,
+        cancel_amount: document.getElementById('pay_detail_price').innerHTML
+    }
+
+    axios.post('/payment/refund', data)
+        .then((response) => {
+            var httpStatus = response.status;
+            console.log(response.data);
+
+            if(httpStatus == 500) {
+                alert("500: Payment with Kakao Pay failed.");
+            } else {
+                console.log("refundSuccess");
+                window.location.href=`http://localhost:8080/payment/refundSuccess/${response.data.tid}`;
+
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
 
 }
 
