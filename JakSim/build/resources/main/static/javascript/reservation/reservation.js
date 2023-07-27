@@ -47,7 +47,15 @@ function setMyReservation(date) {
         });
 }
 
-function resRegister(tIdx, formattedDate) {
+function resRegister(formattedDate) {
+    var radios = document.getElementsByName("timetableRadio");
+
+    for(var radio of radios) {
+        if(radio.checked) {
+            tIdx = radio.value;
+        }
+    }
+
     var warn = ["지난 날에 대한 예약은 할 수 없습니다.",
                 "이미 등록된 예약이 있습니다.",
                 "이미 등록된 예약이 있습니다.",
@@ -55,7 +63,8 @@ function resRegister(tIdx, formattedDate) {
                 "예약이 올바르게 되지 않았습니다.",
                 "예약이 올바르게 되었습니다."
                 ];
-
+console.log("tIdx");
+console.log(tIdx);
     const data = {
         p_idx: pIdx,
         t_idx: tIdx,
@@ -63,8 +72,6 @@ function resRegister(tIdx, formattedDate) {
         ptCnt: ptCnt,
         date: formattedDate
     };
-
-    console.log(data);
 
     axios.post('/reservation/register', data)
         .then((response) => {
