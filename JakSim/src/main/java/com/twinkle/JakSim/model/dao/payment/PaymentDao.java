@@ -50,7 +50,7 @@ public class PaymentDao {
     public Boolean savePaymentDetails(String userId, ApproveResponse paymentDetails) {
         Boolean result = true;
 
-        this.sql = "insert into payment (user_id, tp_idx, tid, p_c_dt, p_refund, p_pt_cnt, p_pt_period) " +
+        this.sql = "insert into payment (user_id, tp_idx, tid, p_c_dt, p_status, p_pt_cnt, p_pt_period) " +
                 "values (?, ?, ?, ?, 0, ?, ?)";
 
         try {
@@ -67,7 +67,7 @@ public class PaymentDao {
     public Optional<PaymentDo> refund(String tid, String today) {
         PaymentDo paymentDo = new PaymentDo();
 
-        String refundSql = "update payment set p_refund = ?, p_m_dt = ? where tid = ?";
+        String refundSql = "update payment set p_status = ?, p_m_dt = ? where tid = ?";
         String selectSql = "select * from payment where tid = ?";
         System.out.println(today);
         try {
@@ -114,7 +114,7 @@ public class PaymentDao {
         this.sql = "select pro.user_id, pro.tp_type, u.user_name, pay.p_idx, pay.p_pt_cnt " +
                 "from payment as pay inner join product as pro on pay.tp_idx = pro.tp_idx " +
                 "inner join user_info as u on pro.user_id = u.user_id " +
-                "where pay.user_id = ? and p_refund = '0' and p_pt_cnt > '0' and p_pt_period >= (? - p_c_dt)";
+                "where pay.user_id = ? and p_status = '0' and p_pt_cnt > '0' and p_pt_period >= (? - p_c_dt)";
 
         list = jdbcTemplate.query(this.sql, new ValidPtRowMapper(), userId, today);
 

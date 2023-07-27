@@ -10,20 +10,19 @@ window.onload = function () {
 
 function priceFormat(){
     var amount = document.getElementById('amount');
-    amount.innerHTML = amount.innerHTML.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
     var method = document.getElementById('payment_method_type');
+
+    amount.innerHTML = amount.innerHTML.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
     switch (method.innerHTML) {
         case " : MONEY":
-            method.innerHTML = "현금";
+            method.innerHTML = " : 현금";
             break;
         case " : CARD":
-            method.innerHTML = "카드";
+            method.innerHTML = " : 카드";
             break;
         default :
-            method.innerHTML = "ETC";
+            method.innerHTML = " : ETC";
             break;
     }
-
 }
