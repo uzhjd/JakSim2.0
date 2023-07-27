@@ -68,10 +68,6 @@ public class PaymentController {
                 }
         );
 
-////        model.addAttribute("refund", paymentDetails);
-//        System.out.println("paymentDetails");
-//        System.out.println(paymentDetails);
-
         return defaultPage + "kakaoPay/Refund";
     }
 
