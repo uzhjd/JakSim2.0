@@ -78,7 +78,7 @@ public class LoginLogDao {
         String sql = "SELECT DATE(L_DT) as DATE, COUNT(*) as AMOUNT FROM LOGIN_LOG " +
                 "WHERE DATE(L_DT) BETWEEN ? AND ? " +
                 "GROUP BY DATE(L_DT) " +
-                "ORDER BY DATE(L_DT) DESC";
+                "ORDER BY DATE(L_DT) ASC";
         List<LoginLogStat> logList = new ArrayList<>();
 
         try{

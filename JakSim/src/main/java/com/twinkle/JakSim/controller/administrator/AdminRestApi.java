@@ -1,13 +1,10 @@
 package com.twinkle.JakSim.controller.administrator;
 
-import com.twinkle.JakSim.model.dto.account.LoginLogDto;
 import com.twinkle.JakSim.model.dto.account.LoginLogStat;
 import com.twinkle.JakSim.model.service.account.LoginLogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController

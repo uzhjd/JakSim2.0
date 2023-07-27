@@ -2,8 +2,6 @@ package com.twinkle.JakSim.model.dto.account;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Data
 public class LoginLogDto {
     private int id;

@@ -56,6 +56,16 @@
 
     <section class="man_section">
         <div>
+            <p>* 데이터가 존재하지 않는 경우, 차트에 그려지지 않습니다.</p>
+        </div>
+        <table style="width: 50%;">
+            <tr>
+                <td><input id="radio_first" name="linear-range" type="radio" value="tweek" checked>최근 2주</input></td>
+                <td><input name="linear-range" type="radio" value="amon">최근 1개월</input></td>
+                <td><input name="linear-range" type="radio" value="tmon">최근 3개월</input></td>
+            </tr>
+        </table>
+        <div>
             <canvas id="man_main_linearChart" style="height: 300px; width: 100%;"></canvas>
         </div>
         <div style="margin-top: 50px;">

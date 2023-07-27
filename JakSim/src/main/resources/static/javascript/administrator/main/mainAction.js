@@ -8,7 +8,9 @@ window.onload = function(){
 }
 
 function chartProcess(){
-    //makeLinearChart();
+    linearTypeSelect();
+
+
     getAccessDataForLinear();
     makeAreaChart();
 }

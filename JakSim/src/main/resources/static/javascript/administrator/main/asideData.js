@@ -7,11 +7,10 @@ function setYesterday(){
 
 function getVisitCntNow(){
     var cnt = document.getElementById('man_main_aside_loginUsers');
-    var startDate = `${year}-${month}-${day-1}`;
+    var startDate = `${year}-${month}-${day}`;
 
     axios.get(`/man/api/visit/date?start=${startDate}`)
         .then(response => {
-            console.log(response.data[0])
             cnt.innerHTML = numFormat(response.data[0]['amount']);
         }).catch(error => {
             console.error(error);
