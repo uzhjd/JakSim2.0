@@ -46,10 +46,9 @@ function setTimetable(date) {
                 }
                 // // tIdx넘겨줄때 라디오 버튼이 클릭된 애로 넘겨주기!
                 // console.log(document.querySelector('input[name="timetable"]:checked').value); // 라디오 버튼 체크된 값(checked value)
-                // console.log("Dddd");
                 // 임시로 넣음
                 selectedTIdx = 6;
-                button.style.display = 'inline-block';
+                resBtn.style.display = 'inline-block';
             }
         }).catch(error => {
             console.error(error);

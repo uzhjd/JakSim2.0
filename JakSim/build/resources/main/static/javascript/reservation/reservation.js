@@ -9,7 +9,7 @@ function setDate(date) {
 function setMyReservation(date) {
     var reservation = document.getElementById('reservation_list');
     var ptList = document.getElementById('trainer_list');
-    var button = document.getElementById('resCancleBtn');
+    // var canBtn = document.getElementById('resCancleBtn');
     var trainerId = JSON.parse(ptList.options[ptList.selectedIndex].value).trainerId;
     formattedDate = date.split(". ").join("-");
     var type = ['상담', '1:1', '단체'];
@@ -30,12 +30,16 @@ function setMyReservation(date) {
                     reservation.textContent = response.data['tstartT'] + " - " + response.data['tendT'] + " ( " + type[response.data['ttype']] + " )";
                 }
 
-                button.style.display = 'inline-block';
+                canBtn.style.display = 'inline-block';
 
-                button.addEventListener('click', () => resCancle(response.data['pidx'], response.data['ridx'], type[response.data['ttype']]));
+                selectedPIdx = response.data['pidx'];
+                selectedRIdx = response.data['ridx'];
+                selectedTType = type[response.data['ttype']];
+
+                // canBtn.addEventListener('click', () => resCancle(response.data['pidx'], response.data['ridx'], type[response.data['ttype']]));
             } else {
                 reservation.textContent = "▶ 예약 정보가 없습니다.";
-                button.style.display = 'none';
+                canBtn.style.display = 'none';
             }
         })
         .catch(error => {
