@@ -63,8 +63,7 @@ function resRegister(formattedDate) {
                 "예약이 올바르게 되지 않았습니다.",
                 "예약이 올바르게 되었습니다."
                 ];
-console.log("tIdx");
-console.log(tIdx);
+
     const data = {
         p_idx: pIdx,
         t_idx: tIdx,
@@ -84,6 +83,7 @@ console.log(tIdx);
         .catch(error => {
             console.error(error);
         });
+    tIdx = -1;
 }
 
 function resCancle(pIdx, rIdx, type) {

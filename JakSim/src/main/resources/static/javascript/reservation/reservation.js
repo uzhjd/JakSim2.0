@@ -83,6 +83,7 @@ function resRegister(formattedDate) {
         .catch(error => {
             console.error(error);
         });
+    tIdx = -1;
 }
 
 function resCancle(pIdx, rIdx, type) {
