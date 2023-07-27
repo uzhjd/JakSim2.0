@@ -1,6 +1,28 @@
+var currentDate, year, month, day;
+
 window.onload = function(){
-    linearChart = document.getElementById('man_main_linearChart');
-    areaChart = document.getElementById('man_main_areaChart');
-    makeLinearChart();
+    getNowDate();
+
+    asideProcess();
+    chartProcess();
+}
+
+function chartProcess(){
+    //makeLinearChart();
+    getAccessDataForLinear();
     makeAreaChart();
+}
+
+function asideProcess(){
+    getVisitCntNow();
+
+    setYesterday();
+    getVisitCntDay();
+}
+
+function getNowDate(){
+    currentDate = new Date();
+    year = currentDate.getFullYear();
+    month = currentDate.getMonth()+1;
+    day = currentDate.getDate();
 }

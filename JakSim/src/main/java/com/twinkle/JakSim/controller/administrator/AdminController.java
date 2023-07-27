@@ -2,6 +2,7 @@ package com.twinkle.JakSim.controller.administrator;
 
 import com.twinkle.JakSim.model.service.account.AccountService;
 import com.twinkle.JakSim.model.service.account.FileService;
+import com.twinkle.JakSim.model.service.account.LoginLogService;
 import com.twinkle.JakSim.model.service.payment.PaymentService;
 import com.twinkle.JakSim.model.service.review.ReviewService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ public class AdminController {
     private final FileService fileService;
     private final ReviewService reviewService;
     private final PaymentService paymentService;
+    private final LoginLogService loginLogService;
 
     @GetMapping("/main")
     public String manageMainPage(Model model){

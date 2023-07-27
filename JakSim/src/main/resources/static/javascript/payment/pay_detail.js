@@ -29,7 +29,27 @@ function refundStatus(){
 }
 
 function doRefund(){
+    var data = {
+       tid: document.getElementById('pay_detail_tid').innerHTML,
+       price: document.getElementById('pay_detail_price').innerHTML
+    }
+    var jsonData = JSON.stringify(data);
+    sessionStorage.setItem('data', jsonData);
 
+    /*
+    해당코드 사용시,
+    var jsonData = sessionStorage.getItem('data');
+    var data = JSON.parse(jsonData);
+    console.log(data.tid);
+    console.log(data.price);
+    이런식으로 사용하면 됩니다.
+    */
+
+    /*
+    session 사용 완료 시,
+    sessionStorage.removeItem('data');
+    작성해주세요
+    */
 }
 
 function goReview(){
@@ -38,5 +58,18 @@ function goReview(){
 }
 
 function rePay(){
+    var typeAndPeriodSpan = document.getElementById('pay_detail_type_period').innerHTML;
+    var divideData = typeAndPeriodSpan.split('/');
 
+    var data = {
+       ptTitle: document.getElementById('pay_detail_ptTitle').innerHTML,
+       tpIdx: document.getElementById('pay_detail_tpIdx').innerHTML,
+       ptPrice: document.getElementById('pay_detail_price').innerHTML,
+       ptTimes: divideData[0].trim(),
+       ptPeriod: divideData[1].trim().replace('일','')
+    }
+    var jsonData = JSON.stringify(data);
+    sessionStorage.setItem('refundData', jsonData);
+
+    //사용법은 이전과 같습니다.
 }

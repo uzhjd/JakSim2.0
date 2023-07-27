@@ -1,3 +1,6 @@
+a{
+    text-decoration: none;
+}
 .man_aside{
     float:left;
     border: 1px solid gray;
@@ -11,8 +14,6 @@
     border: 1px solid red;
 
     width: 60%;
-    height: 100px;
-
     padding: 30px;
 }
 
@@ -36,6 +37,7 @@
 
 #man_main_aside_loginHeader{
     height: 20%;
+    border-bottom: 0.05rem solid white;
 }
 
 #man_main_aside_loginHeader > span{

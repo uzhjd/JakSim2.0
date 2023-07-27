@@ -53,13 +53,11 @@ public class MypageController {
         model.addAttribute("head_title", "개인페이지");
         model.addAttribute("user_info", accountService.findByUsername(username));
         model.addAttribute("log", loginLogService.findByUsernameRecent(username));
-
         paymentService.getRecentPaymentBy3(username).ifPresent(item -> {
             if(!item.isEmpty()){
                 model.addAttribute("payment", item);
             }
         });
-
         reviewService.showMyReviewForMyPage(username).ifPresent(reviewRequestDtos -> {if (!reviewRequestDtos.isEmpty()) {
             model.addAttribute("reviewList", reviewRequestDtos);
         }});

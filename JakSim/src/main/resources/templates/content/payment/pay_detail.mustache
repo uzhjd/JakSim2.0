@@ -22,9 +22,11 @@
                             <div style="display:flex; align-items: center;">
                                 <img src="/image/Training.jpg" alt="train" id="pay_detail_img" style="float:left;">
                                 <div id="pay_detail_table_span">
-                                    <span style="font-size: 20px;">{{product.ptTitle}}</span>
-                                    <span style="font-size: 17px;">{{product.ptType}} / {{product.ptPeriod}}일</span>
-                                    <span style="font-size: 17px;">{{product.ptPrice}}</span>
+                                    <span style="font-size: 20px;" id="pay_detail_ptTitle">{{product.ptTitle}}</span>
+                                    <span style="display:none" id="pay_detail_tpIdx">{{product.ptId}}</span>
+                                    <span style="font-size: 17px;" id="pay_detail_tid">{{product.tid}}</span>
+                                    <span style="font-size: 17px;" id="pay_detail_type_period">{{product.ptType}} / {{product.ptPeriod}}일</span>
+                                    <span style="font-size: 17px;" id="pay_detail_price">{{product.ptPrice}}</span>
                                     <span>{{payment.cnt}} / {{product.ptTimes}}</span>
                                     <span style="display:none" id="pay_detail_trainerId">{{product.userId}}</span>
                                 </div>

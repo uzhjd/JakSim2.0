@@ -71,6 +71,8 @@ public class PaymentService {
     }
 
     public ProductDto getProductByIdx(int tpIdx) {
-        return paymentDao.getProductByIdx(tpIdx);
+        ProductDto tmp = paymentDao.getProductByIdx(tpIdx);
+        tmp.setTid("t-123862");
+        return tmp;
     }
 }

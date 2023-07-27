@@ -4,6 +4,7 @@
     <script src="/javascript/administrator/main/mainAction.js"></script>
     <script src="/javascript/administrator/main/linearChart.js"></script>
     <script src="/javascript/administrator/main/areaChart.js"></script>
+    <script src="/javascript/administrator/main/asideData.js"></script>
 </head>
 
 <body>
@@ -13,8 +14,9 @@
     <aside class="man_aside">
 
         <div id="man_main_aside_login" class="rounded">
+            <a href="/session/list">
             <div id="man_main_aside_loginHeader">
-                <span>금일 유저 로그인 횟수</span>
+                <span>금일 로그인 접속한 유저</span>
             </div>
             <div id="man_main_aside_loginContent">
                 <div>
@@ -22,26 +24,29 @@
                     <p style="color: white; font-size: 24px;">Users</p>
                 </div>
             </div>
+            </a>
         </div>
 
         <table id="man_main_aside_userInfoContainer">
+            <tr><th colspan="2"><span>기준일자: </span><span id="man_aside_Yesterday"></span></th></tr>
             <tr>
                 <td class="man_main_aside_userInfo rounded" style="background-color:#82cea8;">
-                    <span>어제 회원가입 수</span>
-                    <span>0,000</span>
+                    <span>회원가입 수</span>
+                    <span id="man_main_aside_visitCntToday">0,000</span>
                 </td>
                 <td class="man_main_aside_userInfo rounded" style="background-color:#db7c65;">
-                    <span>어제 전체 로그인 수</span>
-                    <span>0,000</span>
+                    <span>로그인 수</span>
+                    <span id="man_main_aside_visitCntYesterday">0,000</span>
                 </td>
             </tr>
             <tr>
                 <td class="man_main_aside_userInfo rounded" style="background-color:#688bd0;">
-                    <span>어제 트레이너 등록 수</span>
+                    <span>트레이너 등록 수</span>
                     <span>0,000</span>
+                    <span></span>
                 </td>
                 <td class="man_main_aside_userInfo rounded" style="background-color:#d8a849;">
-                    <span>어제 프로필 등록 수</span>
+                    <span>프로필 등록 수</span>
                     <span>0,000</span>
                 </td>
             </tr>
@@ -51,10 +56,10 @@
 
     <section class="man_section">
         <div>
-            <canvas id="man_main_linearChart" style="height: 300px;"></canvas>
+            <canvas id="man_main_linearChart" style="height: 300px; width: 100%;"></canvas>
         </div>
-        <div>
-            <canvas id="man_main_areaChart" style="height: 320px;"></canvas>
+        <div style="margin-top: 50px;">
+            <canvas id="man_main_areaChart" style="height: 320px; width:100%;"></canvas>
         </div>
     </section>
 </div>
