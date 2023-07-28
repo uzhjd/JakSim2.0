@@ -93,12 +93,13 @@ function leftPad(value) {
     return value;
 }
 
-function setSchdule(trainerId, tType, pIdx, ptCnt) {
+// function setSchdule(trainerId, tType, pIdx, ptCnt) {
+function setSchdule() {
     this.ptDay = [];
-    this.trainerId = trainerId;
-    this.tType = tType;
-    this.pIdx = pIdx;
-    this.ptCnt = ptCnt;
+    // this.trainerId = trainerId;
+    // this.tType = tType;
+    // this.ptCnt = ptCnt;
+    // this.pIdx = pIdx;
     const url = '/scheduler/details/' + trainerId;
 
     axios.get(url)

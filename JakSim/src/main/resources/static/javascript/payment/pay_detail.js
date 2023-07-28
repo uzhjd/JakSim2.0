@@ -13,7 +13,7 @@ window.onload = function(){
     refundButton = document.getElementById('pay_detail_refundbutton');
     refundButton.addEventListener('click', doRefund);
 
-    pIdx = document.getElementById('pay_detail_idx').innerHTML;
+    selectedPIdx = document.getElementById('pay_detail_idx').innerHTML;
 }
 
 function refundStatus(){

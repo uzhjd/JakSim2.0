@@ -172,6 +172,7 @@ public class PaymentDao {
         try{
             paymentDo = jdbcTemplate.queryForObject(sql, new PaymentDoRowMapper(), tid);
         }catch (Exception e){
+            System.out.println(tid);
             System.out.println(e.getMessage());
         }
 

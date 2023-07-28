@@ -87,7 +87,6 @@ public class PaymentController {
 
         paymentService.getPaymentByIdx(tid).ifPresent(
                 item -> {
-                    System.out.println(item);
                     model.addAttribute("apiResponse", kakaoPayService.kakaoList(tid));
                     model.addAttribute("payment", item);
                     model.addAttribute("product", paymentService.getProductByIdx(item.getTp_idx()));

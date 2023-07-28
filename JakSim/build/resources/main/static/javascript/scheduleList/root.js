@@ -8,7 +8,7 @@ window.onload = function () {
     resBtn = document.getElementById('reservationBtn');
     resBtn.addEventListener('click', () => resRegister(formattedDate));
     canBtn = document.getElementById('resCancleBtn');
-    canBtn.addEventListener('click', () => resCancle(selectedPIdx, selectedRIdx, selectedTType));
+    canBtn.addEventListener('click', () => resCancle());
 
     // button.addEventListener('click', () => resRegister(pIdx, selectedTIdx, trainerId, formattedDate, ptCnt, tType));
     setPtList();
