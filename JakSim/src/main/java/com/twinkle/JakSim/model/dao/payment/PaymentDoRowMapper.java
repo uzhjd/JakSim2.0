@@ -14,8 +14,9 @@ public class PaymentDoRowMapper implements RowMapper<PaymentDo> {
         paymentDo.setIdx(rs.getInt("P_IDX"));
         paymentDo.setUser_id(rs.getString("USER_ID"));
         paymentDo.setTp_idx(rs.getInt("TP_IDX"));
+        paymentDo.setTid(rs.getString("TID"));
         paymentDo.setC_dt(rs.getString("P_C_DT"));
-        paymentDo.setRefund(rs.getInt("P_REFUND"));
+        paymentDo.setStatus(rs.getInt("P_STATUS"));
         if(rs.getString("P_M_DT") != null)
             paymentDo.setM_dt(rs.getString("P_M_DT"));
         paymentDo.setCnt(rs.getInt("P_PT_CNT"));

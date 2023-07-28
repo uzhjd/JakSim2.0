@@ -1,4 +1,6 @@
 var formattedDate;
+var type = ['상담', '1:1', '단체'];
+
 
 function setDate(date) {
     document.getElementById("reservation_date").innerText = date;
@@ -9,10 +11,9 @@ function setDate(date) {
 function setMyReservation(date) {
     var reservation = document.getElementById('reservation_list');
     var ptList = document.getElementById('trainer_list');
-    var button = document.getElementById('resCancleBtn');
+    // var canBtn = document.getElementById('resCancleBtn');
     var trainerId = JSON.parse(ptList.options[ptList.selectedIndex].value).trainerId;
     formattedDate = date.split(". ").join("-");
-    var type = ['상담', '1:1', '단체'];
 
     const data = {
         trainerId: trainerId,
@@ -30,12 +31,16 @@ function setMyReservation(date) {
                     reservation.textContent = response.data['tstartT'] + " - " + response.data['tendT'] + " ( " + type[response.data['ttype']] + " )";
                 }
 
-                button.style.display = 'inline-block';
+                canBtn.style.display = 'inline-block';
 
-                button.addEventListener('click', () => resCancle(response.data['pidx'], response.data['ridx'], type[response.data['ttype']]));
+                selectedPIdx = response.data['pidx'];
+                selectedRIdx = response.data['ridx'];
+                selectedTType = type[response.data['ttype']];
+
+                // canBtn.addEventListener('click', () => resCancle(response.data['pidx'], response.data['ridx'], type[response.data['ttype']]));
             } else {
                 reservation.textContent = "▶ 예약 정보가 없습니다.";
-                button.style.display = 'none';
+                canBtn.style.display = 'none';
             }
         })
         .catch(error => {
@@ -43,7 +48,15 @@ function setMyReservation(date) {
         });
 }
 
-function resRegister(tIdx, formattedDate) {
+function resRegister(formattedDate) {
+    var radios = document.getElementsByName("timetableRadio");
+
+    for(var radio of radios) {
+        if(radio.checked) {
+            tIdx = radio.value;
+        }
+    }
+
     var warn = ["지난 날에 대한 예약은 할 수 없습니다.",
                 "이미 등록된 예약이 있습니다.",
                 "이미 등록된 예약이 있습니다.",
@@ -53,14 +66,12 @@ function resRegister(tIdx, formattedDate) {
                 ];
 
     const data = {
-        p_idx: pIdx,
+        p_idx: selectedPIdx,
         t_idx: tIdx,
         trainerId: trainerId,
         ptCnt: ptCnt,
         date: formattedDate
     };
-
-    console.log(data);
 
     axios.post('/reservation/register', data)
         .then((response) => {
@@ -68,21 +79,28 @@ function resRegister(tIdx, formattedDate) {
 
             if(response.data == 5) {
                 setMyReservation(formattedDate);
+                setSchdule();
             }
         })
         .catch(error => {
             console.error(error);
         });
+    tIdx = -1;
 }
 
-function resCancle(pIdx, rIdx, type) {
-    var url = '/reservation/cancle/' + pIdx + '/' + rIdx;
+// function resCancle(pIdx, rIdx, type) {
+function resCancle() {
+    console.log("pidx"+selectedPIdx);
+    console.log("rIdx"+selectedRIdx);
+
+    var url = '/reservation/cancle/' + selectedPIdx + '/' + selectedRIdx;
 
     axios.get(url)
         .then((response) => {
             if(response.data) {
-                alert(type + ' 예약이 취소되었습니다!');
+                alert(type[tType] + ' 예약이 취소되었습니다!');
                 setMyReservation(document.getElementById("reservation_date").innerText);
+                setSchdule();
             } else {
                 alert('예약이 취소되지 않았습니다!');
             }

@@ -51,13 +51,13 @@ public class ReviewController {
         return "redirect:/trainer/trainerSearch";
     }
 
-    @PostMapping("/deleteReview")
-    public String deleteMyReview(@RequestParam("trainerId") int trainerId, @AuthenticationPrincipal User info) {
-        reviewService.deleteReview(info.getUsername());
-        System.out.println(trainerId);
-
-        return "redirect:/trainer/trainerSearch";
-    }
+//    @PostMapping("/deleteReview")
+//    public String deleteMyReview(@RequestParam("trainerId") int trainerId, @AuthenticationPrincipal User info) {
+//        reviewService.deleteReview(info.getUsername());
+//        System.out.println(trainerId);
+//
+//        return "redirect:/trainer/trainerSearch";
+//    }
 
     @GetMapping("/review/list")
     public String getList(){

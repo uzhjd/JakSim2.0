@@ -50,7 +50,7 @@ public class ReviewService {
         reviewDao.deleteReview(userId);
     }
 
-    public List<ReviewDto> getReviewItems(String username, int page) {
-        return reviewDao.getReviewItems(username, page);
-    }
+//    public List<ReviewDto> getReviewItems(String username, int page) {
+//        return reviewDao.getReviewItems(username, page);
+//    }
 }

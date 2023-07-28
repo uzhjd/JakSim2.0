@@ -7,8 +7,9 @@ public class PaymentDo {
     private int idx;
     private String user_id;
     private int tp_idx;
+    private String tid;
     private String c_dt;
-    private int refund;
+    private int status;
     private String m_dt;
     private int cnt;
     private int period;

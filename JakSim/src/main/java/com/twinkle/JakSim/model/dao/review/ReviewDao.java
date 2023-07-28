@@ -70,20 +70,20 @@ public class ReviewDao {
 
     }
 
-    public List<ReviewDto> getReviewItems(String username, int page) {
-        int offset = (page-1) * 10;
-        String sql = "SELECT R.R_IDX, R.USER_ID, R.TRAINER_ID, R.UT_IDX, R.R_CONTENT, R.R_STAR, R.R_C_DT, R.R_M_DT, U.USER_NAME " +
-                "FROM REVIEW R, TRAINER_DETAILS T, USER_INFO U " +
-                "WHERE R.TRAINER_ID = T.USER_ID AND T.USER_ID = U.USER_ID " +
-                "AND R.USER_ID = ?";
-        List<ReviewDto> reviewList = new ArrayList<>();
-
-        try{
-            reviewList = jdbcTemplate.query(sql, new ReviewDtoRowMapper(), username);
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-
-        return reviewList;
-    }
+//    public List<ReviewDto> getReviewItems(String username, int page) {
+//        int offset = (page-1) * 10;
+//        String sql = "SELECT R.R_IDX, R.USER_ID, R.TRAINER_ID, R.UT_IDX, R.R_CONTENT, R.R_STAR, R.R_C_DT, R.R_M_DT, U.USER_NAME " +
+//                "FROM REVIEW R, TRAINER_DETAILS T, USER_INFO U " +
+//                "WHERE R.TRAINER_ID = T.USER_ID AND T.USER_ID = U.USER_ID " +
+//                "AND R.USER_ID = ?";
+//        List<ReviewDto> reviewList = new ArrayList<>();
+//
+//        try{
+//            reviewList = jdbcTemplate.query(sql, new ReviewDtoRowMapper(), username);
+//        }catch (Exception e){
+//            System.out.println(e.getMessage());
+//        }
+//
+//        return reviewList;
+//    }
 }

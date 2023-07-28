@@ -1,7 +1,7 @@
 {{>layout/header}}
 <link rel="stylesheet" href="/css/trainer/trainerPage.css">
 <script src="https://kit.fontawesome.com/05995ac069.js" crossorigin="anonymous"></script>
-<script src="/javascript/payment/kakaoPay.js"></script>
+<script src="/javascript/payment/kakaoPay/kakaoPay.js"></script>
 
 <body>
 {{>layout/navi}}
@@ -122,7 +122,7 @@
             <input class="ptPeriod" hidden="hidden" name="ptPeriod" class="ptPeriod" value="{{ptPeriod}}"/>
 
             <span style="width: 155px;">{{ptTitle}}</span>
-        <span style="width: width: 101px;">{{ptTimes}}회 {{ptPrice}}원</span>
+        <span style="width:101px;">{{ptTimes}}회 {{ptPrice}}원</span>
 
             <div class="trainer_pay" style="margin-right: 20px;">
                 <button class="payButton" data-ptId="{{ptId}}">결제하기</button>
@@ -384,11 +384,7 @@ payButtons.forEach(function(button) {
 
     kakaoPay(ptTitle, tpIdx, ptPrice, ptTimes, ptPeriod);
   });
-}
-
-);
-
-
+});
 
 </script>
 {{>layout/footer}}
