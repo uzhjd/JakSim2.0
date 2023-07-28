@@ -19,11 +19,12 @@ public class ScheduleListController {
     private final ScheduleListService scheduleListService;
 
     // 3
-    @GetMapping("/details/{trainerId}")
+    @GetMapping("/details/{trainerId}/{today}")
     public ResponseEntity<List<TimetableResponse>> monthSchedule(@AuthenticationPrincipal User user,
-                                                                      @PathVariable("trainerId") String trainerId) {
+                                                                      @PathVariable("trainerId") String trainerId,
+                                                                 @PathVariable("today") String today) {
 
-        List<TimetableResponse> response = scheduleListService.findSchedule(user.getUsername(), trainerId);
+        List<TimetableResponse> response = scheduleListService.findSchedule(user.getUsername(), trainerId, today);
 
         return ResponseEntity.ok(response);
     }

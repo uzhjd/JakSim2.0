@@ -3,10 +3,10 @@ let today = new Date();     // 페이지를 로드한 날짜를 저장
 today.setHours(0, 0, 0, 0);    // 비교 편의를 위해 today의 시간을 초기화
 
 var pIdx, setDt, trainerId, tType, ptCnt;
-var ptDay =[];
+var ptYear = [], ptMonth = [], ptDay = [];
 
 // 달력 생성 : 해당 달에 맞춰 테이블을 만들고, 날짜를 채워 넣는다.
-function buildCalendar(sortedPtDay) {
+function buildCalendar(sortedPtYear, sortedPtMonth, sortedPtDay) {
     let firstDate = new Date(nowMonth.getFullYear(), nowMonth.getMonth(), 1);     // 이번달 1일
     let lastDate = new Date(nowMonth.getFullYear(), nowMonth.getMonth() + 1, 0);  // 이번달 마지막날
     let idx = 0;
@@ -50,10 +50,18 @@ function buildCalendar(sortedPtDay) {
             newDIV.onclick = function () { choiceDate(this); }
         }
 
-        if(leftPad(nowDay.getDate()) == sortedPtDay[idx]) {
-            newDIV.classList.add("ptDay");
-            idx++;
+
+        // 초기 페이지의 년월일에 한정되어있음
+        console.log(sortedPtYear[idx]);
+        console.log(sortedPtMonth[idx]);
+        // 현재 수정 사항
+        if(document.getElementById("calYear").innerText == sortedPtYear[idx] && document.getElementById("calMonth").innerText == sortedPtMonth[idx]) {
+            if(leftPad(nowDay.getDate()) == sortedPtDay[idx]) {
+                newDIV.classList.add("ptDay");
+                idx++;
+            }
         }
+
         nowColumn.appendChild(newDIV);
     }
 
@@ -76,12 +84,14 @@ function choiceDate(newDIV) {
 // 이전달 버튼 클릭
 function prevCalendar() {
     nowMonth = new Date(nowMonth.getFullYear(), nowMonth.getMonth() - 1, nowMonth.getDate());   // 현재 달을 1 감소
-    buildCalendar(ptDay.sort());    // 달력 다시 생성
+    // buildCalendar(ptYear.sort(), ptMonth.sort(), ptDay.sort());    // 달력 다시 생성
+    setSchdule();
 }
 // 다음달 버튼 클릭
 function nextCalendar() {
     nowMonth = new Date(nowMonth.getFullYear(), nowMonth.getMonth() + 1, nowMonth.getDate());   // 현재 달을 1 증가
-    buildCalendar(ptDay.sort());    // 달력 다시 생성
+    // buildCalendar(ptYear.sort(), ptMonth.sort(), ptDay.sort());    // 달력 다시 생성
+    setSchdule();
 }
 
 // input값이 한자리 숫자인 경우 앞에 '0' 붙혀주는 함수
@@ -95,20 +105,28 @@ function leftPad(value) {
 
 // function setSchdule(trainerId, tType, pIdx, ptCnt) {
 function setSchdule() {
+    this.ptYear = [];
+    this.ptMonth = [];
     this.ptDay = [];
+    // var today = new Date().toString().replace('/', '-');
+    // today =
     // this.trainerId = trainerId;
     // this.tType = tType;
     // this.ptCnt = ptCnt;
     // this.pIdx = pIdx;
-    const url = '/scheduler/details/' + trainerId;
+    var selectedDate = new Date(nowMonth.getFullYear(), nowMonth.getMonth(), nowMonth.getDate()).toISOString().substring(0, 10);
+    const url = '/scheduler/details/' + trainerId + "/" + selectedDate;
+console.log(selectedDate);
 
     axios.get(url)
         .then((response) => {
             response.data.forEach(function(schdule) {
+                this.ptYear.push(schdule['tdate'].split("-")[0]);
+                this.ptMonth.push(schdule['tdate'].split("-")[1]);
                 this.ptDay.push(schdule['tdate'].split("-")[2]);
             });
 
-            buildCalendar(ptDay.sort());
+            buildCalendar(ptYear.sort(), ptMonth.sort(), ptDay.sort());
         })
         .catch(error => {
             console.error(error);

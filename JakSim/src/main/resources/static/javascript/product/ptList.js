@@ -41,7 +41,7 @@ function changePtList(selectedPt, type) {
     setPtType(tType);
     setPtCnt(ptCnt);
     setTrainerBrief(trainerId);
-    setSchdule(trainerId, tType, pIdx, ptCnt);
+    setSchdule(new Date(nowMonth.getFullYear(), nowMonth.getMonth() + 1, nowMonth.getDate()));
 }
 
 

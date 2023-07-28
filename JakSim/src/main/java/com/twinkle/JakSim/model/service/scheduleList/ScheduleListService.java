@@ -15,13 +15,14 @@ public class ScheduleListService {
 
     private final ScheduleListDao scheduleListDao;
 
-    public List<TimetableResponse> findSchedule(String userId, String trainerId) {
+    public List<TimetableResponse> findSchedule(String userId, String trainerId, String today) {
         List<TimetableResponse> timetableList = new ArrayList<>();
 
         // 트레이너가 실제하는지에 대한 익셉션 처리 필요
-        LocalDate today = LocalDate.now();
-        LocalDate firstDate = today.withDayOfMonth(1);
-        LocalDate lastDate = today.withDayOfMonth(firstDate.lengthOfMonth());
+//        LocalDate today = LocalDate.now();
+        System.out.println(today);
+        LocalDate firstDate = LocalDate.parse(today).withDayOfMonth(1);
+        LocalDate lastDate = LocalDate.parse(today).withDayOfMonth(firstDate.lengthOfMonth());
 
         try {
             timetableList = scheduleListDao.findSchedule(userId, firstDate, lastDate, trainerId);

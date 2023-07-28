@@ -10,6 +10,5 @@ window.onload = function () {
     canBtn = document.getElementById('resCancleBtn');
     canBtn.addEventListener('click', () => resCancle());
 
-    // button.addEventListener('click', () => resRegister(pIdx, selectedTIdx, trainerId, formattedDate, ptCnt, tType));
     setPtList();
 }
