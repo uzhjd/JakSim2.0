@@ -50,10 +50,6 @@ function buildCalendar(sortedPtYear, sortedPtMonth, sortedPtDay) {
             newDIV.onclick = function () { choiceDate(this); }
         }
 
-
-        // 초기 페이지의 년월일에 한정되어있음
-        console.log(sortedPtYear[idx]);
-        console.log(sortedPtMonth[idx]);
         // 현재 수정 사항
         if(document.getElementById("calYear").innerText == sortedPtYear[idx] && document.getElementById("calMonth").innerText == sortedPtMonth[idx]) {
             if(leftPad(nowDay.getDate()) == sortedPtDay[idx]) {
@@ -103,17 +99,10 @@ function leftPad(value) {
     return value;
 }
 
-// function setSchdule(trainerId, tType, pIdx, ptCnt) {
 function setSchdule() {
     this.ptYear = [];
     this.ptMonth = [];
     this.ptDay = [];
-    // var today = new Date().toString().replace('/', '-');
-    // today =
-    // this.trainerId = trainerId;
-    // this.tType = tType;
-    // this.ptCnt = ptCnt;
-    // this.pIdx = pIdx;
     var selectedDate = new Date(nowMonth.getFullYear(), nowMonth.getMonth(), nowMonth.getDate()).toISOString().substring(0, 10);
     const url = '/scheduler/details/' + trainerId + "/" + selectedDate;
 console.log(selectedDate);

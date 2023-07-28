@@ -79,6 +79,7 @@ function resRegister(formattedDate) {
 
             if(response.data == 5) {
                 setMyReservation(formattedDate);
+                setSchdule();
             }
         })
         .catch(error => {
@@ -99,7 +100,7 @@ function resCancle() {
             if(response.data) {
                 alert(type[tType] + ' 예약이 취소되었습니다!');
                 setMyReservation(document.getElementById("reservation_date").innerText);
-                // setSchdule();
+                setSchdule();
             } else {
                 alert('예약이 취소되지 않았습니다!');
             }
