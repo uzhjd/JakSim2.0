@@ -57,9 +57,9 @@
   }
 
   #pt-info span {
-    margin-right: 10px; /* Adjust the value as needed */
+    margin-right: 5px; /* Adjust the value as needed */
     font-size: 15px;
-    margin-left: 15px;
+    margin-left: 5px;
     border: none;
   }
 
@@ -69,6 +69,7 @@
 
   .payButton{
     background-color: #A584EE;
+    width: 120px;
     color: black;
     border: none;
     border-radius: 5px;
@@ -82,12 +83,12 @@
 .review {
   background-color: #E9E1FB;
   border: 2px solid #E9E1FB;
-  width: 800px;
+  width: 850px;
   border-radius: 10px;
   padding: 20px;
   margin-left: 50px;
   margin-right: 50px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .review-filters {

@@ -222,7 +222,7 @@ public class TrainerDao {
     }
 
     public List<TrainerPageDto> getTrainerPage(String userId) {   //리스트아닌것들
-        String sql = "SELECT DISTINCT tc.TC_IMAGE, td.UT_EXPERT_1, td.UT_EXPERT_2, ui.user_name, td.UT_GYM, td.UT_INSTA, td.UT_INTRO, td.UT_ADDRESS  " +
+        String sql = "SELECT DISTINCT tc.TC_IMAGE, td.user_id, td.UT_EXPERT_1, td.UT_EXPERT_2, ui.user_name, td.UT_GYM, td.UT_INSTA, td.UT_INTRO, td.UT_ADDRESS  " +
                 "FROM trainer_details td " +
                 "JOIN user_info ui ON td.user_id = ui.user_id " +
                 "JOIN trainer_cert tc ON td.user_id = tc.user_id " +
@@ -322,7 +322,6 @@ public class TrainerDao {
         }
 
         if (!imagePath[0].isEmpty()) {
-            System.out.println("여기인가요??");
 
             this.sql = "DELETE FROM TRAINER_IMAGE WHERE USER_ID = ?";
             jdbcTemplate.update(sql, userId);

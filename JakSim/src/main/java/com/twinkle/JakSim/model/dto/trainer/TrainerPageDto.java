@@ -14,6 +14,7 @@ public class TrainerPageDto {
     private int trainerId;
 
     private String userName;
+    private String userId;
 
     private String insta;
     private String introduce;

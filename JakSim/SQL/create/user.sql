@@ -17,14 +17,12 @@ CREATE TABLE USER_INFO(
 COMMIT;
 
 INSERT INTO USER_INFO
-VALUES('wkdgyfla97', '1234', '장효림', '0', '01085945142', '1997-03-30', '2023-06-09 12:36:34', 1);
+VALUES('wkdgyfla97', '1234', '장효림', '0', '01085945142', 'wkdgyfla@naver.com', '1997-03-30', '2023-06-09 12:36:34', NULL, 1);
 INSERT INTO USER_INFO
-VALUES('hye8997', '1234', '정혜화', '1', '01012345678', '1989-03-30', current_timestamp, 1);
+VALUES('hye8997', '1234', '정혜화', '1', '01012345678', 'hye8997@naver.com', '1989-03-30', current_timestamp, NULL, 1);
 INSERT INTO USER_INFO
-VALUES('ujeong', '1004', '남유정', '1', '01012345999',  '2000-05-28', current_timestamp, 1);
+VALUES('ujeong', '1004', '남유정', '1', '01012345999', 'ujeong@naver.com', '2000-05-28', current_timestamp, NULL, 1);
 INSERT INTO USER_INFO
-VALUES('humble', '6789', '김겸손', '0', '01091029629', '1996-02-09', current_timestamp, 1);
+VALUES('humble', '6789', '김겸손', '0', '01091029629', 'humble@naver.com', '1996-02-09', current_timestamp, NULL, 1);
 INSERT INTO USER_INFO
-VALUES('gse96', '1234', '전혜린', '1', '01040853763', '0', '전라남도 나주시', '1961-09-27', current_timestamp, 1);
-
-ALTER TABLE USER_INFO ADD USER_M_DT DATETIME;
+VALUES('hyerin', '1234', '전혜린', '1', '01040853763', 'hyerin@naver.com', '1961-09-27', current_timestamp, NULL, 1);

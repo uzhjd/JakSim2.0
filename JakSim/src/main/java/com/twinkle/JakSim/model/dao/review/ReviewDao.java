@@ -1,5 +1,6 @@
 package com.twinkle.JakSim.model.dao.review;
 
+import com.twinkle.JakSim.model.dao.trainer.PtUserRowMapper;
 import com.twinkle.JakSim.model.dto.review.ReviewDto;
 import com.twinkle.JakSim.model.dto.review.ReviewRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class ReviewDao {
     private String sql;
 
     public void insertReview(ReviewRequestDto review, String userId, int trainerIdx) {
-        this.sql = "INSERT INTO REVIEW VALUES(NULL, ?, ?, ?, ?, current_date, NULL)";
+        this.sql = "INSERT INTO REVIEW VALUES(NULL, ?, ?, ?, ?, current_timestamp, NULL)";
 
         jdbcTemplate.update(this.sql, userId, trainerIdx,
                             review.getReviewContent(), review.getStar());
@@ -25,24 +26,57 @@ public class ReviewDao {
     }
 
     public List<ReviewRequestDto> getTrainerReview(String trainerId) {
-        this.sql = "SELECT R.*, AVG_R.AVG_R_STAR " +
-                "FROM REVIEW R " +
-                "JOIN (SELECT TRAINER_ID, ROUND(AVG(R_STAR), 1) AS AVG_R_STAR " +
-                "      FROM REVIEW " +
-                "      GROUP BY TRAINER_ID) AVG_R ON R.TRAINER_ID = AVG_R.TRAINER_ID " +
-                "WHERE R.TRAINER_ID = ?";
+        this.sql = "SELECT *" +
+                "FROM REVIEW " +
+                "WHERE TRAINER_ID = ? "+
+                " ORDER BY R_IDX DESC" +
+                " LIMIT 3";
 
         return jdbcTemplate.query(this.sql, new ReviewRowMapper(), trainerId);
     }
 
+    public List<ReviewRequestDto> getTrainerReviewAll(int page, int pageSize, int filter, String trainerId) {
 
-//    public ReviewDto getStarAvg(String trainerId) {
-//        this.sql = "SELECT *, ROUND(AVG(R_STAR), 1) AS AVG_R_STAR " +
-//                "FROM REVIEW WHERE TRAINER_ID = ?";
-//
-//        return jdbcTemplate.queryForObject(this.sql, new ReviewDtoRowMapper(), trainerId);
-//
-//    }
+        int offset = (page - 1) * pageSize;
+
+        if(filter == 0) {
+            String sql = "SELECT *" +
+                    "FROM REVIEW " +
+                    "WHERE TRAINER_ID = ? "+
+                    " ORDER BY R_IDX DESC" +
+                    " LIMIT ?, ?";
+
+            return jdbcTemplate.query(sql, new Object[]{trainerId, offset, pageSize}, new ReviewRowMapper());
+
+        }
+        else if(filter == 1) {
+            String sql = "SELECT *" +
+                    "FROM REVIEW " +
+                    "WHERE TRAINER_ID = ? "+
+                    " ORDER BY R_STAR DESC" +
+                    " LIMIT ?, ?";
+
+            return jdbcTemplate.query(sql,  new Object[]{trainerId, offset, pageSize}, new ReviewRowMapper());
+        }
+        else {
+            String sql = "SELECT *" +
+                    "FROM REVIEW " +
+                    "WHERE TRAINER_ID = ? "+
+                    " ORDER BY R_STAR ASC" +
+                    " LIMIT ?, ?";
+
+            return jdbcTemplate.query(sql,  new Object[]{trainerId, offset, pageSize}, new ReviewRowMapper());
+        }
+
+    }
+
+    public ReviewRequestDto getStarAvgAndCnt(String trainerId) {
+        this.sql = "SELECT *, COUNT(*) AS REVIEW_CNT, ROUND(AVG(R_STAR), 1) AS AVG_R_STAR " +
+                "FROM REVIEW WHERE TRAINER_ID = ?";
+
+        return jdbcTemplate.queryForObject(this.sql, new ReviewRowMapper2(), trainerId);
+
+    }
 
     public List<ReviewRequestDto> getMyReview(String userId, int reviewIdx) {
         this.sql = "SELECT * FROM REVIEW " +
@@ -67,7 +101,7 @@ public class ReviewDao {
 
 
     public void editReview(ReviewRequestDto review, String userId) {
-        this.sql = "UPDATE REVIEW SET R_CONTENT = ?, R_STAR = ?, R_M_DT = current_date " +
+        this.sql = "UPDATE REVIEW SET R_CONTENT = ?, R_STAR = ?, R_M_DT = current_timestamp " +
                 "WHERE USER_ID = ?";
 
         jdbcTemplate.update(this.sql, review.getReviewContent(),

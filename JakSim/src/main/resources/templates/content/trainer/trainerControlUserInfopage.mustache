@@ -197,7 +197,7 @@
                     margin-right: 20px;
                     margin-left: 20px; border: white; text-align: center; pointer-events: none;" type="text" name="userId" value="{{userId}}" readonly>
                             </td>
-                            <td><input style="width: 100px;
+                            <td><input style="width: 110px;
                     margin-right: 20px;
                     margin-left: 20px; border: white; text-align: center; pointer-events: none;" type="text" name="tel" value="{{tel}}" readonly>
                                 </td>
@@ -215,13 +215,13 @@
                 </table>
 
         <div id="pagination" style="margin-top: 30px;">
-            <a href="/trainer/ptUserInfo?page={{prevPage}}&pageSize={{trainersPerPage}}&ptUserName={{ptUserName}}" class="jaksim_btn" style="padding-left: 10px; padding-right: 10px;padding-bottom: 6px;padding-top: 6px;">이전</a>
+            <a href="/trainer/ptUserInfo?page={{prevPage}}&pageSize={{trainersPerPage}}&ptUserName={{ptUserName}}" class="jaksim_btn" style="padding-left: 10px; padding-right: 10px;padding-bottom: 6px;padding-top: 6px; text-decoration: none;">이전</a>
 
             {{#pageNumbers}}
             <a href="/trainer/ptUserInfo?page={{.}}&pageSize={{trainersPerPage}}&ptUserName={{ptUserName}}" style="margin-left:5px; color: black;">{{.}}</a>
             {{/pageNumbers}}
 
-            <a href="/trainer/ptUserInfo?page={{nextPage}}&pageSize={{trainersPerPage}}&ptUserName={{ptUserName}}" class="jaksim_btn" style="padding-left: 10px; padding-right: 10px;padding-bottom: 6px;padding-top: 6px; margin-left: 5px;">다음</a>
+            <a href="/trainer/ptUserInfo?page={{nextPage}}&pageSize={{trainersPerPage}}&ptUserName={{ptUserName}}" class="jaksim_btn" style="padding-left: 10px; padding-right: 10px;padding-bottom: 6px;padding-top: 6px; margin-left: 5px; text-decoration: none;">다음</a>
         </div>
 
     </div>
@@ -261,38 +261,47 @@
         window.location.href = currentUrl;
     });
 </script>
-
-
 <script>
-window.onload = function() {
+    window.onload = function() {
+        var rows = document.querySelectorAll('#table-body tr');
 
-    // 글씨 change
-    for (var i = 0; i < rows.length; i++) {
-        var ptType = rows[i].getElementsByTagName("td")[1].getElementsByTagName("input")[0];
-        var gender = rows[i].getElementsByTagName("td")[4].getElementsByTagName("input")[0];
+        // Modify ptType and gender values for display
+        for (var i = 0; i < rows.length; i++) {
+            var ptTypeInput = rows[i].querySelector('[name="ptType"]');
+            var genderInput = rows[i].querySelector('[name="gender"]');
+            var telInput = rows[i].querySelector('[name="tel"]');
 
-        console.log(ptType.value);
+            var ptTypeValue = ptTypeInput.value;
+            var genderValue = genderInput.value;
+            var telValue = telInput.value;
 
-        // Convert ptType value to text
-        if (ptType.value === "0") {
-            ptType.value = "개인";
-            console.log(ptType.value);
-        } else if (ptType.value === "1") {
-            ptType.value = "단체";
+            // Convert ptType value to text
+            if (ptTypeValue === "0") {
+                ptTypeInput.value = "개인";
+            } else if (ptTypeValue === "1") {
+                ptTypeInput.value = "단체";
+            }
+
+            // Convert gender value to text
+            if (genderValue === "0") {
+                genderInput.value = "남자";
+            } else if (genderValue === "1") {
+                genderInput.value = "여자";
+            }
+
+            // Format phone numbers to a specific pattern (e.g., 010-1234-5678)
+            telInput.value = formatPhoneNumber(telValue);
         }
+    };
 
-        // Convert gender value to text
-        if (gender.value === "0") {
-            gender.value = "남자";
-        } else if (gender.value === "1") {
-            gender.value = "여자";
+    // Function to format phone numbers to a specific pattern (e.g., 010-1234-5678)
+    function formatPhoneNumber(phoneNumber) {
+        var cleaned = ('' + phoneNumber).replace(/\D/g, '');
+        var match = cleaned.match(/^(\d{2,3})(\d{3,4})(\d{4})$/);
+        if (match) {
+            return match[1] + '-' + match[2] + '-' + match[3];
         }
+        return phoneNumber;
     }
-
-  
-
-   
-}
 </script>
-
 

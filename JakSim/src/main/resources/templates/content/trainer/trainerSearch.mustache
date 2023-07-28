@@ -43,11 +43,11 @@
                     <div class="trainer-item" data-expert1="{{expert1}}" data-expert2="{{expert2}}">
                         <a href="/trainer/{{userId}}">
                             <div class="find_trainer_crop">
-                                <img src="{{imagePath}}" style="width: 250px; margin-left: 50px; margin-right: 0px;" alt="트레이너" class="find_trainer_profile">
+                                <img src="{{imagePath}}" style=" margin-bottom: 10px;" alt="트레이너" class="find_trainer_profile">
                             </div>
-                            <div style="margin-bottom:10px;">
-                                <span>{{gym}}</span><br/>
-                                <span><i class="fa-sharp fa-solid fa-location-dot fa-xl" style="color: #ca7cfd;" id="location"></i>{{address}}</span><br/>
+
+                            <div>
+                                <span><i class="fa-sharp fa-solid fa-location-dot fa-xl" style="color: #ca7cfd; margin-right: 5px;"></i>{{gym}}</span><br/>
                             </div>
                             <div>
                                 <span>{{userName}} <i class="fa-solid fa-star" style="color: #f3eb12;"></i> {{avgRstar}}</span>
@@ -67,13 +67,13 @@
 
 
 <div id="pagination">
-    <a href="/trainer/trainerSearch?page={{prevPage}}&pageSize={{trainersPerPage}}&filter={{filter}}&address={{address}}" class="jaksim_btn" style="margin-right:5px;">이전</a>
+    <a href="/trainer/trainerSearch?page={{prevPage}}&pageSize={{trainersPerPage}}&filter={{filter}}&address={{address}}" class="jaksim_btn" style="margin-right:5px; padding-left: 10px; padding-right: 10px;padding-bottom: 6px;padding-top: 6px; text-decoration: none;">이전</a>
 
     {{#pageNumbers}}
-    <a href="/trainer/trainerSearch?page={{.}}&pageSize={{trainersPerPage}}&filter={{filter}}&address={{address}}" style="margin-left:5px; color: black;">{{.}}</a>
+    <a href="/trainer/trainerSearch?page={{.}}&pageSize={{trainersPerPage}}&filter={{filter}}&address={{address}}" style="margin-left:5px; margin-right:5px; color: black;">{{.}}</a>
     {{/pageNumbers}}
 
-    <a href="/trainer/trainerSearch?page={{nextPage}}&pageSize={{trainersPerPage}}&filter={{filter}}&address={{address}}" class="jaksim_btn" style="margin-left:5px;">다음</a>
+    <a href="/trainer/trainerSearch?page={{nextPage}}&pageSize={{trainersPerPage}}&filter={{filter}}&address={{address}}" class="jaksim_btn" style="margin-left:5px; padding-left: 10px; padding-right: 10px;padding-bottom: 6px;padding-top: 6px; text-decoration: none;">다음</a>
 </div>
     
 
@@ -171,10 +171,10 @@
   function handleMessage(event) {
     if (event.data && event.data.type === 'updateAddress') {
       // Get the full address value from the message
-      const fullAddress = event.data.address;
+      var fullAddress = event.data.address;
 
       // Get the second word from the address
-      const secondWord = "{{secondWord}}";
+      var secondWord = "{{secondWord}}";
 
       // Update the displayed address only if it matches the secondWord
       if (secondWord && fullAddress.includes(secondWord)) {
@@ -187,10 +187,9 @@
   window.addEventListener('message', handleMessage);
 
   function road() {
-    const originalAddress = "{{address}}";
+    var originalAddress = "{{address}}";
     const popup = window.open("/address-search","Popup", "width=800, height=700");
-    // 팝업창에 데이터 쓰기 (if you want to pass data, define the 'data' variable first)
-    // popup.document.write(data);
+
     popup.postMessage({
         type: 'originalAddress',
         address: originalAddress

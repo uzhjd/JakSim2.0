@@ -37,14 +37,14 @@ class JakSimApplicationTests {
 	void singleRegisterMember() {
 		UserDto userDto = new UserDto();
 
-		userDto.setId("uzhjd");
+		userDto.setId("test96");
 		userDto.setPw("1234");
-		userDto.setName("tester3");
-		userDto.setEmail("llstd4026@naver.com");
+		userDto.setName("나재민");
+		userDto.setEmail("nana@naver.com");
 		userDto.setGender(0);
-		userDto.setBirth("2023-03-30");
-		userDto.setTel("01012345678");
-		userDto.setRole(2); // 0->Admin 1->Trainer 2->User
+		userDto.setBirth("2000-08-13");
+		userDto.setTel("010008250813");
+		userDto.setRole(1); // 0->Admin 1->User 2->Trainer
 
 		accountRestApi.AccountAction(userDto);
 	}

@@ -40,6 +40,7 @@ public class SecurityConfig {
                         "/javascript/**", "/css/**", "/image/**").permitAll()
                 .antMatchers("/login/**", "/find/**", "/account/**").hasAnyRole("ANONYMOUS")
                 .antMatchers("/trainer/trainerRegister").hasAnyAuthority("ROLE_USER")
+                .antMatchers("/trainer/trainerUpdate/**", "/trainer/trainerControl", "/trainer/ptUserInfo").hasAnyAuthority("ROLE_TRAINER")
                 .anyRequest().authenticated();
         http
                 .formLogin()

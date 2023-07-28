@@ -8,7 +8,7 @@
     margin-bottom: 50px;">트레이너 정보수정</h3>
 </div>
 
-<form action="/trainerUpdate" method="POST" enctype="multipart/form-data" onsubmit="return confirm('프로필을 저장하시겠습니까?');">
+<form action="/trainerUpdate" method="POST" enctype="multipart/form-data" onsubmit="return checkExpertValues(); prepareFormForSubmission();">
     <div class="input_container">
         <span class="input_span">인스타 링크</span>
         <input class="input_input" value="{{#trainer}}{{insta}}{{/trainer}}" type="text" name="insta">
@@ -82,15 +82,16 @@
 
         <input hidden="hidden" type="number" name="ptId" class="ptIdIndex" value="{{ptId}}"/>
 
-        <span class="input_span jaksim_font">횟수</span>
-        <input class="input_input jaksim_font" type="number" name="ptTimes" id="ptTimes" value="{{ptTimes}}" style="margin-bottom:5px;">
+        <span class="input_span">횟수</span>
+        <input class="input_input" type="number" name="ptTimes" id="ptTimes" value="{{ptTimes}}" style="margin-bottom:5px;">
         <br>
-        <span class="input_span jaksim_font">PT 제목</span>
-        <input class="input_input jaksim_font" type="text" name="ptTitle" id="ptTitle" value="{{ptTitle}}" style="margin-bottom:5px;">
+        <span class="input_span">PT 제목</span>
+        <input class="input_input" type="text" name="ptTitle" id="ptTitle" value="{{ptTitle}}" style="margin-bottom:5px;">
         <br>
-        <span class="input_span jaksim_font">가격</span>
-        <input class="input_input jaksim_font" type="number" name="ptPrice" id="ptPrice" value="{{ptPrice}}" style="margin-bottom: 5px;"/>
+        <span class="input_span">가격</span>
+        <input class="input_input" type="number" name="ptPrice" id="ptPrice" value="{{ptPrice}}" style="margin-bottom: 5px;"/>
         <br>
+
         <span class="input_span jaksim_font">유효기간</span>
         <input class="input_input jaksim_font" type="number" name="ptPeriod" id="ptPeriod" value="{{ptPeriod}}" style="margin-bottom:5px;"/>
         <br/>
@@ -118,7 +119,9 @@
         <input type="hidden" name="certImage" value="{{certImage}}">
     {{/cert}}
     <div style="display: flex;">
-        <button type="submit" class="jaksim_register_btn" style="height: 38px; padding-left: 10px; padding-right: 10px;padding-bottom: 6px;padding-top: 6px; margin-right: 10px;">저장하기</button>
+        <button type="submit" class="jaksim_register_btn" 
+        style="height: 38px; padding-left: 10px; padding-right: 10px;padding-bottom: 6px;padding-top: 6px; margin-right: 10px;" 
+        onclick="return confirm('프로필을 저장하시겠습니까?');">저장하기</button>
     
 </form>
 
@@ -149,7 +152,6 @@
 
 <script>
 window.onload = function() {
-    // 이전 코드 생략
 
     var certImageValue = "{{#cert}}{{certImage}}{{/cert}}";
     var previewCertImage = document.getElementById("preview-cert-image");
@@ -163,6 +165,19 @@ window.onload = function() {
 
 
 <script>
+
+function checkExpertValues() {
+        var expert1 = document.querySelector('select[name="expert1"]').value;
+        var expert2 = document.querySelector('select[name="expert2"]').value;
+
+        if (expert1 === expert2) {
+            alert("전문분야는 서로 다른 값을 선택해야 합니다.");
+            return false; // Prevent form submission
+        }
+
+        return true; // Allow form submission
+    }
+
 function previewImage(event) {
     var input = event.target;
     var reader = new FileReader();

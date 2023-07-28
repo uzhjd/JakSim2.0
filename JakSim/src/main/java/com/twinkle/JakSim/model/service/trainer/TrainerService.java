@@ -195,7 +195,6 @@ public class TrainerService {
 
     @Transactional
     public void deleteTrainer(TrainerInsertDto trainerDto, String userId) {
-        //System.out.println("서비스 del : " + trainerDto.getImagePath().toString());
 
         String projectPath = System.getProperty("user.dir") +
                 "/JakSim/src/main/resources/static";

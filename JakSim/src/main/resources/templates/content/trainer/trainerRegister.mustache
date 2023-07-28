@@ -16,7 +16,34 @@
             display: none;
         }
     </style>
+
+    <style>
+    /* Add this CSS style to visually separate the input sets */
+    .pt-container {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        width: 500px;
+        
+    }
+</style>
+
 <script>
+
+    function checkExpertValues() {
+        var expert1 = document.querySelector('select[name="expert1"]').value;
+        var expert2 = document.querySelector('select[name="expert2"]').value;
+
+        if (expert1 === expert2) {
+            alert("전문분야는 서로 다른 값을 선택해야 합니다.");
+            return false; // Prevent form submission
+        }
+
+        return true; // Allow form submission
+    }
+
     function previewImage(event) {
         var input = event.target;
         var reader = new FileReader();
@@ -53,7 +80,7 @@
 {{>layout/navi}}
 <div id="trainer_create_container">
     <span class="jaksim_title_font" style="font-size: 20px; color: black;">트레이너 등록하기</span>
-    <form action="/trainerRegister" method="POST" enctype="multipart/form-data" onsubmit="return confirm('트레이너 등록을 진행하시겠습니까?');">
+    <form action="/trainerRegister" method="POST" enctype="multipart/form-data" onsubmit="return checkExpertValues(); prepareFormForSubmission();">
         <div class="input_container">
             <span class="input_span jaksim_font">인스타 링크</span>
             <input class="input_input jaksim_font" type="text" name="insta">
@@ -116,20 +143,57 @@
                 <input type="radio" name="ptType1" value="1" id="ptType" class="create_toggle">
                 <label for="organ" class="jaksim_font">단체</label>
             </div>
-            <span class="input_span jaksim_font">횟수</span>
-            <input class="input_input jaksim_font" type="number" name="ptTimes1" id="ptTimes" placeholder="횟수를 입력해주세요" style="margin-bottom:5px;">
+            <span class="input_span">횟수</span>
+            <input class="input_input" type="number" name="ptTimes1" id="ptTimes" placeholder="횟수를 입력해주세요" style="margin-bottom:5px;">
             <br>
-            <span class="input_span jaksim_font">PT 제목</span>
-            <input class="input_input jaksim_font" type="text" name="ptTitle1" id="ptTitle" placeholder="제목을 입력하세요" style="margin-bottom:5px;">
+            <span class="input_span">PT 제목</span>
+            <input class="input_input" type="text" name="ptTitle1" id="ptTitle" placeholder="제목을 입력하세요" style="margin-bottom:5px;">
             <br>
-            <span class="input_span jaksim_font">가격</span>
-            <input class="input_input jaksim_font" type="number" name="ptPrice1" id="ptPrice" placeholder="금액을 입력하세요" style="margin-bottom:5px;">
+            <span class="input_span">가격</span>
+            <input class="input_input" type="text" maxlength="10" name="ptPrice1" id="ptPrice" placeholder="금액을 입력하세요" onkeyup="inputNumberFormat(this);" style="margin-bottom:5px;">
             <br>
-            <span class="input_span jaksim_font">유효기간</span>
-            <input class="input_input jaksim_font" type="number" name="ptPeriod1" id="ptPeriod" placeholder="유효기간을 입력하세요(일단위)" style="margin-bottom:5px;">
+        <script>
+
+// ... Your existing functions ...
+
+    // Before submitting the form, remove commas from ptPrice input field
+    function prepareFormForSubmission() {
+        console.log(ptPriceInputs);
+        var ptPriceInputs = document.querySelectorAll('input[name="ptPrice"]');
+        ptPriceInputs.forEach(function (input) {
+            input.value = removeCommas(input.value);
+        });
+        console.log(ptPriceInputs);
+    }
+
+    function removeCommas(str) {
+        return str.replace(/,/g, '');
+    }
+
+    function inputNumberFormat(obj) {
+        obj.value = comma(uncomma(obj.value));
+    }
+
+    function comma(str) {
+        str = String(str);
+        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    }
+
+    function uncomma(str) {
+        str = String(str);
+        return str.replace(/[^\d]+/g, '');
+    }
+
+</script>
+
+
+            <span class="input_span">유효기간</span>
+            <input class="input_input" type="number" name="ptPeriod1" id="ptPeriod" placeholder="유효기간을 입력하세요(일단위)" style="margin-bottom:5px;">
             <button type="button" id="add-pt" class="btn btn-outline-secondary jaksim_font">등록</button>
             
-            <div id="create_pt_div"></div>
+            <div id="create_pt_div">
+
+            </div>
         </div>
 
         <div class="input_class">
@@ -139,7 +203,9 @@
             <div id="image-preview-container"></div>
         </div>
         <br>
-        <input type="submit" value="트레이너 등록" style="padding-left: 10px; padding-right: 10px;padding-bottom: 6px;padding-top: 6px;" class="jaksim_btn">
+        <input type="submit" value="트레이너 등록" 
+        style="padding-left: 10px; padding-right: 10px;padding-bottom: 6px;padding-top: 6px;" 
+        class="jaksim_btn" onclick="return confirm('트레이너 등록을 진행하시겠습니까?');">
     </form>
 </div>
 
@@ -169,7 +235,7 @@
 
     if(certInput.value){
         cert_span.value = certInput.value; 
-        cert_span.setAttribute('class', 'btn btn-outline-primary jaksim_font');
+        cert_span.setAttribute('class', 'jaksim_btn');
         cert_span.setAttribute('name', 'certName');
         cert_span.style.margin = '3px';
 
@@ -185,9 +251,8 @@
             var career_span = document.createElement('input');
 
             if(careerInput.value){
-                //console.log(careerInput);
                 career_span.value = careerInput.value;
-                career_span.setAttribute('class', 'btn btn-outline-primary jaksim_font');
+                career_span.setAttribute('class', 'jaksim_btn');
                 career_span.setAttribute('name', 'careerContent');
                 career_span.style.margin = '3px';
 
@@ -195,83 +260,55 @@
                 careerInput.value = '';
             }
         }
-        
-    document.getElementById('add-pt').onclick = function(){
-    var type = document.querySelector('input[id="ptType"]:checked');
-    var times = document.getElementById('ptTimes');
-    var title = document.getElementById('ptTitle');
-    var price = document.getElementById('ptPrice');
-    var period = document.getElementById('ptPeriod');
-
-    console.log(type);
-
-    var create_pt_div = document.getElementById('create_pt_div');
-
-    var pt_input_type = document.createElement('input');
-    var pt_input_times = document.createElement('input');
-    var pt_input_title = document.createElement('input');
-    var pt_input_price = document.createElement('input');
-    var pt_input_period = document.createElement('input');
-
-    let displayText = '';
-
-    if (type.value && times.value && title.value && price.value && period.value) {
-        if (parseInt(type.value) === 0)
-            displayText += '개인';
-        else
-            displayText += '단체';
-
-        pt_input_type.value = type.value;
-        pt_input_type.setAttribute('class', 'btn btn-outline-primary jaksim_font');
-        pt_input_type.setAttribute('name', 'ptType');
-        pt_input_type.setAttribute('type', 'number');
-        pt_input_type.setAttribute('readonly', 'readonly');
-        pt_input_type.style.margin = '3px';
 
 
-        pt_input_times.value = times.value;
-        pt_input_times.setAttribute('class', 'btn btn-outline-primary jaksim_font');
-        pt_input_times.setAttribute('name', 'ptTimes');
-        pt_input_times.setAttribute('type', 'number');
-        pt_input_times.setAttribute('readonly', 'readonly');
-        pt_input_times.style.margin = '3px';
+  
+    document.getElementById('add-pt').onclick = function () {
+        var type = document.querySelector('input[id="ptType"]:checked');
+        var times = document.getElementById('ptTimes');
+        var title = document.getElementById('ptTitle');
+        var price = document.getElementById('ptPrice');
+        var period = document.getElementById('ptPeriod');
 
-        pt_input_title.value = title.value;
-        pt_input_title.setAttribute('class', 'btn btn-outline-primary jaksim_font');
-        pt_input_title.setAttribute('name', 'ptTitle');
-        pt_input_title.style.margin = '3px';
+        var create_pt_div = document.getElementById('create_pt_div');
 
-        pt_input_price.value = price.value;
-        pt_input_price.setAttribute('class', 'btn btn-outline-primary jaksim_font');
-        pt_input_price.setAttribute('name', 'ptPrice');
-        pt_input_price.setAttribute('type', 'number');
-        pt_input_price.setAttribute('readonly', 'readonly');
-        pt_input_price.style.margin = '3px';
+        if (type.value && times.value && title.value && price.value && period.value) {
+            var pt_container = document.createElement('div');
+            pt_container.className = 'pt-container'; // Add a class for styling
 
-        pt_input_period.value = period.value;
-        pt_input_period.setAttribute('class', 'btn btn-outline-primary jaksim_font');
-        pt_input_period.setAttribute('name', 'ptPeriod');
-        pt_input_period.setAttribute('type', 'number');
-        pt_input_period.setAttribute('readonly', 'readonly');
-        pt_input_period.style.margin = '3px';
+            let displayText = '';
+            if (parseInt(type.value) === 0)
+                displayText += '개인';
+            else
+                displayText += '단체';
 
 
-        create_pt_div.appendChild(pt_input_type);
-        create_pt_div.appendChild(pt_input_times);
-        create_pt_div.appendChild(pt_input_title);
-        create_pt_div.appendChild(pt_input_price);
-        create_pt_div.appendChild(pt_input_period);
+            var formattedPrice = removeCommas(price.value);
+            
+            pt_container.innerHTML = `
+                <span>PT 상품</span><br>
+                <input value="${type.value}" name="ptType" hidden="hidden" type="number"/>
+                <input value="${times.value}" name="ptTimes" hidden="hidden"  type="number"/>
+                <input value="${title.value}" name="ptTitle" hidden="hidden" type="text" />
+                <input value="${formattedPrice}" name="ptPrice" hidden="hidden"  type="number" />
+                <input value="${period.value}" name="ptPeriod" hidden="hidden"  type="number"/>
+                <span>`+ displayText + ` ${times.value}회 ${title.value} ${price.value}원 ${period.value}일</span>`
+             ;
 
-        console.log(create_pt_div);
-        times.value = '';
-        title.value = '';
-        price.value = '';
-        type.value = '';
-        period.value = '';
+            create_pt_div.appendChild(pt_container);
+            console.log(pt_container);
 
-        
+            times.value = '';
+            title.value = '';
+            price.value = '';
+            type.value = '';
+            period.value = '';
+        }
     }
-    
-}
 
+    function removeCommas(str) {
+    return str.replace(/,/g, '');
+}
 </script>
+
+
