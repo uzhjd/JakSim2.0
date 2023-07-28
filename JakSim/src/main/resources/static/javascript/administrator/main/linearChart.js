@@ -52,6 +52,10 @@ function getAccessDataForLinear(start, end){
         });
 }
 
+function avgData(list){
+    return (list.reduce((acc, cur) => acc + cur, 0))/list.length;
+}
+
 function makeLinearChart(chartData){
     if(newLinearChart){
         newLinearChart.destroy();
@@ -61,6 +65,8 @@ function makeLinearChart(chartData){
 
     var labelList = chartData.map(data => data['date']);
     var dataList = chartData.map(data => data['amount']);
+    var avg = avgData(dataList);
+    var avgList = Array(dataList.length).fill(avg);
 
     document.getElementById('man_section_linearHead').innerHTML = `${labelList[0]} ~ ${labelList[labelList.length-1]}`;
 
@@ -68,20 +74,26 @@ function makeLinearChart(chartData){
         type: 'line',
         data: {
           labels: labelList,
-          datasets: [{
-            label: '로그인 수',
-            data: dataList,
-            borderWidth: 1
-          }]
+          datasets: [
+              {
+                label: '로그인 수',
+                data: dataList,
+                borderWidth: 1
+              },
+             {
+               label: '일평균',
+               data: avgList,
+               borderWidth: 3,
+               pointRadius:0
+             }
+          ]
         },
         options: {
           maintainAspectRatio:false,
           aspectRatio: 3,
-          scales: {
-            y: {
-              //beginAtZero: true
-            }
+          y:{
+            beginAtZero:false
           }
         }
-      });
+    });
 }
