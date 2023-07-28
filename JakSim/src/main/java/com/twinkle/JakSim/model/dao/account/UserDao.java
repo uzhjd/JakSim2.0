@@ -1,12 +1,18 @@
 package com.twinkle.JakSim.model.dao.account;
 
 import com.twinkle.JakSim.model.dto.account.UserDto;
+import com.twinkle.JakSim.model.dto.account.UserStat;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -133,5 +139,49 @@ public class UserDao {
         }
         System.out.println("result: " + result);
         return result;
+    }
+
+    public List<UserStat> getAmountAccounts(String start, String end) {
+        String sql = "SELECT COUNT(*) AS AMOUNT, DATE(USER_C_DT) AS DATE FROM USER_INFO " +
+                "WHERE DATE(USER_C_DT) BETWEEN ? AND ? " +
+                "GROUP BY DATE(USER_C_DT) " +
+                "ORDER BY DATE(USER_C_DT)";
+        List<UserStat> logList = new ArrayList<>();
+        try{
+            logList = jdbcTemplate.query(sql, new RowMapper<UserStat>() {
+                @Override
+                public UserStat mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    UserStat stat = new UserStat();
+                    stat.setC_dt(rs.getDate("DATE").toLocalDate());
+                    stat.setAmount(rs.getInt("AMOUNT"));
+                    return stat;
+                }
+            }, start, end);
+        }catch (EmptyResultDataAccessException e){
+            System.out.println(e.getMessage());
+        }
+
+        return logList;
+    }
+
+    public List<UserStat> getAmountByRole() {
+        String sql = "SELECT COUNT(*) AS AMOUNT, USER_ROLE FROM USER_INFO " +
+                "GROUP BY USER_ROLE " +
+                "ORDER BY DATE(USER_C_DT)";
+        List<UserStat> logList = new ArrayList<>();
+        try{
+            logList = jdbcTemplate.query(sql, new RowMapper<UserStat>() {
+                @Override
+                public UserStat mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    UserStat stat = new UserStat();
+                    stat.setUser_role(rs.getInt("USER_ROLE"));
+                    stat.setAmount(rs.getInt("AMOUNT"));
+                    return stat;
+                }
+            });
+        }catch (EmptyResultDataAccessException e){
+            System.out.println(e.getMessage());
+        }
+        return logList;
     }
 }

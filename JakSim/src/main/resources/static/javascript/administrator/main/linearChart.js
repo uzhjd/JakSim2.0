@@ -78,7 +78,8 @@ function makeLinearChart(chartData){
               {
                 label: '로그인 수',
                 data: dataList,
-                borderWidth: 1
+                borderWidth: 1,
+                tension: 0.4
               },
              {
                label: '일평균',

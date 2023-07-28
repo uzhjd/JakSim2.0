@@ -145,7 +145,6 @@ public class LoginLogDao {
         }catch (EmptyResultDataAccessException e){
             System.out.println(e.getMessage());
         }
-
         return logList;
     }
 }

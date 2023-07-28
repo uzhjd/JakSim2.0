@@ -32,19 +32,19 @@ class JakSimApplicationTests {
 	 */
 	@Test
 	void singleRegisterMember() {
-		UserDto userDto = new UserDto();
+		for(int i=0; i<5000000; i++){
+			UserDto userDto = new UserDto();
+			userDto.setId("west" + i);
+			userDto.setPw("1234");
+			userDto.setName("wester"+i);
+			userDto.setEmail("west"+i+"@naver.com");
+			userDto.setGender(1);
+			userDto.setBirth("2023-03-30");
+			userDto.setTel("55324"+i);
+			userDto.setRole(1);// 0->Admin 1->User 2->Trainer
 
-		userDto.setId("test9");
-		userDto.setPw("1234");
-		userDto.setName("tester3");
-		userDto.setEmail("test9@naver.com");
-		userDto.setGender(0);
-		userDto.setBirth("2023-03-30");
-		userDto.setTel("01012345619");
-		userDto.setRole(2); // 0->Admin 1->User 2->Trainer
-
-		accountRestApi.AccountAction(userDto);
+			accountRestApi.AccountAction(userDto);
+		}
+		System.out.println("fin");
 	}
-
-
 }

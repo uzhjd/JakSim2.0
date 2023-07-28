@@ -2,6 +2,7 @@ package com.twinkle.JakSim.model.service.account;
 
 import com.twinkle.JakSim.model.dao.account.UserDao;
 import com.twinkle.JakSim.model.dto.account.UserDto;
+import com.twinkle.JakSim.model.dto.account.UserStat;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
@@ -126,5 +128,27 @@ public class AccountService {
 
     public boolean updateTel(String tel, String username) {
         return userDao.updateTel(tel, username) > 0;
+    }
+
+    public List<UserStat> getAmountAccounts(String start, String end) {
+        return userDao.getAmountAccounts(getDefaultStart(start), getDefaultEnd(end));
+    }
+
+    private String getDefaultStart(String start){
+        if(start == null || start.isEmpty()){
+            start = LocalDate.now().plusDays(-6).toString();
+        }
+        return start;
+    }
+
+    private String getDefaultEnd(String end){
+        if(end == null || end.isEmpty()){
+            end = LocalDate.now().plusDays(1).toString();
+        }
+        return end;
+    }
+
+    public List<UserStat> getAmountByRole() {
+        return userDao.getAmountByRole();
     }
 }

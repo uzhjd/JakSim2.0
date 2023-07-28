@@ -20,6 +20,9 @@ function asideProcess(){
 
     setYesterday();
     getVisitCntDay();
+    getAccountCntDay();
+    getRegistered();
+    getRatioTrainer();
 }
 
 function getNowDate(){
