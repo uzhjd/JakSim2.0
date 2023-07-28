@@ -21,7 +21,6 @@ public class TimetableResponse {
 
     private LocalTime tEndT;
 
-
     private int tPeople;
 
     private int tType;

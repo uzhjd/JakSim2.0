@@ -19,13 +19,27 @@ public class ScheduleListService {
         List<TimetableResponse> timetableList = new ArrayList<>();
 
         // 트레이너가 실제하는지에 대한 익셉션 처리 필요
-//        LocalDate today = LocalDate.now();
         System.out.println(today);
         LocalDate firstDate = LocalDate.parse(today).withDayOfMonth(1);
         LocalDate lastDate = LocalDate.parse(today).withDayOfMonth(firstDate.lengthOfMonth());
 
         try {
             timetableList = scheduleListDao.findSchedule(userId, firstDate, lastDate, trainerId);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return timetableList;
+    }
+
+    public List<TimetableResponse> findMySchedule(String trainerId, String today) { // trainerID = 자기자신의 아이디
+        List<TimetableResponse> timetableList = new ArrayList<>();
+
+        LocalDate firstDate = LocalDate.parse(today).withDayOfMonth(1);
+        LocalDate lastDate = LocalDate.parse(today).withDayOfMonth(firstDate.lengthOfMonth());
+
+        try {
+            timetableList = scheduleListDao.findMySchedule(trainerId, firstDate, lastDate);
         } catch (Exception e) {
             System.out.println(e);
         }

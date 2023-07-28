@@ -4,7 +4,7 @@ CREATE TABLE PAYMENT(
                         P_IDX INT(8) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                         USER_ID VARCHAR(30) NOT NULL,
                         TP_IDX INT(8) NOT NULL,
-                        TID INT(10) NOT NULL,
+                        TID VARCHAR(100) NOT NULL,
                         P_C_DT DATE NOT NULL DEFAULT CURRENT_DATE,
                         P_STATUS INT(1) NOT NULL DEFAULT 0,
                         P_M_DT DATE,

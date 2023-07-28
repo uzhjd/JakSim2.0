@@ -18,13 +18,23 @@ public class ScheduleListController {
 
     private final ScheduleListService scheduleListService;
 
-    // 3
+    // 3. 사용자 상세 스케줄 조회
     @GetMapping("/details/{trainerId}/{today}")
     public ResponseEntity<List<TimetableResponse>> monthSchedule(@AuthenticationPrincipal User user,
                                                                       @PathVariable("trainerId") String trainerId,
                                                                  @PathVariable("today") String today) {
 
         List<TimetableResponse> response = scheduleListService.findSchedule(user.getUsername(), trainerId, today);
+
+        return ResponseEntity.ok(response);
+    }
+
+    // 트레이너 상세 스케줄 조회
+    @GetMapping("/details/{today}")
+    public ResponseEntity<List<TimetableResponse>> trainerMonthSchedule(@AuthenticationPrincipal User user,
+                                                                 @PathVariable("today") String today) {
+
+        List<TimetableResponse> response = scheduleListService.findMySchedule(user.getUsername(), today);
 
         return ResponseEntity.ok(response);
     }
