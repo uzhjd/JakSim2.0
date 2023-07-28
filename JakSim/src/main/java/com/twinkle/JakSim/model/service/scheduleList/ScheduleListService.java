@@ -51,9 +51,21 @@ public class ScheduleListService {
         List<TimetableResponse> timetableList = new ArrayList<>();
 
         try {
-            timetableList = scheduleListDao.findTrainerSchedule(trainerId, date, tType);
+            timetableList = scheduleListDao.findTrainerTimetable(trainerId, date, tType);
 
             // 트레이너가 실제하는지에 대한 익셉션 처리 필요
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return timetableList;
+    }
+
+    public List<TimetableResponse> findMyTimetable(String trainerId, String date) {
+        List<TimetableResponse> timetableList = new ArrayList<>();
+
+        try {
+            timetableList = scheduleListDao.findMyTimetable(trainerId, date);
         } catch (Exception e) {
             System.out.println(e);
         }
