@@ -20,14 +20,15 @@ public class SchedulerMain {
     public String scheduler(@AuthenticationPrincipal User user) {
         String isUser = "ROLE_USER";
 
-        if(paymentService.findValidPtList(user.getUsername()).isEmpty()) {
-            return "content/scheduleList/warnScheduleList";
-        }
 
         for(GrantedAuthority authority : user.getAuthorities()){
             String authorityString = authority.getAuthority();
 
-            if(authorityString.contains(isUser)){
+            if(authorityString.contains(isUser)) {
+                if(paymentService.findValidPtList(user.getUsername()).isEmpty()) {
+                    return "content/scheduleList/warnScheduleList";
+                }
+
                 return "content/scheduleList/generalScheduleList";
             }
         }

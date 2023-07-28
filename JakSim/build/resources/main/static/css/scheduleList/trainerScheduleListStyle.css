@@ -18,12 +18,18 @@
     width: 800px;
     height: 580px;
     float: left;
-    margin-top: 50px;
+    margin-top: 10px;
     padding: 30px 30px 15px;
 
     background-color: white;
     border: 2px solid #A584EE;
     border-radius: 5%;
+}
+
+#schedulerTitle {
+    font-size: 25px;
+    color: #A584EE;
+    font-weight: bold;
 }
 
 td {
@@ -125,6 +131,66 @@ td {
     color: #1cc81c;
     font-weight: bold;
 }
+
+/*#timetable {*/
+/*    width: 30%;*/
+/*    height: 600px;*/
+/*    float: right;*/
+
+/*    background: white;*/
+/*    padding-left: 5px;*/
+/*    margin-top: 7%*/
+/*}*/
+
+/*#timetableDetail {*/
+/*    height: 80px;*/
+/*    margin-bottom: 15px;*/
+
+/*    background: white;*/
+/*    border-radius: 20px;*/
+/*    border: 2px solid rgba(196, 196, 196, 1);*/
+/*}*/
+
+/*#reservationBtn {*/
+/*    !*-webkit-border-radius: 28;*!*/
+/*    !*-moz-border-radius: 28;*!*/
+/*    border-radius: 28px;*/
+/*    font-family: 'Questrial', sans-serif;*/
+/*    color: #A584EE;*/
+/*    font-size: 14px;*/
+/*    font-weight: bold;*/
+/*    background: #ffffff;*/
+/*    padding: 3px 30px 3px 30px;*/
+/*    border: solid #A584EE 2px;*/
+/*    text-decoration: none;*/
+
+/*    position: relative;*/
+/*    left: 190px;*/
+/*    top: 30px;*/
+/*}*/
+
+/*#reservationBtn:hover {*/
+/*    background: #A584EE;*/
+/*    text-decoration: none;*/
+/*    color: white;*/
+/*}*/
+
+/*.todayTimetable {*/
+/*    position:relative;*/
+/*    top: 10px;*/
+/*    left: 15px;*/
+
+/*    font-family: 'Questrial', sans-serif;*/
+/*    font-size: 15px;*/
+/*    font-weight: bold;*/
+/*    color: rgba(116, 116, 116, 1);*/
+/*}*/
+
+/*#todayTimetableTitle {*/
+/*    font-family: 'Questrial', sans-serif;*/
+/*    font-size: 16px;*/
+/*    font-weight: bold;*/
+/*}*/
 
 label {
    font-size: 15px;
