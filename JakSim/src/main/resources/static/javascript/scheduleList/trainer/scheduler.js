@@ -55,8 +55,8 @@ function buildCalendar(sortedPtYear, sortedPtMonth, sortedPtDay) {
         nowColumn.appendChild(newDIV);
     }
 
-    setDt = nowMonth.getFullYear().toString() + ". " +  leftPad(nowMonth.getMonth() + 1).toString() + ". ";
-    setDate(setDt + leftPad(nowMonth.getDate()).toString());
+    // setDt = nowMonth.getFullYear().toString() + ". " +  leftPad(nowMonth.getMonth() + 1).toString() + ". ";
+    // setDate(setDt + leftPad(nowMonth.getDate()).toString());
     // setTimetable(setDt + leftPad(nowMonth.getDate()).toString());
 }
 
@@ -67,7 +67,7 @@ function choiceDate(newDIV) {
     }
     newDIV.classList.add("choiceDay");           // 선택된 날짜에 "choiceDay" class 추가
 
-    setDate(setDt + newDIV.innerHTML);
+    // setDate(setDt + newDIV.innerHTML);
     setTimetable(setDt + newDIV.innerHTML);
 }
 
