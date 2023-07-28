@@ -9,10 +9,10 @@ window.onload = function(){
 
 function chartProcess(){
     linearTypeSelect();
+    areaTypeSelect();
 
-
-    getAccessDataForLinear();
-    makeAreaChart();
+    getAccessDataForLinear(); //draw default linear chart
+    getAccessDataForArea();
 }
 
 function asideProcess(){

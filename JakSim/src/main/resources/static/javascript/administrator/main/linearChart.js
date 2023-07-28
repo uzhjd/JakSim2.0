@@ -1,17 +1,17 @@
-var linearChart, chart;
+var linearChart, newLinearChart;
 
 function linearTypeSelect(){
     var radioButtons = document.querySelectorAll('input[name="linear-range"]');
     radioButtons.forEach((button) => {
         button.addEventListener('change', () => {
             if(button.checked){
-                switchType(button.value);
+                switchLinearType(button.value);
             }
         });
     });
 }
 
-function switchType(linearType){
+function switchLinearType(linearType){
     var start = '';
     var end = '';
     switch(linearType){
@@ -53,8 +53,8 @@ function getAccessDataForLinear(start, end){
 }
 
 function makeLinearChart(chartData){
-    if(chart){
-        chart.destroy();
+    if(newLinearChart){
+        newLinearChart.destroy();
     }
 
     linearChart = document.getElementById('man_main_linearChart');
@@ -62,7 +62,9 @@ function makeLinearChart(chartData){
     var labelList = chartData.map(data => data['date']);
     var dataList = chartData.map(data => data['amount']);
 
-    chart = new Chart(linearChart, {
+    document.getElementById('man_section_linearHead').innerHTML = `${labelList[0]} ~ ${labelList[labelList.length-1]}`;
+
+    newLinearChart = new Chart(linearChart, {
         type: 'line',
         data: {
           labels: labelList,
