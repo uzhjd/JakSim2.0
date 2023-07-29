@@ -12,6 +12,7 @@ public class PaymentDtoForMypageRowMapper implements RowMapper<PaymentDtoForMypa
         PaymentDtoForMypage paymentDtoForMypage = new PaymentDtoForMypage();
 
         paymentDtoForMypage.setIdx(rs.getInt("P_IDX"));
+        paymentDtoForMypage.setTid(rs.getString("TID"));
         paymentDtoForMypage.setP_c_dt(rs.getDate("P_C_DT").toLocalDate());
         paymentDtoForMypage.setPeriod(rs.getInt("P_PT_PERIOD"));
         paymentDtoForMypage.setPt_cnt(rs.getInt("P_PT_CNT"));

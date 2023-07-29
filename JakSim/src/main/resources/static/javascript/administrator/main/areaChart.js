@@ -56,20 +56,32 @@ function makeAreaChart(chartData){
         return acc;
     }, []);
 
-    document.getElementById('man_section_areaHead').innerHTML = `${labelList[0]} ~ ${labelList[labelList.length-1]}`;
+    var regressionGradient = (cumulativeSum[labelList.length -1] - cumulativeSum[0]) / (labelList.length-1);
+    var regressionData = [...Array(labelList.length)].map((v, i) => (regressionGradient*(i)) + cumulativeSum[0]);
+
+    document.getElementById('man_section_areaHead').innerHTML = `${labelList[0]} ~ ${labelList[labelList.length-1]} 증가분: ${regressionGradient.toFixed(2)}`;
 
     newAreaChart = new Chart(areaChart, {
         type: 'line', // Area Chart는 line 타입으로 그립니다.
         data: {
             labels: labelList,
-            datasets: [{
-                label: `접속자 누적 수`,
-                data: cumulativeSum, // 데이터 배열 설정
-                backgroundColor: 'rgba(75, 192, 192, 0.2)', // 면적의 배경색
-                borderColor: 'rgba(75, 192, 192, 1)', // 선의 색상
-                borderWidth: 1, // 선의 두께
-                fill: true // 영역을 채우도록 설정
-            }]
+            datasets: [
+                {
+                    label: `접속자 누적 수`,
+                    data: cumulativeSum, // 데이터 배열 설정
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)', // 면적의 배경색
+                    borderColor: 'rgba(75, 192, 192, 1)', // 선의 색상
+                    borderWidth: 1, // 선의 두께
+                    fill: true // 영역을 채우도록 설정
+                },
+                {
+                    label: '증가 기울기',
+                    data: regressionData,
+                    borderColor: 'rgba(255,0,0,0.4)',
+                    borderWidth: 2,
+                    pointRadius: 0
+                }
+            ]
         },
         options: {
             responsive: true,

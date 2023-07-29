@@ -1,9 +1,7 @@
 package com.twinkle.JakSim.model.service.payment;
 
 import com.twinkle.JakSim.model.dto.payment.request.PaymentRequest;
-import com.twinkle.JakSim.model.dto.payment.response.ApproveResponse;
-import com.twinkle.JakSim.model.dto.payment.response.CancelResponse;
-import com.twinkle.JakSim.model.dto.payment.response.ReadyResponse;
+import com.twinkle.JakSim.model.dto.payment.response.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -18,6 +16,7 @@ import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -124,9 +123,82 @@ public class KakaoPayService {
         RestTemplate restTemplate = new RestTemplate();
 
         CancelResponse cancelResponse = restTemplate.postForObject("https://kapi.kakao.com/v1/payment/cancel",
-                                                                                requestEntity, CancelResponse.class);
+                requestEntity, CancelResponse.class);
 
         return cancelResponse;
+    }
+
+    public ListResponse kakaoList(String tid) {
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();         // 카카오페이 요청 양식
+
+        parameters.add("cid", cid);                                                     // 가맹점 코드
+        parameters.add("tid", String.valueOf(tid));
+
+        // 파라미터, 헤더
+        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
+
+        // 외부에 보낼 url
+        RestTemplate restTemplate = new RestTemplate();
+
+        //return restTemplate.postForObject("https://kapi.kakao.com/v1/payment/order",requestEntity, ListResponse.class);
+
+        //TEST!!!!!!!!!!!!!
+        //update 시 충돌 발생시에 반드시 제거하세요!
+        return makeTestListResponse();
+    }
+
+    /**
+     * 반드시 제거해주세요
+     * @return 반환되는 데이터는 테스트를 위해 제작된 것입니다.
+     */
+    private ListResponse makeTestListResponse() {
+        ListResponse listResponse = new ListResponse();
+
+        listResponse.setTid(cid);
+        listResponse.setStatus("CANCEL_PAYMENT");
+        listResponse.setPayment_method_type("MONEY");
+        listResponse.setAmount(makeTestCanceledAmount());
+        listResponse.setCancel_available_amount(makeCancelAvailableAmount());
+        listResponse.setItem_name("생활근력 만들기");
+        listResponse.setItem_code("2");
+        listResponse.setCreated_at(LocalDateTime.now());
+        listResponse.setApproved_at(LocalDateTime.now().plusHours(1));
+
+        return listResponse;
+    }
+
+    /**
+     * 반드시 제거해주세요
+     * @return 반환되는 데이터는 테스트를 위해 제작도니 것입니다.
+     */
+    private CancelAvailableAmountResponse makeCancelAvailableAmount() {
+        CancelAvailableAmountResponse cancelAvailableAmountResponse = new CancelAvailableAmountResponse();
+
+        cancelAvailableAmountResponse.setTotal(0);
+        cancelAvailableAmountResponse.setTax_free(0);
+        cancelAvailableAmountResponse.setVat(0);
+        cancelAvailableAmountResponse.setPoint(0);
+        cancelAvailableAmountResponse.setDiscount(0);
+        cancelAvailableAmountResponse.setGreen_deposit(0);
+
+        return cancelAvailableAmountResponse;
+    }
+
+    /**
+     * 반드시 제거해주세요
+     * @return 반환되는 데이터는 테스트를 위해 제작된 것입니다.
+     */
+    private CanceledAmount makeTestCanceledAmount() {
+        CanceledAmount canceledAmount = new CanceledAmount();
+
+        canceledAmount.setTotal(200000);
+        canceledAmount.setTax_free(0);
+        canceledAmount.setVat(0);
+        canceledAmount.setPoint(0);
+        canceledAmount.setDiscount(0);
+        canceledAmount.setGreen_deposit(0);
+
+        return canceledAmount;
     }
 
 

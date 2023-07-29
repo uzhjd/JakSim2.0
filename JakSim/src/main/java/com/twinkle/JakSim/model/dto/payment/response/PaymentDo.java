@@ -6,6 +6,7 @@ import lombok.Data;
 public class PaymentDo {
     private int idx;
     private String user_id;
+    private String tid;
     private int tp_idx;
     private String c_dt;
     private int refund;

@@ -46,8 +46,8 @@ window.onload = function() {
     var viewPayButtons = document.getElementsByClassName('mypage_viewPayDetail');
     Array.from(viewPayButtons).forEach((button) => {
         button.addEventListener('click', function(event){
-            var payId = event.target.closest('tr').querySelector('td:first-child span').textContent;
-            window.location.href=`/payment/detail/${payId}`;
+            var tid = event.target.closest('tr').querySelector('td:first-child span').textContent;
+            window.location.href=`/payment/detail/${tid}`; //tid로 변경바람
         });
     });
 }

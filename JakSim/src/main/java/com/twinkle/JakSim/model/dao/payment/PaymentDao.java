@@ -102,7 +102,7 @@ public class PaymentDao {
     }
 
     public Optional<List<PaymentDtoForMypage>> findRecentByUsernameBy3(String username) {
-        String sql = "SELECT P.P_IDX, P.P_C_DT, P.P_PT_PERIOD, P.P_PT_CNT, T.TP_TITLE, T.TP_TYPE, T.TP_TIMES, T.TP_PRICE " +
+        String sql = "SELECT P.P_IDX, P.TID, P.P_C_DT, P.P_PT_PERIOD, P.P_PT_CNT, T.TP_TITLE, T.TP_TYPE, T.TP_TIMES, T.TP_PRICE " +
                 "FROM PAYMENT P, PRODUCT T " +
                 "WHERE P.USER_ID = ? " +
                 "AND T.TP_IDX = P.TP_IDX " +
@@ -145,12 +145,12 @@ public class PaymentDao {
         return payList;
     }
 
-    public Optional<PaymentDo> getPaymentByIdx(int pIdx) {
-        String sql = "SELECT * FROM PAYMENT WHERE P_IDX = ?";
+    public Optional<PaymentDo> getPaymentByTid(String tid) {
+        String sql = "SELECT * FROM PAYMENT WHERE TID = ?";
         PaymentDo paymentDo = null;
 
         try{
-            paymentDo = jdbcTemplate.queryForObject(sql, new PaymentDoRowMapper(), pIdx);
+            paymentDo = jdbcTemplate.queryForObject(sql, new PaymentDoRowMapper(), tid);
         }catch (Exception e){
             System.out.println(e.getMessage());
         }

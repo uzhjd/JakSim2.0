@@ -66,8 +66,8 @@ public class PaymentService {
     }
 
 
-    public Optional<PaymentDo> getPaymentByIdx(int pIdx) {
-        return paymentDao.getPaymentByIdx(pIdx);
+    public Optional<PaymentDo> getPaymentByTid(String tid) {
+        return paymentDao.getPaymentByTid(tid);
     }
 
     public ProductDto getProductByIdx(int tpIdx) {

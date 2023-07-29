@@ -28,3 +28,5 @@ INSERT INTO USER_INFO
 VALUES('gse96', '1234', '전혜린', '1', '01040853763', '0', '전라남도 나주시', '1961-09-27', current_timestamp, 1);
 
 ALTER TABLE USER_INFO ADD USER_M_DT DATETIME;
+
+alter table payment add TID VARCHAR(255) NOT NULL;

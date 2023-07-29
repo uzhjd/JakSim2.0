@@ -7,6 +7,7 @@ import java.time.LocalDate;
 @Data
 public class PaymentDtoForMypage {
     private int idx;
+    private String tid;
     private LocalDate p_c_dt;
     private LocalDate p_f_dt;
     private int period;
