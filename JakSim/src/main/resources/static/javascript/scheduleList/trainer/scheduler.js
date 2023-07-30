@@ -57,7 +57,7 @@ function buildCalendar(sortedPtYear, sortedPtMonth, sortedPtDay) {
     }
 
     selectedDate = nowMonth.getFullYear().toString() + "-" +  leftPad(nowMonth.getMonth() + 1).toString() + "-";
-    setTimetable(selectedDate);
+    setTimetable(selectedDate + nowMonth.getDate());
 }
 
 // 날짜 선택
@@ -67,7 +67,7 @@ function choiceDate(newDIV) {
     }
     newDIV.classList.add("choiceDay");           // 선택된 날짜에 "choiceDay" class 추가
 
-    setTimetable(selectedDate);
+    setTimetable(selectedDate + newDIV.innerHTML);
 }
 
 // 이전달 버튼 클릭

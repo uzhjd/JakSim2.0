@@ -2,6 +2,7 @@ package com.twinkle.JakSim.controller.reservation;
 
 import com.twinkle.JakSim.model.dto.reservation.request.IsReservationRequest;
 import com.twinkle.JakSim.model.dto.reservation.request.ReservationRequest;
+import com.twinkle.JakSim.model.dto.reservation.response.MyMember;
 import com.twinkle.JakSim.model.dto.reservation.response.ReservationResponse;
 import com.twinkle.JakSim.model.service.reservation.ReservationService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.validation.Valid;
@@ -74,6 +76,13 @@ public class ReservationController {
     public ResponseEntity<Boolean> resCancle(@AuthenticationPrincipal User user, @PathVariable("pIdx") int pIdx,
                               @PathVariable("rIdx") int rIdx) {
         Boolean response = reservationService.delete(pIdx, rIdx);
+
+        return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/search/{tIdx}")
+    public ResponseEntity<List<MyMember>> findMyReservation(@PathVariable("tIdx") int tIdx) {
+        List<MyMember> response = reservationService.findMyReservation(tIdx);
 
         return ResponseEntity.ok().body(response);
     }
