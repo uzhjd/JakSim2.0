@@ -50,7 +50,7 @@ public class PaymentDao {
     public Boolean savePaymentDetails(String userId, ApproveResponse paymentDetails) {
         Boolean result = true;
 
-        this.sql = "insert into payment (user_id, tp_idx, tid, p_c_dt, p_status, p_pt_cnt, p_pt_period) " +
+        this.sql = "insert into payment (user_id, tp_idx, tid, p_a_dt, p_status, p_pt_cnt, p_pt_period) " +
                 "values (?, ?, ?, ?, 0, ?, ?)";
 
         try {
@@ -84,7 +84,7 @@ public class PaymentDao {
     }
 
     public void decreasePt(int ptCnt, int pIdx) {
-        this.sql = "update payment set p_pt_cnt = ? where p_idx = ? limit 1";
+        this.sql = "update payment set p_pt_cnt = ? where p_idx = ?";
 
         try {
             jdbcTemplate.update(this.sql, ptCnt-1, pIdx);
@@ -96,7 +96,7 @@ public class PaymentDao {
     }
 
     public void increaseCnt(int pIdx) {
-        this.sql = "update payment set P_PT_CNT = P_PT_CNT + 1 where p_idx = ?";
+        this.sql = "update payment set p_pt_cnt = p_pt_cnt + 1 where p_idx = ?";
 
         try {
             jdbcTemplate.update(this.sql, pIdx);
