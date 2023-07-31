@@ -60,16 +60,22 @@ public class ReservationService {
         } catch (Exception e) {
             System.out.println("e.getMessage() = " + e.getMessage());
         }
+
+        timetableDao.decreaseTPeople(reservationDto.getT_idx(), 0);
+
         ptCntDo.setReservationStatus(5);
 
         return ptCntDo;
     }
 
     public PtCntDo delete(int pIdx, int rIdx) {
-        if(reservationDao.delete(rIdx)) {
+        timetableDao.increaseTPeople(rIdx);
 
+        if(reservationDao.delete(rIdx)) {
             return paymentDao.increaseCnt(pIdx);
         }
+
+        timetableDao.decreaseTPeople(rIdx, 1);
 
         return null;
     }

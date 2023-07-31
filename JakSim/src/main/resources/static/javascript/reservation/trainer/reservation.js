@@ -3,11 +3,9 @@ var gender = ['남성', '여성'];
 function setMyReservation(selectedTIdx) {
     var reservation = document.getElementById('reservation_list');
 
-    console.log(selectedTIdx);
     axios.get('/reservation/search/' + selectedTIdx)
         .then((response) => {
             if(response.data.length != 0) {
-                console.log(response.data);
                 for(var i = 0; i < response.data.length; i++) {
                     reservation.textContent = "🔥 " + response.data[i]['name'] + "회원   "
                         + " ( " + response.data[i]['id'] + "   / " + gender[response.data[i]['gender']] + " )";

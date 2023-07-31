@@ -26,12 +26,10 @@ function setTimetable(selectedDate) {
                     timetableList.appendChild(timetable);
 
                     timetable.onclick = function (){
-                        console.log(this.id);
                         setMyReservation(this.id);
                     }
                 }
             }
-            // setMyReservation(1);
         }).catch(error => {
             console.error(error);
         });
