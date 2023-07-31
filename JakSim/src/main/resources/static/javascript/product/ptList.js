@@ -4,24 +4,20 @@ function setPtList() {
 
     axios.get('/product/myPt')
         .then((response) => {
-            if (response.data.length == 0) {
-                // window.location.href=`/`;
-            } else {
-                var ptData = response.data;
+            var ptData = response.data;
 
-                for(var i = 0; i < ptData.length; i++) {
-                    var option = document.createElement("option");
+            for(var i = 0; i < ptData.length; i++) {
+                var option = document.createElement("option");
 
-                    option.text = ptData[i]['trainerName'] + " 트레이너";
-                    option.value = JSON.stringify({pptCnt : ptData[i]['pptCnt'], trainerId : ptData[i]['trainerId'], tType : ptData[i]['tType']});
+                option.text = ptData[i]['trainerName'] + " 트레이너";
+                option.value = JSON.stringify({pptCnt : ptData[i]['pptCnt'], trainerId : ptData[i]['trainerId'], tType : ptData[i]['tType']});
 
-                    ptList.appendChild(option);
-                }
-                selectedPIdx = ptData[0]['pidx'];
-
-                changePtList(ptData[0], 0, pIdx);
-                ptList.addEventListener("change", () => changePtList(ptList.options[ptList.selectedIndex], 1, pIdx));
+                ptList.appendChild(option);
             }
+            selectedPIdx = ptData[0]['pidx'];
+
+            changePtList(ptData[0], 0, pIdx);
+            ptList.addEventListener("change", () => changePtList(ptList.options[ptList.selectedIndex], 1, pIdx));
         })
         .catch(error => {
             console.error(error);

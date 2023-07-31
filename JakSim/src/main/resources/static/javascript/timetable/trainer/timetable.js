@@ -20,7 +20,7 @@ function setTimetable(selectedDate) {
                     console.log(response.data);
                     var timetable = document.createElement("div");
 
-                    timetable.innerHTML = " " + response.data[i]['tstartT'].substr(0, 5) + " - " + response.data[i]['tendT'].substr(0, 5)
+                    timetable.innerHTML = "🔥 " + response.data[i]['tstartT'].substr(0, 5) + " - " + response.data[i]['tendT'].substr(0, 5)
                         + " ( " + type[response.data[i]['ttype']] + "_" + response.data[i]['tpeople'] + "명)";
 
                     timetableList.appendChild(timetable);

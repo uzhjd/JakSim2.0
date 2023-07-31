@@ -9,6 +9,7 @@ var ptYear = [], ptMonth = [], ptDay = [];
 function buildCalendar(sortedPtYear, sortedPtMonth, sortedPtDay) {
     let firstDate = new Date(nowMonth.getFullYear(), nowMonth.getMonth(), 1);     // 이번달 1일
     let lastDate = new Date(nowMonth.getFullYear(), nowMonth.getMonth() + 1, 0);  // 이번달 마지막날
+
     let idx = 0;
     let tbody_Calendar = document.querySelector(".Calendar > tbody");
     document.getElementById("calYear").innerText = nowMonth.getFullYear();             // 연도 숫자 갱신
@@ -50,13 +51,16 @@ function buildCalendar(sortedPtYear, sortedPtMonth, sortedPtDay) {
             newDIV.onclick = function () { choiceDate(this); }
         }
 
-        // 현재 수정 사항
         if(document.getElementById("calYear").innerText == sortedPtYear[idx] && document.getElementById("calMonth").innerText == sortedPtMonth[idx]) {
             if(leftPad(nowDay.getDate()) == sortedPtDay[idx]) {
                 newDIV.classList.add("ptDay");
                 idx++;
             }
         }
+        // console.log(document.getElementById("calYear").innerText);
+        // console.log(sortedPtYear[idx]);
+        // console.log(document.getElementById("calMonth").innerText);
+        // console.log(sortedPtMonth[idx]);
 
         nowColumn.appendChild(newDIV);
     }
@@ -80,13 +84,11 @@ function choiceDate(newDIV) {
 // 이전달 버튼 클릭
 function prevCalendar() {
     nowMonth = new Date(nowMonth.getFullYear(), nowMonth.getMonth() - 1, nowMonth.getDate());   // 현재 달을 1 감소
-    // buildCalendar(ptYear.sort(), ptMonth.sort(), ptDay.sort());    // 달력 다시 생성
     setSchdule();
 }
 // 다음달 버튼 클릭
 function nextCalendar() {
     nowMonth = new Date(nowMonth.getFullYear(), nowMonth.getMonth() + 1, nowMonth.getDate());   // 현재 달을 1 증가
-    // buildCalendar(ptYear.sort(), ptMonth.sort(), ptDay.sort());    // 달력 다시 생성
     setSchdule();
 }
 
@@ -103,7 +105,12 @@ function setSchdule() {
     this.ptYear = [];
     this.ptMonth = [];
     this.ptDay = [];
-    var selectedDate = new Date(nowMonth.getFullYear(), nowMonth.getMonth(), nowMonth.getDate()).toISOString().substring(0, 10);
+    var currentDate = new Date();
+    var year = currentDate.getFullYear();
+    var month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    var day = String(currentDate.getDate()).padStart(2, '0');
+    var selectedDate = `${year}-${month}-${day}`;
+
     const url = '/scheduler/details/' + trainerId + "/" + selectedDate;
 
     axios.get(url)

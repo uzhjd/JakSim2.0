@@ -16,7 +16,6 @@ function setTimetable(date) {
             childDivs.forEach(function (childDiv) {
                 timetableList.removeChild(childDiv);
             });
-            // console.log(response.data);
 
             if(response.data.length == 0) {
                 var timetable = document.createElement("div");
@@ -29,10 +28,10 @@ function setTimetable(date) {
                     radioBox = document.createElement("input");
                     var timetable = document.createElement("div");
 
-                    timetable.innerHTML = " " + response.data[i]['tstartT'].substr(0, 5) + " - " + response.data[i]['tendT'].substr(0, 5) + " ( " + type[response.data[i]['ttype']] + " ) ";
+                    timetable.innerHTML = " " + response.data[i]['tstartT'].substr(0, 5) + " - " + response.data[i]['tendT'].substr(0, 5) + " ( " + type[response.data[i]['ttype']] + " )";
 
                     if(response.data[i]['ttype'] == 2) {
-                        timetable.innerHTML += response.data[i]['tpeople'];
+                        timetable.innerHTML += "_예약 가능 인원 : " + response.data[i]['tpeople'];
                     }
 
 
