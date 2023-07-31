@@ -8,8 +8,10 @@ function setMyReservation(selectedTIdx) {
         .then((response) => {
             if(response.data.length != 0) {
                 console.log(response.data);
-                reservation.textContent = "🔥 " + response.data['name'] + "회원" + response.data['id']
-                                                                                    + gender[response.data['gender']];
+                for(var i = 0; i < response.data.length; i++) {
+                    reservation.textContent = "🔥 " + response.data[i]['name'] + "회원   "
+                        + " ( " + response.data[i]['id'] + "   / " + gender[response.data[i]['gender']] + " )";
+                }
             } else {
                 reservation.textContent = "▶ 예약 정보가 없습니다.";
             }

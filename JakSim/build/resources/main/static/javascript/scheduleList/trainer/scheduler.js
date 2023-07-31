@@ -38,6 +38,7 @@ function buildCalendar(sortedPtYear, sortedPtMonth, sortedPtDay) {
 
         if (nowDay < today) {                       // 지난날인 경우
             newDIV.className = "pastDay";
+            newDIV.onclick = function () { choiceDate(this); }
         } else if (nowDay.getFullYear() == today.getFullYear() && nowDay.getMonth() == today.getMonth() && nowDay.getDate() == today.getDate()) { // 오늘인 경우
             newDIV.className = "today";
             newDIV.onclick = function () { choiceDate(this); }
