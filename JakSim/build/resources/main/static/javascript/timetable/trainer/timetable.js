@@ -25,10 +25,7 @@ function setTimetable(selectedDate) {
 
                     timetableList.appendChild(timetable);
 
-                    timetable.onclick = function (event) {
-                        console.log(response.data[i]);
-                    };
-                    // timetable.onclick = setMyReservation();
+                    // timetable.onclick = setMyReservation(timetable.);
                 }
             }
             // setMyReservation(1);

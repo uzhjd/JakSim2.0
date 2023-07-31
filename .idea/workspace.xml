@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="231c7099-b0e4-41bc-8586-662e764475b5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/dao/payment/PaymentDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/dao/payment/PaymentDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/dao/payment/PaymentDoRowMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/dao/payment/PaymentDoRowMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/dao/reservation/ReservationRowMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/dao/reservation/ReservationRowMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/dao/timetable/TimetableRowMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/dao/timetable/TimetableRowMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/dto/timetable/response/TimetableResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/src/main/java/com/twinkle/JakSim/model/dto/timetable/response/TimetableResponse.java" afterDir="false" />
-    </list>
+    <list default="true" id="231c7099-b0e4-41bc-8586-662e764475b5" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -177,7 +170,7 @@
       <workItem from="1690526518731" duration="15428000" />
       <workItem from="1690556905466" duration="9342000" />
       <workItem from="1690709838241" duration="7746000" />
-      <workItem from="1690780049450" duration="7929000" />
+      <workItem from="1690780049450" duration="8207000" />
     </task>
     <servers />
   </component>
