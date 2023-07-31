@@ -24,9 +24,14 @@ function setTimetable(selectedDate) {
                         + " ( " + type[response.data[i]['ttype']] + "_" + response.data[i]['tpeople'] + "명)";
 
                     timetableList.appendChild(timetable);
+
+                    timetable.onclick = function (event) {
+                        console.log(response.data[i]);
+                    };
+                    // timetable.onclick = setMyReservation();
                 }
             }
-            setMyReservation(1);
+            // setMyReservation(1);
         }).catch(error => {
             console.error(error);
         });

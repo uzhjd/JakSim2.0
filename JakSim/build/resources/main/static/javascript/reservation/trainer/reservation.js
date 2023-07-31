@@ -6,9 +6,9 @@ function setMyReservation(selectedTIdx) {
     console.log(selectedTIdx);
     axios.get('/reservation/search/' + selectedTIdx)
         .then((response) => {
-            console.log(response.data);
             if(response.data.length != 0) {
-                    reservation.textContent = response.data['name'] + "회원" + response.data['id']
+                console.log(response.data);
+                reservation.textContent = "🔥 " + response.data['name'] + "회원" + response.data['id']
                                                                                     + gender[response.data['gender']];
             } else {
                 reservation.textContent = "▶ 예약 정보가 없습니다.";
