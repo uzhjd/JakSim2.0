@@ -1,5 +1,6 @@
 package com.twinkle.JakSim.model.dao.reservation;
 
+import com.twinkle.JakSim.model.dto.reservation.response.MyMember;
 import com.twinkle.JakSim.model.dto.reservation.response.ReservationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -8,6 +9,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class ReservationDao {
@@ -70,6 +73,24 @@ public class ReservationDao {
 
         return reservationResponse;
     }
+
+    public List<MyMember> findMyReservation(int tIdx) {
+        List<MyMember> myMember = new ArrayList<>();
+
+        this.sql = "select * from reservation as res inner join user_info as ui on res.user_id = ui.user_id " +
+                    "where t_idx = ?";
+
+        try {
+            myMember = jdbcTemplate.query(this.sql, new MyMemberRowMapper(), tIdx);
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println("예약이 없습니다.");
+        } catch(Exception e) {
+            System.out.println(e);
+        }
+
+        return myMember;
+    }
+
 //    public Boolean isReservate(String userId, LocalDate tDate) {
 //        Boolean result = true;
 //

@@ -4,6 +4,7 @@ import com.twinkle.JakSim.model.dao.payment.PaymentDao;
 import com.twinkle.JakSim.model.dao.reservation.ReservationDao;
 import com.twinkle.JakSim.model.dao.timetable.TimetableDao;
 import com.twinkle.JakSim.model.dto.reservation.request.ReservationRequest;
+import com.twinkle.JakSim.model.dto.reservation.response.MyMember;
 import com.twinkle.JakSim.model.dto.reservation.response.ReservationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -63,6 +65,12 @@ public class ReservationService {
         ReservationResponse reservationResponse = new ReservationResponse();
 
         reservationResponse = reservationDao.findReservation(userId, trainerId, tDate);
+
+        return reservationResponse;
+    }
+
+    public List<MyMember> findMyReservation(int tIdx) {
+        List<MyMember> reservationResponse = reservationDao.findMyReservation(tIdx);
 
         return reservationResponse;
     }

@@ -36,7 +36,22 @@ public class ScheduleListDao {
         return timetableList;
     }
 
-    public List<TimetableResponse> findTrainerSchedule(String trainerId, String date, int tType) {
+    public List<TimetableResponse> findMySchedule(String trainerId, LocalDate firstDate, LocalDate lastDate) {
+        List<TimetableResponse> timetableList = new ArrayList<>();
+
+        this.sql = "select * from timetable as tt inner join reservation res on tt.t_idx = res.t_idx " +
+                "where tt.user_id = ? and t_date >= ? and t_date <= ?";
+
+        try {
+            timetableList = jdbcTemplate.query(this.sql, new TimetableRowMapper(), trainerId, firstDate, lastDate);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return timetableList;
+    }
+
+    public List<TimetableResponse> findTrainerTimetable(String trainerId, String date, int tType) {
         List<TimetableResponse> timetableList = new ArrayList<>();
         Object[] params;
 
@@ -53,6 +68,20 @@ public class ScheduleListDao {
 
         try {
             timetableList = jdbcTemplate.query(this.sql, new TimetableRowMapper(), params);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return timetableList;
+    }
+
+    public List<TimetableResponse> findMyTimetable(String trainerId, String date) {
+        List<TimetableResponse> timetableList = new ArrayList<>();
+
+        this.sql = "select * from timetable where user_id = ? and t_date = ? order by t_start_t";
+
+        try {
+            timetableList = jdbcTemplate.query(this.sql, new TimetableRowMapper(), trainerId, date);
         } catch (Exception e) {
             System.out.println(e);
         }

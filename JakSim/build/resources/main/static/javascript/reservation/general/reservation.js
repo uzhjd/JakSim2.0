@@ -3,8 +3,6 @@ var type = ['상담', '1:1', '단체'];
 
 
 function setDate(date) {
-    document.getElementById("reservation_date").innerText = date;
-
     setMyReservation(date);
 }
 

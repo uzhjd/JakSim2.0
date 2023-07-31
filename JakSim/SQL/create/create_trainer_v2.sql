@@ -87,9 +87,4 @@ VALUES(NULL, 'wkdgyfla97', '전국체전 입선');
 INSERT INTO TRAINER_CAREER
 VALUES(NULL, 'hye8997', '줘패기대회 입선');
 
-INSERT INTO PRODUCT
-VALUES(NULL, 'wkdgyfla97', 24, 600000, 0, '바디프로필 3개월 패키지', 6);
-INSERT INTO PRODUCT
-VALUES(NULL, 'hye8997', 10, 200000, 0, '생활근력 만들기', 5);
-
 COMMIT;

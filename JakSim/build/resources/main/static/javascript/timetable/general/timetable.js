@@ -32,7 +32,7 @@ function setTimetable(date) {
                     timetable.innerHTML = " " + response.data[i]['tstartT'].substr(0, 5) + " - " + response.data[i]['tendT'].substr(0, 5) + " ( " + type[response.data[i]['ttype']] + " ) ";
 
                     if(response.data[i]['ttype'] == 2) {
-                        timetable.innerHTML += response.data[i]['tpeolple'];
+                        timetable.innerHTML += response.data[i]['tpeople'];
                     }
 
 

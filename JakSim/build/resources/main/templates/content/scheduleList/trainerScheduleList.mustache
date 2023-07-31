@@ -1,24 +1,15 @@
 {{>layout/header}}
-<script src="/javascript/scheduleList/root.js"></script>
-<script src="/javascript/scheduleList/scheduler.js"></script>
-<script src="/javascript/trainer/trainerBrief.js"></script>
-<script src="/javascript/product/ptList.js"></script>
-<script src="/javascript/reservation/reservation.js"></script>
-<script src="/javascript/timetable/timetable.js"></script>
-<link rel="stylesheet" href="/css/scheduleList/scheduleListStyle.css">
-<link rel="stylesheet" href="/css/scheduleList/ptListStyle.css">
-<link rel="stylesheet" href="/css/scheduleList/trainerDetailsStyle.css">
-<link rel="stylesheet" href="/css/scheduleList/timetableStyle.css">
+<script src="/javascript/scheduleList/trainer/root.js"></script>
+<script src="/javascript/scheduleList/trainer/scheduler.js"></script>
+<script src="/javascript/timetable/trainer/timetable.js"></script>
+<script src="/javascript/reservation/trainer/reservation.js"></script>
+<link rel="stylesheet" href="/css/scheduleList/trainer/scheduleListStyle.css">
+<link rel="stylesheet" href="/css/scheduleList/trainer/timetableStyle.css">
 </head>
 <body>
 {{>layout/navi}}
 <div class="container">
-    <div id="select-pt">
-        <span id="pt_type"></span>
-        <span id="pt_cnt"></span>
-
-        <select name="ptList" id="trainer_list" ="selectbox"></select>
-    </div>
+    <div id="schedulerTitle">스케줄 관리</div>
     <div id="scheduler">
         <table class="Calendar">
             <thead>
@@ -46,46 +37,19 @@
             </tbody>
         </table>
     </div>
-    <div id="trainer2" class="jaksim_font">
-        <div id="trainer-details" method="get" action="/ScheduleList/trainer">
-            <h6 id="title"><b/>트레이너 상세 정보</h6>
-            <br>
-            <input id="trainer-info" type="image" src="" >
-            <div id="trainerDetail">
-                <a href="" id="trainerName"></a>
-                <br>
-
-                <b>성별 : </b>
-                <span id="gender"></span>
-                <br>
-
-                <b>헬스장 : </b>
-                <span id="gym"></span>
-                <br>
-
-                <b>전문 분야 : </b>
-                <span id="expert"></span>
-                <br>
-
-                <a href="" id="insta"><img src="/image/instaImg.png" alt="instaLink"></a>
-            </div>
-        </div>
-    </div>
     <div id="timetable">
         <div id="timetableDetail">
-            <p id="title">예약시간</p>
+            <p id="title">시간표</p>
 
             <div id = timetableList></div>
 
-            <button id="reservationBtn" class="jaksim_btn" type="button" >예약하기</button>
+            <button id="timetableBtn" class="jaksim_btn" type="button" >시간표 관리</button>
         </div>
-        <div id="timetable_date_wrapper">
-            <div id="reservation_date"></div>
+        <div id="reservationDetail">
+            <p id="title">예약 회원 관리</p>
 
             <div id="timetable_user_inlist">
                 <span id="reservation_list"></span>
-
-                <button id="resCancleBtn" class="jaksim_btn">예약 취소</button>
             </div>
         </div>
     </div>

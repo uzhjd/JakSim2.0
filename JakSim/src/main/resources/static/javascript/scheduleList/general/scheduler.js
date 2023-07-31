@@ -105,7 +105,6 @@ function setSchdule() {
     this.ptDay = [];
     var selectedDate = new Date(nowMonth.getFullYear(), nowMonth.getMonth(), nowMonth.getDate()).toISOString().substring(0, 10);
     const url = '/scheduler/details/' + trainerId + "/" + selectedDate;
-console.log(selectedDate);
 
     axios.get(url)
         .then((response) => {

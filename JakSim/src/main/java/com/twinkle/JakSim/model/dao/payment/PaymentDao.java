@@ -50,7 +50,7 @@ public class PaymentDao {
     public Boolean savePaymentDetails(String userId, ApproveResponse paymentDetails) {
         Boolean result = true;
 
-        this.sql = "insert into payment (user_id, tp_idx, tid, p_c_dt, p_status, p_pt_cnt, p_pt_period) " +
+        this.sql = "insert into payment (user_id, tp_idx, tid, p_a_dt, p_status, p_pt_cnt, p_pt_period) " +
                 "values (?, ?, ?, ?, 0, ?, ?)";
 
         try {
@@ -84,7 +84,7 @@ public class PaymentDao {
     }
 
     public void decreasePt(int ptCnt, int pIdx) {
-        this.sql = "update payment set p_pt_cnt = ? where p_idx = ? limit 1";
+        this.sql = "update payment set p_pt_cnt = ? where p_idx = ?";
 
         try {
             jdbcTemplate.update(this.sql, ptCnt-1, pIdx);
@@ -96,7 +96,7 @@ public class PaymentDao {
     }
 
     public void increaseCnt(int pIdx) {
-        this.sql = "update payment set P_PT_CNT = P_PT_CNT + 1 where p_idx = ?";
+        this.sql = "update payment set p_pt_cnt = p_pt_cnt + 1 where p_idx = ?";
 
         try {
             jdbcTemplate.update(this.sql, pIdx);
@@ -114,7 +114,7 @@ public class PaymentDao {
         this.sql = "select pro.user_id, pro.tp_type, u.user_name, pay.p_idx, pay.p_pt_cnt " +
                 "from payment as pay inner join product as pro on pay.tp_idx = pro.tp_idx " +
                 "inner join user_info as u on pro.user_id = u.user_id " +
-                "where pay.user_id = ? and p_status = '0' and p_pt_cnt > '0' and p_pt_period >= (? - p_c_dt)";
+                "where pay.user_id = ? and p_status = '0' and p_pt_cnt > '0' and p_pt_period >= (? - p_a_dt)";
 
         list = jdbcTemplate.query(this.sql, new ValidPtRowMapper(), userId, today);
 
@@ -122,7 +122,7 @@ public class PaymentDao {
     }
 
     public Optional<List<PaymentDtoForMypage>> findRecentByUsernameBy3(String username) {
-        String sql = "SELECT P.P_IDX, P.TID, P.P_C_DT, P.P_PT_PERIOD, P.P_PT_CNT, T.TP_TITLE, T.TP_TYPE, T.TP_TIMES, T.TP_PRICE " +
+        String sql = "SELECT P.P_IDX, P.TID, P.P_A_DT, P.P_PT_PERIOD, P.P_PT_CNT, T.TP_TITLE, T.TP_TYPE, T.TP_TIMES, T.TP_PRICE " +
                 "FROM PAYMENT P, PRODUCT T " +
                 "WHERE P.USER_ID = ? " +
                 "AND T.TP_IDX = P.TP_IDX " +
