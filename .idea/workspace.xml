@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="231c7099-b0e4-41bc-8586-662e764475b5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/SQL/create/product.sql" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/SQL/create/product.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JakSim/SQL/create/reservation.sql" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/SQL/create/reservation.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JakSim/SQL/create/timetable.sql" beforeDir="false" afterPath="$PROJECT_DIR$/JakSim/SQL/create/timetable.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -174,7 +173,7 @@
       <workItem from="1690526518731" duration="15428000" />
       <workItem from="1690556905466" duration="9342000" />
       <workItem from="1690709838241" duration="7746000" />
-      <workItem from="1690780049450" duration="5113000" />
+      <workItem from="1690780049450" duration="6730000" />
     </task>
     <servers />
   </component>
