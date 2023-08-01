@@ -305,34 +305,16 @@ public class TrainerDao {
     }
 
     public TrainerDetailResponse searchByUsername(String userId) {
-        this.sql = "SELECT T.UT_IDX T.USER_ID, U.USER_NAME, U.USER_GENDER, T.UT_INSTA, T.UT_GYM, T.UT_EXPERT_1, T.UT_EXPERT_2, I.TI_PATH " +
+        this.sql = "SELECT T.UT_IDX, T.USER_ID, U.USER_NAME, U.USER_GENDER, T.UT_INSTA, T.UT_GYM, T.UT_EXPERT_1, T.UT_EXPERT_2, I.TI_PATH " +
                 "FROM TRAINER_DETAILS T, USER_INFO U, TRAINER_IMAGE I " +
                 "WHERE T.USER_ID = ? " +
                 "AND T.USER_ID = U.USER_ID AND T.USER_ID = I.USER_ID ";
         TrainerDetailResponse trainer = new TrainerDetailResponse();
         try{
-            trainer = jdbcTemplate.queryForObject(sql, new RowMapper<TrainerDetailResponse>() {
-                @Override
-                public TrainerDetailResponse mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    return null;
-                }
-            }, userId);
+            trainer = jdbcTemplate.queryForObject(sql, new TrainerDetailRowMapper(), userId);
         }catch (EmptyResultDataAccessException e){
             System.out.println(e.getMessage());
         }
         return trainer;
     }
-
-//    public ProductDto getProductByTrainerIdx(int idx) {
-//        String sql = "SELECT * FROM PRODUCT WHERE TP_IDX = ?";
-//        ProductDto productDto = new ProductDto();
-//
-//        try{
-//            productDto = jdbcTemplate.queryForObject(sql, new ProductRowMapper(), idx);
-//        }catch (Exception e){
-//            System.out.println(e.getMessage());
-//        }
-//
-//        return productDto;
-//    }
 }
