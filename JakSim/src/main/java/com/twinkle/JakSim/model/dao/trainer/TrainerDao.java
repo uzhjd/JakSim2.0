@@ -370,7 +370,7 @@ public class TrainerDao {
 
         this.sql = "select * from trainer_details as t inner join user_info as u on t.user_id = u.user_id " +
                 "inner join trainer_image as img on u.user_id = img.user_id " +
-                "where t.user_id = ?";
+                "where t.user_id = ? group by t.user_id";
 
         try {
             trainerDetailResponse = jdbcTemplate.queryForObject(this.sql, new TrainerDetailRowMapper(), trainerId);
@@ -476,19 +476,6 @@ public class TrainerDao {
 
             return jdbcTemplate.queryForObject(sql, Integer.class, userId, ptUserName);
         }
-
-    public ProductDto getProductByTrainerIdx(int idx) {
-        String sql = "SELECT * FROM PRODUCT WHERE TP_IDX = ?";
-        ProductDto productDto = new ProductDto();
-
-        try{
-            productDto = jdbcTemplate.queryForObject(sql, new ProductRowMapper(), idx);
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-
-        return productDto;
-    }
     }
 
 
