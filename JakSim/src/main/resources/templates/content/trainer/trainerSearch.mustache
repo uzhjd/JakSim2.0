@@ -1,22 +1,19 @@
 {{>layout/header}}
 <link rel="stylesheet" href="/css/trainer/trainerSearch.css">
 <script src="https://kit.fontawesome.com/05995ac069.js" crossorigin="anonymous"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/javascript/trainer/trainerSearch.js"></script>
 
 {{>layout/navi}}
-
 <div id="index_container">
     <div id="findTrainerWrapper">
         <div id="findTrainer_container" style="width: 1000px;">
-
             <div id="location" style="width: 1000px;">
-                <a onclick="road()" style="cursor: pointer;"><i class="fa-sharp fa-solid fa-location-dot fa-xl" style="color: #ca7cfd;" id="location"></i>
+                <a onclick="road()" style="cursor: pointer;"><i class="fas fa-sharp fa-solid fa-location-dot fa-xl" style="color: #ca7cfd;" id="location"></i>
                 <input readonly name="address" type="text" value="{{address}}" id="input-address" style="pointer-events: none; width: 850px; border: white; border-radius: 5px; "/></a>
-                
                 <br>
             </div>
-            
 
             <div id="button_container">
                 <input type="radio" name="toggle" value="0" id="toggle-body-profile" class="toggle-btn">
@@ -37,7 +34,6 @@
                 <input type="radio" name="toggle" value="5" id="toggle-condition" class="toggle-btn">
                 <label for="toggle-condition" class="toggle-label jaksim_font">컨디셔닝</label>
             </div>
-
             <div class="trainer-container">
                 {{#trainers}}
                     <div class="trainer-item" data-expert1="{{expert1}}" data-expert2="{{expert2}}">
@@ -47,185 +43,49 @@
                             </div>
 
                             <div>
-                                <span><i class="fa-sharp fa-solid fa-location-dot fa-xl" style="color: #ca7cfd; margin-right: 5px;"></i>{{gym}}</span><br/>
+                                <span><i class="fas fa-sharp fa-solid fa-location-dot fa-xl" style="color: #ca7cfd; margin-right: 5px;"></i>{{gym}}</span><br/>
                             </div>
                             <div>
-                                <span>{{userName}} <i class="fa-solid fa-star" style="color: #f3eb12;"></i> {{avgRstar}}</span>
+                                <span>{{userName}} <i class="fas fa-solid fa-star" style="color: #f3eb12;"></i> {{avgRstar}}</span>
                             </div>
                             <div>
                                 <span class="searchExpert1">{{expert1}}</span>
                                 <span class="searchExpert2">{{expert2}}</span>
                             </div>
                             <div>
-                                <span><i class="fa-sharp fa-solid fa-medal" style="color: #0f57ff;"></i>{{certName}}</span>
+                                <span><i class="fas fa-sharp fa-solid fa-medal" style="color: #0f57ff;"></i>{{certName}}</span>
                             </div>
                             <input hidden="hidden" value="{{address}}">
                         </a>
                     </div>
                 {{/trainers}}
             </div>
+            <div id="pagination">
+                <a href="/trainer/trainerSearch?page={{prevPage}}&pageSize={{trainersPerPage}}&filter={{filter}}&address={{address}}" class="jaksim_btn" style="margin-right:5px; padding-left: 10px; padding-right: 10px;padding-bottom: 6px;padding-top: 6px; text-decoration: none;">이전</a>
 
+                {{#pageNumbers}}
+                <a href="/trainer/trainerSearch?page={{.}}&pageSize={{trainersPerPage}}&filter={{filter}}&address={{address}}" style="margin-left:5px; margin-right:5px; color: black;">{{.}}</a>
+                {{/pageNumbers}}
 
-<div id="pagination">
-    <a href="/trainer/trainerSearch?page={{prevPage}}&pageSize={{trainersPerPage}}&filter={{filter}}&address={{address}}" class="jaksim_btn" style="margin-right:5px; padding-left: 10px; padding-right: 10px;padding-bottom: 6px;padding-top: 6px; text-decoration: none;">이전</a>
-
-    {{#pageNumbers}}
-    <a href="/trainer/trainerSearch?page={{.}}&pageSize={{trainersPerPage}}&filter={{filter}}&address={{address}}" style="margin-left:5px; margin-right:5px; color: black;">{{.}}</a>
-    {{/pageNumbers}}
-
-    <a href="/trainer/trainerSearch?page={{nextPage}}&pageSize={{trainersPerPage}}&filter={{filter}}&address={{address}}" class="jaksim_btn" style="margin-left:5px; padding-left: 10px; padding-right: 10px;padding-bottom: 6px;padding-top: 6px; text-decoration: none;">다음</a>
-</div>
-    
-
+                <a href="/trainer/trainerSearch?page={{nextPage}}&pageSize={{trainersPerPage}}&filter={{filter}}&address={{address}}" class="jaksim_btn" style="margin-left:5px; padding-left: 10px; padding-right: 10px;padding-bottom: 6px;padding-top: 6px; text-decoration: none;">다음</a>
+            </div>
         </div>
     </div>
-
-
 </div>
 
 {{>layout/footer}}
 
-
 <script>
-  // Get all the trainer items
-  var searchExpert1 = document.querySelectorAll('.searchExpert1');
-  var searchExpert2 = document.querySelectorAll('.searchExpert2');
+    // 라디오 버튼 체크 표시
+    let specificValue = {{filter}}; // The value you want to select
 
-  if (searchExpert1.length === searchExpert2.length) {
-    for (var i = 0; i < searchExpert1.length; i++) {
-      var expert1Value = parseInt(searchExpert1[i].textContent);
-      var expert2Value = parseInt(searchExpert2[i].textContent);
+    let radioButtons = document.querySelectorAll('input[name="toggle"]');
 
-      // Update the expert labels based on the values
-      if (!isNaN(expert1Value)) {
-        searchExpert1[i].textContent = getExpertLabel(expert1Value);
-      }
-      if (!isNaN(expert2Value)) {
-        searchExpert2[i].textContent = getExpertLabel(expert2Value);
-      }
+    radioButtons.forEach(radioButton => {
+    if (radioButton.value === String(specificValue)) {
+    radioButton.checked = true;
     }
-  }
-
-  function getExpertLabel(value) {
-    switch (value) {
-      case 0:
-        return '#바디프로필';
-      case 1:
-        return '#파워리프팅';
-      case 2:
-        return '#다이어트';
-      case 3:
-        return '#재활운동';
-      case 4:
-        return '#자세교정';
-      case 5:
-        return '#컨디셔닝';
-      default:
-        return '';
-    }
-  }
-  
-</script>
-
-<script>
-// 버튼 클릭 이벤트 핸들러 등록
-    $('.toggle-btn').on('click', function() {
-        // 클릭한 버튼의 값을 가져와서 filter 값으로 설정합니다.
-        var filterValue = $(this).val();
-        // 현재 페이지의 URL을 가져옵니다.
-        var currentUrl = new URL(window.location.href);
-
-                // 현재 페이지가 1일 때만 필터를 적용합니다.
-        if (currentUrl.searchParams.get('page') === '1') {
-            // 'filter' 매개변수의 값을 설정합니다.
-            currentUrl.searchParams.set('filter', filterValue);
-        } else {
-            // 'page' 매개변수의 값을 1로 설정합니다.
-            currentUrl.searchParams.set('page', '1');
-            // 'filter' 매개변수의 값을 설정합니다.
-            currentUrl.searchParams.set('filter', filterValue);
-        }
-        
-    window.location.href = currentUrl;
-        
     });
 
-
-  //Selecting a radio button based on a specific value
-  let specificValue = {{filter}}; // The value you want to select
-
-  let radioButtons = document.querySelectorAll('input[name="toggle"]');
-
-  radioButtons.forEach(radioButton => {
-    if (radioButton.value === String(specificValue)) {
-      radioButton.checked = true;
-    }
-  });
-
-
-    
 </script>
 
-<script>
-  // Function to handle the message received from the popup window
-  function handleMessage(event) {
-    if (event.data && event.data.type === 'updateAddress') {
-      // Get the full address value from the message
-      var fullAddress = event.data.address;
-
-      // Get the second word from the address
-      var secondWord = "{{secondWord}}";
-
-      // Update the displayed address only if it matches the secondWord
-      if (secondWord && fullAddress.includes(secondWord)) {
-        document.getElementById('addressValueSpan').textContent = fullAddress;
-      }
-    }
-  }
-
-  // Attach the message event listener
-  window.addEventListener('message', handleMessage);
-
-  function road() {
-    var originalAddress = "{{address}}";
-    const popup = window.open("/address-search","Popup", "width=800, height=700");
-
-    popup.postMessage({
-        type: 'originalAddress',
-        address: originalAddress
-      }, '*');
-
-    popup.onbeforeunload = function () {
-      // Get the selected address value from the popup window
-      var addressInput = popup.document.getElementById("selected-address");
-      var addressValue = addressInput.value;
-
-      // Call the updateTrainerList function passing the selected address value
-      updateTrainerList(addressValue);
-    };
-  }
-
-  // Function to update the trainer list based on the selected address
-  function updateTrainerList(address) {
-    // Get the current URL and create a new URL with the updated address parameter
-    var currentUrl = new URL(window.location.href);
-
-                // 현재 페이지가 1일 때만 필터를 적용합니다.
-        if (currentUrl.searchParams.get('page') === '1') {
-            // 'filter' 매개변수의 값을 설정합니다.
-            currentUrl.searchParams.set("address", address);
-        } else {
-            // 'page' 매개변수의 값을 1로 설정합니다.
-            currentUrl.searchParams.set('page', '1');
-            // 'filter' 매개변수의 값을 설정합니다.
-            currentUrl.searchParams.set("address", address);
-        }
-    
-
-    // Reload the page with the updated address parameter
-    window.location.href = currentUrl;
-
-    document.getElementById('input-address').style.display = 'none';
-
-  }
-</script>

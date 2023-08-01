@@ -1,17 +1,21 @@
 <link rel="stylesheet" href="/css/trainer/trainerRegister.css">
 <link rel="stylesheet" href="/css/trainer/trainerSearch.css">
+<script src="/javascript/trainer/trainerUpdate.js"></script>
 <script src="https://kit.fontawesome.com/05995ac069.js" crossorigin="anonymous"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
 <div>
     <h3 class="right_info jaksim_title_font" style="position: relative;
     margin-top: 30px;
     margin-bottom: 50px;">트레이너 정보수정</h3>
 </div>
-
-<form action="/trainerUpdate" method="POST" enctype="multipart/form-data" onsubmit="return checkExpertValues(); prepareFormForSubmission();">
+<div style="border: 3px solid #E9E1FB;
+    border-radius: 20px;
+    padding-left: 30px; padding-top: 30px; padding-right: 30px; padding-bottom: 30px;">
+<form action="/trainerUpdate" method="POST" enctype="multipart/form-data" onsubmit="return checkExpertValues();">
     <div class="input_container">
         <span class="input_span">인스타 링크</span>
-        <input class="input_input" value="{{#trainer}}{{insta}}{{/trainer}}" type="text" name="insta">
+        <input class="input_input" value="{{#trainer}}{{insta}}{{/trainer}}" type="text" name="insta" required>
     </div>
     <div class="input_container">
         <span class="input_span">자기소개</span>
@@ -23,11 +27,10 @@
     </div>
         <div class="input_container">
                 <a onclick="road()" style="cursor: pointer;"><i class="fa-sharp fa-solid fa-location-dot fa-xl" style="color: #ca7cfd;" id="location"></i>
-                <input readonly type="text" value="{{#trainer}}{{address}}{{/trainer}}" name="address" placeholder="헬스장 주소를 입력하세요" id="input-address" style="pointer-events: none; width: 350px; border: white; border-radius: 5px; "/></a>
+                <input readonly type="text" required value="{{#trainer}}{{address}}{{/trainer}}" name="address" placeholder="헬스장 주소를 입력하세요" id="input-address" style="pointer-events: none; width: 350px; border: white; border-radius: 5px; "/></a>
                 <br>
             </div>
         <br>
-
 
     <span style="font-weight:bold">전문분야</span>
     <span style="font-size: 12px;">2개를 선택해주세요</span><br>
@@ -51,20 +54,20 @@
     {{#cert}}
     <div class="input_container">
         <span class="input_span">자격증</span>
-        <input class="input_input" style="margin-bottom: 5px;" type="text" name="certName" value="{{certName}}" id="certName">
+        <input class="input_input" style="margin-bottom: 5px;" type="text" name="certName" value="{{certName}}" id="certName" required>
         <input hidden="hidden" type="number" name="certId" value="{{certId}}"/>
         <div id="create_cert_div"></div>
     </div>
     {{/cert}}
-    <span style="font-weight:bold" class="jaksim_font">자격증 이미지 등록</span><br>
+    <span style="font-weight:bold">자격증 이미지 등록</span><br>
     <span style="font-size: 12px;">자격증 이미지는 1개만 등록 가능합니다.</span><br>
-    <input accept="image/*" type="file" name="certImage1" class="jaksim_font" onchange="previewCertImage(event)" /><br/>
+    <input accept="image/*" type="file" name="certImage1" onchange="previewCertImage(event)" /><br/>
     <img id="preview-cert-image" src="{{#cert}}{{certImage}}{{/cert}}" alt="Cert Image" width="220" height="220"><br/>
     
     {{#career}}
     <div class="input_container">
         <span class="input_span">경력사항</span>
-        <input class="input_input jaksim_font" style="margin-bottom: 5px;" type="text" name="careerContent" value="{{careerContent}}" id="careerContent">
+        <input class="input_input" style="margin-bottom: 5px;" type="text" name="careerContent" value="{{careerContent}}" id="careerContent" required>
         <input hidden="hidden" type="number" name="careerId" value="{{careerId}}"/>
         <div id="create_career_div"></div>
     </div>
@@ -83,17 +86,17 @@
         <input hidden="hidden" type="number" name="ptId" class="ptIdIndex" value="{{ptId}}"/>
 
         <span class="input_span">횟수</span>
-        <input class="input_input" type="number" name="ptTimes" id="ptTimes" value="{{ptTimes}}" style="margin-bottom:5px;">
+        <input class="input_input" type="number" name="ptTimes" id="ptTimes" value="{{ptTimes}}" style="margin-bottom:5px;" required>
         <br>
         <span class="input_span">PT 제목</span>
-        <input class="input_input" type="text" name="ptTitle" id="ptTitle" value="{{ptTitle}}" style="margin-bottom:5px;">
+        <input class="input_input" type="text" name="ptTitle" id="ptTitle" value="{{ptTitle}}" style="margin-bottom:5px;" required>
         <br>
         <span class="input_span">가격</span>
-        <input class="input_input" type="number" name="ptPrice" id="ptPrice" value="{{ptPrice}}" style="margin-bottom: 5px;"/>
+        <input class="input_input" type="number" name="ptPrice" id="ptPrice" value="{{ptPrice}}" style="margin-bottom: 5px;" required/>
         <br>
 
         <span class="input_span jaksim_font">유효기간</span>
-        <input class="input_input jaksim_font" type="number" name="ptPeriod" id="ptPeriod" value="{{ptPeriod}}" style="margin-bottom:5px;"/>
+        <input class="input_input jaksim_font" type="number" name="ptPeriod" id="ptPeriod" value="{{ptPeriod}}" style="margin-bottom:5px;" required />
         <br/>
         {{/product}}
     </div>
@@ -135,24 +138,11 @@
     <button type="submit" style="height: 38px;" class="jaksim_withdraw_btn">정보삭제</button>
 </form>
 </div>
+</div>
 
-<style>
-#preview-image {
-    max-width: 500px;
-    max-height: 500px;
-    display: none;
-}
-
-#preview-image2 {
-    max-width: 500px;
-    max-height: 500px;
-    display: none;
-}
-</style>
 
 <script>
 window.onload = function() {
-
     var certImageValue = "{{#cert}}{{certImage}}{{/cert}}";
     var previewCertImage = document.getElementById("preview-cert-image");
 
@@ -160,71 +150,7 @@ window.onload = function() {
         // certImage가 비어있을 경우 이미지 숨김
         previewCertImage.style.display = "none";
     }
-}
-</script>
 
-
-<script>
-
-function checkExpertValues() {
-        var expert1 = document.querySelector('select[name="expert1"]').value;
-        var expert2 = document.querySelector('select[name="expert2"]').value;
-
-        if (expert1 === expert2) {
-            alert("전문분야는 서로 다른 값을 선택해야 합니다.");
-            return false; // Prevent form submission
-        }
-
-        return true; // Allow form submission
-    }
-
-function previewImage(event) {
-    var input = event.target;
-    var reader = new FileReader();
-
-    reader.onload = function(){
-        var preview = document.getElementById('preview-image');
-        preview.src = reader.result;
-        preview.style.display = 'block';
-    };
-
-    reader.readAsDataURL(input.files[0]);
-}
-
-function previewCertImage(event) {
-    var input = event.target;
-    var reader = new FileReader();
-
-    reader.onload = function(){
-        var preview = document.getElementById('preview-cert-image');
-        preview.src = reader.result;
-        preview.style.display = 'block';
-    };
-
-    reader.readAsDataURL(input.files[0]);
-}
-
-function previewImage2(event) {
-    var input = event.target;
-    var previewContainer = document.getElementById('image-preview-container');
-    previewContainer.innerHTML = ''; // 기존의 미리보기 이미지를 모두 지웁니다.
-
-    for (var i = 0; i < input.files.length; i++) {
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-            var previewImage = document.createElement('img');
-            previewImage.src = e.target.result;
-            previewImage.style.maxWidth = '100px';
-            previewImage.style.maxHeight = '100px';
-            previewContainer.appendChild(previewImage);
-        };
-
-        reader.readAsDataURL(input.files[i]);
-    }
-}
-
-window.onload = function() {
     // expert1 값에 따라 option 선택
     var expert1Value = "{{#trainer}}{{expert1}}{{/trainer}}";
     var expert1Select = document.getElementsByName("expert1")[0];  // expert1 select 요소 선택
@@ -262,20 +188,4 @@ window.onload = function() {
     }
     {{/product}}
 }
-</script>
-<script>
-  //주소찾기
-  function road() {
-    const popup = window.open("/address-search2","Popup", "width=800, height=700");
-
-    popup.onbeforeunload = function(data) {
-      console.log(data)
-      console.log("데이터 체크")
-    }
-
-    // 팝업창에 데이터 쓰기
-    popup.document.write(data);
-  }
-
-
 </script>

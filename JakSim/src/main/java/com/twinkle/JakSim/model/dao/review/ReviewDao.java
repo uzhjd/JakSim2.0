@@ -36,6 +36,9 @@ public class ReviewDao {
     }
 
     public List<ReviewRequestDto> getTrainerReviewAll(int page, int pageSize, int filter, String trainerId) {
+        //1. 최신순 (기본)
+        //2. 별점 높은순
+        //3. 별점 낮은순
 
         int offset = (page - 1) * pageSize;
 

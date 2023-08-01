@@ -29,42 +29,48 @@ public class TrainerDao {
 
 
     // 트레이너 등록
-    public void insertTrainer(TrainerInsertDto trainer, String userId){
-        this.sql = "INSERT INTO TRAINER_DETAILS VALUES(NULL, ?, ?, ?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, trainer.getIntroduce(), trainer.getInsta(),
-                trainer.getGym(), userId, trainer.getExpert1(), trainer.getExpert2(), trainer.getAddress());
+    public void insertTrainer(TrainerInsertDto trainer, String userId) {
+        try {
+            this.sql = "INSERT INTO TRAINER_DETAILS VALUES(NULL, ?, ?, ?, ?, ?, ?, ?)";
+            jdbcTemplate.update(sql, trainer.getIntroduce(), trainer.getInsta(),
+                    trainer.getGym(), userId, trainer.getExpert1(), trainer.getExpert2(), trainer.getAddress());
 
-        this.sql = "INSERT INTO PRODUCT VALUES(NULL, ?, ?, ?, ?, ?, ?)";
+            this.sql = "INSERT INTO PRODUCT VALUES(NULL, ?, ?, ?, ?, ?, ?)";
 
-        for(int i=0; i<trainer.getPtTimes().length; i++) {
-            jdbcTemplate.update(sql, userId, trainer.getPtTimes()[i],
-                    trainer.getPtPrice()[i], trainer.getPtType()[i], trainer.getPtTitle()[i],
-                    trainer.getPtPeriod()[i]);
+            for (int i = 0; i < trainer.getPtTimes().length; i++) {
+
+                jdbcTemplate.update(sql, userId, trainer.getPtTimes()[i],
+                        trainer.getPtPrice()[i], trainer.getPtType()[i], trainer.getPtTitle()[i],
+                        trainer.getPtPeriod()[i]);
+            }
+
+            this.sql = "INSERT INTO TRAINER_CAREER VALUES(NULL, ?, ?)";
+
+            for (String content : trainer.getCareerContent()) {
+                jdbcTemplate.update(sql, userId, content);
+            }
+
+            this.sql = "INSERT INTO TRAINER_CERT VALUES(NULL, ?, ?, ?)";
+
+            for (String cert : trainer.getCertName()) {
+                jdbcTemplate.update(sql, userId, cert, trainer.getCertImage());
+            }
+
+            this.sql = "INSERT INTO TRAINER_IMAGE VALUES(NULL, ?, ?)";
+
+            for (String image : trainer.getImagePath()) {
+                jdbcTemplate.update(sql, userId, image);
+            }
+
+            this.sql = "UPDATE USER_INFO SET USER_ROLE = 2 WHERE USER_ID = ?";
+            jdbcTemplate.update(sql, userId);
+
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        this.sql = "INSERT INTO TRAINER_CAREER VALUES(NULL, ?, ?)";
-
-        for(String content : trainer.getCareerContent()) {
-            jdbcTemplate.update(sql, userId, content);
-        }
-
-        this.sql = "INSERT INTO TRAINER_CERT VALUES(NULL, ?, ?, ?)";
-
-        for(String cert : trainer.getCertName()) {
-            jdbcTemplate.update(sql, userId, cert, trainer.getCertImage());
-        }
-
-        this.sql = "INSERT INTO TRAINER_IMAGE VALUES(NULL, ?, ?)";
-
-        for(String image : trainer.getImagePath()) {
-            jdbcTemplate.update(sql, userId, image);
-        }
-
-        this.sql = "UPDATE USER_INFO SET USER_ROLE = 2 WHERE USER_ID = ?";  //유저정보 변경
-        jdbcTemplate.update(sql, userId);
-
     }
-
 
     public List<TrainerSearchDto> getAllTrainerForSearch(int page, int pageSize, int filter, String address) {
         int offset = (page - 1) * pageSize;
@@ -152,7 +158,6 @@ public class TrainerDao {
     }
 
     public int getTrainerCount(int filter, String address) {
-
         //1. 주소만 있을 때, 필터링은 없음
         //2. 필터링만 할 때, 주소는 없음
         //3. 주소와 필터링을 둘다 할 때
@@ -187,7 +192,6 @@ public class TrainerDao {
 
     }
 
-
     public List<TrainerSearchDto> getAllTrainerForMainPage() {
         String sql = "SELECT DISTINCT td.user_id, td.UT_IDX, ti.TI_PATH, td.UT_GYM, ui.user_name, " +
                 "td.UT_EXPERT_1, td.UT_EXPERT_2, td.UT_ADDRESS, tc.TC_NAME, ROUND(AVG(r.R_STAR), 1) AS AVG_R_STAR" +
@@ -205,7 +209,6 @@ public class TrainerDao {
         return jdbcTemplate.query(sql, new TrainerSearchRowMapper());
     }
 
-
     public UserDto getTrainerName(String userId) {
         String sql = "SELECT DISTINCT * " +
                 "FROM trainer_details td " +
@@ -221,8 +224,10 @@ public class TrainerDao {
         }
     }
 
-    public List<TrainerPageDto> getTrainerPage(String userId) {   //리스트아닌것들
-        String sql = "SELECT DISTINCT tc.TC_IMAGE, td.user_id, td.UT_EXPERT_1, td.UT_EXPERT_2, ui.user_name, td.UT_GYM, td.UT_INSTA, td.UT_INTRO, td.UT_ADDRESS  " +
+    // 상세페이지
+    public List<TrainerPageDto> getTrainerPage(String userId) {
+        String sql = "SELECT DISTINCT tc.TC_IMAGE, td.user_id, td.UT_EXPERT_1, td.UT_EXPERT_2, " +
+                "ui.user_name, td.UT_GYM, td.UT_INSTA, td.UT_INTRO, td.UT_ADDRESS " +
                 "FROM trainer_details td " +
                 "JOIN user_info ui ON td.user_id = ui.user_id " +
                 "JOIN trainer_cert tc ON td.user_id = tc.user_id " +
@@ -231,39 +236,39 @@ public class TrainerDao {
         return jdbcTemplate.query(sql, new TrainerPageRowMapper(), userId);
     }
 
-    public List<ProductDto> getProduct(String userId) {    //리스트들
+    public List<ProductDto> getProduct(String userId) {
         this.sql = "select * from product where user_id = ?";
 
         return jdbcTemplate.query(sql, new ProductRowMapper(), userId);
     }
-    public List<TrainerCareerDto> getCareer(String userId) {    //리스트들
+    public List<TrainerCareerDto> getCareer(String userId) {
         this.sql = "select * from trainer_career where user_id = ?";
 
         return jdbcTemplate.query(sql, new TrainerCareerRowMapper(), userId);
     }
-    public List<TrainerCertDto> getCert(String userId) {    //리스트들
+    public List<TrainerCertDto> getCert(String userId) {
         this.sql = "select * from trainer_cert where user_id = ?";
 
         return jdbcTemplate.query(sql, new TrainerCertRowMapper(), userId);
     }
 
-    public List<TrainerImageDto> getTrainerImage(String userId) {    //리스트들
+    public List<TrainerImageDto> getTrainerImage(String userId) {
         this.sql = "select * from trainer_image where user_id = ?";
 
         return jdbcTemplate.query(sql, new TrainerImageRowMapper(), userId);
     }
 
-    public List<TrainerSearchDto> getTrainerForTrainerPage(String userId) {
-        String sql = "select * from trainer_details td " +
-                "join product p on td.user_id = p.user_id " +
-                "join trainer_career tca on td.user_id = tca.user_id " +
-                "join trainer_cert tc on td.user_id = tc.user_id " +
-                "join trainer_image ti on td.user_id = ti.user_id " +
-                "join user_info ui on td.user_id = ui.user_id " +
-                "where td.user_id = ?";
-
-        return jdbcTemplate.query(sql, new TrainerSearchRowMapper(), userId);
-    }
+//    public List<TrainerSearchDto> getTrainerForTrainerPage(String userId) {
+//        String sql = "select * from trainer_details td " +
+//                "join product p on td.user_id = p.user_id " +
+//                "join trainer_career tca on td.user_id = tca.user_id " +
+//                "join trainer_cert tc on td.user_id = tc.user_id " +
+//                "join trainer_image ti on td.user_id = ti.user_id " +
+//                "join user_info ui on td.user_id = ui.user_id " +
+//                "where td.user_id = ?";
+//
+//        return jdbcTemplate.query(sql, new TrainerSearchRowMapper(), userId);
+//    }
 
     public void upDateTrainer(TrainerInsertDto trainer, String userId, MultipartFile[] imagePath){
         this.sql = "UPDATE TRAINER_DETAILS " +
@@ -286,7 +291,6 @@ public class TrainerDao {
                 "TP_TITLE = ?," +
                 "TP_PERIOD = ? " +
                 "WHERE TP_IDX = ?";
-
 
             jdbcTemplate.update(sql, trainer.getPtTimes()[i],
                     trainer.getPtPrice()[i], trainer.getPtType()[i], trainer.getPtTitle()[i],
@@ -332,12 +336,10 @@ public class TrainerDao {
             }
         }
         else {
-            System.out.println("ImagePath null!!!!");
+            System.out.println("ImagePath null!");
         }
 
     }
-
-
 
     public void deleteTrainer(String userId){
         this.sql = "DELETE FROM TRAINER_DETAILS WHERE USER_ID = ?";
@@ -386,25 +388,49 @@ public class TrainerDao {
     }
 
     public void registerTimetable(TimetableResponse timetable) {
-        this.sql = "INSERT INTO TIMETABLE VALUES(NULL, ?, ?, ?, ?, ?, ?)";
+        try {
+            // Check for null values in required fields
+            if (timetable == null || timetable.getUserId() == null || timetable.getTDate() == null ||
+                    timetable.getTStartT() == null || timetable.getTEndT() == null ||
+                    timetable.getTPeople() == 0 || timetable.getTType() == 0) {
+                throw new IllegalArgumentException("timetable and its fields cannot be null");
+            }
 
-        jdbcTemplate.update(this.sql, timetable.getUserId(), timetable.getTDate(),
-                timetable.getTStartT(), timetable.getTEndT(),
-                timetable.getTPeople(), timetable.getTType());
+            this.sql = "INSERT INTO TIMETABLE VALUES(NULL, ?, ?, ?, ?, ?, ?)";
+
+            jdbcTemplate.update(this.sql, timetable.getUserId(), timetable.getTDate(),
+                    timetable.getTStartT(), timetable.getTEndT(),
+                    timetable.getTPeople(), timetable.getTType());
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void updateTimetable(TimetableResponse timetable, String userId) {
-        this.sql = "UPDATE TIMETABLE " +
-                "SET T_START_T = ?, " +
-                "T_END_T = ?, " +
-                "T_PEOPLE = ?, " +
-                "T_TYPE = ? " +
-                "WHERE USER_ID = ?";
+        try {
+            if (timetable == null || userId == null || timetable.getTStartT() == null ||
+                    timetable.getTEndT() == null || timetable.getTPeople() == 0 || timetable.getTType() == 0) {
+                throw new IllegalArgumentException("timetable, userId, and all timetable fields cannot be null");
+            }
 
-        jdbcTemplate.update(this.sql, timetable.getTStartT(), timetable.getTEndT(),
-                timetable.getTPeople(), timetable.getTType(), userId);
+            this.sql = "UPDATE TIMETABLE " +
+                    "SET T_START_T = ?, " +
+                    "T_END_T = ?, " +
+                    "T_PEOPLE = ?, " +
+                    "T_TYPE = ? " +
+                    "WHERE USER_ID = ?";
 
+            jdbcTemplate.update(this.sql, timetable.getTStartT(), timetable.getTEndT(),
+                    timetable.getTPeople(), timetable.getTType(), userId);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
 
     public void deleteTimetable(int tIdx) {
         this.sql = "DELETE FROM TIMETABLE WHERE T_IDX = ?";

@@ -1,15 +1,29 @@
+<script>
+// Move the setSelectedFilter() function outside the Handlebars template, so it's in the global scope
+function setSelectedFilter() {
+  var selectedFilter = "{{filter}}";
+  var filterSelect = document.getElementById('filter');
+  for (var i = 0; i < filterSelect.options.length; i++) {
+      if (filterSelect.options[i].value === selectedFilter) {
+          filterSelect.selectedIndex = i;
+          break;
+      }
+  }
+}
+</script>
+
 {{>layout/header}}
 <link rel="stylesheet" href="/css/trainer/trainerPage.css">
+<script src="/javascript/trainer/trainerPage.js"></script>
 <script src="https://kit.fontawesome.com/05995ac069.js" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
 <body>
 {{>layout/navi}}
 <div id="trainer_Detail_Container">
-
     <br/>
     <span class="jaksim_title_font" style="font-weight: bold; font-size: 19px;">트레이너 리뷰</span>
-
     <hr>
     <div id="review-container" style="margin-bottom: 20px;">
         <br/>
@@ -62,15 +76,6 @@
 </div>
     </div>
 </div>
-
-<style>
-#pagination {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px; 
-}
-
-</style>
 
 <script>
 

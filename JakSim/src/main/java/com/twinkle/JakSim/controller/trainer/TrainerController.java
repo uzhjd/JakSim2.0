@@ -30,25 +30,19 @@ public class TrainerController {
     FileService fileService;
     @GetMapping("/trainer/trainerRegister")
     public String trainerSignUp(Model model,  @AuthenticationPrincipal User info) {
-
         if(info != null) {
             model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
             model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
         }
-
         model.addAttribute("head_title", "트레이너 등록");
-        model.addAttribute("userId", info);
 
         return "content/trainer/trainerRegister";
     }
 
     @PostMapping("/trainerRegister")
-    public String trainerSignUp(TrainerInsertDto trainerDto, @AuthenticationPrincipal User info, Model model,
+    public String trainerSignUp(TrainerInsertDto trainerDto, @AuthenticationPrincipal User info,
                                 @RequestParam("certImage1") MultipartFile certImage,
                                 @RequestParam("imagePath1") MultipartFile[] imagePath) throws IOException {
-        model.addAttribute("head_title", "트레이너 등록");
-
-
         trainerService.TrainerSignUp(trainerDto, info.getUsername(), certImage, imagePath);
 
         return "redirect:/logout";
@@ -75,10 +69,9 @@ public class TrainerController {
     }
 
     @PostMapping("/trainerUpdate")
-    public String trainerUpdate(TrainerInsertDto trainerDto, @AuthenticationPrincipal User info, Model model,
+    public String trainerUpdate(TrainerInsertDto trainerDto, @AuthenticationPrincipal User info,
                                 @RequestParam("certImage1") MultipartFile certImage,
                                 @RequestParam("imagePath1") MultipartFile[] imagePath) throws IOException {
-
 
         trainerService.updateTrainer(trainerDto, info.getUsername(), certImage, imagePath);
 
@@ -87,13 +80,13 @@ public class TrainerController {
 
     @PostMapping("/trainerDelete")
     public String trainerDelete(TrainerInsertDto trainerDto, @AuthenticationPrincipal User info) {
-        trainerService.deleteTrainer(trainerDto ,info.getUsername());
+        trainerService.deleteTrainer(trainerDto, info.getUsername());
 
         return "redirect:/logout";
     }
 
     @GetMapping("/trainer/{userId}")
-    public String viewTrainer(@PathVariable("userId") String userId, @AuthenticationPrincipal User info, Model model) throws SQLException {
+    public String viewTrainer(@PathVariable("userId") String userId, @AuthenticationPrincipal User info, Model model) {
         if(info != null) {
             model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
             model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
@@ -109,7 +102,6 @@ public class TrainerController {
         model.addAttribute("career", trainerService.getCareer(userId));
         model.addAttribute("imageList", trainerService.getTrainerImage(userId));
 
-
         return "content/trainer/trainerDetailPage";
     }
 
@@ -117,7 +109,7 @@ public class TrainerController {
     public String viewTrainerReview(@PathVariable("userId") String userId, @AuthenticationPrincipal User info, Model model,
                                     @RequestParam(value = "page", defaultValue = "1") int page,
                                     @RequestParam(value = "pageSize", defaultValue = "5") int pageSize,
-                                    @RequestParam(value = "filter", defaultValue = "0") int filter) throws SQLException {
+                                    @RequestParam(value = "filter", defaultValue = "0") int filter) {
         if(info != null) {
             model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
             model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
@@ -235,7 +227,7 @@ public class TrainerController {
 
         return "redirect:/trainer/trainerControl";
     }
-    @PostMapping("/trainer/ptTimetableUpdate")
+    @PostMapping("/trainer/ptTimetableDelete")
     public String timetableDelete(@RequestParam("tIdx") int tIdx){
         trainerService.deleteTimetable(tIdx);
 
@@ -281,12 +273,6 @@ public class TrainerController {
         model.addAttribute("nextPage", nextPage);
 
         return "content/trainer/trainerPage3";
-    }
-
-    @GetMapping("/modalTest")
-    public String modalTest(Model model) {
-        model.addAttribute("head_title", "주소 검색");
-        return "content/trainer/addressTest";
     }
 
     // 트레이너 찾기 페이지

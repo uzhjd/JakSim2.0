@@ -1,105 +1,191 @@
-window.addEventListener('load', function(){
-    if(window.location.href==='http://localhost:8080/Jaksim/trainer/search/' ||
-    window.location.href==='http://localhost:8080/trainer/search/0/0'||window.location.href==='http://localhost:8080/trainer/search/0/1'||window.location.href==='http://localhost:8080/trainer/search/0/2'||window.location.href==='http://localhost:8080/trainer/search/0/3'||window.location.href==='http://localhost:8080/trainer/search/0/4'||window.location.href==='http://localhost:8080/trainer/search/0/5'){
-        button_init(); //특정 url에서만 사용되는게 아니어서 이렇게 작성함
-        const checkedBtnValue = window.location.pathname.slice(-1);
-        const checkedBtn = document.querySelector(`input[name="toggle"][value="${checkedBtnValue}"]`);
-        if (checkedBtn) {
-            checkedBtn.checked = true;
-        }//라디오버튼은 기본적으로 href가 없기 때문에 이렇게하는 수 밖에 없었다아
+
+// 이미지 미리보기
+function previewImage(event) {
+    var input = event.target;
+    var reader = new FileReader();
+
+    reader.onload = function(){
+        var preview = document.getElementById('preview-image');
+        preview.src = reader.result;
+        preview.style.display = 'block';
+    };
+
+    reader.readAsDataURL(input.files[0]);
+}
+
+function previewImage2(event) {
+    var input = event.target;
+    var previewContainer = document.getElementById('image-preview-container');
+    previewContainer.innerHTML = ''; // 기존의 미리보기 이미지를 모두 지웁니다.
+
+    for (var i = 0; i < input.files.length; i++) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            var previewImage = document.createElement('img');
+            previewImage.src = e.target.result;
+            previewImage.style.maxWidth = '500px';
+            previewImage.style.maxHeight = '500px';
+            previewContainer.appendChild(previewImage);
+        };
+
+        reader.readAsDataURL(input.files[i]);
+    }
+}
+
+// price 표시
+function inputNumberFormat(obj) {
+    obj.value = comma(uncomma(obj.value));
+}
+
+function comma(str) {
+    str = String(str);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+}
+
+function uncomma(str) {
+    str = String(str);
+    return str.replace(/[^\d]+/g, '');
+}
+
+
+// 주소찾기 모달창
+function road() {
+    const popup = window.open("/address-search2","Popup", "width=800, height=700");
+
+    popup.onbeforeunload = function(data) {
+      console.log(data)
+      console.log("데이터 체크")
     }
 
-    if(window.location.href==='http://localhost:8080/trainer/reservation'){
-        console.log('This is trainer Reservation');
+    // 팝업창에 데이터 쓰기
+    popup.document.write(data);
+}
+
+// 자격증, 경력, PT 추가 버튼
+var certClicked = false;
+var careerClicked = false;
+var ptClicked = false;
+
+    document.getElementById('add-cert').onclick = function(){
+    var certInput = document.getElementById('certName');
+    var create_cert_div = document.getElementById('create_cert_div');
+    var cert_span = document.createElement('input');
+
+    if(certInput.value){
+        cert_span.value = certInput.value; 
+        cert_span.setAttribute('class', 'jaksim_btn');
+        cert_span.setAttribute('name', 'certName');
+        cert_span.style.margin = '3px';
+
+        create_cert_div.appendChild(cert_span);
+        certInput.value = '';
     }
 
-    if(window.location.href==='http://localhost:8080/trainer/create/' || window.location.href==='http://localhost:8080/trainer/change/'){
-        document.getElementById('add-cert').onclick = function(){
-            const certInput = document.getElementById('cert');
-            const displayCert = document.getElementById('display-cert');
-            const create_cert_div = document.getElementById('create_cert_div');
-            const cert_span = document.createElement('span');
+    certClicked = true;
+}
 
-            if(certInput.value){
-                displayCert.value += `${certInput.value}/`;
-                cert_span.textContent = certInput.value;
-                cert_span.setAttribute('class', 'btn btn-outline-primary');
-                cert_span.style.margin = '3px';
-
-                create_cert_div.appendChild(cert_span);
-                certInput.value = '';
-            }
-        }
 
         document.getElementById('add-career').onclick = function(){
-            const careerDate = document.getElementById('career_date');
-            const careerInput = document.getElementById('career');
-            const displayCareer = document.getElementById('display-career');
-            const create_career_div = document.getElementById('create_career_div');
-            const career_span = document.createElement('span');
+            var careerInput = document.getElementById('careerContent');
+            var create_career_div = document.getElementById('create_career_div');
+            var career_span = document.createElement('input');
 
             if(careerInput.value){
-                displayCareer.value += `${career_date.value}`+` ${careerInput.value}/`; //', '로 split 하시면 될 듯
-                career_span.textContent = careerDate.value+' '+careerInput.value;
-                career_span.setAttribute('class', 'btn btn-outline-primary');
+                career_span.value = careerInput.value;
+                career_span.setAttribute('class', 'jaksim_btn');
+                career_span.setAttribute('name', 'careerContent');
                 career_span.style.margin = '3px';
 
                 create_career_div.appendChild(career_span);
                 careerInput.value = '';
             }
+
+            careerClicked = true;
         }
-        document.getElementById('add-pt').onclick = function(){
-            const displayPrice = document.getElementById('display-price');
-            const type = document.querySelector('input[name="type"]:checked').value;
-            const times = document.getElementById('pt-times').value;
-            const months = document.getElementById('pt-months').value
-            const price = document.getElementById('pt-price').value;
-            const create_pt_div = document.getElementById('create_pt_div');
-            const pt_span = document.createElement('span');
+
+
+  
+    document.getElementById('add-pt').onclick = function () {
+        var type = document.querySelector('input[id="ptType"]:checked');
+        var times = document.getElementById('ptTimes');
+        var title = document.getElementById('ptTitle');
+        var price = document.getElementById('ptPrice');
+        var period = document.getElementById('ptPeriod');
+
+        var create_pt_div = document.getElementById('create_pt_div');
+
+        if (type.value && times.value && title.value && price.value && period.value) {
+            var pt_container = document.createElement('div');
+            pt_container.className = 'pt-container';
 
             let displayText = '';
-
-            if(type === '개인')
-                displayText += '개인 ';
+            if (parseInt(type.value) === 0)
+                displayText += '개인';
             else
-                displayText += '단체 ';
+                displayText += '단체';
 
-            displayText += months + ' '+ times +' ' + price;
-            console.log(displayText);
-            displayPrice.value += displayText + '/';
 
-            pt_span.textContent = months+'개월 ' + times +"회 " + price+"원("+type+")";
-            pt_span.setAttribute('class', 'btn btn-outline-primary');
-            pt_span.style.margin = '3px';
+            var formattedPrice = removeCommas(price.value);
+            
+            pt_container.innerHTML = `
+                <span>PT 상품</span><br>
+                <input value="${type.value}" name="ptType" hidden="hidden" type="number"/>
+                <input value="${times.value}" name="ptTimes" hidden="hidden"  type="number"/>
+                <input value="${title.value}" name="ptTitle" hidden="hidden" type="text" />
+                <input value="${formattedPrice}" name="ptPrice" hidden="hidden"  type="number" />
+                <input value="${period.value}" name="ptPeriod" hidden="hidden"  type="number"/>
+                <span>`+ displayText + ` ${times.value}회 ${title.value} ${price.value}원 ${period.value}일</span>`
+             ;
 
-            create_pt_div.appendChild(pt_span);
+            create_pt_div.appendChild(pt_container);
+            console.log(pt_container);
 
-            times = '';
-            months = '';
-            price='';
+            times.value = '';
+            title.value = '';
+            price.value = '';
+            type.value = '';
+            period.value = '';
         }
+        ptClicked = true;
     }
-});
 
+    function removeCommas(str) {
+    return str.replace(/,/g, '');
+    }
 
-var button_init = function(){
-   const container = document.getElementById('button_container');
-   console.log('window; ' + window.location.pathname.slice(-1));
-   container.addEventListener('click', (event) => {
-   if (event.target.type === 'radio') {
-           const checkedBtn = document.querySelector('input[name="toggle"]:checked');
-           checkedBtn.onclick = function(){
-                console.log(checkedBtn.value);
-                var url = 'http://localhost:8080/trainer/search/0/'+checkedBtn.value;
-                console.log('url' + url);
-                location.href=url;
-           }
-           const uncheckedBtns = Array.from(document.querySelectorAll('input[name="toggle"]:not(:checked)'));
-           uncheckedBtns.forEach((btn) => {
-               btn.checked = false;
-           });
-           console.log(checkedBtn.value);
-       }
-   });
+    
+ // 제출 전 확인
+ document.getElementById('trainerForm').onsubmit = function() {
+    // Check if all buttons have been clicked
+    if (!certClicked) {
+        alert("자격증 추가 버튼을 눌러주세요.");
+        return false;
+    }
+    if (!careerClicked) {
+        alert("경력사항 추가 버튼을 눌러주세요.");
+        return false;
+    }
+    if (!ptClicked) {
+        alert("PT 등록 버튼을 눌러주세요.");
+        return false;
+    }
 
-}
+    // 주소 값 입력 확인
+    var addressInput = document.getElementById('input-address');
+    if (addressInput.value.trim() === '') {
+        alert("주소를 입력하세요.");
+        return false; // Prevent form submission
+    }
+
+    // 전문분야 입력 확인
+    var expert1 = document.querySelector('select[name="expert1"]').value;
+    var expert2 = document.querySelector('select[name="expert2"]').value;
+
+    if (expert1 === expert2) {
+        alert("전문분야는 서로 다른 값을 선택해야 합니다.");
+        return false; // Prevent form submission
+    }
+
+    return true; // Allow form submission
+};

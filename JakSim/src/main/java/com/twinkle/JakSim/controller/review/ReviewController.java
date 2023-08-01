@@ -46,26 +46,21 @@ public class ReviewController {
         }
 
         model.addAttribute("head_title", "리뷰 수정");
-        model.addAttribute("userId", info);
         model.addAttribute("review", reviewService.showMyReview(info.getUsername(), reviewIdx));
 
         return "content/review/editReview";
     }
 
     @PostMapping("/editMyReview")
-    public String editMyReview(Model model, @AuthenticationPrincipal User info,
-                               ReviewRequestDto reviewRequestDto) {
-        model.addAttribute("userId", info);
-        model.addAttribute("review", reviewService.showMyReview(info.getUsername(), reviewRequestDto.getReviewId()));
+    public String editMyReview(@AuthenticationPrincipal User info, ReviewRequestDto reviewRequestDto) {
         reviewService.editReview(reviewRequestDto, info.getUsername());
 
         return "redirect:/trainer/trainerSearch";
     }
 
     @PostMapping("/deleteReview")
-    public String deleteMyReview(@RequestParam("trainerId") int trainerId, @AuthenticationPrincipal User info) {
+    public String deleteMyReview(@AuthenticationPrincipal User info) {
         reviewService.deleteReview(info.getUsername());
-        System.out.println(trainerId);
 
         return "redirect:/trainer/trainerSearch";
     }

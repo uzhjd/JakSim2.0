@@ -1,165 +1,7 @@
-<style>
-    * {
-        font-family: Noto Sans KR;
-        margin: 0;
-        padding: 0;
-    }
-
-    main {
-        width: 100%;
-        display: flex;
-        justify-content: flex-start;
-        margin-top: 0px;
-        align-items: flex-start;
-        border-top: 2px solid #dedede;
-    }
-
-    .sideBar {
-        width: 26.33%;
-        height: auto;
-        margin-left: 20px;
-    }
-
-    .sideBar ul {
-        float: right;
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .menuPart {
-        float: right;
-        margin-top: 80px;
-        margin-bottom: 10px;
-        margin-right: 20px;
-    }
-
-    .sideBar li.active a {
-        color: #A584EE;
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 18px;
-    }
-
-    .sideBar li a {
-        color: black;
-        text-decoration: none;
-        font-weight: thin;
-    }
-
-    .sideBar li a:hover {
-        color: #A584EE;
-    }
-
-    .right_info {
-        color: rgba(29.000000171363354, 29.000000171363354, 32.00000189244747, 1);
-        position: relative;
-        margin-top: 30px;
-        margin-bottom: 50px;
-
-    }
-
-    .main {
-        float: left;
-        width: 65%;
-        height: auto;
-        padding: 50px;
-        padding-top: 0;
-        border-left: 2px solid #dedede;
-        margin-left: 30px;
-        padding-left: 80px;
-    }
-
-    .user_data-container {
-        width: 770px;
-        margin: 50px 0px;
-        padding: 30px;
-        background-color: white;
-        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
-        border-radius: 7px;
-        float: left;
-        margin-top: 0px;
-
-        display: flex;
-    flex-direction: column;
-    align-items: center; /* Center the content horizontally */
-
-    }
-
-    table {
-        margin: 0 auto;
-    }
-
-    .search-container {
-        display: flex;
-        align-items: center;
-        margin-bottom: 20px;
-    }
-
-    .search-input-container {
-        position: relative;
-        margin-left: 550px;
-    }
-
-    .search-input {
-        width: 250px;
-        height: 30px;
-        border-radius: 5px;
-        border: 1px solid #B7B7B7;
-        padding: 5px 30px 5px 10px;
-        font-size: 14px;
-
-    }
-
-    .search-icon {
-        position: absolute;
-        top: 50%;
-        right: 10px;
-        transform: translateY(-50%);
-        color: #a584ee;
-        visibility: visible;
-
-    }
-
-    th, td {
-        text-align: center;
-    }
-
-    th {
-        padding-bottom: 10px;
-    }
-
-    td {
-        border-bottom: 1px solid #dedede;
-        padding-top: 20px;
-        padding-bottom: 10px;
-    }
-
-    #searchIcon {
-      color: #a584ee;
-    }
-
-    #searchIcon:hover {
-        color: #c6b4ec;
-    }
-
-
-    .search-input::placeholder {
-        color: rgb(182, 187, 195);
-    }
-
-.pagination {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-    }
-    
-
-    
-
-</style>
-
+<link rel="stylesheet" href="/css/trainer/trainerUserInfoControlPage.css">
+<script src="/javascript/trainer/trainerUserInfoControlPage.js"></script>
 <script src="https://kit.fontawesome.com/05995ac069.js" crossorigin="anonymous"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
         <div>
             <h3 class="right_info jaksim_title_font">전체 회원 정보 조회</h3>
@@ -167,7 +9,7 @@
         <div class="search-container">
             <div class="search-input-container">
                 <input style="width: 222px;" type="text" class="search-input" placeholder="회원명을 입력하세요" id="search-input">
-                <a id="search-btn" class="search-icon"><i id="searchIcon" class="fa-solid fa-magnifying-glass fa-sm"></i></a>
+                <a id="search-btn" style="cursor: pointer;" class="search-icon"><i id="searchIcon" class="fa-solid fa-magnifying-glass fa-sm"></i></a>
             </div>
         </div>
         <div class="user_data-container">
@@ -185,29 +27,17 @@
                 <tbody id="table-body">
                     {{#ptUser}}
                         <tr class="hidden-row">
-                            <td><input style="width: 50px;
-                    margin-right: 20px;
-                    margin-left: 20px; border: white; text-align: center; pointer-events: none;" type="text" name="userName" value="{{userName}}" readonly>
+                            <td><input class="userInfo-1" type="text" name="userName" value="{{userName}}" readonly>
                             </td>
-                            <td><input style="width: 50px;
-                    margin-right: 20px;
-                    margin-left: 20px; border: white; text-align: center; pointer-events: none;" type="text" name="ptType" value="{{ptType}}" readonly>
+                            <td><input class="userInfo-1" type="text" name="ptType" value="{{ptType}}" readonly>
                             </td>
-                            <td><input style="width: 100px;
-                    margin-right: 20px;
-                    margin-left: 20px; border: white; text-align: center; pointer-events: none;" type="text" name="userId" value="{{userId}}" readonly>
+                            <td><input class="userInfo-2" type="text" name="userId" value="{{userId}}" readonly>
                             </td>
-                            <td><input style="width: 110px;
-                    margin-right: 20px;
-                    margin-left: 20px; border: white; text-align: center; pointer-events: none;" type="text" name="tel" value="{{tel}}" readonly>
-                                </td>
-                            <td><input style="width: 50px;
-                    margin-right: 20px;
-                    margin-left: 20px; border: white; text-align: center; pointer-events: none;" type="text" name="gender" value="{{gender}}" readonly>
+                            <td><input class="userInfo-3" type="text" name="tel" value="{{tel}}" readonly>
                             </td>
-                            <td><input style="width: 50px;
-                    margin-right: 20px;
-                    margin-left: 20px; border: white; text-align: center; pointer-events: none;" type="text" name="ptCnt" value="{{ptCnt}}" readonly>
+                            <td><input class="userInfo-1" type="text" name="gender" value="{{gender}}" readonly>
+                            </td>
+                            <td><input class="userInfo-1" type="text" name="ptCnt" value="{{ptCnt}}" readonly>
                             </td>
                         </tr>
                     {{/ptUser}}
@@ -223,85 +53,5 @@
 
             <a href="/trainer/ptUserInfo?page={{nextPage}}&pageSize={{trainersPerPage}}&ptUserName={{ptUserName}}" class="jaksim_btn" style="padding-left: 10px; padding-right: 10px;padding-bottom: 6px;padding-top: 6px; margin-left: 5px; text-decoration: none;">다음</a>
         </div>
-
     </div>
-            
-</div>
-
-<script>
-    // 검색 버튼 클릭 이벤트 핸들러 등록
-    document.getElementById('search-btn').addEventListener('click', function() {
-        // 검색어 입력란의 값을 가져옵니다.
-        var searchKeyword = document.getElementById('search-input').value;
-
-        // 현재 페이지의 URL을 가져옵니다.
-        var currentUrl = new URL(window.location.href);
-
-        // 기존 URL에 ptUserName 매개변수가 있는지 확인합니다.
-        var hasParam = currentUrl.searchParams.has('ptUserName');
-
-        if (currentUrl.searchParams.get('page') === '1') {
-            // 기존 URL에 ptUserName 매개변수가 있으면 값을 변경하고, 없으면 새로 추가합니다.
-            if (hasParam) {
-                currentUrl.searchParams.set('ptUserName', searchKeyword);
-            } else {
-                currentUrl.searchParams.append('ptUserName', searchKeyword);
-            }
-        } else {
-            // 'page' 매개변수의 값을 1로 설정합니다.
-            currentUrl.searchParams.set('page', '1');
-            if (hasParam) {
-                currentUrl.searchParams.set('ptUserName', searchKeyword);
-            } else {
-                currentUrl.searchParams.append('ptUserName', searchKeyword);
-            }
-        }
-
-        // 새로운 URL로 이동합니다.
-        window.location.href = currentUrl;
-    });
-</script>
-<script>
-    window.onload = function() {
-        var rows = document.querySelectorAll('#table-body tr');
-
-        // Modify ptType and gender values for display
-        for (var i = 0; i < rows.length; i++) {
-            var ptTypeInput = rows[i].querySelector('[name="ptType"]');
-            var genderInput = rows[i].querySelector('[name="gender"]');
-            var telInput = rows[i].querySelector('[name="tel"]');
-
-            var ptTypeValue = ptTypeInput.value;
-            var genderValue = genderInput.value;
-            var telValue = telInput.value;
-
-            // Convert ptType value to text
-            if (ptTypeValue === "0") {
-                ptTypeInput.value = "개인";
-            } else if (ptTypeValue === "1") {
-                ptTypeInput.value = "단체";
-            }
-
-            // Convert gender value to text
-            if (genderValue === "0") {
-                genderInput.value = "남자";
-            } else if (genderValue === "1") {
-                genderInput.value = "여자";
-            }
-
-            // Format phone numbers to a specific pattern (e.g., 010-1234-5678)
-            telInput.value = formatPhoneNumber(telValue);
-        }
-    };
-
-    // Function to format phone numbers to a specific pattern (e.g., 010-1234-5678)
-    function formatPhoneNumber(phoneNumber) {
-        var cleaned = ('' + phoneNumber).replace(/\D/g, '');
-        var match = cleaned.match(/^(\d{2,3})(\d{3,4})(\d{4})$/);
-        if (match) {
-            return match[1] + '-' + match[2] + '-' + match[3];
-        }
-        return phoneNumber;
-    }
-</script>
-
+</div>  

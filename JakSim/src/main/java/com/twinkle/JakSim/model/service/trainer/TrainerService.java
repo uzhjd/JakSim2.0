@@ -68,15 +68,11 @@ public class TrainerService {
         else {
             System.out.println("이미지패스없음");
         }
-
         trainerDao.insertTrainer(requestTrainer, userId);
 
     }
     @Transactional
     public void updateTrainer(TrainerInsertDto requestTrainer, String userId, MultipartFile certImage, MultipartFile[] imagePath) throws IOException {
-
-        System.out.println("CERT 입력값 : "+certImage.isEmpty());
-        System.out.println("CERT 기존 : "+requestTrainer.getCertImage().toString()==null);
 
         if(!certImage.isEmpty()) {
             String projectPath = System.getProperty("user.dir") +
@@ -144,10 +140,8 @@ public class TrainerService {
         return trainerDao.getAllTrainerForSearch(page, pageSize, filter, address);
     }
 
-
     @Transactional
     public int getTrainerCnt(int filter, String address) {
-
         return trainerDao.getTrainerCount(filter, address);
     }
 
@@ -185,11 +179,6 @@ public class TrainerService {
     @Transactional
     public List<TrainerImageDto> getTrainerImage(String userId) {
         return trainerDao.getTrainerImage(userId);
-    }
-
-    @Transactional
-    public List<TrainerSearchDto> searchTrainerForTrainerPage(String userId) {
-        return trainerDao.getTrainerForTrainerPage(userId);
     }
 
 
@@ -240,7 +229,6 @@ public class TrainerService {
         trainerDao.registerTimetable(timetableDto);
 
     }
-
 
     @Transactional
     public void deleteTimetable(int tIdx) {

@@ -8,14 +8,9 @@ function kakaoPay(ptTitle, tpIdx, ptPrice, ptTimes, ptPeriod) {
          ptTimes: ptTimes,
          ptPeriod: ptPeriod
      };
-console.log("hhehhehehe");
-console.log("data");
-console.log(data);
     axios.post('/payment/ready', data)
         .then((response) => {
             var httpStatus = response.status;
-
-            console.log(response);
 
             if(httpStatus == 500) {
                 alert("500: Payment with Kakao Pay failed.");

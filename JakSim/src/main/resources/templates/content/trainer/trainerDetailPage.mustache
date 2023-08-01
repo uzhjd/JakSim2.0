@@ -1,12 +1,13 @@
 {{>layout/header}}
 <link rel="stylesheet" href="/css/trainer/trainerPage.css">
+<script src="/javascript/payment/kakaoPay.js"></script>
 <script src="https://kit.fontawesome.com/05995ac069.js" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
 <body>
 {{>layout/navi}}
 <div id="trainer_Detail_Container">
-
     <br/>
     <span class="jaksim_title_font" style="font-weight: bold; font-size: 19px;">트레이너 상세페이지</span>
     <br/><br/>
@@ -72,48 +73,30 @@
             <div id="trainer-cert">
             {{#cert}}
                 <span>{{certName}}</span><br/>
-            {{/cert}}
-{{#cert}}
+
                 <img src="{{certImage}}" alt="Trainer Image" width="220" height="220"><br/>
-                {{/cert}}
+            {{/cert}}
             </div>
 
         <br><br/>
 
         <span style="font-weight: bold; font-size: 16px;">경력 / 수상사항</span>
             <div id="trainer-career">
-{{#career}}
+        {{#career}}
                 <span>{{careerContent}}</span> <br/>
-{{/career}}
+        {{/career}}
             </div>
         <br><br/>
         <span style="font-weight: bold; font-size: 16px;">추가 사진</span><br/>
             <div style="display:inline-block; margin: 7px;">
-{{#imageList}}
+        {{#imageList}}
                 <img src="{{imagePath}}" alt="Trainer Image" width="270" height="300"/>
-{{/imageList}}
+        {{/imageList}}
             </div>
         <br/>
         <hr/>
     </div>
 
-    <style>
-    #pt-info {
-    display: flex;
-    align-items: center;
-    }
-
-    #pt-info span {
-    margin-top: 0;
-    margin-bottom: 0;
-    }
-
-    #pt-info .trainer_pay {
-    margin-left: 350px;
-    }
-
-
-    </style>
     <span style="font-weight: bold; font-size: 16px;">PT 상품</span><br/>
     {{#product}}
             <div id="pt-info">
@@ -124,22 +107,13 @@
             
             <div class="trainer_pay" style="margin-right: 5px;">
                 <button class="payButton" data-ptId="{{ptId}}"
-                onclick="handlePayment('{{ptTitle}}', '{{ptTimes}}', '{{ptPrice}}', '{{ptPeriod}}', '{{ptId}}')"
+                onclick="kakaoPay('{{ptTitle}}', '{{ptTimes}}', '{{ptPrice}}', '{{ptPeriod}}', '{{ptId}}')"
                 >결제하기</button>
             </div>
              </div>
     {{/product}}
 
 
-<script>
-    $(document).ready(function () {
-        $('.money').each(function () {
-            var money = $(this).text();
-            var money2 = money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            $(this).text(money2);
-        });
-    });
-</script>
     <br/>
     <hr>
     <div id="review-container" style="margin-bottom: 50px;">
@@ -181,20 +155,22 @@
     </div>
 </div>
 
-
-
 <script>
+    $(document).ready(function () {
+        $('.money').each(function () {
+            var money = $(this).text();
+            var money2 = money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            $(this).text(money2);
+        });
+    });
 
-window.onload = function() {
-
+    window.onload = function() {
     var currentUser = "{{session_user.username}}";
     var reviewElements = document.querySelectorAll('.reviewLink');
     var deleteReviewForm = document.querySelectorAll('.delete_review_td');
     var reviewIdx = document.querySelectorAll('.reviewIdx');
 
-    if (currentUser) {
-        
-
+    if (currentUser) {        
         for (var i = 0; i < reviewElements.length; i++) {
             var reviewId = reviewElements[i].textContent;
 
@@ -218,8 +194,6 @@ window.onload = function() {
             }
         }
     }
-
-
 
     var stars = document.querySelectorAll('.countStar');
     var expert1 = document.querySelectorAll('.expert1');
@@ -333,39 +307,12 @@ window.onload = function() {
     
     }
 
-}
 
-// 카카오페이
-function handlePayment(ptTitle, ptTimes, ptPrice, ptPeriod, ptId) {
-    var data = {
-        ptTitle: ptTitle,
-        ptTimes: ptTimes,
-        ptPrice: ptPrice,
-        ptPeriod: ptPeriod,
-        tpIdx: ptId
-    };
-    
-console.log(data);
-axios.post('/payment/ready', data)
-        .then((response) => {
-            var httpStatus = response.status;
-
-            console.log(response);
-
-            if(httpStatus == 500) {
-                alert("500: Payment with Kakao Pay failed.");
-            } else {
-                var box = response.data.next_redirect_pc_url;
-
-                window.open(box, "", "width=500, height=800");
-            }
-        })
-        .catch(error => {
-            console.error(error);
-        });
 
 }
+
 
 
 </script>
+
 {{>layout/footer}}

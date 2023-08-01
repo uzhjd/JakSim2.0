@@ -9,7 +9,6 @@
         margin-left: 50px;">리뷰 수정</h3>
 </div>
 <form id="review-form" action="/editMyReview" method="POST">
-    
         <div class="review-star">
             <label for="review-star">별점</label>
             <select class="star_select" id="star" name="star" value="{{#review}}{{star}}{{/review}}" style="margin-left: 10px;">
@@ -32,7 +31,6 @@
     <button type="button" id="review-cancel-button" onclick="goBack()">취소</button>
     <script>
         function goBack() {
-            // Go back to the previous page in the browser's history
             window.history.back();
         }
     </script>
