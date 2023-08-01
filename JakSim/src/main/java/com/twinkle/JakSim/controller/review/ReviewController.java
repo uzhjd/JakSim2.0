@@ -1,6 +1,7 @@
 package com.twinkle.JakSim.controller.review;
 
 import com.twinkle.JakSim.model.dto.review.ReviewRequestDto;
+import com.twinkle.JakSim.model.service.account.FileService;
 import com.twinkle.JakSim.model.service.review.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -13,13 +14,18 @@ import org.springframework.web.bind.annotation.*;
 public class ReviewController {
     @Autowired
     ReviewService reviewService;
+    @Autowired
+    FileService fileService;
 
 
-
-    @GetMapping("/registerReview/{trainerIdx}")
-    public String registerMyReview(Model model, @PathVariable("trainerIdx") int trainerIdx) {
+    @GetMapping("/registerReview/{trainerId}")
+    public String registerMyReview(Model model, @PathVariable("trainerId") String trainerId, @AuthenticationPrincipal User info) {
+        if(info != null) {
+            model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
+            model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
+        }
         model.addAttribute("head_title", "리뷰 등록");
-        model.addAttribute("trainerIdx", trainerIdx);
+        model.addAttribute("trainerId", trainerId);
 
         return "content/review/registerReview";
     }
@@ -31,36 +37,37 @@ public class ReviewController {
         return "redirect:/";
     }
 
-    @GetMapping("/editReview/{reviewIdx}")
+    @GetMapping("/review/editReview/{reviewIdx}")
     public String editReview(@PathVariable("reviewIdx") int reviewIdx, Model model, @AuthenticationPrincipal User info,
                              ReviewRequestDto reviewRequestDto) {
+        if(info != null) {
+            model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
+            model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
+        }
+
         model.addAttribute("head_title", "리뷰 수정");
-        model.addAttribute("userId", info);
-        model.addAttribute("review", reviewService.showMyReview(info.getUsername()));
+        model.addAttribute("review", reviewService.showMyReview(info.getUsername(), reviewIdx));
 
         return "content/review/editReview";
     }
 
     @PostMapping("/editMyReview")
-    public String editMyReview(Model model, @AuthenticationPrincipal User info,
-                               ReviewRequestDto reviewRequestDto) {
-        model.addAttribute("userId", info);
-        model.addAttribute("review", reviewService.showMyReview(info.getUsername()));
+    public String editMyReview(@AuthenticationPrincipal User info, ReviewRequestDto reviewRequestDto) {
         reviewService.editReview(reviewRequestDto, info.getUsername());
 
         return "redirect:/trainer/trainerSearch";
     }
 
-//    @PostMapping("/deleteReview")
-//    public String deleteMyReview(@RequestParam("trainerId") int trainerId, @AuthenticationPrincipal User info) {
-//        reviewService.deleteReview(info.getUsername());
-//        System.out.println(trainerId);
-//
-//        return "redirect:/trainer/trainerSearch";
-//    }
+    @PostMapping("/deleteReview")
+    public String deleteMyReview(@AuthenticationPrincipal User info) {
+        reviewService.deleteReview(info.getUsername());
+
+        return "redirect:/trainer/trainerSearch";
+    }
 
     @GetMapping("/review/list")
     public String getList(){
         return "content/review/review_list";
     }
+
 }

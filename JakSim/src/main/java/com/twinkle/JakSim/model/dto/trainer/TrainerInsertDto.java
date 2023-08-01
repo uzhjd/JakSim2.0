@@ -14,6 +14,7 @@ public class TrainerInsertDto {
     private String gym;
     private int expert1;
     private int expert2;
+    private String address;
 
     private int[] ptId;
     private int[] ptTimes;

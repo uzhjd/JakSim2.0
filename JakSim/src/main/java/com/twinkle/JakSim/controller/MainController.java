@@ -23,6 +23,7 @@ public class MainController {
             model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
             model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
         }
+        //로그인했을떄만 작동함.
         model.addAttribute("head_title", "작심득근");
         model.addAttribute("trainers", trainerService.searchTrainerForMainPage());
         return "content/index";

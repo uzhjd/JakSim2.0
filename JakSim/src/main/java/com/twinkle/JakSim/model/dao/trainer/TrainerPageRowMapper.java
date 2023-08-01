@@ -15,13 +15,14 @@ public class TrainerPageRowMapper implements RowMapper<TrainerPageDto> {
 
         TrainerPageDto trainerPageDto = new TrainerPageDto();
 
-//        trainerPageDto.setTrainerId(rs.getInt("UT_IDX"));
         trainerPageDto.setUserName(rs.getString("USER_NAME"));
+        trainerPageDto.setUserId(rs.getString("USER_ID"));
         trainerPageDto.setInsta(rs.getString("UT_INSTA"));
         trainerPageDto.setIntroduce(rs.getString("UT_INTRO"));
         trainerPageDto.setGym(rs.getString("UT_GYM"));
         trainerPageDto.setExpert1(rs.getInt("UT_EXPERT_1"));
         trainerPageDto.setExpert2(rs.getInt("UT_EXPERT_2"));
+        trainerPageDto.setAddress(rs.getString("UT_ADDRESS"));
 
         trainerPageDto.setCertImage(rs.getString("TC_IMAGE"));
 

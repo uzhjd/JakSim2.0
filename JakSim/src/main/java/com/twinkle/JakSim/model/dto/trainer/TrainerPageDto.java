@@ -14,12 +14,14 @@ public class TrainerPageDto {
     private int trainerId;
 
     private String userName;
+    private String userId;
 
     private String insta;
     private String introduce;
     private String gym;
     private int expert1;
     private int expert2;
+    private String address;
 
     private int ptTimes;
     private int ptPrice;

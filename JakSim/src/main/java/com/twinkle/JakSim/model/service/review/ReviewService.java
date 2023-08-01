@@ -31,13 +31,23 @@ public class ReviewService {
     }
 
     @Transactional
-    public List<ReviewRequestDto> showMyReview(String userId) {
-        return reviewDao.getMyReview(userId);
+    public List<ReviewRequestDto> showReviewAll(int page, int pageSize, int filter, String trainerId) {
+        return reviewDao.getTrainerReviewAll(page, pageSize, filter, trainerId);
+    }
+
+    @Transactional
+    public ReviewRequestDto getStarAvgAndCnt(String trainerId) {
+        return reviewDao.getStarAvgAndCnt(trainerId);
+    }
+
+    @Transactional
+    public List<ReviewRequestDto> showMyReview(String userId, int reviewIdx) {
+        return reviewDao.getMyReview(userId, reviewIdx);
     }
 
     @Transactional
     public Optional<List<ReviewRequestDto>> showMyReviewForMyPage(String userId) {
-        return reviewDao.getMyReviewForMypage(userId);
+        return reviewDao.getMyReviewForMyPage(userId);
     }
 
     @Transactional

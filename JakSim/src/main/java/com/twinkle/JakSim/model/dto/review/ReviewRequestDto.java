@@ -19,7 +19,7 @@ public class ReviewRequestDto {
     private int star;
     private String reviewCreateDate;
     private String reviewModifyDate;
+    private double avgRstar;
+    private int reviewCnt;
 
-    //private int reviewImageId;
-    //private String reviewImagePath;
 }

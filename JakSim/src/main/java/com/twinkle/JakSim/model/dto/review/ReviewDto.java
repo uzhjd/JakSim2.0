@@ -14,4 +14,5 @@ public class ReviewDto {
     private String reviewCreateDate;
     private String reviewModifyDate;
     private String trainerName;
+    private double avgRstar;
 }
