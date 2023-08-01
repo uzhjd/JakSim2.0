@@ -3,6 +3,8 @@ var type = ['상담', '1:1', '단체'];
 
 
 function setDate(date) {
+    document.getElementById("reservation_date").innerText = date;
+
     setMyReservation(date);
 }
 
@@ -23,19 +25,13 @@ function setMyReservation(date) {
             console.log("reservation 확인");
             console.log(response.data);
             if(response.data['tstartT'] != null) {
-                if(response.data['ttype'] == 2) {
-                    reservation.textContent = response.data['tstartT'] + " - " + response.data['tendT'] + " ( " + type[response.data['ttype']] + " " + response.data['tpeolple'] +" )";
-                } else {
-                    reservation.textContent = response.data['tstartT'] + " - " + response.data['tendT'] + " ( " + type[response.data['ttype']] + " )";
-                }
+                reservation.textContent = response.data['tstartT'] + " - " + response.data['tendT'] + " ( " + type[response.data['ttype']] + " )";
 
                 canBtn.style.display = 'inline-block';
 
                 selectedPIdx = response.data['pidx'];
                 selectedRIdx = response.data['ridx'];
                 selectedTType = type[response.data['ttype']];
-
-                // canBtn.addEventListener('click', () => resCancle(response.data['pidx'], response.data['ridx'], type[response.data['ttype']]));
             } else {
                 reservation.textContent = "▶ 예약 정보가 없습니다.";
                 canBtn.style.display = 'none';
@@ -73,11 +69,12 @@ function resRegister(formattedDate) {
 
     axios.post('/reservation/register', data)
         .then((response) => {
-            alert(warn[response.data]);
-
-            if(response.data == 5) {
+            alert(warn[response.data['reservationStatus']]);
+console.log(response.data);
+            if(response.data['reservationStatus'] == 5) {
                 setMyReservation(formattedDate);
                 setSchdule();
+                setPtCnt(response.data['ptCnt']);
             }
         })
         .catch(error => {
@@ -86,11 +83,7 @@ function resRegister(formattedDate) {
     tIdx = -1;
 }
 
-// function resCancle(pIdx, rIdx, type) {
 function resCancle() {
-    console.log("pidx"+selectedPIdx);
-    console.log("rIdx"+selectedRIdx);
-
     var url = '/reservation/cancle/' + selectedPIdx + '/' + selectedRIdx;
 
     axios.get(url)
@@ -99,6 +92,7 @@ function resCancle() {
                 alert(type[tType] + ' 예약이 취소되었습니다!');
                 setMyReservation(document.getElementById("reservation_date").innerText);
                 setSchdule();
+                setPtCnt(response.data['ptCnt']);
             } else {
                 alert('예약이 취소되지 않았습니다!');
             }

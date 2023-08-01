@@ -1,6 +1,7 @@
 package com.twinkle.JakSim.model.dao.payment;
 
 import com.twinkle.JakSim.model.dto.payment.response.ApproveResponse;
+import com.twinkle.JakSim.model.dto.payment.response.PtCntDo;
 import com.twinkle.JakSim.model.dto.payment.response.PtTicketResponse;
 import com.twinkle.JakSim.model.dto.product.response.ValidPtResponse;
 
@@ -83,29 +84,41 @@ public class PaymentDao {
         return Optional.of(paymentDo);
     }
 
-    public void decreasePt(int ptCnt, int pIdx) {
-        this.sql = "update payment set p_pt_cnt = ? where p_idx = ?";
+    public PtCntDo decreasePt(int ptCnt, int pIdx) {
+        PtCntDo ptCntDo = new PtCntDo();
+        this.sql = "update payment set p_pt_cnt = p_pt_cnt - 1 where p_idx = ?";
 
         try {
-            jdbcTemplate.update(this.sql, ptCnt-1, pIdx);
+            jdbcTemplate.update(this.sql, pIdx);
+
+            ptCntDo = findPtCnt(pIdx);
         } catch (EmptyResultDataAccessException e) {
             System.out.println(e);
         }
 
-        return;
+        return ptCntDo;
     }
 
-    public void increaseCnt(int pIdx) {
+    public PtCntDo increaseCnt(int pIdx) {
+        PtCntDo ptCntDo = new PtCntDo();
         this.sql = "update payment set p_pt_cnt = p_pt_cnt + 1 where p_idx = ?";
 
         try {
             jdbcTemplate.update(this.sql, pIdx);
+
+            ptCntDo= findPtCnt(pIdx);
         }
         catch (Exception e) {
             System.out.println(e);
         }
 
-        return;
+        return ptCntDo;
+    }
+
+    public PtCntDo findPtCnt(int pIdx) {
+        this.sql = "select p_pt_cnt from payment where p_idx = ?";
+
+        return jdbcTemplate.queryForObject(this.sql, new ptCntDoRosMapper(), pIdx);
     }
 
     public List<ValidPtResponse> findAllValidPt(String userId, LocalDate today) {
@@ -114,7 +127,7 @@ public class PaymentDao {
         this.sql = "select pro.user_id, pro.tp_type, u.user_name, pay.p_idx, pay.p_pt_cnt " +
                 "from payment as pay inner join product as pro on pay.tp_idx = pro.tp_idx " +
                 "inner join user_info as u on pro.user_id = u.user_id " +
-                "where pay.user_id = ? and p_status = '0' and p_pt_cnt > '0' and p_pt_period >= (? - p_a_dt)";
+                "where pay.user_id = ? and p_status = '0' and p_pt_cnt > '0' and p_pt_period >= datediff(?, p_a_dt)";
 
         list = jdbcTemplate.query(this.sql, new ValidPtRowMapper(), userId, today);
 

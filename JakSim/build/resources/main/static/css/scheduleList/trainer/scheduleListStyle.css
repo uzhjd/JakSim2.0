@@ -99,6 +99,11 @@ td {
 
 .pastDay {
     color: lightgray;
+    cursor: pointer;
+}
+
+.pastDay:hover{
+    background:#eee;
 }
 
 .today {
@@ -109,7 +114,6 @@ td {
 }
 
 .futureDay {
-
     color: rgba(116, 116, 116, 1);
     background-color: #FFFFFF;
     cursor: pointer;
@@ -120,7 +124,8 @@ td {
 }
 
 .futureDay.choiceDay,
-.today.choiceDay {
+.today.choiceDay,
+.pastDay.choiceDay  {
     background: #A584EE;
     color: #fff;
     font-weight: 600;

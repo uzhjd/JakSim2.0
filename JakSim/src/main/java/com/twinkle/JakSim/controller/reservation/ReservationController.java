@@ -1,5 +1,6 @@
 package com.twinkle.JakSim.controller.reservation;
 
+import com.twinkle.JakSim.model.dto.payment.response.PtCntDo;
 import com.twinkle.JakSim.model.dto.reservation.request.IsReservationRequest;
 import com.twinkle.JakSim.model.dto.reservation.request.ReservationRequest;
 import com.twinkle.JakSim.model.dto.reservation.response.MyMember;
@@ -34,9 +35,9 @@ public class ReservationController {
     private final ReservationService reservationService;
 
     @PostMapping("/register")
-    public ResponseEntity<Integer> register(@AuthenticationPrincipal User user,
+    public ResponseEntity<PtCntDo> register(@AuthenticationPrincipal User user,
                                                         @Valid @RequestBody ReservationRequest reservationRequest) {
-        int response = 0;
+        PtCntDo response = new PtCntDo();
         LocalDate today = LocalDate.now();
 
         if(reservationRequest.getDate().compareTo(today) < 0) {
@@ -45,18 +46,16 @@ public class ReservationController {
             response = reservationService.register(user.getUsername(), reservationRequest);
         }
 
-        if(response == 0) {
+        if(response.getReservationStatus() == 0) {
             System.out.println("지난 날에 대한 예약은 할 수 없습니다.");
-        } else if(response == 1) {
+        } else if(response.getReservationStatus() == 1) {
             System.out.println("이미 등록된 예약이 있습니다.");
-        } else if (response == 2) {
+        } else if (response.getReservationStatus() == 2) {
             System.out.println("이미 등록된 예약이 있습니다.");
-        } else if (response == 3) {
+        } else if (response.getReservationStatus() == 3) {
             System.out.println("해당 시간표는 존재하지 않습니다.");
-        } else if (response == 4) {
+        } else if (response.getReservationStatus() == 4) {
             System.out.println("예약이 올바르게 되지 않았습니다.");
-        } else {
-            response = 5;
         }
 
         // 0: 지난 날, 1: 등록된 예약 O, 2: 사용가능한 PT권 X, 일정 존재 X, 4: 예기치 못한 에러 발생, 5: 예약 완료
@@ -73,9 +72,9 @@ public class ReservationController {
     }
 
     @GetMapping("/cancle/{pIdx}/{rIdx}")
-    public ResponseEntity<Boolean> resCancle(@AuthenticationPrincipal User user, @PathVariable("pIdx") int pIdx,
+    public ResponseEntity<PtCntDo> resCancle(@AuthenticationPrincipal User user, @PathVariable("pIdx") int pIdx,
                               @PathVariable("rIdx") int rIdx) {
-        Boolean response = reservationService.delete(pIdx, rIdx);
+        PtCntDo response = reservationService.delete(pIdx, rIdx);
 
         return ResponseEntity.ok().body(response);
     }

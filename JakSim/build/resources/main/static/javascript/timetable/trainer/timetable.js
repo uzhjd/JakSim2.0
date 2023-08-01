@@ -17,18 +17,19 @@ function setTimetable(selectedDate) {
                 timetableList.appendChild(timetable);
             } else {
                 for(var i = 0; i < response.data.length; i++) {
-                    console.log(response.data);
                     var timetable = document.createElement("div");
 
-                    timetable.innerHTML = " " + response.data[i]['tstartT'].substr(0, 5) + " - " + response.data[i]['tendT'].substr(0, 5)
+                    timetable.setAttribute("id", response.data[i]['tidx']);
+                    timetable.innerHTML = "🔥 " + response.data[i]['tstartT'].substr(0, 5) + " - " + response.data[i]['tendT'].substr(0, 5)
                         + " ( " + type[response.data[i]['ttype']] + "_" + response.data[i]['tpeople'] + "명)";
 
                     timetableList.appendChild(timetable);
 
-                    // timetable.onclick = setMyReservation(timetable.);
+                    timetable.onclick = function (){
+                        setMyReservation(this.id);
+                    }
                 }
             }
-            // setMyReservation(1);
         }).catch(error => {
             console.error(error);
         });
