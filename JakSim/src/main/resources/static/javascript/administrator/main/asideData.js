@@ -1,7 +1,12 @@
 var yesterday;
 
 function setYesterday(){
-    yesterday =`${year}-${month}-${day-1}`;
+    var timeStamp = currentDate.getTime();
+    var oneDayMilSeconds = 24 * 60 * 60 * 1000;
+    var beforeDayTimestamp = timeStamp - oneDayMilSeconds;
+    yesterday = new Date(beforeDayTimestamp);
+
+    yesterday =`${yesterday.getFullYear()}-${yesterday.getMonth()+1}-${yesterday.getDate()}`;
     document.getElementById('man_aside_Yesterday').innerHTML = yesterday;
 }
 
@@ -25,7 +30,7 @@ function getVisitCntDay(){
     axios.get(`/man/api/visit/date?start=${startDate}&end=${endDate}`)
         .then(response => {
             var result = response.data[0]['amount'];
-            if(result === 'undefined')
+            if(result === 'undefined' || response.data[0])
                 result = 0;
             cnt.innerHTML = numFormat(response.data[0]['amount']);
         }).catch(error => {
@@ -36,7 +41,6 @@ function getVisitCntDay(){
 function getAccountCntDay(){
     var cnt = document.getElementById('man_main_aside_visitCntToday');
     var startDate = yesterday;
-    //var endDate = `${year}-${month}-${day}`;
     var endDate = yesterday;
 
     axios.get(`/man/api/account/amount?start=${startDate}&end=${endDate}`)
@@ -67,7 +71,6 @@ function getRegistered(){
             if(response.data[0] === null || response.data[0] === undefined){
                 response.data[0]= {amount : 0};
             }
-            console.log(response.data[0]['amount']);
             cnt.innerHTML = numFormat(getSum(response.data));
         }).catch(error => {
             console.error(error);
@@ -77,7 +80,6 @@ function getRegistered(){
 function getSum(dataList){
     var sum = 0;
     dataList.forEach((item) => {
-        console.log(item['amount']);
         sum += item['amount'];
     });
     return sum;

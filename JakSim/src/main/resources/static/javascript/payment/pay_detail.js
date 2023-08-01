@@ -13,8 +13,6 @@ window.onload = function(){
     refundButton = document.getElementById('pay_detail_refundButton');
     refundButton.addEventListener('click', doRefund);
 
-    //pIdx = document.getElementById('pay_detail_idx').innerHTML;
-
     init();
 }
 
@@ -109,6 +107,5 @@ function rePay(){
        ptPeriod: document.getElementById('pay_detail_ptPeriod').innerHTML
     }
     var jsonData = JSON.stringify(data);
-    console.log(jsonData);
     sessionStorage.setItem('refundData', jsonData);
 }
