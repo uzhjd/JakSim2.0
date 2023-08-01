@@ -6,10 +6,10 @@
 <body>
 {{>layout/navi}}
 <div id="pay_detail_container">
-    <p id="pay_detail_head">구매 정보</p>
-    <table>
+    <p class="pay_detail_smallHeader">구매 정보</p>
+    <table id="pay_detail_payInfoTable">
         <thead>
-            <th>구매 상세내역</th>
+            <th style="width: 50%;">구매 상세내역</th>
             <th>가격</th>
             <th>PT횟수</th>
             <th>사용기한(일)</th>
@@ -26,8 +26,8 @@
         </tbody>
     </table>
 
-    <p>결제 정보</p>
-    <table>
+    <p class="pay_detail_smallHeader">결제 정보</p>
+    <table id="pay_detail_payTable">
         <tr>
             <td>거래 번호</td>
             <td><span id="pay_detail_tid">{{apiResponse.tid}}</span></td>
@@ -50,23 +50,38 @@
         </tr>
     </table>
 
-    <p>트레이너 정보</p>
-    <table>
-        <tr>
-            <span id="pay_detail_utIdx">{{trainer.ut_idx}}</span>
-            {{trainer.userName}}
-            {{trainer.gym}}
-            <span id="pay_detail_trainerExpert1">{{trainer.expert1}}</span>
-            <span id="pay_detail_trainerExpert2">{{trainer.expert2}}</span>
-            {{trainer.imagePath}}
-            {{trainer.gender}}
-        </tr>
-    </table>
+    <p class="pay_detail_smallHeader">트레이너 정보</p>
+    <div id="pay_detail_trainerInfoContainer">
+        <img src="{{trainer.imagePath}}" alt="Trainer" id="pay_detail_trainerImage" class="rounded">
+        <table id="pay_detail_trainerInfoTable">
+            <tr>
+                <td>트레이너 명</td>
+                <td><span id="pay_detail_utIdx" style="display:none;">{{trainer.ut_idx}}</span><span>{{trainer.userName}}</span></td>
+            </tr>
+            <tr>
+                <td>헬스장</td>
+                <td><span>{{trainer.gym}}</span></td>
+            </tr>
+            <tr>
+                <td rowspan="2">관심분야</td>
+                <td><span id="pay_detail_trainerExpert1">{{trainer.expert1}}</span></td>
+            </tr>
+            <tr>
+                <td style="display:none;"></td>
+                <td><span id="pay_detail_trainerExpert2">{{trainer.expert2}}</span></td>
+            </tr>
+            <tr>
+                <td>성별</td>
+                <td><span id="pay_detail_trainerGender">{{trainer.gender}}</span></td>
+            </tr>
+        </table>
+    </div>
 
-    <div>
-        <button id="pay_detail_repayButton">다시 구매</button>
-        <button id="pay_detail_reviewButton">리뷰 작성</button>
-        <button id="pay_detail_refundButton">환불 요청</button>
+
+    <div id="pay_detail_buttonContainer">
+        <button id="pay_detail_repayButton" class="jaksim_btn">다시 구매</button>
+        <button id="pay_detail_reviewButton" class="jaksim_btn">리뷰 작성</button>
+        <button id="pay_detail_refundButton" class="jaksim_btn">환불 요청</button>
     </div>
 </div>
 {{>layout/footer}}

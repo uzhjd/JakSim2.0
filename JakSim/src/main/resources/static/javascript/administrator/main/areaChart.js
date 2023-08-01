@@ -17,13 +17,13 @@ function switchAreaType(areaType){
 
     switch(areaType){
         case 'tweek':
-            start = `${year}-${month}-${day-13}`;
+            start = `${dateCalculator(14)}`;
             break;
         case 'amon':
-            start = `${year}-${month-1}-${day}`;
+            start = `${dateCalculator(30)}`;
             break;
         case 'tmon':
-            start = `${year}-${month-3}-${day}`;
+            start = `${dateCalculator(90)}`;
             break;
         default:
             console.log('뭘 고른거여?');

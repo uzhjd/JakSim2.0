@@ -11,18 +11,27 @@ function linearTypeSelect(){
     });
 }
 
+function dateCalculator(date){
+    var timeStamp = currentDate.getTime();
+    var oneDayMilSeconds = date * 24 * 60 * 60 * 1000;
+    var beforeDayTimestamp = timeStamp - oneDayMilSeconds;
+    var target = new Date(beforeDayTimestamp);
+
+    return `${target.getFullYear()}-${target.getMonth()+1}-${target.getDate()}`;
+}
+
 function switchLinearType(linearType){
     var start = '';
     var end = '';
     switch(linearType){
         case 'tweek':
-            start = `${year}-${month}-${day-13}`;
+            start = `${dateCalculator(14)}`;
             break;
         case 'amon':
-            start = `${year}-${month-1}-${day}`;
+            start = `${dateCalculator(30)}`;
             break;
         case 'tmon':
-            start = `${year}-${month-3}-${day}`;
+            start = `${dateCalculator(90)}`;
             break;
         default:
             console.log('뭘 고른거여?');
@@ -32,7 +41,7 @@ function switchLinearType(linearType){
 
 function isStartUndefined(item){
     if(item === undefined)
-        item = `${year}-${month}-${day-13}`;
+        item = `${dateCalculator(14)}`;
     return item;
 }
 
@@ -53,7 +62,7 @@ function getAccessDataForLinear(start, end){
 }
 
 function avgData(list){
-    return (list.reduce((acc, cur) => acc + cur, 0))/list.length;
+    return ((list.reduce((acc, cur) => acc + cur, 0))/list.length).toFixed(2);
 }
 
 function makeLinearChart(chartData){
@@ -68,7 +77,7 @@ function makeLinearChart(chartData){
     var avg = avgData(dataList);
     var avgList = Array(dataList.length).fill(avg);
 
-    document.getElementById('man_section_linearHead').innerHTML = `${labelList[0]} ~ ${labelList[labelList.length-1]}`;
+    document.getElementById('man_section_linearHead').innerHTML = `${labelList[0]} ~ ${labelList[labelList.length-1]} 일평균 로그인: ${avg}`;
 
     newLinearChart = new Chart(linearChart, {
         type: 'line',

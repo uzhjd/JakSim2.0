@@ -157,14 +157,13 @@ function showChart(chartData, label, option){
     if(chart){chart.destroy();}
 
     var data = chartData.map(data => data[option]);
-
-    data.forEach((item) => {
-        if(item === 0){
-            item.splice(i, 1);
+    for(var i=0; i<data.length; i++){
+        if(data[i] === 0){
+            data.splice(i, 1);
             label.splice(i, 1);
             i--;
         }
-    });
+    }
 
     var canvas = document.getElementById('inbodyChart').getContext('2d');
     if(option === 'weight'){

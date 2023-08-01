@@ -24,6 +24,19 @@ function init(){
 
     payment_type();
     trainerExpert();
+    genderType();
+}
+
+function genderType(){
+    var gender = document.getElementById('pay_detail_trainerGender');
+    switch(gender.innerHTML){
+        case '0':
+            gender.innerHTML = '남';
+            break;
+        case '1':
+            gender.innerHTML = '여';
+            break;
+    }
 }
 
 function trainerExpert(){
