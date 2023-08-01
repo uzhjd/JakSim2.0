@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TrainerDto {
-
     private int trainerId;
     private String userId;
     private String insta;
@@ -16,5 +15,4 @@ public class TrainerDto {
     private String gym;
     private int expert1;
     private int expert2;
-
 }

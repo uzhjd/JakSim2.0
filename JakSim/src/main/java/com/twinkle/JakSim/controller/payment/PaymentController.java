@@ -1,9 +1,11 @@
 package com.twinkle.JakSim.controller.payment;
 
 import com.twinkle.JakSim.model.dto.payment.response.PaymentDo;
+import com.twinkle.JakSim.model.dto.trainer.ProductDto;
 import com.twinkle.JakSim.model.service.payment.PaymentService;
 import com.twinkle.JakSim.model.dto.payment.response.ApproveResponse;
 import com.twinkle.JakSim.model.service.payment.KakaoPayService;
+import com.twinkle.JakSim.model.service.trainer.TrainerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
@@ -26,7 +28,7 @@ public class PaymentController {
 
     private final KakaoPayService kakaoPayService;
     private final PaymentService paymentService;
-
+    private final TrainerService trainerService;
 
 
     private final String defaultPage = "/content/payment/";
@@ -76,7 +78,9 @@ public class PaymentController {
         paymentService.getPaymentByTid(tid).ifPresent(
                 item -> {
                     model.addAttribute("payment", item);
-                    model.addAttribute("product", paymentService.getProductByIdx(item.getTp_idx()));
+                    ProductDto product = paymentService.getProductByIdx(item.getTp_idx());
+                    model.addAttribute("product", product);
+                    model.addAttribute("trainer", trainerService.searchByUsername(product.getUserId()));
                 }
         );
         model.addAttribute("apiResponse", kakaoPayService.kakaoList(tid));

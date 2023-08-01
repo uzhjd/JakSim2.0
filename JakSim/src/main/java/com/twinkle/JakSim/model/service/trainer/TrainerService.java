@@ -257,6 +257,10 @@ public class TrainerService {
         return trainerDetailResponse;
     }
 
+    public TrainerDetailResponse searchByUsername(String userId) {
+        return trainerDao.searchByUsername(userId);
+    }
+
 //    public ProductDto getProductByTrainerIdx(int idx){
 //        return trainerDao.getProductByTrainerIdx(idx);
 //    }

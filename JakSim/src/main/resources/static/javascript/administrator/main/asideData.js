@@ -24,6 +24,9 @@ function getVisitCntDay(){
 
     axios.get(`/man/api/visit/date?start=${startDate}&end=${endDate}`)
         .then(response => {
+            var result = response.data[0]['amount'];
+            if(result === 'undefined')
+                result = 0;
             cnt.innerHTML = numFormat(response.data[0]['amount']);
         }).catch(error => {
             console.error(error);

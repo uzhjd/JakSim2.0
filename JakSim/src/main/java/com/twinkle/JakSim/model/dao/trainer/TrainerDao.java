@@ -10,8 +10,11 @@ import com.twinkle.JakSim.model.dto.trainer.response.TrainerDetailResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 @Repository
@@ -299,6 +302,25 @@ public class TrainerDao {
                    "JOIN PRODUCT PD ON P.TP_IDX = PD.TP_IDX WHERE PD.USER_ID = ?";
 
         return jdbcTemplate.query(this.sql, new PtUserRowMapper(), userId);
+    }
+
+    public TrainerDetailResponse searchByUsername(String userId) {
+        this.sql = "SELECT T.UT_IDX T.USER_ID, U.USER_NAME, U.USER_GENDER, T.UT_INSTA, T.UT_GYM, T.UT_EXPERT_1, T.UT_EXPERT_2, I.TI_PATH " +
+                "FROM TRAINER_DETAILS T, USER_INFO U, TRAINER_IMAGE I " +
+                "WHERE T.USER_ID = ? " +
+                "AND T.USER_ID = U.USER_ID AND T.USER_ID = I.USER_ID ";
+        TrainerDetailResponse trainer = new TrainerDetailResponse();
+        try{
+            trainer = jdbcTemplate.queryForObject(sql, new RowMapper<TrainerDetailResponse>() {
+                @Override
+                public TrainerDetailResponse mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    return null;
+                }
+            }, userId);
+        }catch (EmptyResultDataAccessException e){
+            System.out.println(e.getMessage());
+        }
+        return trainer;
     }
 
 //    public ProductDto getProductByTrainerIdx(int idx) {

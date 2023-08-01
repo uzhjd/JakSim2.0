@@ -64,7 +64,7 @@ public class SecurityConfig {
                 s -> s.sessionCreationPolicy(SessionCreationPolicy.ALWAYS) //STATELESS -> JWT 와 같은 클라이언트 토큰, ALWAYS -> 우리같은 세션 방식에서 사용
                         .sessionFixation(SessionManagementConfigurer.SessionFixationConfigurer::changeSessionId) //로그인 될 때마다 새로운 SessionID 생성
                         .maximumSessions(1) //최대 몇 개의 계정을 접속시킬 것인지 -> 1 잘 됨
-                        .maxSessionsPreventsLogin(false) //false -> 초과된 사용자에게 로그인 허용하지 않음, true -> 초과된 사용자 로그인 허용 -> 이전 사용자 세션을 만료시킴
+                        .maxSessionsPreventsLogin(true) //false -> 초과된 사용자에게 로그인 허용하지 않음, true -> 초과된 사용자 로그인 허용 -> 이전 사용자 세션을 만료시킴
                         .expiredUrl("/")//세션 만료 시 보낼 페이지
         );
         return http.build();

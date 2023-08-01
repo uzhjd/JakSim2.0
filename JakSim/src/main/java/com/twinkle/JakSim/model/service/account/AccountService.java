@@ -72,7 +72,6 @@ public class AccountService {
 
     public String validateEmail(String email) {
         createKey();
-
         try{
             sendEmail(email);
         }catch (Exception e) {

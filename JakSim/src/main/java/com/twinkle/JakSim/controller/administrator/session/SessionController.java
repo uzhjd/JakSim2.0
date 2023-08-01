@@ -4,6 +4,8 @@ import com.twinkle.JakSim.model.dto.administrator.session.SessionInfo;
 import com.twinkle.JakSim.model.dto.administrator.session.UserSession;
 import com.twinkle.JakSim.model.service.account.AccountService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.userdetails.User;
@@ -40,9 +42,14 @@ public class SessionController {
                         .build()).sorted(new Comparator<UserSession>() {
                     @Override
                     public int compare(UserSession o1, UserSession o2) {
-                        return o2.getSessions().get(0).getLastRequest().compareTo(o1.getSessions().get(0).getLastRequest());
+                        int result = 0;
+                        if(o1 != null && !o2.getSessions().isEmpty())
+                            result = o2.getSessions().get(0).getLastRequest().compareTo(o1.getSessions().get(0).getLastRequest());
+                        return result;
                     }
                 }).collect(Collectors.toList());
+
+        System.out.println(userSessions.toString());
 
         model.addAttribute("sessionList", userSessions);
         model.addAttribute("amount_user", userSessions.size());
@@ -70,11 +77,13 @@ public class SessionController {
     @PostMapping("/session/expire")
     public String expireSession(@RequestBody Map<String, String> sessionId) {
         SessionInformation session = registry.getSessionInformation(sessionId.get("sessionId"));
-        if (!session.isExpired()) {
+        if(!session.isExpired()){
             session.expireNow();
+            registry.removeSessionInformation(sessionId.get("sessionId"));
         }
-        return "redirect:/session-list";
+        return "redirect:/session/list";
     }
+
 
     @GetMapping("/session/expired")
     public String sessionExpired() {

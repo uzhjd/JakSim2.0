@@ -4,20 +4,31 @@ var pIdx;
 window.onload = function(){
     refundStatus();
 
-    rePayButton = document.getElementById('pay_detail_repaybutton');
+    rePayButton = document.getElementById('pay_detail_repayButton');
     rePayButton.addEventListener('click', rePay);
 
-    reviewButton = document.getElementById('pay_detail_reviewbutton');
+    reviewButton = document.getElementById('pay_detail_reviewButton');
     reviewButton.addEventListener('click', goReview);
 
-    refundButton = document.getElementById('pay_detail_refundbutton');
+    refundButton = document.getElementById('pay_detail_refundButton');
     refundButton.addEventListener('click', doRefund);
 
-    pIdx = document.getElementById('pay_detail_idx').innerHTML;
+    //pIdx = document.getElementById('pay_detail_idx').innerHTML;
+
+    init();
+}
+
+function init(){
+    price1 = document.getElementById('pay_detail_price1');
+    price1.innerHTML = numFormat(price1.innerHTML);
+    price2 = document.getElementById('pay_detail_price2');
+    price2.innerHTML = numFormat(price2.innerHTML);
+
+    payment_type();
 }
 
 function refundStatus(){
-    var status = document.getElementById('pay_detail_refundstatus');
+    var status = document.getElementById('pay_detail_refundStatus');
     switch(status.innerHTML){
         case '0':
             status.innerHTML = '구매완료';
@@ -25,31 +36,31 @@ function refundStatus(){
         case '1':
             status.innerHTML = '환불완료';
             break;
+        case 'CANCEL_PAYMENT':
+            status.innerHTML = '구매취소';
+            break;
+    }
+}
+
+function payment_type(){
+    var method = document.getElementById('pay_detail_paymentMethod');
+    switch(method.innerHTML){
+        case 'MONEY':
+            method.innerHTML = '현금 결제';
+            break;
+        case 'CARD':
+            method.innerHTML = '카드 결제';
+            break;
     }
 }
 
 function doRefund(){
     var data = {
        tid: document.getElementById('pay_detail_tid').innerHTML,
-       price: document.getElementById('pay_detail_price').innerHTML
+       price: document.getElementById('pay_detail_price1').innerHTML.replaceAll(',','')
     }
     var jsonData = JSON.stringify(data);
     sessionStorage.setItem('data', jsonData);
-
-    /*
-    해당코드 사용시,
-    var jsonData = sessionStorage.getItem('data');
-    var data = JSON.parse(jsonData);
-    console.log(data.tid);
-    console.log(data.price);
-    이런식으로 사용하면 됩니다.
-    */
-
-    /*
-    session 사용 완료 시,
-    sessionStorage.removeItem('data');
-    작성해주세요
-    */
 }
 
 function goReview(){

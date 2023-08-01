@@ -8,7 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TrainerDetailResponse {
-
     private String userId;
 
     private String userName;

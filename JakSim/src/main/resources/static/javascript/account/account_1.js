@@ -11,7 +11,7 @@ window.onload = function(){
     pwMessage = document.getElementById('account_pw_message');
 
     userId = document.getElementById('account_userid');
-    userId.addEventListener('input', idCheck);
+    userId.addEventListener('focusout', idCheck);
 
     pwProcess();
 };

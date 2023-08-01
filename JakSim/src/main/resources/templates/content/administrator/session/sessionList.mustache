@@ -24,11 +24,11 @@
                 <td><a href="/man/info/{{username}}">{{username}}</a></td>
                 <td>{{role}}</td>
                 {{#sessions}}
-                    <td id="session_id">{{sessionId}}</td>
+                    <td>{{sessionId}}</td>
                     <td>{{lastRequest}}</td>
                     <td>{{expired}}</td>
                     <td>
-                        <button onclick="removeExpire()">세선 제거</button>
+                        <button class="remove_expire_button">세선 제거</button>
                     </td>
                 {{/sessions}}
             </tr>
