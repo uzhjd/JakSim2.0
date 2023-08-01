@@ -223,8 +223,8 @@ public class TrainerService {
     @Transactional
     public void registerTimetable(TimetableInsertDto timetable, String userId) {
         TimetableResponse timetableDto = new TimetableResponse(timetable.getTIdx(), userId, LocalDate.parse(timetable.getTDate()),
-                LocalTime.parse(timetable.getTStartT()), LocalTime.parse(timetable.getTEndT()),
-                timetable.getTPeople(), timetable.getTType());
+                timetable.getTType(), LocalTime.parse(timetable.getTStartT()), LocalTime.parse(timetable.getTEndT()),
+                timetable.getTPeople());
 
         trainerDao.registerTimetable(timetableDto);
 
@@ -258,4 +258,7 @@ public class TrainerService {
         return trainerDetailResponse;
     }
 
+    public ProductDto getProductByTrainerIdx(int idx){
+        return trainerDao.getProductByTrainerIdx(idx);
+    }
 }

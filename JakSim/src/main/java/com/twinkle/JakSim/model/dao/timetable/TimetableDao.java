@@ -1,5 +1,6 @@
 package com.twinkle.JakSim.model.dao.timetable;
 
+import com.twinkle.JakSim.model.dto.timetable.response.TIdxDo;
 import com.twinkle.JakSim.model.dto.timetable.response.TimetableResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -34,6 +35,36 @@ public class TimetableDao {
         }
 
         return result;
+    }
+
+    public TIdxDo findTIdx(int rIdx) {
+        this.sql = "select * from reservation where r_idx = ?";
+
+       return jdbcTemplate.queryForObject(sql, new TIdxRowMapper(), rIdx);
+    }
+
+    public void increaseTPeople(int rIdx) {
+        try {
+            this.sql = "update timetable set t_people = t_people + 1 where t_idx = ?";
+
+            jdbcTemplate.update(this.sql, findTIdx(rIdx).getTIdx());
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println(e);
+        }
+    }
+    public void decreaseTPeople(int tIdx, int type) {
+        try {
+            this.sql = "update timetable set t_people = t_people - 1 where t_idx = ?";
+
+            if(type == 0) {
+                jdbcTemplate.update(this.sql, tIdx);
+            } else {
+                jdbcTemplate.update(this.sql, findTIdx(tIdx).getTIdx());
+            }
+
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println(e);
+        }
     }
 
     public Optional<TimetableResponse> findMyTimetableRecent(String username) {

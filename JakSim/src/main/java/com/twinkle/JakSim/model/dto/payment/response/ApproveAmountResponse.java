@@ -3,6 +3,9 @@ package com.twinkle.JakSim.model.dto.payment.response;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import javax.validation.constraints.Pattern;
+
 /**
  * 결제 금액 정보
  */
@@ -10,6 +13,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class ApproveAmountResponse {
+
         private int total; // 총 결제 금액
         private int tax_free; // 비과세 금액
         private int tax; // 부가세 금액

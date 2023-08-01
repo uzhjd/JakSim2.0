@@ -104,7 +104,7 @@
             <span style="width: 45px;">{{ptTimes}}회</span>
             <span style="width: 100px;" class="money">{{ptPrice}}원</span>
 
-            
+
             <div class="trainer_pay" style="margin-right: 5px;">
                 <button class="payButton" data-ptId="{{ptId}}"
                 onclick="kakaoPay('{{ptTitle}}', '{{ptTimes}}', '{{ptPrice}}', '{{ptPeriod}}', '{{ptId}}')"
@@ -120,7 +120,7 @@
         <span class="jaksim_font" style="font-weight: bold; font-size: 16px;">PT 리뷰</span>
         <br/>
             <div class="review-filters" style="margin-top: 10px; width: 450px;">
-                <i class="fa-solid fa-star fa-xl" style="color: #f3eb12; margin-bottom:10px;"></i> 
+                <i class="fa-solid fa-star fa-xl" style="color: #f3eb12; margin-bottom:10px;"></i>
                 <span style="font-size:19px; font-weight: bold; margin-top: 20px;">
                 {{#stars}}{{avgRstar}}{{/stars}} </span>
                 <span style="font-size:15px; margin-top: 20px;">
@@ -170,7 +170,7 @@
     var deleteReviewForm = document.querySelectorAll('.delete_review_td');
     var reviewIdx = document.querySelectorAll('.reviewIdx');
 
-    if (currentUser) {        
+    if (currentUser) {
         for (var i = 0; i < reviewElements.length; i++) {
             var reviewId = reviewElements[i].textContent;
 

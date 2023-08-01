@@ -1,8 +1,10 @@
 package com.twinkle.JakSim.model.service.payment;
 
 import com.twinkle.JakSim.model.dto.payment.request.PaymentRequest;
+import com.twinkle.JakSim.model.dto.payment.request.RefundRequest;
 import com.twinkle.JakSim.model.dto.payment.response.ApproveResponse;
 import com.twinkle.JakSim.model.dto.payment.response.CancelResponse;
+import com.twinkle.JakSim.model.dto.payment.response.ListResponse;
 import com.twinkle.JakSim.model.dto.payment.response.ReadyResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
@@ -25,7 +27,7 @@ import java.io.IOException;
 public class KakaoPayService {
 
     static final String cid = "TC0ONETIME"; // 가맹점 테스트 코드
-    static final String admin_Key = "d6511f358af981143ff7d9a980df6e9a";
+    static final String admin_Key = "04b96e410ef97e9ba8dfe96ea57746bf";
     private ReadyResponse kakaoReady;
 
     // 카카오 요구 헤더값
@@ -75,8 +77,7 @@ public class KakaoPayService {
                                                                                 requestEntity, ReadyResponse.class);
         kakaoReady.setPtTimes(paymentRequest.getPtTimes());
         kakaoReady.setPtPeriod(paymentRequest.getPtPeriod());
-        System.out.println(kakaoReady);
-        System.out.println("kakaoReady");
+
         return kakaoReady;
     }
 
@@ -105,17 +106,14 @@ public class KakaoPayService {
         return approveResponse;
     }
 
-    /**
-     * 결제 환불
-     */
-    public CancelResponse kakaoCancel() {
+    // 결제 환불
+    public CancelResponse kakaoCancel(RefundRequest refundRequest) {
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
 
         parameters.add("cid", cid);
-        parameters.add("tid", "환불할 결제 고유 번호");
-        parameters.add("cancel_amount", "환불 금액");
-        parameters.add("cancel_tax_free_amount", "환불 비과세 금액");
-        parameters.add("cancel_vat_amount", "환불 부가세");
+        parameters.add("tid", refundRequest.getTid());
+        parameters.add("cancel_amount", String.valueOf(refundRequest.getCancel_amount()));
+        parameters.add("cancel_tax_free_amount", "0");
 
         // 파라미터, 헤더
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
@@ -129,5 +127,21 @@ public class KakaoPayService {
         return cancelResponse;
     }
 
+    public ListResponse kakaoList(String tid) {
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();         // 카카오페이 요청 양식
 
+        parameters.add("cid", cid);                                                     // 가맹점 코드
+        parameters.add("tid", String.valueOf(tid));
+
+        // 파라미터, 헤더
+        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
+
+        // 외부에 보낼 url
+        RestTemplate restTemplate = new RestTemplate();
+
+        ListResponse listResponse = restTemplate.postForObject("https://kapi.kakao.com/v1/payment/order",
+                requestEntity, ListResponse.class);
+
+        return listResponse;
+    }
 }

@@ -13,7 +13,7 @@ window.onload = function(){
     refundButton = document.getElementById('pay_detail_refundbutton');
     refundButton.addEventListener('click', doRefund);
 
-    pIdx = document.getElementById('pay_detail_idx').innerHTML;
+    selectedPIdx = document.getElementById('pay_detail_idx').innerHTML;
 }
 
 function refundStatus(){
@@ -28,7 +28,30 @@ function refundStatus(){
     }
 }
 
-function doRefund(){
+function doRefund() {
+    console.log("refund");
+
+    var data = {
+        tid: document.getElementById('pay_detail_tid').innerHTML,
+        cancel_amount: document.getElementById('pay_detail_price').innerHTML
+    }
+
+    axios.post('/payment/refund', data)
+        .then((response) => {
+            var httpStatus = response.status;
+            console.log(response.data);
+
+            if(httpStatus == 500) {
+                alert("500: Payment with Kakao Pay failed.");
+            } else {
+                console.log("refundSuccess");
+                window.location.href=`http://localhost:8080/payment/refundSuccess/${response.data.tid}`;
+
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
 
 }
 
@@ -38,5 +61,32 @@ function goReview(){
 }
 
 function rePay(){
+    var typeAndPeriodSpan = document.getElementById('pay_detail_type_period').innerHTML;
+    var divideData = typeAndPeriodSpan.split('/');
 
+    var data = {
+        ptTitle: document.getElementById('pay_detail_ptTitle').innerHTML,
+        tpIdx: document.getElementById('pay_detail_tpIdx').innerHTML,
+        ptPrice: document.getElementById('pay_detail_price').innerHTML,
+        ptTimes: divideData[0].trim(),
+        ptPeriod: divideData[1].trim().replace('일','')
+    };
+
+    axios.post('/payment/ready', data)
+        .then((response) => {
+            var httpStatus = response.status;
+
+            console.log(response);
+
+            if(httpStatus == 500) {
+                alert("500: Payment with Kakao Pay failed.");
+            } else {
+                var box = response.data.next_redirect_pc_url;
+
+                window.open(box, "", "width=500, height=800");
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
 }

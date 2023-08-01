@@ -1,6 +1,8 @@
 package com.twinkle.JakSim.controller.payment;
 
 import com.twinkle.JakSim.model.dto.payment.PaymentDtoForMypage;
+import com.twinkle.JakSim.model.dto.payment.response.CancelResponse;
+import com.twinkle.JakSim.model.dto.payment.response.ListResponse;
 import com.twinkle.JakSim.model.dto.payment.response.PaymentDo;
 import com.twinkle.JakSim.model.service.payment.PaymentService;
 import com.twinkle.JakSim.model.service.trainer.TrainerService;
@@ -19,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.lang.reflect.Array;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/payment")
@@ -28,19 +32,12 @@ public class PaymentController {
 
     private final KakaoPayService kakaoPayService;
     private final PaymentService paymentService;
-
     private final String defaultPage = "/content/payment/";
-
-    // 결제 진행 중 취소
-    @GetMapping()
-    public String scheduler() {
-        return "content/payment/KakaoPay";
-    }
 
     // 결제 진행 중 취소
     @GetMapping("/cancel")
     public String cancel() {
-        return "content/payment/kakaoPay/Cancle";
+        return defaultPage + "kakaoPay/Cancle";
     }
 
     // 결제 승인 (성공)
@@ -51,17 +48,29 @@ public class PaymentController {
         if(kakaoApprove != null) {
             if(paymentService.savePaymentDetails(user.getUsername(), kakaoApprove)) {
                 kakaoApprove.setApproved_at(kakaoApprove.getApproved_at().replace("T", " "));
+
+
                 model.addAttribute("kakaoApprove", kakaoApprove);
 
-                return "content/payment/kakaoPay/Success";
+                return defaultPage + "kakaoPay/Success";
             }
         }
 
         // 일단은 에러처리 안함.
-        return "content/payment/kakaoPay/Success";
+        return defaultPage + "kakaoPay/Success";
     }
-    
-    ////////////////////////////////
+
+    @GetMapping("/refundSuccess/{tid}")
+    public String approveRefund(@PathVariable("tid") String tid, Model model) {
+       paymentService.refund(tid).ifPresent(
+                item-> {
+                    model.addAttribute("refund", item);
+                }
+        );
+
+        return defaultPage + "kakaoPay/Refund";
+    }
+
     @GetMapping("/list")
     public String payListPage(@AuthenticationPrincipal User user, Model model){
         model.addAttribute("head_title", "결제 확인 목록");
@@ -72,15 +81,18 @@ public class PaymentController {
         return String.format(defaultPage + "pay_list");
     }
 
-    @GetMapping("/detail/{idx}")
-    public String payDetailPage(@AuthenticationPrincipal User user, @PathVariable("idx") int p_idx, Model model){
+    @GetMapping("/detail/{tid}")
+    public String payDetailPage(@AuthenticationPrincipal User user, @PathVariable("tid") String tid, Model model) {
         model.addAttribute("head_title", "결제 내역 상세");
-        paymentService.getPaymentByIdx(p_idx).ifPresent(
+
+        paymentService.getPaymentByIdx(tid).ifPresent(
                 item -> {
+                    model.addAttribute("apiResponse", kakaoPayService.kakaoList(tid));
                     model.addAttribute("payment", item);
                     model.addAttribute("product", paymentService.getProductByIdx(item.getTp_idx()));
                 }
         );
+
         return String.format(defaultPage + "pay_detail");
     }
 

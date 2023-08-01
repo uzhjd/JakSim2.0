@@ -1,6 +1,7 @@
 package com.twinkle.JakSim.model.dao.payment;
 
 import com.twinkle.JakSim.model.dto.payment.response.ApproveResponse;
+import com.twinkle.JakSim.model.dto.payment.response.PtCntDo;
 import com.twinkle.JakSim.model.dto.payment.response.PtTicketResponse;
 import com.twinkle.JakSim.model.dto.product.response.ValidPtResponse;
 
@@ -50,11 +51,12 @@ public class PaymentDao {
     public Boolean savePaymentDetails(String userId, ApproveResponse paymentDetails) {
         Boolean result = true;
 
-        this.sql = "insert into payment (user_id, tp_idx, p_c_dt, p_refund, p_pt_cnt, p_pt_period) " +
-                "values (?, ?, ?, 0, ?, ?)";
+        this.sql = "insert into payment (user_id, tp_idx, tid, p_a_dt, p_status, p_pt_cnt, p_pt_period) " +
+                "values (?, ?, ?, ?, 0, ?, ?)";
 
         try {
-            jdbcTemplate.update(this.sql, userId, paymentDetails.getItem_code(), paymentDetails.getCreated_at(), paymentDetails.getPtTimes(), paymentDetails.getPtPeriod());
+            jdbcTemplate.update(this.sql, userId, paymentDetails.getItem_code(), paymentDetails.getTid(),
+                            paymentDetails.getCreated_at(), paymentDetails.getPtTimes(), paymentDetails.getPtPeriod());
         } catch (EmptyResultDataAccessException e) {
             result = false;
             System.out.println(e);
@@ -63,29 +65,60 @@ public class PaymentDao {
         return result;
     }
 
-    public void decreasePt(int ptCnt, int pIdx) {
-        this.sql = "update payment set p_pt_cnt = ? where p_idx = ? limit 1";
+    public Optional<PaymentDo> refund(String tid, String today) {
+        PaymentDo paymentDo = new PaymentDo();
+
+        String refundSql = "update payment set p_status = ?, p_m_dt = ? where tid = ?";
+        String selectSql = "select * from payment where tid = ?";
+        System.out.println(today);
+        try {
+            jdbcTemplate.update(refundSql, 1, today, tid);
+
+            paymentDo = jdbcTemplate.queryForObject(selectSql, new PaymentDoRowMapper(), tid);
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println(e);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return Optional.of(paymentDo);
+    }
+
+    public PtCntDo decreasePt(int ptCnt, int pIdx) {
+        PtCntDo ptCntDo = new PtCntDo();
+        this.sql = "update payment set p_pt_cnt = p_pt_cnt - 1 where p_idx = ?";
 
         try {
-            jdbcTemplate.update(this.sql, ptCnt-1, pIdx);
+            jdbcTemplate.update(this.sql, pIdx);
+
+            ptCntDo = findPtCnt(pIdx);
         } catch (EmptyResultDataAccessException e) {
             System.out.println(e);
         }
 
-        return;
+        return ptCntDo;
     }
 
-    public void increaseCnt(int pIdx) {
-        this.sql = "update payment set P_PT_CNT = P_PT_CNT + 1 where p_idx = ?";
+    public PtCntDo increaseCnt(int pIdx) {
+        PtCntDo ptCntDo = new PtCntDo();
+        this.sql = "update payment set p_pt_cnt = p_pt_cnt + 1 where p_idx = ?";
 
         try {
             jdbcTemplate.update(this.sql, pIdx);
+
+            ptCntDo= findPtCnt(pIdx);
         }
         catch (Exception e) {
             System.out.println(e);
         }
 
-        return;
+        return ptCntDo;
+    }
+
+    public PtCntDo findPtCnt(int pIdx) {
+        this.sql = "select p_pt_cnt from payment where p_idx = ?";
+
+        return jdbcTemplate.queryForObject(this.sql, new ptCntDoRosMapper(), pIdx);
     }
 
     public List<ValidPtResponse> findAllValidPt(String userId, LocalDate today) {
@@ -94,7 +127,7 @@ public class PaymentDao {
         this.sql = "select pro.user_id, pro.tp_type, u.user_name, pay.p_idx, pay.p_pt_cnt " +
                 "from payment as pay inner join product as pro on pay.tp_idx = pro.tp_idx " +
                 "inner join user_info as u on pro.user_id = u.user_id " +
-                "where pay.user_id = ? and p_refund = '0' and p_pt_cnt > '0' and p_pt_period >= (? - p_c_dt)";
+                "where pay.user_id = ? and p_status = '0' and p_pt_cnt > '0' and p_pt_period >= datediff(?, p_a_dt)";
 
         list = jdbcTemplate.query(this.sql, new ValidPtRowMapper(), userId, today);
 
@@ -102,9 +135,10 @@ public class PaymentDao {
     }
 
     public Optional<List<PaymentDtoForMypage>> findRecentByUsernameBy3(String username) {
-        String sql = "SELECT P.P_IDX, P.P_C_DT, P.P_PT_PERIOD, P.P_PT_CNT, T.TP_TITLE, T.TP_TYPE, T.TP_TIMES, T.TP_PRICE " +
+        String sql = "SELECT P.P_IDX, P.TID, P.P_A_DT, P.P_PT_PERIOD, P.P_PT_CNT, T.TP_TITLE, T.TP_TYPE, T.TP_TIMES, T.TP_PRICE " +
                 "FROM PAYMENT P, PRODUCT T " +
                 "WHERE P.USER_ID = ? " +
+                "AND T.TP_IDX = P.TP_IDX " +
                 "ORDER BY P_IDX DESC " +
                 "LIMIT 3";
         List<PaymentDtoForMypage> paymentList = new ArrayList<>();
@@ -144,13 +178,14 @@ public class PaymentDao {
         return payList;
     }
 
-    public Optional<PaymentDo> getPaymentByIdx(int pIdx) {
-        String sql = "SELECT * FROM PAYMENT WHERE P_IDX = ?";
+    public Optional<PaymentDo> getPaymentByIdx(String tid) {
+        String sql = "SELECT * FROM PAYMENT WHERE TID = ?";
         PaymentDo paymentDo = null;
 
         try{
-            paymentDo = jdbcTemplate.queryForObject(sql, new PaymentDoRowMapper(), pIdx);
+            paymentDo = jdbcTemplate.queryForObject(sql, new PaymentDoRowMapper(), tid);
         }catch (Exception e){
+            System.out.println(tid);
             System.out.println(e.getMessage());
         }
 

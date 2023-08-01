@@ -477,6 +477,18 @@ public class TrainerDao {
             return jdbcTemplate.queryForObject(sql, Integer.class, userId, ptUserName);
         }
 
+    public ProductDto getProductByTrainerIdx(int idx) {
+        String sql = "SELECT * FROM PRODUCT WHERE TP_IDX = ?";
+        ProductDto productDto = new ProductDto();
+
+        try{
+            productDto = jdbcTemplate.queryForObject(sql, new ProductRowMapper(), idx);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        return productDto;
+    }
     }
 
 

@@ -17,12 +17,11 @@ public class TimetableResponse {
 
     private LocalDate tDate;
 
+    private int tType;
+
     private LocalTime tStartT;
 
     private LocalTime tEndT;
 
-
     private int tPeople;
-
-    private int tType;
 }

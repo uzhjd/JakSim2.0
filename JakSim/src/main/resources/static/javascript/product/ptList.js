@@ -1,3 +1,4 @@
+var pIdx = -1;
 function setPtList() {
     var ptList = document.getElementById('trainer_list');
 
@@ -13,9 +14,10 @@ function setPtList() {
 
                 ptList.appendChild(option);
             }
+            selectedPIdx = ptData[0]['pidx'];
 
-            changePtList(ptData[0], 0, ptData[0]['pidx']);
-            ptList.addEventListener("change", () => changePtList(ptList.options[ptList.selectedIndex], 1, ptData[0]['pidx']));
+            changePtList(ptData[0], 0, pIdx);
+            ptList.addEventListener("change", () => changePtList(ptList.options[ptList.selectedIndex], 1, pIdx));
         })
         .catch(error => {
             console.error(error);
@@ -23,8 +25,8 @@ function setPtList() {
 }
 
 // pt권을 변경하는 코드
-function changePtList(selectedPt, type, pIdx) {
-    var ptCnt, trainerId, tType;
+function changePtList(selectedPt, type) {
+    // var ptCnt, trainerId, tType;
 
     if(type === 0) {
         ptCnt = selectedPt['pptCnt'];
@@ -39,7 +41,7 @@ function changePtList(selectedPt, type, pIdx) {
     setPtType(tType);
     setPtCnt(ptCnt);
     setTrainerBrief(trainerId);
-    setSchdule(trainerId, tType, pIdx, ptCnt);
+    setSchdule(new Date(nowMonth.getFullYear(), nowMonth.getMonth() + 1, nowMonth.getDate()));
 }
 
 
