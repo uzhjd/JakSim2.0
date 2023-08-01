@@ -1,7 +1,11 @@
 package com.twinkle.JakSim.model.service.payment;
 
 import com.twinkle.JakSim.model.dto.payment.request.PaymentRequest;
-import com.twinkle.JakSim.model.dto.payment.response.*;
+import com.twinkle.JakSim.model.dto.payment.request.RefundRequest;
+import com.twinkle.JakSim.model.dto.payment.response.ApproveResponse;
+import com.twinkle.JakSim.model.dto.payment.response.CancelResponse;
+import com.twinkle.JakSim.model.dto.payment.response.ListResponse;
+import com.twinkle.JakSim.model.dto.payment.response.ReadyResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -16,7 +20,6 @@ import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -24,7 +27,7 @@ import java.time.LocalDateTime;
 public class KakaoPayService {
 
     static final String cid = "TC0ONETIME"; // 가맹점 테스트 코드
-    static final String admin_Key = "${ADMIN_KEY}";
+    static final String admin_Key = "04b96e410ef97e9ba8dfe96ea57746bf";
     private ReadyResponse kakaoReady;
 
     // 카카오 요구 헤더값
@@ -74,8 +77,7 @@ public class KakaoPayService {
                                                                                 requestEntity, ReadyResponse.class);
         kakaoReady.setPtTimes(paymentRequest.getPtTimes());
         kakaoReady.setPtPeriod(paymentRequest.getPtPeriod());
-        System.out.println(kakaoReady);
-        System.out.println("kakaoReady");
+
         return kakaoReady;
     }
 
@@ -104,17 +106,14 @@ public class KakaoPayService {
         return approveResponse;
     }
 
-    /**
-     * 결제 환불
-     */
-    public CancelResponse kakaoCancel() {
+    // 결제 환불
+    public CancelResponse kakaoCancel(RefundRequest refundRequest) {
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
 
         parameters.add("cid", cid);
-        parameters.add("tid", "환불할 결제 고유 번호");
-        parameters.add("cancel_amount", "환불 금액");
-        parameters.add("cancel_tax_free_amount", "환불 비과세 금액");
-        parameters.add("cancel_vat_amount", "환불 부가세");
+        parameters.add("tid", refundRequest.getTid());
+        parameters.add("cancel_amount", String.valueOf(refundRequest.getCancel_amount()));
+        parameters.add("cancel_tax_free_amount", "0");
 
         // 파라미터, 헤더
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
@@ -123,7 +122,7 @@ public class KakaoPayService {
         RestTemplate restTemplate = new RestTemplate();
 
         CancelResponse cancelResponse = restTemplate.postForObject("https://kapi.kakao.com/v1/payment/cancel",
-                requestEntity, CancelResponse.class);
+                                                                                requestEntity, CancelResponse.class);
 
         return cancelResponse;
     }
@@ -140,66 +139,9 @@ public class KakaoPayService {
         // 외부에 보낼 url
         RestTemplate restTemplate = new RestTemplate();
 
-        //return restTemplate.postForObject("https://kapi.kakao.com/v1/payment/order",requestEntity, ListResponse.class);
-
-        //TEST!!!!!!!!!!!!!
-        //update 시 충돌 발생시에 반드시 제거하세요!
-        return makeTestListResponse();
-    }
-
-    /**
-     * 반드시 제거해주세요
-     * @return 반환되는 데이터는 테스트를 위해 제작된 것입니다.
-     */
-    private ListResponse makeTestListResponse() {
-        ListResponse listResponse = new ListResponse();
-
-        listResponse.setTid(cid);
-        listResponse.setStatus("CANCEL_PAYMENT");
-        listResponse.setPayment_method_type("MONEY");
-        listResponse.setAmount(makeTestCanceledAmount());
-        listResponse.setCancel_available_amount(makeCancelAvailableAmount());
-        listResponse.setItem_name("생활근력 만들기");
-        listResponse.setItem_code("2");
-        listResponse.setCreated_at(LocalDateTime.now());
-        listResponse.setApproved_at(LocalDateTime.now().plusHours(1));
+        ListResponse listResponse = restTemplate.postForObject("https://kapi.kakao.com/v1/payment/order",
+                requestEntity, ListResponse.class);
 
         return listResponse;
     }
-
-    /**
-     * 반드시 제거해주세요
-     * @return 반환되는 데이터는 테스트를 위해 제작도니 것입니다.
-     */
-    private CancelAvailableAmountResponse makeCancelAvailableAmount() {
-        CancelAvailableAmountResponse cancelAvailableAmountResponse = new CancelAvailableAmountResponse();
-
-        cancelAvailableAmountResponse.setTotal(0);
-        cancelAvailableAmountResponse.setTax_free(0);
-        cancelAvailableAmountResponse.setVat(0);
-        cancelAvailableAmountResponse.setPoint(0);
-        cancelAvailableAmountResponse.setDiscount(0);
-        cancelAvailableAmountResponse.setGreen_deposit(0);
-
-        return cancelAvailableAmountResponse;
-    }
-
-    /**
-     * 반드시 제거해주세요
-     * @return 반환되는 데이터는 테스트를 위해 제작된 것입니다.
-     */
-    private CanceledAmount makeTestCanceledAmount() {
-        CanceledAmount canceledAmount = new CanceledAmount();
-
-        canceledAmount.setTotal(200000);
-        canceledAmount.setTax_free(0);
-        canceledAmount.setVat(0);
-        canceledAmount.setPoint(0);
-        canceledAmount.setDiscount(0);
-        canceledAmount.setGreen_deposit(0);
-
-        return canceledAmount;
-    }
-
-
 }

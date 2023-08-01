@@ -1,23 +1,28 @@
 window.onload = function () {
-    // setPayment();
-    var btn = document.getElementById("paymentDetailsBtn");
+    var btn = document.getElementById("modalCloseBtn");
 
-    // btn.addEventListener('click', () => paymentDetails());
+    btn.addEventListener('click', function () {
+        window.close();
+    });
+
+    priceFormat();
 }
 
-function paymentCheck(price){
-    price.innerHTML = price.innerHTML.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
+function priceFormat(){
+    var amount = document.getElementById('amount');
+    var method = document.getElementById('payment_method_type');
 
-function paymentMethodFormat(method){
-    switch(method){
-        case 'card':
-            method.innerHTML = '카드결제';
+    amount.innerHTML = amount.innerHTML.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+    switch (method.innerHTML) {
+        case " : MONEY":
+            method.innerHTML = " : 현금";
             break;
-        case 'money':
-            method.innerHTML = '현금결제';
+        case " : CARD":
+            method.innerHTML = " : 카드";
             break;
-        default:
-            method.innerHTML = '결제수단 오류';
+        default :
+            method.innerHTML = " : ETC";
+            break;
     }
 }

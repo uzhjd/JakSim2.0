@@ -68,6 +68,7 @@ function trainerExpert(){
 
     expertFormat(expert1);
     expertFormat(expert2);
+    selectedPIdx = document.getElementById('pay_detail_idx').innerHTML;
 }
 
 function refundStatus(){
@@ -97,13 +98,31 @@ function payment_type(){
     }
 }
 
-function doRefund(){
+function doRefund() {
+    console.log("refund");
+
     var data = {
-       tid: document.getElementById('pay_detail_tid').innerHTML,
-       price: document.getElementById('pay_detail_price1').innerHTML.replaceAll(',','')
+        tid: document.getElementById('pay_detail_tid').innerHTML,
+        cancel_amount: document.getElementById('pay_detail_price').innerHTML
     }
-    var jsonData = JSON.stringify(data);
-    sessionStorage.setItem('data', jsonData);
+
+    axios.post('/payment/refund', data)
+        .then((response) => {
+            var httpStatus = response.status;
+            console.log(response.data);
+
+            if(httpStatus == 500) {
+                alert("500: Payment with Kakao Pay failed.");
+            } else {
+                console.log("refundSuccess");
+                window.location.href=`http://localhost:8080/payment/refundSuccess/${response.data.tid}`;
+
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
 }
 
 function goReview(){
@@ -119,6 +138,22 @@ function rePay(){
        ptTimes: document.getElementById('pay_detaill_ptTimes').innerHTML,
        ptPeriod: document.getElementById('pay_detail_ptPeriod').innerHTML
     }
-    var jsonData = JSON.stringify(data);
-    sessionStorage.setItem('refundData', jsonData);
+
+    axios.post('/payment/ready', data)
+        .then((response) => {
+            var httpStatus = response.status;
+
+            console.log(response);
+
+            if(httpStatus == 500) {
+                alert("500: Payment with Kakao Pay failed.");
+            } else {
+                var box = response.data.next_redirect_pc_url;
+
+                window.open(box, "", "width=500, height=800");
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
 }

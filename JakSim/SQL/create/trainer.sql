@@ -13,6 +13,7 @@ CREATE TABLE TRAINER_DETAILS (
     USER_ID VARCHAR(30) NOT NULL,
     UT_EXPERT_1 INT(1) NOT NULL CHECK (UT_EXPERT_1 BETWEEN 0 AND 5),
     UT_EXPERT_2 INT(1) NOT NULL CHECK (UT_EXPERT_2 BETWEEN 0 AND 5),
+    UT_ADDRESS VARCHAR(300) NOT NULL,
     PRIMARY KEY (UT_IDX),
     FOREIGN KEY (USER_ID) REFERENCES USER_INFO (USER_ID)
     ON DELETE CASCADE
@@ -63,50 +64,51 @@ CREATE TABLE PRODUCT(
 
 COMMIT;
 
-INSERT INTO TRAINER_DETAILS
-VALUES(NULL, '새로운 작심득근의 새로운 트레이너!', 'https://www.instagram.com/gse96', '나주배짐', 'wkdgyfla97', 1, 2);
-INSERT INTO TRAINER_DETAILS
-VALUES(NULL, '작심득근 리부트 가보자고', 'https://www.instagram.com/humbleKim', '강짐', 'hye8997', 2, 3);
-INSERT INTO TRAINER_DETAILS
-VALUES(NULL, '멸치탈출 트레이너는 나야나', 'https://www.instagram.com/test', '가디짐', 'humble', 2, 4);
-INSERT INTO TRAINER_DETAILS
-VALUES(NULL, '오늘밤 주인공은 나야나', 'https://www.instagram.com/tes9t6', '근육짱짐', 'ujeong', 3, 5);
-INSERT INTO TRAINER_DETAILS
-VALUES(NULL, '안녕 여기 1짱은 나다', 'https://www.instagram.com/test96', '가리봉짱짐', 'test2', 2, 5);
-
-INSERT INTO TRAINER_IMAGE
-VALUES(NULL, 'wkdgyfla97', 'files/trainer/a.jpg');
-INSERT INTO TRAINER_IMAGE
-VALUES(NULL, 'hye8997', 'files/trainer/b.jpg');
-INSERT INTO TRAINER_IMAGE
-VALUES(NULL, 'humble', 'files/trainer/c.jpg');
-INSERT INTO TRAINER_IMAGE
-VALUES(NULL, 'ujeong', 'files/trainer/d.jpg');
-INSERT INTO TRAINER_IMAGE
-VALUES(NULL, 'test96', 'files/trainer/e.jpg');
-
-
-INSERT INTO TRAINER_CERT
-VALUES(NULL, 'wkdgyfla97', '생활체육지도자 1급', 'files/trainer/cert/1.png');
-INSERT INTO TRAINER_CERT
-VALUES(NULL, 'hye8997', '줘패기 1급', 'files/trainer/cert/2.png');
-INSERT INTO TRAINER_CERT
-VALUES(NULL, 'humble', '말빨 1급', 'files/trainer/cert/3.png');
-INSERT INTO TRAINER_CERT
-VALUES(NULL, 'ujeong', '귀여움 1급', 'files/trainer/cert/4.png');
-INSERT INTO TRAINER_CERT
-VALUES(NULL, 'test96', '가리봉 싸움 1짱', 'files/trainer/cert/5.png');
-
-INSERT INTO TRAINER_CAREER
-VALUES(NULL, 'wkdgyfla97', '전국체전 입선');
-INSERT INTO TRAINER_CAREER
-VALUES(NULL, 'hye8997', '줘패기대회 입선');
-INSERT INTO TRAINER_CAREER
-VALUES(NULL, 'humble', '입털기 대회 우승');
-INSERT INTO TRAINER_CAREER
-VALUES(NULL, 'ujeong', '귀여움 대회 아차상');
-INSERT INTO TRAINER_CAREER
-VALUES(NULL, 'test96', '가리봉 싸움짱');
+--//트레이너는 직접 등록해야함
+--INSERT INTO TRAINER_DETAILS
+--VALUES(NULL, '새로운 작심득근의 새로운 트레이너!', 'https://www.instagram.com/gse96', '나주배짐', 'wkdgyfla97', 1, 2, '경기도');
+--INSERT INTO TRAINER_DETAILS
+--VALUES(NULL, '작심득근 리부트 가보자고', 'https://www.instagram.com/humbleKim', '강짐', 'hye8997', 2, 3, '서울');
+--INSERT INTO TRAINER_DETAILS
+--VALUES(NULL, '멸치탈출 트레이너는 나야나', 'https://www.instagram.com/test', '가디짐', 'humble', 2, 4, '경기도');
+--INSERT INTO TRAINER_DETAILS
+--VALUES(NULL, '오늘밤 주인공은 나야나', 'https://www.instagram.com/tes9t6', '근육짱짐', 'ujeong', 3, 5, '경기도');
+--INSERT INTO TRAINER_DETAILS
+--VALUES(NULL, '안녕 여기 1짱은 나다', 'https://www.instagram.com/test96', '가리봉짱짐', 'test2', 2, 5, '경기도');
+--
+--INSERT INTO TRAINER_IMAGE
+--VALUES(NULL, 'wkdgyfla97', 'files/trainer/a.jpg');
+--INSERT INTO TRAINER_IMAGE
+--VALUES(NULL, 'hye8997', 'files/trainer/b.jpg');
+--INSERT INTO TRAINER_IMAGE
+--VALUES(NULL, 'humble', 'files/trainer/c.jpg');
+--INSERT INTO TRAINER_IMAGE
+--VALUES(NULL, 'ujeong', 'files/trainer/d.jpg');
+--INSERT INTO TRAINER_IMAGE
+--VALUES(NULL, 'test96', 'files/trainer/e.jpg');
+--
+--
+--INSERT INTO TRAINER_CERT
+--VALUES(NULL, 'wkdgyfla97', '생활체육지도자 1급', 'files/trainer/cert/1.png');
+--INSERT INTO TRAINER_CERT
+--VALUES(NULL, 'hye8997', '줘패기 1급', 'files/trainer/cert/2.png');
+--INSERT INTO TRAINER_CERT
+--VALUES(NULL, 'humble', '말빨 1급', 'files/trainer/cert/3.png');
+--INSERT INTO TRAINER_CERT
+--VALUES(NULL, 'ujeong', '귀여움 1급', 'files/trainer/cert/4.png');
+--INSERT INTO TRAINER_CERT
+--VALUES(NULL, 'test96', '가리봉 싸움 1짱', 'files/trainer/cert/5.png');
+--
+--INSERT INTO TRAINER_CAREER
+--VALUES(NULL, 'wkdgyfla97', '전국체전 입선');
+--INSERT INTO TRAINER_CAREER
+--VALUES(NULL, 'hye8997', '줘패기대회 입선');
+--INSERT INTO TRAINER_CAREER
+--VALUES(NULL, 'humble', '입털기 대회 우승');
+--INSERT INTO TRAINER_CAREER
+--VALUES(NULL, 'ujeong', '귀여움 대회 아차상');
+--INSERT INTO TRAINER_CAREER
+--VALUES(NULL, 'test96', '가리봉 싸움짱');
 
 
 INSERT INTO PRODUCT

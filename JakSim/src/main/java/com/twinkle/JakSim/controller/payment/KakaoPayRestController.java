@@ -2,11 +2,10 @@ package com.twinkle.JakSim.controller.payment;
 
 import com.twinkle.JakSim.model.dto.Enum.ErrorCode;
 import com.twinkle.JakSim.model.dto.payment.request.PaymentRequest;
-import com.twinkle.JakSim.model.dto.payment.response.ApproveResponse;
+import com.twinkle.JakSim.model.dto.payment.request.RefundRequest;
 import com.twinkle.JakSim.model.dto.payment.response.CancelResponse;
 import com.twinkle.JakSim.model.dto.payment.response.ReadyResponse;
 import com.twinkle.JakSim.model.service.payment.KakaoPayService;
-import com.twinkle.JakSim.model.service.payment.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,13 +35,14 @@ public class KakaoPayRestController {
         throw new BusinessLogicException(ErrorCode.PAY_FAILED);
     }
 
-    /**
-     * 환불
-     */
+    // 환불
     @PostMapping("/refund")
-    public ResponseEntity refund() {
-        CancelResponse kakaoCancelResponse = kakaoPayService.kakaoCancel();
+    public ResponseEntity refund(@Valid @RequestBody RefundRequest refundRequest) {
+        CancelResponse kakaoCancelResponse = kakaoPayService.kakaoCancel(refundRequest);
 
         return new ResponseEntity<>(kakaoCancelResponse, HttpStatus.OK);
     }
+
+    // 조회
+
 }

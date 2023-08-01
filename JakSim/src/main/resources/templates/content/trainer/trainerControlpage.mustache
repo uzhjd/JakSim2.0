@@ -1,185 +1,12 @@
-<style>
-    * {
-        font-family: Noto Sans KR;
-        margin: 0;
-        padding: 0;
-    }
-
-    main {
-        width: 100%;
-        display: flex;
-        justify-content: flex-start;
-        margin-top: 0px;
-        align-items: flex-start;
-        border-top: 2px solid #dedede;
-    }
-
-    .sideBar {
-        width: 26.33%;
-        height: auto;
-        margin-left: 20px;
-    }
-
-    .sideBar ul {
-        float: right;
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .menuPart {
-        float: right;
-        margin-top: 80px;
-        margin-bottom: 10px;
-        margin-right: 20px;
-    }
-
-    .sideBar li.active a {
-        color: #A584EE;
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 18px;
-    }
-
-    .sideBar li a {
-        color: black;
-        text-decoration: none;
-        font-weight: thin;
-    }
-
-    .sideBar li a:hover {
-        color: #A584EE;
-    }
-
-    .right_info {
-        color: rgba(29.000000171363354, 29.000000171363354, 32.00000189244747, 1);
-        position: relative;
-        margin-top: 30px;
-        margin-bottom: 50px;
-
-    }
-
-    .main {
-        float: left;
-        width: 65%;
-        height: auto;
-        padding: 50px;
-        padding-top: 0;
-        border-left: 2px solid #dedede;
-        margin-left: 30px;
-        padding-left: 80px;
-    }
-
-    .user_data-container {
-        width: 770px;
-        margin: 50px 0px;
-        padding: 30px;
-        background-color: white;
-        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
-        border-radius: 7px;
-        float: left;
-        margin-top: 0px;
-        margin-bottom: 15px;
-
-    }
-    .user_insert-container {
-      width: 770px;
-        margin: 50px 0px;
-        padding: 30px;
-        background-color: white;
-        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
-        border-radius: 7px;
-        float: left;
-        margin-top: 0px;
-    }
-
-    table {
-        margin: 0 auto;
-    }
-
-    .search-container {
-        display: flex;
-        align-items: center;
-        margin-bottom: 20px;
-        margin-left: 58px;
-    }
-
-    .search-input-container {
-        position: relative;
-        margin-left: 550px;
-    }
-
-    .search-input {
-        width: 250px;
-        height: 30px;
-        border-radius: 5px;
-        border: 1px solid #B7B7B7;
-        padding: 5px 30px 5px 10px;
-        font-size: 14px;
-
-    }
-
-    .search-icon {
-        position: absolute;
-        top: 50%;
-        right: 10px;
-        transform: translateY(-50%);
-        color: #a584ee;
-        visibility: visible;
-
-    }
-
-    th, td {
-        text-align: center;
-    }
-
-    th {
-    padding-bottom: 10px;
-    padding-right: 25px;
-    }
-
-    td {
-        
-        padding-top: 20px;
-        padding-bottom: 10px;
-        padding-right: 25px;
-    }
-
-    #timetable_register td {    
-        border-bottom: 1px solid #dedede;
-    }
-
-
-
-    #delete_timetable {
-      color: #a584ee;
-    }
-
-    #delete_timetable:hover {
-        color: #c6b4ec;
-
-    }
-
-        #insert-timetable {
-      color: #a584ee;
-    }
-
-    #insert-timetable:hover {
-      color: #c6b4ec;
-    }
-
-
-
-
-</style>
+<link rel="stylesheet" href="/css/trainer/trainerControlPage.css">
+<script src="/javascript/trainer/trainerControlPage.js"></script>
 <script src="https://kit.fontawesome.com/05995ac069.js" crossorigin="anonymous"></script>
-<!--<main>-->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
-<!--    <div class="main">-->
         <div>
             <h3 class="right_info jaksim_title_font">PT 시간 등록</h3>
         </div>
-        <div class="user_data-container jaksim_font">
+        <div class="user_data-container">
             <table id="timetable_register">
                 <thead>
                 <tr>
@@ -188,13 +15,13 @@
                     <th>인원수</th>
                 </tr>
                 </thead>
-                <form action="/trainer/ptTimetableUpdate" method="POST">
+                <form action="/trainer/ptTimetableDelete" method="POST">
                     {{#timetable}}
                     <tbody>
                     <tr>
                         <td>
-                            <input style="pointer-events: none;" type="time" class="jaksim_font" id="start_time_1" name="tStartT" value="{{tStartT}}" readonly> ~
-                            <input style="pointer-events: none;" type="time" class="jaksim_font"  id="end_time_1" name="tEndT" value="{{tEndT}}" readonly>
+                            <input style="pointer-events: none;" type="time" id="start_time_1" name="tStartT" value="{{tStartT}}" readonly> ~
+                            <input style="pointer-events: none;" type="time" id="end_time_1" name="tEndT" value="{{tEndT}}" readonly>
                         </td>
                         <td>
                             <input style="width: 104px;
@@ -204,8 +31,7 @@
                         <td>
                             <span style=" width: 104px;
                             margin-right: 20px;
-                            margin-left: 20px; border: white; text-align: center; pointer-events: none;"
-                                   >{{tPeople}} </span> 
+                            margin-left: 20px; border: white; text-align: center; pointer-events: none;">{{tPeople}} </span> 
                         </td>
                         <td style="padding-left: 50px;">
                             <input type="hidden" name="tIdx" value="{{tIdx}}">
@@ -218,35 +44,7 @@
                 </form>
             </table>
         </div>
-        <script>
-        window.onload = function() {
-            var ptTypeInputs = document.querySelectorAll('.tType');
-
-            for (var i = 0; i < ptTypeInputs.length; i++) {
-                var ptTypeValue = ptTypeInputs[i].value;
-                var convertedValue = "";
-
-                switch (ptTypeValue) {
-                    case "0":
-                        convertedValue = "상담";
-                        break;
-                    case "1":
-                        convertedValue = "1:1";
-                        break;
-                    case "2":
-                        convertedValue = "단체";
-                        break;
-                    default:
-                        convertedValue = "Unknown";
-                        break;
-                }
-
-                ptTypeInputs[i].value = convertedValue;
-            }
-        }
-
-      </script>
-        <div class="user_insert-container jaksim_font">
+        <div class="user_insert-container">
             <table>
                 <thead>
                 <tr>
@@ -277,7 +75,7 @@
                         <td>
                             <button style="background: none; border: none; box-shadow: none; outline: none;">
                                 <i id="insert-timetable" class="fa-regular fa-calendar-plus fa-xl"></i></button>
-<!--                            <a href="/trainer/ptTimetableRegister"></a>-->
+
                         </td>
                     </tr>
                     </tbody>
@@ -285,4 +83,3 @@
             </table>
         </div>
     </div>
-<!--</main>-->

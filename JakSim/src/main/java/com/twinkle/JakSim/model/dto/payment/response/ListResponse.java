@@ -1,8 +1,7 @@
 package com.twinkle.JakSim.model.dto.payment.response;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -10,6 +9,7 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 public class ListResponse {
+
     String tid;
     String status;
     String payment_method_type;

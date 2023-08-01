@@ -21,6 +21,11 @@
     display: inline-block;
 }
 
+#item_code {
+    display: none;
+}
+
+
 .value_font {
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 15px;
@@ -28,8 +33,7 @@
     color: #747474;
 }
 
-#paymentDetailsBtn {
-    float: right;
-    margin: 20px 30px;
+#modalCloseBtn {
+    margin: 10px 45%;
 }
 

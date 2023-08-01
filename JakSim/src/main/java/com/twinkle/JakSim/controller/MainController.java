@@ -17,7 +17,11 @@ public class MainController {
     private final FileService fileService;
     @GetMapping("/")
     public String mainPage(Model model, @AuthenticationPrincipal User info) {
-        model.addAttribute("profile_image", info == null ? null : fileService.getSingeProfile(info.getUsername()));
+        if(info != null) {
+            model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
+            model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
+        }
+        //로그인했을떄만 작동함.
         model.addAttribute("head_title", "작심득근");
         model.addAttribute("trainers", trainerService.searchTrainerForMainPage());
         return "content/index";
