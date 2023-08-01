@@ -25,6 +25,38 @@ function init(){
     price2.innerHTML = numFormat(price2.innerHTML);
 
     payment_type();
+    trainerExpert();
+}
+
+function trainerExpert(){
+    var expert1 = document.getElementById('pay_detail_trainerExpert1')
+    var expert2 = document.getElementById('pay_detail_trainerExpert2');
+
+    function expertFormat(item){
+        switch(item.innerHTML){
+            case '0':
+                item.innerHTML = '바디프로필';
+                break;
+            case '1':
+                item.innerHTML = '일반회원';
+                break;
+            case '2':
+                item.innerHTML = '다이어트';
+                break;
+            case '3':
+                item.innerHTML = '재활운동';
+                break;
+            case '4':
+                item.innerHTML = '자세교정';
+                break;
+            case '5':
+                item.innerHTML = '컨디셔닝';
+                break;
+        }
+    }
+
+    expertFormat(expert1);
+    expertFormat(expert2);
 }
 
 function refundStatus(){
@@ -64,23 +96,19 @@ function doRefund(){
 }
 
 function goReview(){
-    var trainerId = document.getElementById('pay_detail_trainerId').innerHTML;
+    var trainerId = document.getElementById('pay_detail_utIdx').innerHTML;
     window.location.href=`/registerReview/${trainerId}`;
 }
 
 function rePay(){
-    var typeAndPeriodSpan = document.getElementById('pay_detail_type_period').innerHTML;
-    var divideData = typeAndPeriodSpan.split('/');
-
     var data = {
        ptTitle: document.getElementById('pay_detail_ptTitle').innerHTML,
-       tpIdx: document.getElementById('pay_detail_tpIdx').innerHTML,
-       ptPrice: document.getElementById('pay_detail_price').innerHTML,
-       ptTimes: divideData[0].trim(),
-       ptPeriod: divideData[1].trim().replace('일','')
+       tpIdx: document.getElementById('pay_detail_tid').innerHTML, //tid?
+       ptPrice: document.getElementById('pay_detail_price1').innerHTML,
+       ptTimes: document.getElementById('pay_detaill_ptTimes').innerHTML,
+       ptPeriod: document.getElementById('pay_detail_ptPeriod').innerHTML
     }
     var jsonData = JSON.stringify(data);
+    console.log(jsonData);
     sessionStorage.setItem('refundData', jsonData);
-
-    //사용법은 이전과 같습니다.
 }

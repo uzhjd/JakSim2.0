@@ -257,7 +257,7 @@ public class TrainerService {
         return trainerDetailResponse;
     }
 
-    public TrainerDetailResponse searchByUsername(String userId) {
+    public TrainerForPayDetail searchByUsername(String userId) {
         return trainerDao.searchByUsername(userId);
     }
 

@@ -19,8 +19,8 @@
             <tr>
                 <td><span id="pay_detail_ptTitle">{{product.ptTitle}}</span></td>
                 <td><span id="pay_detail_price1">{{product.ptPrice}}</span></td>
-                <td><span>{{product.ptTimes}}</span></td>
-                <td><span>{{product.ptPeriod}}</span></td>
+                <td><span id="pay_detaill_ptTimes">{{product.ptTimes}}</span></td>
+                <td><span id="pay_detail_ptPeriod">{{product.ptPeriod}}</span></td>
                 <td><span>{{payment.c_dt}}</span></td>
             </tr>
         </tbody>
@@ -53,10 +53,11 @@
     <p>트레이너 정보</p>
     <table>
         <tr>
+            <span id="pay_detail_utIdx">{{trainer.ut_idx}}</span>
             {{trainer.userName}}
             {{trainer.gym}}
-            {{trainer.expert1}}
-            {{trainer.expert2}}
+            <span id="pay_detail_trainerExpert1">{{trainer.expert1}}</span>
+            <span id="pay_detail_trainerExpert2">{{trainer.expert2}}</span>
             {{trainer.imagePath}}
             {{trainer.gender}}
         </tr>

@@ -304,14 +304,29 @@ public class TrainerDao {
         return jdbcTemplate.query(this.sql, new PtUserRowMapper(), userId);
     }
 
-    public TrainerDetailResponse searchByUsername(String userId) {
+    public TrainerForPayDetail searchByUsername(String userId) {
         this.sql = "SELECT T.UT_IDX, T.USER_ID, U.USER_NAME, U.USER_GENDER, T.UT_INSTA, T.UT_GYM, T.UT_EXPERT_1, T.UT_EXPERT_2, I.TI_PATH " +
                 "FROM TRAINER_DETAILS T, USER_INFO U, TRAINER_IMAGE I " +
                 "WHERE T.USER_ID = ? " +
                 "AND T.USER_ID = U.USER_ID AND T.USER_ID = I.USER_ID ";
-        TrainerDetailResponse trainer = new TrainerDetailResponse();
+        TrainerForPayDetail trainer = new TrainerForPayDetail();
         try{
-            trainer = jdbcTemplate.queryForObject(sql, new TrainerDetailRowMapper(), userId);
+            trainer = jdbcTemplate.queryForObject(sql, new RowMapper<TrainerForPayDetail>() {
+                @Override
+                public TrainerForPayDetail mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    TrainerForPayDetail dto = new TrainerForPayDetail();
+                    dto.setGym(rs.getString("UT_GYM"));
+                    dto.setGender(rs.getInt("USER_GENDER"));
+                    dto.setInsta(rs.getString("UT_INSTA"));
+                    dto.setExpert1(rs.getInt("UT_EXPERT_1"));
+                    dto.setExpert2(rs.getInt("UT_EXPERT_2"));
+                    dto.setImagePath(rs.getString("TI_PATH"));
+                    dto.setUt_idx(rs.getInt("UT_IDX"));
+                    dto.setUserId(rs.getString("USER_ID"));
+                    dto.setUserName(rs.getString("USER_NAME"));
+                    return dto;
+                }
+            }, userId);
         }catch (EmptyResultDataAccessException e){
             System.out.println(e.getMessage());
         }
