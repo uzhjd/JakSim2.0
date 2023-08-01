@@ -1,5 +1,3 @@
-
-
 function kakaoPay(ptTitle, tpIdx, ptPrice, ptTimes, ptPeriod) {
      var data = {
          ptTitle: ptTitle,
@@ -12,6 +10,8 @@ function kakaoPay(ptTitle, tpIdx, ptPrice, ptTimes, ptPeriod) {
     axios.post('/payment/ready', data)
         .then((response) => {
             var httpStatus = response.status;
+
+            console.log(response);
 
             if(httpStatus == 500) {
                 alert("500: Payment with Kakao Pay failed.");

@@ -1,68 +1,89 @@
-//window.addEventListener('load', function(){
-//
-//    if(window.location.href==='http://localhost:8080/trainerRegister/' || window.location.href==='http://localhost:8080/trainerUpdate/'){
-//        document.getElementById('add-cert').onclick = function(){
-//            const certInput = document.getElementById('cert');
-//            const displayCert = document.getElementById('display-cert');
-//            const create_cert_div = document.getElementById('create_cert_div');
-//            const cert_span = document.createElement('span');
-//
-//            if(certInput.value){
-//                displayCert.value += `${certInput.value}/`;
-//                cert_span.textContent = certInput.value;
-//                cert_span.setAttribute('class', 'btn btn-outline-primary');
-//                cert_span.style.margin = '3px';
-//
-//                create_cert_div.appendChild(cert_span);
-//                certInput.value = '';
-//            }
-//        }
-//
-//        document.getElementById('add-career').onclick = function(){
-//            const careerInput = document.getElementById('career');
-//            const displayCareer = document.getElementById('display-career');
-//            const create_career_div = document.getElementById('create_career_div');
-//            const career_span = document.createElement('span');
-//
-//            if(careerInput.value){
-//                displayCareer.value += ` ${careerInput.value}/`; //', '로 split 하시면 될 듯
-//                career_span.textContent = careerDate.value+' '+careerInput.value;
-//                career_span.setAttribute('class', 'btn btn-outline-primary');
-//                career_span.style.margin = '3px';
-//
-//                create_career_div.appendChild(career_span);
-//                careerInput.value = '';
-//            }
-//        }
-//        document.getElementById('add-pt').onclick = function(){
-//            const displayPrice = document.getElementById('display-price');
-//            const type = document.querySelector('input[name="type"]:checked').value;
-//            const times = document.getElementById('pt-times').value;
-//            const price = document.getElementById('pt-price').value;
-//            const create_pt_div = document.getElementById('create_pt_div');
-//            const pt_span = document.createElement('span');
-//
-//            let displayText = '';
-//
-//            if(type === '개인')
-//                displayText += '개인 ';
-//            else
-//                displayText += '단체 ';
-//
-//            displayText += times +' ' + price;
-//            console.log(displayText);
-//            displayPrice.value += displayText + '/';
-//
-//            pt_span.textContent = times +"회 " + price+"원("+type+")";
-//            pt_span.setAttribute('class', 'btn btn-outline-primary');
-//            pt_span.style.margin = '3px';
-//
-//            create_pt_div.appendChild(pt_span);
-//
-//            times = '';
-//            price='';
-//        }
-//    }
-//});
-//
-//}
+window.onload = function() {
+    var currentUser = "{{session_user.username}}";
+    var reviewElements = document.querySelectorAll('.reviewLink');
+    var deleteReviewForm = document.querySelectorAll('.delete_review_td');
+    var reviewIdx = document.querySelectorAll('.reviewIdx');
+
+    if (currentUser) {        
+        for (var i = 0; i < reviewElements.length; i++) {
+            var reviewId = reviewElements[i].textContent;
+
+            if (currentUser.trim() === reviewId.trim()) {
+                reviewElements[i].textContent = '';
+                currentUser.textContent = '';
+
+                var editLink = document.createElement('a');
+                editLink.href = "/review/editReview/" + reviewIdx[i].textContent;
+                editLink.className = "jaksim_font";
+                editLink.textContent = "수정";
+
+                deleteReviewForm[i].hidden = false;
+
+                reviewElements[i].appendChild(editLink);
+            }
+            else {
+                reviewElements[i].textContent = '';
+                deleteReviewForm[i].hidden = true;
+
+            }
+        }
+    }
+
+    var stars = document.querySelectorAll('.countStar');
+    var expert1 = document.querySelectorAll('.expert1');
+    var expert2 = document.querySelectorAll('.expert2');
+
+
+    for(var i=0; i<stars.length; i++) {
+        var starCount = parseInt(stars[i].textContent);
+        stars[i].textContent = '';
+
+        for(var j=0; j<starCount; j++) {
+            var starIcon = document.createElement('i');
+            starIcon.className = 'fa-solid fa-star';
+            starIcon.style.color = '#f3eb12';
+            stars[i].appendChild(starIcon);
+        }
+        
+    }
+    setSelectedFilter();
+    
+if (expert1.length === expert2.length) {
+  for (var i = 0; i < expert1.length; i++) {
+    var expert1Value = parseInt(expert1[i].textContent);
+    var expert2Value = parseInt(expert2[i].textContent);
+
+    // Update the expert labels based on the values
+    if (!isNaN(expert1Value)) {
+      expert1[i].textContent = getExpertLabel(expert1Value);
+    }
+    if (!isNaN(expert2Value)) {
+      expert2[i].textContent = getExpertLabel(expert2Value);
+    }
+  }
+}
+
+function getExpertLabel(value) {
+  switch (value) {
+    case 0:
+      return '#바디프로필';
+    case 1:
+      return '#파워리프팅';
+    case 2:
+      return '#다이어트';
+    case 3:
+      return '#재활운동';
+    case 4:
+      return '#자세교정';
+    case 5:
+      return '#컨디셔닝';
+    default:
+      return '';
+  }
+} 
+
+setSelectedFilter();
+
+}
+
+

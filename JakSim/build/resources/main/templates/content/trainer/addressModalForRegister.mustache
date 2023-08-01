@@ -3,7 +3,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" charset="UTF-8"/>
 <script src="https://kit.fontawesome.com/05995ac069.js" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
-<script src="/javascript/trainer/trainerSearch.js"></script>
     <link rel="stylesheet" href="/css/trainer/addressModal.css">
 </head>
 <body>
@@ -103,17 +102,18 @@
         function sendData(id) {
             const selectedAddress = id;
             window.opener.document.getElementById("input-address").value = id;
-            window.opener.updateTrainerList(selectedAddress);
-
-            window.opener.postMessage({
-                type: 'updateAddress',
-                address: selectedAddress
-                }, '*');
 
             window.close();
         }
 
+        const sendBox = (id)=>{
+            const text = document.getElementById("addressInput").value;
+            console.log("작동테스트")
+            console.log(id)
 
+
+            window.opener.document.getElementById("input-address").value = id;
+        }
         
     </script>
 

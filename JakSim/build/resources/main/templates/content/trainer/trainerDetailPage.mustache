@@ -1,12 +1,13 @@
 {{>layout/header}}
 <link rel="stylesheet" href="/css/trainer/trainerPage.css">
-<script src="https://kit.fontawesome.com/05995ac069.js" crossorigin="anonymous"></script>
 <script src="/javascript/payment/kakaoPay/kakaoPay.js"></script>
+<script src="https://kit.fontawesome.com/05995ac069.js" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
 <body>
 {{>layout/navi}}
 <div id="trainer_Detail_Container">
-
     <br/>
     <span class="jaksim_title_font" style="font-weight: bold; font-size: 19px;">트레이너 상세페이지</span>
     <br/><br/>
@@ -15,7 +16,7 @@
         <script>
         var imageList = [{{#imageList}}"{{imagePath}}",{{/imageList}}];
         var firstImage = imageList.length > 0 ? imageList[0] : '';
-        var imgTag = "<img src='" + firstImage + "' alt='Trainer Image' width='270' height='270'/>";
+        var imgTag = "<img src='" + firstImage + "' alt='Trainer Image' width='270' height='270' style='border-radius: 5%;  object-fit: cover; object-position: top center;'/>";
         document.write(imgTag);
         </script>
 
@@ -39,13 +40,13 @@
                     margin-bottom: 10px;">{{expert2}}
                 </span><br/><br/>
             <div id="trainer_name" style="margin-bottom: 6px;">
-                <span class="jaksim_font" style="margin-bottom: 30px;">{{userName}} 트레이너</span>
+                <span style="margin-bottom: 30px;">{{userName}} 트레이너</span>
             </div>
 
             <div style="display: flex; align-items: center; margin-bottom: 6px;">
                 <p style="margin-right: 5px; margin-top: 15px;"><i class="fa-sharp fa-solid fa-location-dot fa-xl" style="color: #ca7cfd;"></i></p>
                 <div id="trainer_gym">
-                    <span class="jaksim_font">{{gym}}</span>
+                    <span>{{gym}} ({{address}})</span>
                 </div>
             </div>
             <div style="display: flex; align-items: center;">
@@ -53,7 +54,7 @@
                     <i class="fa-brands fa-instagram fa-xl" style="margin-right: 6px; margin-top: 5px;"></i>
                 </div>
                 <div id="trainer_insta">
-                    <span class="jaksim_font">{{insta}}</span>
+                    <span>{{insta}}</span>
                 </div>
             </div>
         </div>
@@ -61,140 +62,124 @@
     <hr/>
 
     <div id="trainerInfoList" style="margin-left: 10px">
-        <span class="jaksim_font" style="font-weight: bold; font-size: 16px;">트레이너 자기소개</span>
+        <span style="font-weight: bold; font-size: 16px;">트레이너 자기소개</span>
         <div id="trainer-intro">
-            <span class="jaksim_font">{{introduce}}</span>
+            <span>{{introduce}}</span>
         </div>
         <br><br/>
     {{/trainer}}
 
-        <span class="jaksim_font" style="font-weight: bold; font-size: 16px;">자격증</span>
+        <span style="font-weight: bold; font-size: 16px;">자격증</span>
             <div id="trainer-cert">
-        {{#cert}}
-                <span class="jaksim_font">{{certName}}</span><br/>
-                <img src="{{certImage}}" alt="Trainer Image" width="220" height="220">
-                {{/cert}}
+            {{#cert}}
+                <span>{{certName}}</span><br/>
+
+                <img src="{{certImage}}" alt="Trainer Image" width="220" height="220"><br/>
+            {{/cert}}
             </div>
 
         <br><br/>
 
-        <span class="jaksim_font" style="font-weight: bold; font-size: 16px;">경력 / 수상사항</span>
+        <span style="font-weight: bold; font-size: 16px;">경력 / 수상사항</span>
             <div id="trainer-career">
-{{#career}}
-                <span class="jaksim_font">{{careerContent}}</span> <br/>
-{{/career}}
+        {{#career}}
+                <span>{{careerContent}}</span> <br/>
+        {{/career}}
             </div>
         <br><br/>
-        <span class="jaksim_font" style="font-weight: bold; font-size: 16px;">추가 사진</span><br/>
+        <span style="font-weight: bold; font-size: 16px;">추가 사진</span><br/>
             <div style="display:inline-block; margin: 7px;">
-{{#imageList}}
-                <img src="{{imagePath}}" alt="Trainer Image" width="270" height="270"/>
-{{/imageList}}
+        {{#imageList}}
+                <img src="{{imagePath}}" alt="Trainer Image" width="270" height="300"/>
+        {{/imageList}}
             </div>
         <br/>
         <hr/>
     </div>
 
-    <style>
-    #pt-info {
-    display: flex;
-    align-items: center;
-    }
-
-    #pt-info span {
-    margin-top: 0;
-    margin-bottom: 0;
-    }
-
-    #pt-info .trainer_pay {
-    margin-left: 350px;
-    }
-
-
-    </style>
     <span style="font-weight: bold; font-size: 16px;">PT 상품</span><br/>
     {{#product}}
-        
             <div id="pt-info">
-            <input class="ptTitle" hidden="hidden" name="ptTitle" value="{{ptTitle}}" readonly/>
-            <input class="ptTimes" hidden="hidden" name="ptTimes" value="{{ptTimes}}" readonly/>
-            <input class="ptPrice" hidden="hidden" name="ptPrice" value="{{ptPrice}}" readonly/>
-            <input class="ptPeriod" hidden="hidden" name="ptPeriod" class="ptPeriod" value="{{ptPeriod}}"/>
+            <span style="width: 150px;">{{ptTitle}}</span>
+            <span style="width: 45px;">{{ptTimes}}회</span>
+            <span style="width: 100px;" class="money">{{ptPrice}}원</span>
 
-            <span style="width: 155px;">{{ptTitle}}</span>
-        <span style="width:101px;">{{ptTimes}}회 {{ptPrice}}원</span>
 
-            <div class="trainer_pay" style="margin-right: 20px;">
-                <button class="payButton" data-ptId="{{ptId}}">결제하기</button>
+            <div class="trainer_pay" style="margin-right: 5px;">
+                <button class="payButton" data-ptId="{{ptId}}"
+                onclick="kakaoPay('{{ptTitle}}', '{{ptId}}', '{{ptPrice}}', '{{ptTimes}}', '{{ptPeriod}}')"
+                >결제하기</button>
             </div>
              </div>
-
     {{/product}}
+
+
     <br/>
     <hr>
-    <div id="review-container">
+    <div id="review-container" style="margin-bottom: 50px;">
         <span class="jaksim_font" style="font-weight: bold; font-size: 16px;">PT 리뷰</span>
         <br/>
-
-            <div class="review-filters">
-            <i class="fa-solid fa-star fa-2xl" style="color: #f3eb12;"></i>
-                <select id="review-filter" name="review-filter" class="jaksim_font" style="margin-left: 200px;"onchange="reviewFiltering()">
-                    <option value="highest">별점 높은순</option>
-                    <option value="lowest">별점 낮은순</option>
-                    <option value="recent">최신순</option>
-                </select>
+            <div class="review-filters" style="margin-top: 10px; width: 450px;">
+                <i class="fa-solid fa-star fa-xl" style="color: #f3eb12; margin-bottom:10px;"></i>
+                <span style="font-size:19px; font-weight: bold; margin-top: 20px;">
+                {{#stars}}{{avgRstar}}{{/stars}} </span>
+                <span style="font-size:15px; margin-top: 20px;">
+                ({{#stars}}{{reviewCnt}}{{/stars}}개) </span>
+                <a href="/trainer/review/{{#trainer}}{{userId}}{{/trainer}}" style="color: #747474; font-size:13px; ">리뷰 전체보기</a>
             </div>
+            {{#review}}
             <div class="review">
                 <table>
-    <tbody id="review-form">
-    {{#review}}
-        <tr id="review-{{reviewId}}" class="jaksim_font">
-            <td>작심{{reviewId}}</td>
-            <td class="countStar" data-star="{{star}}">{{star}}</td>
-            <td>{{reviewContent}}</td>
-            <td data-date="{{reviewCreateDate}}">{{reviewCreateDate}}</td>
-            <td class="reviewLink"> {{userId}}
-            </td>
-            <td class="delete_review_td" hidden="hidden">
-                <form id="delete-review-form" action="/deleteReview" method="POST" style="margin-bottom: 0px;" onsubmit="return confirm('리뷰를 삭제하시겠습니까?');">
-                    {{#trainer}}
-                        <input type="hidden" name="trainerId" value="{{trainerId}}">
-                        <input type="submit" class="jaksim_font" value="삭제" style="background-color:
-                        transparent; border: none; text-decoration: underline; padding: 0;">
-                    {{/trainer}}
-                </form>
-            </td>
-        </tr>
-    {{/review}}
-    </tbody>
-</table>
+            <tbody id="review-form">
+                <tr id="review-{{reviewId}}">
+                    <td>작심<span class="reviewIdx">{{reviewId}}</span></td>
+                    <td class="countStar" style="width: 100px;" data-star="{{star}}">{{star}}</td>
+                    <td style="width: 420px;">{{reviewContent}}</td>
+                    <td data-date="{{reviewCreateDate}}">{{reviewCreateDate}}</td>
+                    <td class="reviewLink"> {{userId}}
+                    </td>
+                    <td class="delete_review_td" hidden="hidden">
+                        <form id="delete-review-form" action="/deleteReview" method="POST" style="margin-bottom: 0px;" onsubmit="return confirm('리뷰를 삭제하시겠습니까?');">
+                            {{#trainer}}
+                                <input type="hidden" name="trainerId" value="{{trainerId}}">
+                                <input type="submit" value="삭제" style="background-color:
+                                transparent; border: none; text-decoration: underline; padding: 0;">
+                            {{/trainer}}
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
             </div>
+            {{/review}}
     </div>
 </div>
 
-
-
 <script>
+    $(document).ready(function () {
+        $('.money').each(function () {
+            var money = $(this).text();
+            var money2 = money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            $(this).text(money2);
+        });
+    });
 
-window.onload = function() {
-
+    window.onload = function() {
     var currentUser = "{{session_user.username}}";
     var reviewElements = document.querySelectorAll('.reviewLink');
     var deleteReviewForm = document.querySelectorAll('.delete_review_td');
+    var reviewIdx = document.querySelectorAll('.reviewIdx');
 
     if (currentUser) {
-        
-
         for (var i = 0; i < reviewElements.length; i++) {
             var reviewId = reviewElements[i].textContent;
-            console.log(reviewId);
 
             if (currentUser.trim() === reviewId.trim()) {
                 reviewElements[i].textContent = '';
                 currentUser.textContent = '';
 
                 var editLink = document.createElement('a');
-                editLink.href = "/editReview";
+                editLink.href = "/review/editReview/" + reviewIdx[i].textContent;
                 editLink.className = "jaksim_font";
                 editLink.textContent = "수정";
 
@@ -209,15 +194,11 @@ window.onload = function() {
             }
         }
     }
-    
-
-
 
     var stars = document.querySelectorAll('.countStar');
     var expert1 = document.querySelectorAll('.expert1');
     var expert2 = document.querySelectorAll('.expert2');
 
-    
 
     for(var i=0; i<stars.length; i++) {
         var starCount = parseInt(stars[i].textContent);
@@ -326,66 +307,12 @@ window.onload = function() {
     
     }
 
+
+
 }
 
 
-  // 리뷰 필터링 함수
-  function reviewFiltering() {
-    // 선택한 필터링 옵션 가져오기
-    var filterOption = document.getElementById("review-filter").value;
-    var reviewList = document.getElementsByClassName("review")[0];
-
-    // 리뷰 목록을 가져와서 배열로 변환합니다
-    var reviewItems = Array.from(reviewList.getElementsByTagName("tr"));
-
-    // 필터링 옵션에 따라 리뷰 목록을 정렬합니다
-    switch (filterOption) {
-      case "highest":
-        reviewItems.sort(function(a, b) {
-          var starA = parseInt(a.getElementsByTagName("td")[1].dataset.star, 10);
-          var starB = parseInt(b.getElementsByTagName("td")[1].dataset.star, 10);
-          return starB - starA;
-        });
-        break;
-      case "lowest":
-        reviewItems.sort(function(a, b) {
-          var starA = parseInt(a.getElementsByTagName("td")[1].dataset.star, 10);
-          var starB = parseInt(b.getElementsByTagName("td")[1].dataset.star, 10);
-          return starA - starB;
-        });
-        break;
-      case "recent":
-        reviewItems.sort(function(a, b) {
-          var dateA = new Date(a.getElementsByTagName("td")[3].textContent);
-          var dateB = new Date(b.getElementsByTagName("td")[3].textContent);
-          return dateB - dateA;
-        });
-        break;
-    }
-
-    // 정렬된 리뷰 목록을 다시 추가합니다
-    for (var i = 0; i < reviewItems.length; i++) {
-      reviewList.appendChild(reviewItems[i]);
-    }
-  }
-
-  //tpIdx, ptTitle, ptPrice, pt_times, pt_period
-  //product인덱스, 제목, 가격, 횟수, 유효기간
-
-var payButtons = document.querySelectorAll('.payButton');
-
-payButtons.forEach(function(button) {
-  button.addEventListener('click', function() {
-    var ptInfo = this.parentNode.parentNode;
-    var tpIdx = parseInt(this.getAttribute('data-ptId'));
-    var ptTitle = ptInfo.querySelector('.ptTitle').value;
-    var ptPrice = parseInt(ptInfo.querySelector('.ptPrice').value);
-    var ptTimes = parseInt(ptInfo.querySelector('.ptTimes').value);
-    var ptPeriod = parseInt(ptInfo.querySelector('.ptPeriod').value);
-
-    kakaoPay(ptTitle, tpIdx, ptPrice, ptTimes, ptPeriod);
-  });
-});
 
 </script>
+
 {{>layout/footer}}

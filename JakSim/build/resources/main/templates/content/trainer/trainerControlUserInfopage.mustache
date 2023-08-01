@@ -1,161 +1,7 @@
-<style>
-    * {
-        font-family: Noto Sans KR;
-        margin: 0;
-        padding: 0;
-    }
-
-    main {
-        width: 100%;
-        display: flex;
-        justify-content: flex-start;
-        margin-top: 0px;
-        align-items: flex-start;
-        border-top: 2px solid #dedede;
-    }
-
-    .sideBar {
-        width: 26.33%;
-        height: auto;
-        margin-left: 20px;
-    }
-
-    .sideBar ul {
-        float: right;
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .menuPart {
-        float: right;
-        margin-top: 80px;
-        margin-bottom: 10px;
-        margin-right: 20px;
-    }
-
-    .sideBar li.active a {
-        color: #A584EE;
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 18px;
-    }
-
-    .sideBar li a {
-        color: black;
-        text-decoration: none;
-        font-weight: thin;
-    }
-
-    .sideBar li a:hover {
-        color: #A584EE;
-    }
-
-    .right_info {
-        color: rgba(29.000000171363354, 29.000000171363354, 32.00000189244747, 1);
-        position: relative;
-        margin-top: 30px;
-        margin-bottom: 50px;
-
-    }
-
-    .main {
-        float: left;
-        width: 65%;
-        height: auto;
-        padding: 50px;
-        padding-top: 0;
-        border-left: 2px solid #dedede;
-        margin-left: 30px;
-        padding-left: 80px;
-    }
-
-    .user_data-container {
-        width: 770px;
-        margin: 50px 0px;
-        padding: 30px;
-        background-color: white;
-        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
-        border-radius: 7px;
-        float: left;
-        margin-top: 0px;
-
-    }
-
-    table {
-        margin: 0 auto;
-    }
-
-    .search-container {
-        display: flex;
-        align-items: center;
-        margin-bottom: 20px;
-    }
-
-    .search-input-container {
-        position: relative;
-        margin-left: 550px;
-    }
-
-    .search-input {
-        width: 250px;
-        height: 30px;
-        border-radius: 5px;
-        border: 1px solid #B7B7B7;
-        padding: 5px 30px 5px 10px;
-        font-size: 14px;
-
-    }
-
-    .search-icon {
-        position: absolute;
-        top: 50%;
-        right: 10px;
-        transform: translateY(-50%);
-        color: #a584ee;
-        visibility: visible;
-
-    }
-
-    th, td {
-        text-align: center;
-    }
-
-    th {
-        padding-bottom: 10px;
-    }
-
-    td {
-        border-bottom: 1px solid #dedede;
-        padding-top: 20px;
-        padding-bottom: 10px;
-    }
-
-    #searchIcon {
-      color: #a584ee;
-    }
-
-    #searchIcon:hover {
-        color: #c6b4ec;
-    }
-
-
-    .search-input::placeholder {
-        color: rgb(182, 187, 195);
-    }
-
-.pagination {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-    }
-    
-
-    
-
-</style>
-
+<link rel="stylesheet" href="/css/trainer/trainerUserInfoControlPage.css">
+<script src="/javascript/trainer/trainerUserInfoControlPage.js"></script>
 <script src="https://kit.fontawesome.com/05995ac069.js" crossorigin="anonymous"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
         <div>
             <h3 class="right_info jaksim_title_font">전체 회원 정보 조회</h3>
@@ -163,7 +9,7 @@
         <div class="search-container">
             <div class="search-input-container">
                 <input style="width: 222px;" type="text" class="search-input" placeholder="회원명을 입력하세요" id="search-input">
-                <a onclick="searchUsers()" class="search-icon"><i id="searchIcon" class="fa-solid fa-magnifying-glass fa-sm"></i></a>
+                <a id="search-btn" style="cursor: pointer;" class="search-icon"><i id="searchIcon" class="fa-solid fa-magnifying-glass fa-sm"></i></a>
             </div>
         </div>
         <div class="user_data-container">
@@ -181,151 +27,31 @@
                 <tbody id="table-body">
                     {{#ptUser}}
                         <tr class="hidden-row">
-                            <td><input style="width: 50px;
-                    margin-right: 20px;
-                    margin-left: 20px; border: white; text-align: center; pointer-events: none;" type="text" name="userName" value="{{userName}}" readonly>
+                            <td><input class="userInfo-1" type="text" name="userName" value="{{userName}}" readonly>
                             </td>
-                            <td><input style="width: 50px;
-                    margin-right: 20px;
-                    margin-left: 20px; border: white; text-align: center; pointer-events: none;" type="text" name="ptType" value="{{ptType}}" readonly>
+                            <td><input class="userInfo-1" type="text" name="ptType" value="{{ptType}}" readonly>
                             </td>
-                            <td><input style="width: 100px;
-                    margin-right: 20px;
-                    margin-left: 20px; border: white; text-align: center; pointer-events: none;" type="text" name="userId" value="{{userId}}" readonly>
+                            <td><input class="userInfo-2" type="text" name="userId" value="{{userId}}" readonly>
                             </td>
-                            <td><input style="width: 100px;
-                    margin-right: 20px;
-                    margin-left: 20px; border: white; text-align: center; pointer-events: none;" type="text" name="tel" value="{{tel}}" readonly>
-                                </td>
-                            <td><input style="width: 50px;
-                    margin-right: 20px;
-                    margin-left: 20px; border: white; text-align: center; pointer-events: none;" type="text" name="gender" value="{{gender}}" readonly>
+                            <td><input class="userInfo-3" type="text" name="tel" value="{{tel}}" readonly>
                             </td>
-                            <td><input style="width: 50px;
-                    margin-right: 20px;
-                    margin-left: 20px; border: white; text-align: center; pointer-events: none;" type="text" name="ptCnt" value="{{ptCnt}}" readonly>
+                            <td><input class="userInfo-1" type="text" name="gender" value="{{gender}}" readonly>
+                            </td>
+                            <td><input class="userInfo-1" type="text" name="ptCnt" value="{{ptCnt}}" readonly>
                             </td>
                         </tr>
                     {{/ptUser}}
                     </tbody>
                 </table>
-                <div class="pagination">
-                <button id="prev-page" class="jaksim_btn" style="padding-left: 10px; padding-right: 10px;padding-bottom: 6px;padding-top: 6px;">이전</button>
-                <span id="current-page" style="
-    padding-top: 5px;
-    margin-left: 10px;
-    margin-right: 10px;">Page 1</span>
-                <button id="next-page" class="jaksim_btn" style="padding-left: 10px; padding-right: 10px;padding-bottom: 6px;padding-top: 6px;">다음</button>
-            </div>
+
+        <div id="pagination" style="margin-top: 30px;">
+            <a href="/trainer/ptUserInfo?page={{prevPage}}&pageSize={{trainersPerPage}}&ptUserName={{ptUserName}}" class="jaksim_btn" style="padding-left: 10px; padding-right: 10px;padding-bottom: 6px;padding-top: 6px; text-decoration: none;">이전</a>
+
+            {{#pageNumbers}}
+            <a href="/trainer/ptUserInfo?page={{.}}&pageSize={{trainersPerPage}}&ptUserName={{ptUserName}}" style="margin-left:5px; color: black;">{{.}}</a>
+            {{/pageNumbers}}
+
+            <a href="/trainer/ptUserInfo?page={{nextPage}}&pageSize={{trainersPerPage}}&ptUserName={{ptUserName}}" class="jaksim_btn" style="padding-left: 10px; padding-right: 10px;padding-bottom: 6px;padding-top: 6px; margin-left: 5px; text-decoration: none;">다음</a>
         </div>
-        
-            
-        </div>
-<script>
-window.onload = function() {
-    var rows = document.getElementById("table-body").getElementsByTagName("tr");
-
-    var searchButton = document.querySelector(".search-icon");
-        searchButton.addEventListener("click", searchUsers);
-        
-        function searchUsers() {
-            var keyword = document.getElementById("search-input").value.toLowerCase();
-            var rows = document.getElementById("table-body").getElementsByTagName("tr");
-
-            for (var i = 0; i < rows.length; i++) {
-                var userName = rows[i].getElementsByTagName("td")[0].getElementsByTagName("input")[0].value.toLowerCase();
-
-                // Hide all rows by default
-                rows[i].style.display = "none";
-
-                if (userName.indexOf(keyword) !== -1) {
-                    rows[i].style.display = "";
-                }
-            }
-        }
-
-    setInitialDisplayState();
-
-    for (var i = 0; i < rows.length; i++) {
-        var ptType = rows[i].getElementsByTagName("td")[1].getElementsByTagName("input")[0];
-        var gender = rows[i].getElementsByTagName("td")[4].getElementsByTagName("input")[0];
-
-        console.log(ptType.value);
-
-        // Convert ptType value to text
-        if (ptType.value === "0") {
-            ptType.value = "개인";
-            console.log(ptType.value);
-        } else if (ptType.value === "1") {
-            ptType.value = "단체";
-        }
-
-        // Convert gender value to text
-        if (gender.value === "0") {
-            gender.value = "남자";
-        } else if (gender.value === "1") {
-            gender.value = "여자";
-        }
-    }
-
-    function setInitialDisplayState() {
-        var rows = document.getElementById("table-body").getElementsByTagName("tr");
-
-        for (var i = 0; i < rows.length; i++) {
-            if (i < rowsPerPage) {
-                rows[i].classList.remove("hidden-row");
-            } else {
-                rows[i].classList.add("hidden-row");
-            }
-        }
-    }
-
-    function updateRowsDisplay() {
-        var rows = document.getElementById("table-body").getElementsByTagName("tr");
-
-        var startIndex = (currentPage - 1) * rowsPerPage;
-        var endIndex = startIndex + rowsPerPage - 1;
-
-        for (var i = 0; i < rows.length; i++) {
-            if (i >= startIndex && i <= endIndex) {
-                rows[i].style.display = "";
-            } else {
-                rows[i].style.display = "none";
-            }
-        }
-
-        var currentPageElement = document.getElementById("current-page");
-        currentPageElement.textContent = "Page " + currentPage;
-    }
-
-    var currentPage = 1;
-    var rowsPerPage = 5;
-
-    setInitialDisplayState();
-    updateRowsDisplay();
-
-    var prevPageButton = document.getElementById("prev-page");
-    var nextPageButton = document.getElementById("next-page");
-
-    prevPageButton.addEventListener("click", function() {
-        if (currentPage > 1) {
-            currentPage--;
-            updateRowsDisplay();
-        }
-    });
-
-    nextPageButton.addEventListener("click", function() {
-        var totalRows = document.getElementById("table-body").getElementsByTagName("tr").length;
-        var maxPage = Math.ceil(totalRows / rowsPerPage);
-
-        if (currentPage < maxPage) {
-            currentPage++;
-            updateRowsDisplay();
-        }
-    });
-
-   
-}
-</script>
-
-
+    </div>
+</div>  
