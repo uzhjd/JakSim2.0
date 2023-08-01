@@ -1,9 +1,0 @@
-<changelist name="Uncommitted_changes_before_Update_at_2023-07-16_오후_6_07_[Changes]1" date="1689498466088" recycled="false" toDelete="true">
-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023-07-16_오후_6_07_[Changes]1/shelved.patch" />
-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 2023-07-16 오후 6:07 [Changes]" />
-  <binary>
-    <option name="BEFORE_PATH" value="JakSim/build/classes/java/main/com/twinkle/JakSim/controller/MainController.class" />
-    <option name="AFTER_PATH" value="JakSim/build/classes/java/main/com/twinkle/JakSim/controller/MainController.class" />
-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023-07-16_오후_6_07_[Changes]1/MainController.class" />
-  </binary>
-</changelist>
