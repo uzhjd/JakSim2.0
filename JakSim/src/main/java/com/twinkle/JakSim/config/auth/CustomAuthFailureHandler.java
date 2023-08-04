@@ -22,9 +22,10 @@ public class CustomAuthFailureHandler implements AuthenticationFailureHandler {
             redirectStrategy.sendRedirect(request, response, "/login?errorCode=not_found");
         } else if (exception instanceof BadCredentialsException) {
             redirectStrategy.sendRedirect(request, response, "/login?errorCode=bad_credentials");
-        }else if (exception instanceof AccountExpiredException){
+        }else if (exception instanceof AccountExpiredException) {
             redirectStrategy.sendRedirect(request, response, "/login?errorCode=account_expired");
         }else{
+            System.out.println(exception.getMessage());
             redirectStrategy.sendRedirect(request, response, "/login?errorCode=unknown");
         }
     }

@@ -68,7 +68,7 @@ function trainerExpert(){
 
     expertFormat(expert1);
     expertFormat(expert2);
-    selectedPIdx = document.getElementById('pay_detail_idx').innerHTML;
+    //selectedPIdx = document.getElementById('pay_detail_idx').innerHTML;
 }
 
 function refundStatus(){
@@ -103,7 +103,7 @@ function doRefund() {
 
     var data = {
         tid: document.getElementById('pay_detail_tid').innerHTML,
-        cancel_amount: document.getElementById('pay_detail_price').innerHTML
+        cancel_amount: document.getElementById('pay_detail_price1').innerHTML.replaceAll(',','')
     }
 
     axios.post('/payment/refund', data)
@@ -126,15 +126,16 @@ function doRefund() {
 }
 
 function goReview(){
-    var trainerId = document.getElementById('pay_detail_utIdx').innerHTML;
+    var trainerId = document.getElementById('pay_detail_trainerId').innerHTML;
     window.location.href=`/registerReview/${trainerId}`;
 }
 
 function rePay(){
     var data = {
        ptTitle: document.getElementById('pay_detail_ptTitle').innerHTML,
-       tpIdx: document.getElementById('pay_detail_tid').innerHTML, //tid?
-       ptPrice: document.getElementById('pay_detail_price1').innerHTML,
+       tid: document.getElementById('pay_detail_tid').innerHTML, //tid?
+       tpIdx: document.getElementById('pay_detail_tpIdx').innerHTML,
+       ptPrice: document.getElementById('pay_detail_price1').innerHTML.replaceAll(',',''),
        ptTimes: document.getElementById('pay_detaill_ptTimes').innerHTML,
        ptPeriod: document.getElementById('pay_detail_ptPeriod').innerHTML
     }
@@ -149,7 +150,6 @@ function rePay(){
                 alert("500: Payment with Kakao Pay failed.");
             } else {
                 var box = response.data.next_redirect_pc_url;
-
                 window.open(box, "", "width=500, height=800");
             }
         })

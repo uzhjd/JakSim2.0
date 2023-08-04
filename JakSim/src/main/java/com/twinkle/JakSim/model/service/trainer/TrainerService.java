@@ -40,6 +40,8 @@ public class TrainerService {
         if(!certImage.isEmpty() || certImage != null) {
             String projectPath = System.getProperty("user.dir") +
                     "/JakSim/src/main/resources/static/image/trainer";
+            ///Users/janghyolim/code/JakSim2.0/JakSim/src/main/resources/static/image/trainer
+            System.out.println(projectPath);
 
             UUID uuid = UUID.randomUUID();
             String certName = uuid + "_" + certImage.getOriginalFilename();

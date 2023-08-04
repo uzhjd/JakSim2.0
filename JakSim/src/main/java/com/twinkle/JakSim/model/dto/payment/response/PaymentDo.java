@@ -8,7 +8,6 @@ public class PaymentDo {
     private String user_id;
     private String tid;
     private int tp_idx;
-    private String tid;
     private String c_dt;
     private int status;
     private String m_dt;

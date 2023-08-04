@@ -49,8 +49,6 @@ public class SessionController {
                     }
                 }).collect(Collectors.toList());
 
-        System.out.println(userSessions.toString());
-
         model.addAttribute("sessionList", userSessions);
         model.addAttribute("amount_user", userSessions.size());
 
@@ -79,7 +77,6 @@ public class SessionController {
         SessionInformation session = registry.getSessionInformation(sessionId.get("sessionId"));
         if(!session.isExpired()){
             session.expireNow();
-            registry.removeSessionInformation(sessionId.get("sessionId"));
         }
         return "redirect:/session/list";
     }

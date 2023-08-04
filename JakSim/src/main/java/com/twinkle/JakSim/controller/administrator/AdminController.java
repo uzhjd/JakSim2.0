@@ -33,7 +33,7 @@ public class AdminController {
         final String infoPath = "content/administrator/info/";
         model.addAttribute("user", accountService.findByUsername(username));
         model.addAttribute("imageList", fileService.getAllImages(username));
-        model.addAttribute("reviewList", reviewService.showMyReview(username));
+        //model.addAttribute("reviewList", reviewService.showMyReview(username));
         model.addAttribute("paymentList", paymentService.getPageItem(username, 1));
 
         return String.format(infoPath+"info");

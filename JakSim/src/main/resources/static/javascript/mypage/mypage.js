@@ -39,7 +39,7 @@ window.onload = function() {
     Array.from(viewReviewButtons).forEach((button) => {
         button.addEventListener('click', function(event){
             var reviewId = event.target.closest('tr').querySelector('.jaksim_font td:first-child span').textContent;
-            window.location.href=`/editReview/${reviewId}`;
+            window.location.href=`/review/editReview/${reviewId}`;
         });
     });
 
@@ -47,6 +47,7 @@ window.onload = function() {
     Array.from(viewPayButtons).forEach((button) => {
         button.addEventListener('click', function(event){
             var tid = event.target.closest('tr').querySelector('td:first-child span').textContent;
+            console.log(tid);
             window.location.href=`/payment/detail/${tid}`; //tid로 변경바람
         });
     });

@@ -126,3 +126,15 @@ VALUES(NULL, 'test2', 1, 20000, 0, '뒤지게패자', 6);
 COMMIT;
 
 
+SELECT DISTINCT td.user_id, td.UT_IDX, ti.TI_PATH, td.UT_GYM, ui.user_name, td.UT_EXPERT_1, td.UT_EXPERT_2, td.UT_ADDRESS, tc.TC_NAME, ROUND(AVG(r.R_STAR), 1) AS AVG_R_STAR
+FROM trainer_details td
+JOIN product p ON td.user_id = p.user_id
+JOIN trainer_career tca ON td.user_id = tca.user_id
+JOIN trainer_cert tc ON td.user_id = tc.user_id
+JOIN trainer_image ti ON td.user_id = ti.user_id
+JOIN user_info ui ON td.user_id = ui.user_id
+LEFT JOIN review r ON td.UT_IDX = r.UT_IDX
+where ut_expert_1 = 2 or ut_expert_2 = 5
+GROUP BY td.user_id
+ORDER BY AVG_R_STAR DESC, td.UT_IDX DESC
+LIMIT 0, 10;
