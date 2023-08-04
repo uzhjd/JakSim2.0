@@ -45,7 +45,7 @@ public class KakaoPayService {
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
 
         parameters.add("cid", cid);
-        parameters.add("partner_order_id", "012345");
+        parameters.add("partner_order_id", "1234");
         parameters.add("partner_user_id", userId);
         parameters.add("item_name", String.valueOf(paymentRequest.getPtTitle()));
         parameters.add("item_code", String.valueOf(paymentRequest.getTpIdx()));

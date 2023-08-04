@@ -9,7 +9,6 @@ window.onload = function(){
     pwInput.focus();
 
     pwInput.addEventListener('keypress', function(event){
-        console.log(event.keyCode);
         if(event.key==='Enter'){
             event.preventDefault();
 

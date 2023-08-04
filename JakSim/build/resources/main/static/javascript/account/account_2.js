@@ -1,14 +1,12 @@
 window.onload = function(){
     var nextButton = document.getElementById('account_2_next');
-
-    nextButton.addEventListener('click', storageDataSession)
+    nextButton.addEventListener('click', storageDataSession);
 }
 
 function validateKorean(input){
     var pattern = /^[ㄱ-ㅎㅏ-ㅣ가-힣]+$/;
     if(!pattern.test(input.value)){
         input.value = '';
-        //document.getElementById('account_2_failMessage').innerHTML = '한글로만 작성해주세요';
     }
 }
 
@@ -21,12 +19,7 @@ function storageDataSession(){
     sessionStorage.setItem('birth', birth);
     sessionStorage.setItem('gender', gender);
 
-    if(name !== '' && birth !== '' && gender !== null){
-        window.location.href='/account/3';
-    }
-    else{
-        alert('입력을 모두 완료해주세요');
-    }
+    (name !== '' && birth !== '' && gender !== null) ? window.location.href='/account/3' : alert('입력을 모두 완료해주세요');
 }
 
 function selectGender(){

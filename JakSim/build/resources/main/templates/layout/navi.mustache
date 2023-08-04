@@ -26,6 +26,11 @@
                         <a class="nav-link nav_font" href="/trainer/trainerRegister">트레이너 등록</a>
                     </li>
                 {{/isTrainer}}
+                {{#isAdmin}}
+                    <li class="nav-item">
+                        <a class="nav-link nav_font" href="/man/main">관리자 페이지</a>
+                    </li>
+                {{/isAdmin}}
             </ul>
             {{#session_user}}
                 {{#session_profile}}

@@ -26,6 +26,7 @@ public class KakaoPayRestController {
     @PostMapping("/ready")
     public ReadyResponse readyToKakaoPay(@AuthenticationPrincipal User user,
                                          @Valid @RequestBody PaymentRequest paymentRequest) {
+
         return kakaoPayService.kakaoPayReady(user.getUsername(), paymentRequest);
     }
 

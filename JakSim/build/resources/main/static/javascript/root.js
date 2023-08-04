@@ -44,3 +44,7 @@ function stopTimer(){
     cancelAnimationFrame(requestId);
 }
 
+function numFormat(intData){
+    return intData.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
