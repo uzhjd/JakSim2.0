@@ -42,7 +42,4 @@ public class KakaoPayRestController {
 
         return new ResponseEntity<>(kakaoCancelResponse, HttpStatus.OK);
     }
-
-    // 조회
-
 }

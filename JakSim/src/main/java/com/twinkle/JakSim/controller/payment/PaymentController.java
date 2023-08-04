@@ -1,14 +1,9 @@
 package com.twinkle.JakSim.controller.payment;
 
-import com.twinkle.JakSim.model.dto.payment.PaymentDtoForMypage;
-import com.twinkle.JakSim.model.dto.payment.response.CancelResponse;
-import com.twinkle.JakSim.model.dto.payment.response.ListResponse;
 import com.twinkle.JakSim.model.dto.payment.response.PaymentDo;
 import com.twinkle.JakSim.model.service.payment.PaymentService;
-import com.twinkle.JakSim.model.service.trainer.TrainerService;
 import com.twinkle.JakSim.model.dto.payment.response.ApproveResponse;
 import com.twinkle.JakSim.model.service.payment.KakaoPayService;
-import com.twinkle.JakSim.model.service.payment.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
@@ -21,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.lang.reflect.Array;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/payment")
@@ -34,21 +27,19 @@ public class PaymentController {
     private final PaymentService paymentService;
     private final String defaultPage = "/content/payment/";
 
-    // 결제 진행 중 취소
     @GetMapping("/cancel")
     public String cancel() {
         return defaultPage + "kakaoPay/Cancle";
     }
 
-    // 결제 승인 (성공)
     @GetMapping("/success")
-    public String afterPayRequest(@AuthenticationPrincipal User user, @RequestParam("pg_token") String pgToken, Model model) {
+    public String afterPayRequest(@AuthenticationPrincipal User user, @RequestParam("pg_token") String pgToken,
+                                                                                                        Model model) {
         ApproveResponse kakaoApprove = kakaoPayService.approveResponse(user.getUsername(), pgToken);
 
         if(kakaoApprove != null) {
             if(paymentService.savePaymentDetails(user.getUsername(), kakaoApprove)) {
                 kakaoApprove.setApproved_at(kakaoApprove.getApproved_at().replace("T", " "));
-
 
                 model.addAttribute("kakaoApprove", kakaoApprove);
 
@@ -56,7 +47,6 @@ public class PaymentController {
             }
         }
 
-        // 일단은 에러처리 안함.
         return defaultPage + "kakaoPay/Success";
     }
 
