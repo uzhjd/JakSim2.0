@@ -22,14 +22,18 @@
             <span id="account_id_result" style="margin-bottom: 30px;"></span>
 
             <div class="input_container">
-                <div id="account_span_container"></div>
-                <div id="account_input_container" class="account_input_container"></div>
-                <div id="account_span_message_container"></div>
+                <div id="account_span_container"><span class="account_span jaksim_font">비밀번호</span></div>
+                <div id="account_input_container" class="account_input_container">
+                    <input type="password" id="account_pw_input" class="account_input" placeholder="비밀번호를 입력해주세요">
+                    <input type="password" id="account_confirm_pw" class="account_input" placeholder="비밀번호를 확인해주세요">
+                </div>
+                <div id="account_span_message_container">
+                    <span id="account_pw_message" style="color:red"></span>
+                </div>
             </div>
         </div>
         <div style="margin-top: 30px;">
-            <button onclick="window.location.href='/';" class="jaksim_btn">이전</button>
-            <button id="account_1_next" class="jaksim_btn" onclick="window.location.href='/account/2'" disabled>이동</button>
+            <button id="account_1_next" class="jaksim_btn" onclick="goNext()" disabled>이동</button>
         </div>
     </div>
 

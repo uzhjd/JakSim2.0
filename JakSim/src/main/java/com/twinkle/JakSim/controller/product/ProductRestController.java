@@ -22,7 +22,6 @@ public class ProductRestController {
     @GetMapping("/myPt")
     public ResponseEntity<List<ValidPtResponse>> TrainerList(@AuthenticationPrincipal User user) {
         List<ValidPtResponse> response = paymentService.findValidPtList(user.getUsername());
-
         return ResponseEntity.ok(response);
     }
 }

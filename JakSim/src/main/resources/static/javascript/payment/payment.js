@@ -25,7 +25,6 @@ function getPay(){
             html = '';
             var container = document.getElementById('pay_list_tbody');
             var test = '/image/Training.jpg';
-            console.log(response.data);
             response.data.forEach(item => {
                     html += '<tr>';
                     html += `<td><img class="payment_item_img" src=${test} alt="TrainingPic"></td>`;

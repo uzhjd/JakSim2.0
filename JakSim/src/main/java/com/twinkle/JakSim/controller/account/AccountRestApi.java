@@ -25,23 +25,18 @@ public class AccountRestApi {
     }
 
     @PostMapping("/checkid")
-    public int checkId(@RequestBody UserDto data){
-        return accountService.findByUsername(data.getId()) == null ? 0 : 1;
+    public boolean checkId(@RequestBody UserDto data){
+        return accountService.findByUsername(data.getId()) == null;
     }
 
     @PostMapping("/checktel")
-    public int checkTel(@RequestBody UserDto data){
-        return accountService.findByTel(data.getTel()) == null ? 0 : 1;
+    public boolean checkTel(@RequestBody UserDto data){
+        return accountService.findByTel(data.getTel()) == null;
     }
 
     @PostMapping("/checkemail")
     public boolean dupEmail(@RequestBody UserDto data){
         return accountService.findByEmail(data.getEmail()) == null;
-    }
-
-    @PostMapping("/emailaction")
-    public String checkEmail(@RequestBody UserDto data){
-        return accountService.validateEmail(data.getEmail());
     }
 
     @PostMapping("/findtel")
@@ -51,7 +46,6 @@ public class AccountRestApi {
 
     @PutMapping("/changepw")
     public int updatePassword(@RequestBody UserDto data){
-        System.out.println(data.toString());
         return accountService.update(data.getId(), data.getPw());
     }
 }

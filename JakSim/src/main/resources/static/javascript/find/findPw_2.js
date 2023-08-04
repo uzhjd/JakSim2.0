@@ -1,114 +1,91 @@
-var codeInput, checkButton, userEmail, failSpan, changeDiv;
-var code;
+var checkButton;
 var requestId;
-var timeout;
+var userId;
+var parentDiv;
+var pwInput, confirmInput;
 
 window.onload = function(){
-    codeInput = document.getElementById('find_pw_validInput');
+    emailInit();
+    emailProcess();
+
     checkButton = document.getElementById('find_pw_validButton');
-    userEmail = sessionStorage.getItem('userEmail');
-    failSpan = document.getElementById('find_pw_validFail');
-    changeDiv = document.getElementById('find_pw_changePwDiv');
-
-    sendEmail();
-    showValidTime();
-
     checkButton.addEventListener('click', checkCode);
+    resendButton = document.getElementById('find_pw_resend_button');
+    resendButton.addEventListener('click', emailProcess);
 };
 
-function createTags(){
-    var pwSpan = document.createElement('span');
-    var pwInput = document.createElement('input');
-    var confirmPwInput = document.createElement('input');
-    var pwCheckButton = document.createElement('button');
-    var failSpan = document.createElement('span');
-
-    pwSpan.innerHTML = '비밀번호';
-
-    pwInput.type='password';
-
-    confirmPwInput.type='password';
-
-    pwCheckButton.textContent = '비밀번호 확인';
-    pwCheckButton.classList.add('jaksim_btn');
-    pwCheckButton.addEventListener('click', function(){
-        if(pwInput.value === confirmPwInput.value){
-            var sendData = {id: sessionStorage.getItem('userId'), pw: pwInput.value}
-            JSON.stringify(sendData);
-            axios.put('/account/changepw', sendData)
-                .then(response => {
-                    if(response.data > 0){
-                        alert('비밀번호가 변경되었습니다.');
-                        window.location.href = '/login';
-                    }
-                })
-                .catch(error => {
-                    console.error(error);
-                })
-        }else{
-            failSpan.innerHTML = '비밀번호를 다시 확인해주세요';
-        }
-    });
-
-    changeDiv.appendChild(pwSpan);
-    changeDiv.appendChild(pwInput);
-    changeDiv.appendChild(confirmPwInput);
-    changeDiv.appendChild(pwCheckButton);
-    changeDiv.appendChild(failSpan);
+function emailProcess(){
+    showValidTime();
+    sendMail();
 }
 
-function checkCode(){
-    if((code === codeInput.value) && !timeout){
-        sessionStorage.removeItem('userEmail');
-        stopTimer();
-        createTags();
+function emailInit(){
+    time = 600;
+    timeSpan = document.getElementById('find_pw_validTime');
+    emailResult =  document.getElementById('find_pw_validFail');
+    sessionEmail = sessionStorage.getItem('userEmail');
+    code = document.getElementById('find_pw_validInput');
+
+    userId = sessionStorage.getItem('userId');
+    parentDiv = document.getElementById('find_pw_changePwDiv');
+}
+
+function passwordChange(){
+    var html = '';
+    html += '<div><span class="jaksim_font">비밀번호 변경</span></div>';
+    html += '<input id="pw_find_pwInput" class="email_input" type="password" placeholder="비밀번호를 입력해주세요">';
+    html += '<input id="pw_find_confirm" class="email_input" type="password" placeholder="비밀번호 확인바랍니다.">';
+    html += '<button class="jaksim_btn" onclick="changeProcess()">비밀번호 변경</button>';
+    html += '<div><p id="pw_find_fail"></p></div>';
+
+    parentDiv.innerHTML = html;
+
+    failMessage = document.getElementById('pw_find_fail');
+
+    pwInput = document.getElementById('pw_find_pwInput');
+    confirmInput = document.getElementById('pw_find_confirm');
+}
+
+function lengthCheck(){
+    return pwInput.value.length > 7;
+}
+
+function confirmPassword(){
+    return pwInput.value === confirmInput.value;
+}
+
+function changeProcess(){
+    if(lengthCheck() && confirmPassword()){
+        storePassword();
+    }else if(!lengthCheck()){
+        failMessage.innerHTML = '8자 이상 작성해주세요';
     }else{
-        failSpan.innerHTML = '인증시간이 만료되었습니다.';
+        failMessage.innerHTML = '비밀번호가 일치하지 않습니다.';
     }
 }
 
-function showValidTime(){
-    validateTime = document.getElementById('find_pw_validTime');
-    timeout = false;
-
-    var startTime = Date.now();
-    var endTime = startTime + 600 * 1000;
-
-    function update(){
-        var currentTime = Date.now();
-        var remainTime = Math.max(0, endTime - currentTime);
-
-        var seconds = Math.floor(remainTime/1000);
-        var min = Math.floor(seconds/60);
-        seconds %= 60;
-
-        min = min.toString().padStart(2, '0');
-        seconds = seconds.toString().padStart(2, '0');
-
-        validateTime.innerHTML = `${min} : ${seconds}`;
-
-        if(currentTime < endTime){
-            failSpan.innerHTML = '';
-            requestId = requestAnimationFrame(update);
-        }else{
-            timeout = true;
-            failSpan.innerHTML = '인증시간이 만료되었습니다.';
-        }
+function storePassword(){
+    function success(){
+        alert('비밀번호가 변경되었습니다.');
+        window.location.href = '/login';
     }
-    update();
-}
 
-function stopTimer(){
-    cancelAnimationFrame(requestId);
-}
-
-function sendEmail(){
-    axios.post('/find/api/email/action', {email: userEmail})
+    axios.put('/account/changepw', {id: userId, pw: pwInput.value})
         .then(response => {
-            code = response.data;
+            (response.data > 0) ? success() : alert('다시 시도해주세요');
         })
         .catch(error => {
             console.error(error);
-        })
+        });
+}
+
+function afterSend(){
+    console.log('이메일 전송 완료');
+}
+
+function afterConfirm(result){
+    if(result){
+        passwordChange();
+    }
 }
 

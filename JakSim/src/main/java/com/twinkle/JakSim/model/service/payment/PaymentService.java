@@ -72,7 +72,7 @@ public class PaymentService {
     }
 
 
-    public Optional<PaymentDo> getPaymentByIdx(String tid) {
+    public Optional<PaymentDo> getPaymentByTid(String tid) {
         return paymentDao.getPaymentByIdx(tid);
     }
 

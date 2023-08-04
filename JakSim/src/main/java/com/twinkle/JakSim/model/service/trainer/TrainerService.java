@@ -39,8 +39,7 @@ public class TrainerService {
     public void TrainerSignUp(TrainerInsertDto requestTrainer, String userId, MultipartFile certImage, MultipartFile[] imagePath) throws IOException {
         if(!certImage.isEmpty() || certImage != null) {
             String projectPath = System.getProperty("user.dir") +
-                    "/src/main/resources/static/image/trainer";
-            System.out.println(projectPath);
+                    "/JakSim/src/main/resources/static/image/trainer";
 
             UUID uuid = UUID.randomUUID();
             String certName = uuid + "_" + certImage.getOriginalFilename();
@@ -54,7 +53,7 @@ public class TrainerService {
 
         if(imagePath.length != 0  || imagePath != null) {
             String projectPath = System.getProperty("user.dir") +
-                    "/src/main/resources/static/image/trainer";
+                    "/JakSim/src/main/resources/static/image/trainer";
             UUID uuid = UUID.randomUUID();
             List<String> imagePaths = new ArrayList<>();
 
@@ -74,7 +73,6 @@ public class TrainerService {
     }
     @Transactional
     public void updateTrainer(TrainerInsertDto requestTrainer, String userId, MultipartFile certImage, MultipartFile[] imagePath) throws IOException {
-
         if(!certImage.isEmpty()) {
             String projectPath = System.getProperty("user.dir") +
                     "/JakSim/src/main/resources/static";
@@ -257,5 +255,9 @@ public class TrainerService {
         }
 
         return trainerDetailResponse;
+    }
+
+    public TrainerForPayDetail searchByUsername(String userId) {
+        return trainerDao.searchByUsername(userId);
     }
 }
