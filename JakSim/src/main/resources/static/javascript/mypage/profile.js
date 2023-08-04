@@ -50,7 +50,6 @@ function stopTimer(){
 }
 
 function checkEmail(){
-    console.log(emailInput.value);
     axios.post('/mypage/api/email/get', {email: emailInput.value})
         .then(response=>{
             if(response.data){

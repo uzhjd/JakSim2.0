@@ -25,7 +25,6 @@ public class CustomAuthFailureHandler implements AuthenticationFailureHandler {
         }else if (exception instanceof AccountExpiredException) {
             redirectStrategy.sendRedirect(request, response, "/login?errorCode=account_expired");
         }else{
-            System.out.println(exception.getMessage());
             redirectStrategy.sendRedirect(request, response, "/login?errorCode=unknown");
         }
     }

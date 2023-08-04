@@ -53,7 +53,6 @@ public class PaymentDao {
 
         this.sql = "insert into payment (user_id, tp_idx, tid, p_a_dt, p_status, p_pt_cnt, p_pt_period) " +
                 "values (?, ?, ?, ?, 0, ?, ?)";
-        System.out.println(paymentDetails.toString());
         try {
             jdbcTemplate.update(this.sql, userId, paymentDetails.getItem_code(), paymentDetails.getTid(),
                             paymentDetails.getCreated_at(), paymentDetails.getPtTimes(), paymentDetails.getPtPeriod());
@@ -70,7 +69,6 @@ public class PaymentDao {
 
         String refundSql = "update payment set p_status = ?, p_m_dt = ? where tid = ?";
         String selectSql = "select * from payment where tid = ?";
-        System.out.println(today);
         try {
             jdbcTemplate.update(refundSql, 1, today, tid);
 

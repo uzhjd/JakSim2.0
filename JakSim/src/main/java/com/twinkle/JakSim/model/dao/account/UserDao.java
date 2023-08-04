@@ -68,7 +68,7 @@ public class UserDao {
         try{
             result = jdbcTemplate.update(sql, pw, user_id);
         }catch (Exception e){
-            System.out.println("모시깽이 에러");
+            System.out.println("패스워드 수정 에러");
         }
 
         return result;
@@ -92,7 +92,7 @@ public class UserDao {
         try{
             user = jdbcTemplate.queryForObject(sql, new UserRowMapper() ,email);
         }catch (EmptyResultDataAccessException e){
-            System.out.println("데이터가 없다네예");
+            System.out.println("데이터가 존재하지 않습니다.");
         }
         return user;
     }
@@ -106,7 +106,7 @@ public class UserDao {
         try{
             result = jdbcTemplate.update(sql, email, username);
         }catch (Exception e){
-            System.out.println("모시깽이 에러");
+            System.out.println("이메일 수정 에러");
         }
 
         return result;
@@ -137,7 +137,6 @@ public class UserDao {
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
-        System.out.println("result: " + result);
         return result;
     }
 

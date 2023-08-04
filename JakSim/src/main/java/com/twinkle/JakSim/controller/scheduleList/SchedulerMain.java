@@ -19,7 +19,6 @@ public class SchedulerMain {
     @GetMapping("")
     public String scheduler(@AuthenticationPrincipal User user) {
         String isUser = "USER";
-        System.out.println(user.getAuthorities());
 
         for(GrantedAuthority authority : user.getAuthorities()){
             String authorityString = authority.getAuthority();

@@ -124,7 +124,6 @@ function nameChangeResult(){
 
     axios.put('/mypage/api/profile/update/name', {name: nameInput.value})
         .then(response => {
-            console.log(response.data);
             if(response.data){
                 alert('이름이 정상적으로 변경되었습니다.');
                 window.location.reload();
@@ -141,7 +140,6 @@ function nameChangeResult(){
 function checkTel(){
     axios.post('/mypage/api/profile/check/tel', {tel: telInput.value})
             .then(response => {
-                console.log(response.data);
                 if(response.data === true){
                     telChangeResult();
                 }else{
@@ -161,7 +159,6 @@ function nameChangeInput(){
 
 var deleteUser = function(){
     var data = {id : document.getElementById('navi_username').innerHTML};
-    console.log(data);
 
     axios.delete('/mypage/api/delete')
         .then(response => {
