@@ -13,5 +13,6 @@ public class UserDto {
     private String tel;
     private String birth;
     private String c_dt;
+    private String m_dt;
     private int role;
 }

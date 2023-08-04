@@ -3,7 +3,6 @@ package com.twinkle.JakSim.config.auth;
 import com.twinkle.JakSim.model.dto.account.UserDto;
 import com.twinkle.JakSim.model.dao.account.UserDao;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -14,31 +13,34 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class CustomUserDetailService implements UserDetailsService {
-    @Autowired
-    private UserDao userDao;
+    private final UserDao userDao;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDto siteUser = null;
+        final Optional<UserDto> siteUser = userDao.findByUserId(username);
 
-        siteUser = userDao.findByUserId(username);
-
-        if(siteUser == null){
+        if(siteUser.isEmpty()){
             throw new UsernameNotFoundException("user not found");
         }
 
         List<GrantedAuthority> authorities = new ArrayList<>();
-        if(siteUser.getRole() == 0){
-            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        }else if(siteUser.getRole() == 1){
-            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-        }else if(siteUser.getRole() == 2){
-            authorities.add(new SimpleGrantedAuthority("ROLE_TRAINER"));
+        switch (siteUser.get().getRole()){
+            case 0:
+                authorities.add(new SimpleGrantedAuthority("ADMIN"));
+                break;
+            case 1:
+                authorities.add(new SimpleGrantedAuthority("USER"));
+                break;
+            case 2:
+                authorities.add(new SimpleGrantedAuthority("TRAINER"));
+                break;
         }
 
-        return new User(siteUser.getId(), siteUser.getPw(), authorities);
+        return new User(siteUser.get().getId(), siteUser.get().getPw(), authorities);
     }
+
 }

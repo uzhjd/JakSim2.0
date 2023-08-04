@@ -7,9 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-
 @SpringBootTest
 class JakSimApplicationTests {
 	@Autowired
@@ -33,19 +30,21 @@ class JakSimApplicationTests {
 	 * </p>
 	 *
 	 */
-//	@Test
-//	void singleRegisterMember() {
-//		UserDto userDto = new UserDto();
-//
-//		userDto.setId("test1");
-//		userDto.setPw("123");
-//		userDto.setName("유정");
-//		userDto.setEmail("uzhjd@naver.com");
-//		userDto.setGender(1);
-//		userDto.setBirth("2023-03-30");
-//		userDto.setTel("01012555678");
-//		userDto.setRole(2); // 0->Admin 1->Trainer 2->User
-//
-//		accountRestApi.AccountAction(userDto);
-//	}
+	@Test
+	void singleRegisterMember() {
+		for(int i=0; i<5000000; i++){
+			UserDto userDto = new UserDto();
+			userDto.setId("west" + i);
+			userDto.setPw("1234");
+			userDto.setName("wester"+i);
+			userDto.setEmail("west"+i+"@naver.com");
+			userDto.setGender(1);
+			userDto.setBirth("2023-03-30");
+			userDto.setTel("55324"+i);
+			userDto.setRole(1);// 0->Admin 1->User 2->Trainer
+
+			accountRestApi.AccountAction(userDto);
+		}
+		System.out.println("fin");
+	}
 }

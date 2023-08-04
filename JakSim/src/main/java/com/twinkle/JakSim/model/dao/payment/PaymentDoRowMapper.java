@@ -13,6 +13,7 @@ public class PaymentDoRowMapper implements RowMapper<PaymentDo> {
 
         paymentDo.setIdx(rs.getInt("P_IDX"));
         paymentDo.setUser_id(rs.getString("USER_ID"));
+        paymentDo.setTid(rs.getString("TID"));
         paymentDo.setTp_idx(rs.getInt("TP_IDX"));
         paymentDo.setTid(rs.getString("TID"));
         paymentDo.setC_dt(rs.getString("P_A_DT"));

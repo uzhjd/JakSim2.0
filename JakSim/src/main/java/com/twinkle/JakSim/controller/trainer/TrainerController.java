@@ -32,7 +32,7 @@ public class TrainerController {
     public String trainerSignUp(Model model,  @AuthenticationPrincipal User info) {
         if(info != null) {
             model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
-            model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
+            //model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
         }
         model.addAttribute("head_title", "트레이너 등록");
 
@@ -53,7 +53,7 @@ public class TrainerController {
 
         if(info != null) {
             model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
-            model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
+            //model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
         }
 
         model.addAttribute("head_title", "트레이너 정보수정");
@@ -89,7 +89,7 @@ public class TrainerController {
     public String viewTrainer(@PathVariable("userId") String userId, @AuthenticationPrincipal User info, Model model) {
         if(info != null) {
             model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
-            model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
+            //model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
         }
 
         model.addAttribute("head_title", "트레이너 상세페이지");
@@ -112,7 +112,7 @@ public class TrainerController {
                                     @RequestParam(value = "filter", defaultValue = "0") int filter) {
         if(info != null) {
             model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
-            model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
+            //model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
         }
 
         model.addAttribute("head_title", "트레이너 리뷰페이지");
@@ -161,7 +161,7 @@ public class TrainerController {
 
         if (info != null) {
             model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
-            model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
+            //model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
         }
         model.addAttribute("head_title", "트레이너 찾기");
         model.addAttribute("userId", info);
@@ -210,7 +210,7 @@ public class TrainerController {
 
         if(info != null) {
             model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
-            model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
+            //model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
         }
 
         model.addAttribute("head_title", "트레이너 관리페이지");
@@ -242,7 +242,7 @@ public class TrainerController {
 
         if(info != null) {
             model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
-            model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
+            //model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
         }
 
         model.addAttribute("head_title", "트레이너 관리페이지");

@@ -6,6 +6,9 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Repository
 public class FileDao {
     @Autowired
@@ -33,5 +36,19 @@ public class FileDao {
         }
 
         return image;
+    }
+
+    public List<UserImage> getAllImages(String username){
+        String sql = "SELECT * FROM USER_IMAGE WHERE USER_ID = ? ORDER BY UI_DT DESC";
+        List<UserImage> imageList = new ArrayList<>();
+        try{
+            imageList = jdbcTemplate.query(sql, new UserImageMapper(), username);
+        }catch (EmptyResultDataAccessException e){
+            UserImage temp = new UserImage();
+            temp.setPath("/image/profiles/profile.jpg");
+            imageList.add(temp);
+        }
+
+        return imageList;
     }
 }

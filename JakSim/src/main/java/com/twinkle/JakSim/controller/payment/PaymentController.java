@@ -4,11 +4,12 @@ import com.twinkle.JakSim.model.dto.payment.PaymentDtoForMypage;
 import com.twinkle.JakSim.model.dto.payment.response.CancelResponse;
 import com.twinkle.JakSim.model.dto.payment.response.ListResponse;
 import com.twinkle.JakSim.model.dto.payment.response.PaymentDo;
+import com.twinkle.JakSim.model.dto.trainer.ProductDto;
 import com.twinkle.JakSim.model.service.payment.PaymentService;
 import com.twinkle.JakSim.model.service.trainer.TrainerService;
 import com.twinkle.JakSim.model.dto.payment.response.ApproveResponse;
 import com.twinkle.JakSim.model.service.payment.KakaoPayService;
-import com.twinkle.JakSim.model.service.payment.PaymentService;
+import com.twinkle.JakSim.model.service.trainer.TrainerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
@@ -32,6 +33,9 @@ public class PaymentController {
 
     private final KakaoPayService kakaoPayService;
     private final PaymentService paymentService;
+    private final TrainerService trainerService;
+
+
     private final String defaultPage = "/content/payment/";
 
     // 결제 진행 중 취소
@@ -48,8 +52,6 @@ public class PaymentController {
         if(kakaoApprove != null) {
             if(paymentService.savePaymentDetails(user.getUsername(), kakaoApprove)) {
                 kakaoApprove.setApproved_at(kakaoApprove.getApproved_at().replace("T", " "));
-
-
                 model.addAttribute("kakaoApprove", kakaoApprove);
 
                 return defaultPage + "kakaoPay/Success";
@@ -74,8 +76,6 @@ public class PaymentController {
     @GetMapping("/list")
     public String payListPage(@AuthenticationPrincipal User user, Model model){
         model.addAttribute("head_title", "결제 확인 목록");
-        //전체 페이지 수까지 axios로 받을 시, async 특성 때문에 정상적이지 않을수도 있음
-        //따라서, 전체 페이지수 만큼은 Controller에서 받아내도록 함 -> 필요시 변경 가능
         model.addAttribute("total_page", paymentService.getTotalPage(user.getUsername()));
 
         return String.format(defaultPage + "pay_list");
@@ -84,12 +84,13 @@ public class PaymentController {
     @GetMapping("/detail/{tid}")
     public String payDetailPage(@AuthenticationPrincipal User user, @PathVariable("tid") String tid, Model model) {
         model.addAttribute("head_title", "결제 내역 상세");
-
-        paymentService.getPaymentByIdx(tid).ifPresent(
+        paymentService.getPaymentByTid(tid).ifPresent(
                 item -> {
                     model.addAttribute("apiResponse", kakaoPayService.kakaoList(tid));
                     model.addAttribute("payment", item);
-                    model.addAttribute("product", paymentService.getProductByIdx(item.getTp_idx()));
+                    ProductDto product = paymentService.getProductByIdx(item.getTp_idx());
+                    model.addAttribute("product", product);
+                    model.addAttribute("trainer", trainerService.searchByUsername(product.getUserId()));
                 }
         );
 

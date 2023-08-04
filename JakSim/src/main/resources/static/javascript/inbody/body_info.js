@@ -44,8 +44,6 @@ function createData(){
         muscle: document.getElementById('inbody_input_muscle').value
     };
 
-    console.log(inbodyData['height'] + ' ::: ' + inbodyData['weight']);
-
     if(inbodyData['height'] === '' || inbodyData['weight'] === ''){
         alert('신장과 체중은 반드시 작성해주세요');
         return ;
@@ -112,9 +110,9 @@ function getData(){
             tbody.innerHTML = html;
 
             var delButtons = document.getElementsByClassName('delete_button');
-            for(var i=0; i<delButtons.length; i++){
-                delButtons[i].addEventListener('click', deleteData);
-            }
+            Array.from(delButtons).forEach((button) => {
+               button.addEventListener('click', deleteData);
+            });
         })
         .catch(error => {
             console.error(error);
@@ -143,13 +141,12 @@ function deleteData(event){
 function getChart(option){
     axios.get('/mypage/api/inbody/data')
         .then(response => {
-            if(response.data.length === 0)
+            if(response.data.length === 0){
                 response.data = [{
                     id: 0, height: 0, weight: 0, score: 0, fat: 0, muscle: 0, c_dt: Date.now()
                 }];
-            response.data.forEach(function(data){
-                showChart(response.data, response.data.map(data => data['c_dt']), option);
-            })
+            }
+            showChart(response.data, response.data.map(data => data['c_dt']), option);
         })
         .catch(error => {
             console.error(error);
@@ -161,12 +158,12 @@ function showChart(chartData, label, option){
 
     var data = chartData.map(data => data[option]);
     for(var i=0; i<data.length; i++){
-                if(data[i] === 0){
-                    data.splice(i, 1);
-                    label.splice(i, 1);
-                    i--;
-                }
-            }
+        if(data[i] === 0){
+            data.splice(i, 1);
+            label.splice(i, 1);
+            i--;
+        }
+    }
 
     var canvas = document.getElementById('inbodyChart').getContext('2d');
     if(option === 'weight'){

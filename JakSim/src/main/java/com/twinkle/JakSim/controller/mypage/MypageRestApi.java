@@ -10,15 +10,12 @@ import com.twinkle.JakSim.model.service.inbody.InbodyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -31,12 +28,13 @@ public class MypageRestApi {
     private final LoginLogService loginLogService;
     @PostMapping("/auth")
     public String authPassword(@RequestBody UserDto userDto, @AuthenticationPrincipal User user){
-        return accountService.checkPassword(user.getUsername(), userDto.getPw()) ? user.getUsername() : null;
+        return accountService.checkPassword(user.getUsername(), userDto.getPw()).get() ? user.getUsername() : null;
     }
     @DeleteMapping("/delete")
     public int deleteUser(@AuthenticationPrincipal User user){
         return accountService.delete(user.getUsername());
     }
+
     @GetMapping("/sessiontime")
     public int getSessionTime(HttpServletRequest request){
         HttpSession session = request.getSession(false);
@@ -51,7 +49,7 @@ public class MypageRestApi {
     }
 
     @GetMapping("/user-info")
-    public UserDetails getUserInfo(@AuthenticationPrincipal User user){
+    public Principal getUserInfo(Principal user){
         return user;
     }
 
