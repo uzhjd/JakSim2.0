@@ -65,14 +65,4 @@ public class MypageController {
         model.addAttribute("log", loginLogService.findByUsernameRecent(user.getUsername()));
         return String.format(defaultPath + "profile");
     }
-
-    @GetMapping("/inbody")
-    public String inbodyPage(@AuthenticationPrincipal User user, Model model){
-        model.addAttribute("head_title", "인바디");
-        model.addAttribute("access_log", loginLogService.findByUsernameRecent(user.getUsername()));
-        model.addAttribute("user_info", accountService.findByUsername(user.getUsername()));
-        model.addAttribute("totalPage", inbodyService.getTotalPage(user.getUsername()));
-
-        return String.format(defaultPath + "inbody/body_info"); 
-    }
 }

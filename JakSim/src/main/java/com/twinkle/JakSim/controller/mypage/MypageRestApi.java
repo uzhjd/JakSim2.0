@@ -44,30 +44,6 @@ public class MypageRestApi {
         return 0;
     }
 
-    @GetMapping("/inbody/data")
-    public List<InbodyDto> getInbody(@AuthenticationPrincipal User user){
-        return inbodyService.getInbodies(user.getUsername());
-    }
-
-    @GetMapping("/inbody/totalpage")
-    public int getTotalPage(@AuthenticationPrincipal User user){
-        return inbodyService.getTotalPage(user.getUsername());
-    }
-
-    @GetMapping("/inbody/{page}")
-    public List<InbodyDto> getInbodyByPage(@AuthenticationPrincipal User user, @PathVariable("page") int page){
-        return inbodyService.getInbodiesByPage(user.getUsername(), page);
-    }
-
-    @PostMapping("/inbody/create")
-    public int createInbodyData(@AuthenticationPrincipal User user, @RequestBody InbodyDto data){
-        return inbodyService.create(user.getUsername(), data);
-    }
-
-    @DeleteMapping("/inbody/del/{id}")
-    public int deleteInbodyData(@PathVariable("id") int id){
-        return inbodyService.delete(id);
-    }
 
     @GetMapping("login/{page}")
     public List<LoginLogDto> getLoginList(@PathVariable("userId") String username, @PathVariable("page")int pageNum){
