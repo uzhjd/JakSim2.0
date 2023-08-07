@@ -2,50 +2,68 @@ package com.twinkle.JakSim.controller.account;
 
 import com.twinkle.JakSim.model.dto.account.UserDto;
 import com.twinkle.JakSim.model.service.account.AccountService;
+import com.twinkle.JakSim.model.service.account.FileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 
 @RestController
-@RequestMapping("/account")
+@RequestMapping("/account/api")
 @RequiredArgsConstructor
 public class AccountRestApi {
     private final AccountService accountService;
+    private final FileService fileService;
 
     @PostMapping("/action")
-    public int AccountAction(@RequestBody UserDto data){
+    public int accountAction(@RequestBody UserDto data){
         return accountService.CreateMember(data);
     }
 
-    @PostMapping("/checkid")
-    public boolean checkId(@RequestBody UserDto data){
-        return accountService.findByUsername(data.getId()) == null;
+    @GetMapping("/verify-id")
+    public boolean checkId(@RequestParam String userId){
+        return accountService.findByUsername(userId) == null;
     }
 
-    @PostMapping("/checktel")
-    public boolean checkTel(@RequestBody UserDto data){
-        return accountService.findByTel(data.getTel()) == null;
+    @GetMapping("/verify-tel")
+    public boolean checkTel(@RequestParam String tel){
+        return accountService.findByTel(tel) == null;
     }
 
-    @PostMapping("/checkemail")
-    public boolean dupEmail(@RequestBody UserDto data){
-        return accountService.findByEmail(data.getEmail()) == null;
-    }
-
-    @PostMapping("/findtel")
-    public UserDto findTel(@RequestBody UserDto data){
-        return accountService.findByTel(data.getTel());
-    }
-
-    @PutMapping("/changepw")
+    @PutMapping("/change-pw")
     public int updatePassword(@RequestBody UserDto data){
         return accountService.update(data.getId(), data.getPw());
+    }
+
+    @PutMapping("/change-tel")
+    public int updateTel(@AuthenticationPrincipal User user, @RequestBody UserDto data){
+        return accountService.updateTel(data.getTel(), user.getUsername());
+    }
+
+    @PutMapping("/change-name")
+    public int updateName(@AuthenticationPrincipal User user, @RequestBody UserDto data){
+        return accountService.updateName(data.getName(), user.getUsername());
+    }
+
+    @PutMapping("/change-image")
+    public boolean updateProfileImage(@AuthenticationPrincipal User user, @RequestParam("file")MultipartFile data) throws Exception{
+        return fileService.updateProfileImage(data, user.getUsername());
+    }
+
+    @GetMapping("/user-info")
+    public UserDto getUserInfoByUserId(@RequestParam String username){
+        return accountService.findByUsername(username);
+    }
+
+    @DeleteMapping("/delete")
+    public int deleteUser(@AuthenticationPrincipal User user){
+        return accountService.delete(user.getUsername());
     }
 }

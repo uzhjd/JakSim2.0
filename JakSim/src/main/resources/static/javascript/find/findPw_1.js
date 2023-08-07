@@ -14,7 +14,7 @@ window.onload = function(){
 };
 
 function checkUser(){
-    axios.post('/find/api/checkuser', {id: userIdSpan.value})
+    axios.get(`/account/api/user-info?username=${userIdSpan.value}`)
         .then(response => {
             oriEmail = response.data['email'];
             userId = response.data['id'];

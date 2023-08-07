@@ -113,20 +113,20 @@ public class AccountService {
         emailSender.send(emailForm);
     }
 
-    public UserDto findByEmail(String email) {
+    public Optional<UserDto> findByEmail(String email) {
         return userDao.findByEmail(email);
     }
 
-    public boolean updateEmail(String email, String username) {
-        return userDao.updateEmail(email, username) > 0;
+    public int updateEmail(String email, String username) {
+        return userDao.updateEmail(email, username);
     }
 
-    public boolean updateName(String name, String username) {
-        return userDao.updateName(name, username) > 0;
+    public int updateName(String name, String username) {
+        return userDao.updateName(name, username);
     }
 
-    public boolean updateTel(String tel, String username) {
-        return userDao.updateTel(tel, username) > 0;
+    public int updateTel(String tel, String username) {
+        return userDao.updateTel(tel, username);
     }
 
     public List<UserStat> getAmountAccounts(String start, String end) {

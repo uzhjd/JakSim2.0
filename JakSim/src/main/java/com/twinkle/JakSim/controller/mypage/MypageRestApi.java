@@ -30,10 +30,6 @@ public class MypageRestApi {
     public String authPassword(@RequestBody UserDto userDto, @AuthenticationPrincipal User user){
         return accountService.checkPassword(user.getUsername(), userDto.getPw()).get() ? user.getUsername() : null;
     }
-    @DeleteMapping("/delete")
-    public int deleteUser(@AuthenticationPrincipal User user){
-        return accountService.delete(user.getUsername());
-    }
 
     @GetMapping("/sessiontime")
     public int getSessionTime(HttpServletRequest request){
@@ -46,46 +42,6 @@ public class MypageRestApi {
             return maxInactiveInterval - (int) elapsedTimeInSeconds;
         }
         return 0;
-    }
-
-    @GetMapping("/user-info")
-    public Principal getUserInfo(Principal user){
-        return user;
-    }
-
-    @PutMapping("/profile/update")
-    public boolean getData(@AuthenticationPrincipal User user, @RequestParam("file") MultipartFile data) throws Exception{
-        return fileService.updateProfileImage(data, user.getUsername());
-    }
-
-    @PutMapping("/profile/update/email")
-    public boolean changeEmail(@AuthenticationPrincipal User user, @RequestBody UserDto userDto){
-        return accountService.updateEmail(userDto.getEmail(), user.getUsername());
-    }
-
-    @PostMapping("/email/get")
-    public boolean dupEmail(@RequestBody UserDto userDto){
-        return accountService.findByEmail(userDto.getEmail()) == null;
-    }
-
-    @PostMapping("/email/check")
-    public String validEmail(@RequestBody UserDto userDto){
-        return accountService.validateEmail(userDto.getEmail());
-    }
-
-    @PutMapping("/profile/update/name")
-    public boolean changeName(@AuthenticationPrincipal User user, @RequestBody UserDto data){
-        return accountService.updateName(data.getName(), user.getUsername());
-    }
-
-    @PutMapping("/profile/update/tel")
-    public boolean changeTel(@AuthenticationPrincipal User user, @RequestBody UserDto data){
-        return accountService.updateTel(data.getTel(), user.getUsername());
-    }
-
-    @PostMapping("/profile/check/tel")
-    public boolean checkTel(@RequestBody UserDto data){
-        return accountService.findByTel(data.getTel()) == null;
     }
 
     @GetMapping("/inbody/data")
@@ -113,7 +69,7 @@ public class MypageRestApi {
         return inbodyService.delete(id);
     }
 
-    @GetMapping("/{userId}/history/{page}")
+    @GetMapping("login/{page}")
     public List<LoginLogDto> getLoginList(@PathVariable("userId") String username, @PathVariable("page")int pageNum){
         return loginLogService.findByUsername(username, pageNum);
     }

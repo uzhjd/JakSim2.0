@@ -86,7 +86,7 @@ public class UserDao {
         return result;
     }
 
-    public UserDto findByEmail(String email) {
+    public Optional<UserDto> findByEmail(String email) {
         String sql = "SELECT * FROM USER_INFO WHERE USER_EMAIL = ?";
         UserDto user = null;
         try{
@@ -94,7 +94,7 @@ public class UserDao {
         }catch (EmptyResultDataAccessException e){
             System.out.println("데이터가 존재하지 않습니다.");
         }
-        return user;
+        return Optional.ofNullable(user);
     }
 
     public int updateEmail(String email, String username) {
