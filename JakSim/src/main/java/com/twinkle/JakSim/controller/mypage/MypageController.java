@@ -24,7 +24,6 @@ public class MypageController {
     private final LoginLogService loginLogService;
     private final PaymentService paymentService;
     private final ReviewService reviewService;
-    private final InbodyService inbodyService;
 
     @GetMapping("/auth")
     public String authPage(Model model){

@@ -23,15 +23,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MypageRestApi {
     private final AccountService accountService;
-    private final FileService fileService;
-    private final InbodyService inbodyService;
     private final LoginLogService loginLogService;
     @PostMapping("/auth")
     public String authPassword(@RequestBody UserDto userDto, @AuthenticationPrincipal User user){
         return accountService.checkPassword(user.getUsername(), userDto.getPw()).get() ? user.getUsername() : null;
     }
 
-    @GetMapping("/sessiontime")
+    @GetMapping("/session-time")
     public int getSessionTime(HttpServletRequest request){
         HttpSession session = request.getSession(false);
         if(session != null){
