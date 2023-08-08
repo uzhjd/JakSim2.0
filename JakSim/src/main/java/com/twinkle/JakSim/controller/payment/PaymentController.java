@@ -93,7 +93,6 @@ public class PaymentController {
                     model.addAttribute("trainer", trainerService.searchByUsername(product.getUserId()));
                 }
         );
-
         return String.format(defaultPage + "pay_detail");
     }
 

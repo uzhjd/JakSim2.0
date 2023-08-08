@@ -46,8 +46,8 @@ public class SecurityConfig {
         http.authorizeHttpRequests().antMatchers( "/", "/trainerUpdate/**",
                         "/scheduler/**", "/trainerDelete", "/reservation/**",
                          "/trainer/trainerSearch",
-                        "/javascript/**", "/css/**", "/image/**").permitAll()
-                .antMatchers("/login/**", "/find/**", "/account/**", "/email/**").hasAnyRole("ANONYMOUS")
+                        "/javascript/**", "/css/**", "/image/**", "/email/**", "/account/api/**").permitAll()
+                .antMatchers("/login/**", "/find/**", "/account/**").hasAnyRole("ANONYMOUS")
                 .antMatchers("/trainer/trainerRegister/**").hasAuthority("USER")
                 .antMatchers("/trainer/trainerUpdate/**", "/trainer/trainerControl", "/trainer/ptUserInfo").hasAnyAuthority("TRAINER")
                 .antMatchers("/session/**", "/info/**").hasAuthority("ADMIN")

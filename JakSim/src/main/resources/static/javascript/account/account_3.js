@@ -73,7 +73,7 @@ function checkPhone(){
     }
 
     if(checkPhoneLength() && checkPhoneFormat()){
-        axios.post('/account/checktel', data)
+        axios.get(`/account/api/verify-tel?tel=${phoneInput.value}`)
             .then(response => {
                 response.data ? success() : fail();
                 isEmail && isPhone ? nextButton.disabled = false : nextButton.disabled = true;
