@@ -32,7 +32,6 @@ public class TrainerController {
     public String trainerSignUp(Model model,  @AuthenticationPrincipal User info) {
         if(info != null) {
             model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
-            //model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
         }
         model.addAttribute("head_title", "트레이너 등록");
 
@@ -41,39 +40,38 @@ public class TrainerController {
 
     @PostMapping("/trainerRegister")
     public String trainerSignUp(TrainerInsertDto trainerDto, @AuthenticationPrincipal User info,
-                                @RequestParam("certImage1") MultipartFile certImage,
+                                @RequestParam("profileImage1") MultipartFile profileImage,
                                 @RequestParam("imagePath1") MultipartFile[] imagePath) throws IOException {
-        trainerService.TrainerSignUp(trainerDto, info.getUsername(), certImage, imagePath);
+        trainerService.TrainerSignUp(trainerDto, info.getUsername(), profileImage, imagePath);
 
         return "redirect:/logout";
     }
 
-    @GetMapping("/trainer/trainerUpdate/{userId}")
-    public String trainerUpdate(Model model, @PathVariable("userId") String userId, @AuthenticationPrincipal User info) {
+    @GetMapping("/trainer/trainerUpdate/{trainerId}")
+    public String trainerUpdate(Model model, @PathVariable("trainerId") int trainerId, @AuthenticationPrincipal User info) {
 
         if(info != null) {
             model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
-            //model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
         }
 
         model.addAttribute("head_title", "트레이너 정보수정");
         model.addAttribute("userId", info);
-        model.addAttribute("trainer", trainerService.searchTrainer(userId));
-        model.addAttribute("product", trainerService.getProduct(userId));
-        model.addAttribute("cert", trainerService.getCert(userId));
-        model.addAttribute("career", trainerService.getCareer(userId));
-        model.addAttribute("imageList", trainerService.getTrainerImage(userId));
-        model.addAttribute("name", trainerService.searchTrainerName(userId));
+        model.addAttribute("trainer", trainerService.searchTrainer(trainerId));
+        model.addAttribute("product", trainerService.getProduct(trainerId));
+        model.addAttribute("cert", trainerService.getCert(trainerId));
+        model.addAttribute("career", trainerService.getCareer(trainerId));
+        model.addAttribute("imageList", trainerService.getTrainerImage(trainerId));
+        model.addAttribute("name", trainerService.searchTrainerName(info.getUsername()));
 
         return "content/trainer/trainerPage";
     }
 
     @PostMapping("/trainerUpdate")
     public String trainerUpdate(TrainerInsertDto trainerDto, @AuthenticationPrincipal User info,
-                                @RequestParam("certImage1") MultipartFile certImage,
+                                @RequestParam("certImage1") MultipartFile profileImage,
                                 @RequestParam("imagePath1") MultipartFile[] imagePath) throws IOException {
 
-        trainerService.updateTrainer(trainerDto, info.getUsername(), certImage, imagePath);
+        trainerService.updateTrainer(trainerDto, info.getUsername(), profileImage, imagePath);
 
         return "redirect:/trainer/trainerUpdate/" + info.getUsername();
     }
@@ -85,8 +83,8 @@ public class TrainerController {
         return "redirect:/logout";
     }
 
-    @GetMapping("/trainer/{userId}")
-    public String viewTrainer(@PathVariable("userId") String userId, @AuthenticationPrincipal User info, Model model) {
+    @GetMapping("/trainer/{trainerId}")
+    public String viewTrainer(@PathVariable("trainerId") int trainerId, @AuthenticationPrincipal User info, Model model) {
         if(info != null) {
             model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
             //model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
@@ -94,19 +92,19 @@ public class TrainerController {
 
         model.addAttribute("head_title", "트레이너 상세페이지");
         model.addAttribute("session", info);
-        model.addAttribute("trainer", trainerService.searchTrainer(userId));
-        model.addAttribute("review", reviewService.showReview(userId));
-        model.addAttribute("stars", reviewService.getStarAvgAndCnt(userId));
-        model.addAttribute("product", trainerService.getProduct(userId));
-        model.addAttribute("cert", trainerService.getCert(userId));
-        model.addAttribute("career", trainerService.getCareer(userId));
-        model.addAttribute("imageList", trainerService.getTrainerImage(userId));
+        model.addAttribute("trainer", trainerService.searchTrainer(trainerId));
+        model.addAttribute("review", reviewService.showReview(trainerId));
+        model.addAttribute("stars", reviewService.getStarAvgAndCnt(trainerId));
+        model.addAttribute("product", trainerService.getProduct(trainerId));
+        model.addAttribute("cert", trainerService.getCert(trainerId));
+        model.addAttribute("career", trainerService.getCareer(trainerId));
+        model.addAttribute("imageList", trainerService.getTrainerImage(trainerId));
 
         return "content/trainer/trainerDetailPage";
     }
 
-    @GetMapping("/trainer/review/{userId}")
-    public String viewTrainerReview(@PathVariable("userId") String userId, @AuthenticationPrincipal User info, Model model,
+    @GetMapping("/trainer/review/{trainerId}")
+    public String viewTrainerReview(@PathVariable("trainerId") int trainerId, @AuthenticationPrincipal User info, Model model,
                                     @RequestParam(value = "page", defaultValue = "1") int page,
                                     @RequestParam(value = "pageSize", defaultValue = "5") int pageSize,
                                     @RequestParam(value = "filter", defaultValue = "0") int filter) {
@@ -118,13 +116,13 @@ public class TrainerController {
         model.addAttribute("head_title", "트레이너 리뷰페이지");
         model.addAttribute("session", info);
 
-        model.addAttribute("stars", reviewService.getStarAvgAndCnt(userId));
-        model.addAttribute("trainer", trainerService.searchTrainer(userId));
+        model.addAttribute("stars", reviewService.getStarAvgAndCnt(trainerId));
+        model.addAttribute("trainer", trainerService.searchTrainer(trainerId));
 
         // 페이징을 위한 데이터 조회
-        List<ReviewRequestDto> review = reviewService.showReviewAll(page, pageSize, filter, userId);
+        List<ReviewRequestDto> review = reviewService.showReviewAll(page, pageSize, filter, trainerId);
         model.addAttribute("review", review);
-        int totalReview = reviewService.getStarAvgAndCnt(userId).getReviewCnt();
+        int totalReview = reviewService.getStarAvgAndCnt(trainerId).getReviewCnt();
 
         model.addAttribute("currentPage", page);
         model.addAttribute("reviewPageSize", pageSize);
@@ -161,7 +159,6 @@ public class TrainerController {
 
         if (info != null) {
             model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
-            //model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
         }
         model.addAttribute("head_title", "트레이너 찾기");
         model.addAttribute("userId", info);

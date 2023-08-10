@@ -26,17 +26,17 @@ public class ReviewService {
     }
 
     @Transactional
-    public List<ReviewRequestDto> showReview(String trainerId) {
+    public List<ReviewRequestDto> showReview(int trainerId) {
         return reviewDao.getTrainerReview(trainerId);
     }
 
     @Transactional
-    public List<ReviewRequestDto> showReviewAll(int page, int pageSize, int filter, String trainerId) {
+    public List<ReviewRequestDto> showReviewAll(int page, int pageSize, int filter, int trainerId) {
         return reviewDao.getTrainerReviewAll(page, pageSize, filter, trainerId);
     }
 
     @Transactional
-    public ReviewRequestDto getStarAvgAndCnt(String trainerId) {
+    public ReviewRequestDto getStarAvgAndCnt(int trainerId) {
         return reviewDao.getStarAvgAndCnt(trainerId);
     }
 

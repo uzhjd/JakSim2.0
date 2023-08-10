@@ -12,9 +12,8 @@ public class TrainerCertRowMapper implements RowMapper<TrainerCertDto>{
         TrainerCertDto trainerCertDto = new TrainerCertDto();
 
         trainerCertDto.setCertId(rs.getInt("TC_IDX"));
-        trainerCertDto.setUserId(rs.getString("USER_ID"));
+        trainerCertDto.setTrainerId(rs.getInt("UT_IDX"));
         trainerCertDto.setCertName(rs.getString("TC_NAME"));
-        trainerCertDto.setCertImage(rs.getString("TC_IMAGE"));
 
         return trainerCertDto;
     }

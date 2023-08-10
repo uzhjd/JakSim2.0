@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TrainerCertDto {
     private int certId;
-    private String userId;
+    private int trainerId;
     private String certName;
-    private String certImage;
 
 }

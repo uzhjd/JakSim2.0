@@ -81,21 +81,21 @@ public class PaymentController {
         return String.format(defaultPage + "pay_list");
     }
 
-    @GetMapping("/detail/{tid}")
-    public String payDetailPage(@AuthenticationPrincipal User user, @PathVariable("tid") String tid, Model model) {
-        model.addAttribute("head_title", "결제 내역 상세");
-        paymentService.getPaymentByTid(tid).ifPresent(
-                item -> {
-                    model.addAttribute("apiResponse", kakaoPayService.kakaoList(tid));
-                    model.addAttribute("payment", item);
-                    ProductDto product = paymentService.getProductByIdx(item.getTp_idx());
-                    model.addAttribute("product", product);
-                    model.addAttribute("trainer", trainerService.searchByUsername(product.getUserId()));
-                }
-        );
-
-        return String.format(defaultPage + "pay_detail");
-    }
+//    @GetMapping("/detail/{tid}")
+//    public String payDetailPage(@AuthenticationPrincipal User user, @PathVariable("tid") String tid, Model model) {
+//        model.addAttribute("head_title", "결제 내역 상세");
+//        paymentService.getPaymentByTid(tid).ifPresent(
+//                item -> {
+//                    model.addAttribute("apiResponse", kakaoPayService.kakaoList(tid));
+//                    model.addAttribute("payment", item);
+//                    ProductDto product = paymentService.getProductByIdx(item.getTp_idx());
+//                    model.addAttribute("product", product);
+//                    model.addAttribute("trainer", trainerService.searchByUsername(product.getUserId()));
+//                }
+//        );
+//
+//        return String.format(defaultPage + "pay_detail");
+//    }
 
     @GetMapping("/api/{page}")
     @ResponseBody

@@ -36,26 +36,25 @@ public class TrainerService {
 
     //트레이너 등록
     @Transactional
-    public void TrainerSignUp(TrainerInsertDto requestTrainer, String userId, MultipartFile certImage, MultipartFile[] imagePath) throws IOException {
-        if(!certImage.isEmpty() || certImage != null) {
+    public void TrainerSignUp(TrainerInsertDto requestTrainer, String userId, MultipartFile profileImage, MultipartFile[] imagePath) throws IOException {
+        if(!profileImage.isEmpty() || profileImage != null) {
             String projectPath = System.getProperty("user.dir") +
-                    "/JakSim/src/main/resources/static/image/trainer";
-            ///Users/janghyolim/code/JakSim2.0/JakSim/src/main/resources/static/image/trainer
+                    "/JakSim/src/main/resources/static/image/trainer";  // 자신의 폴더에 맞게 수정
             System.out.println(projectPath);
 
             UUID uuid = UUID.randomUUID();
-            String certName = uuid + "_" + certImage.getOriginalFilename();
-            File saveFile = new File(projectPath, certName);
-            requestTrainer.setCertImage("/image/trainer/" + certName);
-            certImage.transferTo(saveFile);
+            String profile = uuid + "_" + profileImage.getOriginalFilename();
+            File saveFile = new File(projectPath, profile);
+            requestTrainer.setProfileImg("/image/trainer/" + profile);
+            profileImage.transferTo(saveFile);
         }
         else {
-            System.out.println("자격증 이미지없음");
+            System.out.println("프로필 이미지없음");
         }
 
         if(imagePath.length != 0  || imagePath != null) {
             String projectPath = System.getProperty("user.dir") +
-                    "/JakSim/src/main/resources/static/image/trainer";
+                    "/JakSim/src/main/resources/static/image/trainer";  // 자신의 폴더에 맞게 수정
             UUID uuid = UUID.randomUUID();
             List<String> imagePaths = new ArrayList<>();
 
@@ -74,13 +73,13 @@ public class TrainerService {
 
     }
     @Transactional
-    public void updateTrainer(TrainerInsertDto requestTrainer, String userId, MultipartFile certImage, MultipartFile[] imagePath) throws IOException {
-        if(!certImage.isEmpty()) {
+    public void updateTrainer(TrainerInsertDto requestTrainer, String userId, MultipartFile profileImage, MultipartFile[] imagePath) throws IOException {
+        if(!profileImage.isEmpty()) {
             String projectPath = System.getProperty("user.dir") +
                     "/JakSim/src/main/resources/static";
 
-            if(requestTrainer.getCertImage() != null) {
-                String path = projectPath + requestTrainer.getCertImage();
+            if(requestTrainer.getProfileImg() != null) {
+                String path = projectPath + requestTrainer.getProfileImg();
 
                 File file = new File(path);
 
@@ -91,10 +90,10 @@ public class TrainerService {
                 String projectPath2 = System.getProperty("user.dir") +
                         "/JakSim/src/main/resources/static/image/trainer";
                 UUID uuid = UUID.randomUUID();
-                String certName = uuid + "_" + certImage.getOriginalFilename();
+                String certName = uuid + "_" + profileImage.getOriginalFilename();
                 File saveFile = new File(projectPath2, certName);
-                requestTrainer.setCertImage("/image/trainer/" + certName);
-                certImage.transferTo(saveFile);
+                requestTrainer.setProfileImg("/image/trainer/" + certName);
+                profileImage.transferTo(saveFile);
             }
         }
         else {
@@ -158,28 +157,28 @@ public class TrainerService {
 
     //트레이너 상세페이지에 표시될 정보 가져오기
     @Transactional
-    public List<TrainerPageDto> searchTrainer(String userId) {
-        return trainerDao.getTrainerPage(userId);
+    public List<TrainerPageDto> searchTrainer(int utIdx) {
+        return trainerDao.getTrainerPage(utIdx);
     }
 
     @Transactional
-    public List<ProductDto> getProduct(String userId) {
-        return trainerDao.getProduct(userId);
+    public List<ProductDto> getProduct(int utIdx) {
+        return trainerDao.getProduct(utIdx);
     }
 
     @Transactional
-    public List<TrainerCareerDto> getCareer(String userId) {
-        return trainerDao.getCareer(userId);
+    public List<TrainerCareerDto> getCareer(int utIdx) {
+        return trainerDao.getCareer(utIdx);
     }
 
     @Transactional
-    public List<TrainerCertDto> getCert(String userId) {
-        return trainerDao.getCert(userId);
+    public List<TrainerCertDto> getCert(int utIdx) {
+        return trainerDao.getCert(utIdx);
     }
 
     @Transactional
-    public List<TrainerImageDto> getTrainerImage(String userId) {
-        return trainerDao.getTrainerImage(userId);
+    public List<TrainerImageDto> getTrainerImage(int utIdx) {
+        return trainerDao.getTrainerImage(utIdx);
     }
 
 
@@ -189,8 +188,8 @@ public class TrainerService {
         String projectPath = System.getProperty("user.dir") +
                 "/JakSim/src/main/resources/static";
 
-        if(trainerDto.getCertImage() != null) {
-            String path = projectPath + trainerDto.getCertImage();
+        if(trainerDto.getProfileImg() != null) {
+            String path = projectPath + trainerDto.getProfileImg();
 
             File file = new File(path);
 
@@ -212,7 +211,7 @@ public class TrainerService {
 
         }
 
-        trainerDao.deleteTrainer(userId);
+        trainerDao.deleteTrainer(userId, trainerDto.getTrainerId());
 
     }
 
@@ -259,7 +258,8 @@ public class TrainerService {
         return trainerDetailResponse;
     }
 
-    public TrainerForPayDetail searchByUsername(String userId) {
-        return trainerDao.searchByUsername(userId);
-    }
+    // 수정 필요
+//    public TrainerForPayDetail searchByUsername(String userId) {
+//        return trainerDao.searchByUsername(userId);
+//    }
 }

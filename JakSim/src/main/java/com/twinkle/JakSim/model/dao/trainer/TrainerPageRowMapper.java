@@ -23,9 +23,7 @@ public class TrainerPageRowMapper implements RowMapper<TrainerPageDto> {
         trainerPageDto.setExpert1(rs.getInt("UT_EXPERT_1"));
         trainerPageDto.setExpert2(rs.getInt("UT_EXPERT_2"));
         trainerPageDto.setAddress(rs.getString("UT_ADDRESS"));
-
-        trainerPageDto.setCertImage(rs.getString("TC_IMAGE"));
-
+        trainerPageDto.setProfile(rs.getString("UT_PROFILE_IMG"));
 
         return trainerPageDto;
     }

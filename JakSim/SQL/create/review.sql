@@ -3,7 +3,6 @@ DROP TABLE REVIEW;
 CREATE TABLE REVIEW(
     R_IDX INT(8) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     USER_ID VARCHAR(30) NOT NULL,
-    TRAINER_ID VARCHAR(30) NOT NULL,
     UT_IDX INT(8) NOT NULL,
     R_CONTENT VARCHAR(1000) NOT NULL,
     R_STAR INT(1) NOT NULL DEFAULT '3',
@@ -12,6 +11,8 @@ CREATE TABLE REVIEW(
     FOREIGN KEY(USER_ID) REFERENCES USER_INFO(USER_ID) ON DELETE CASCADE,
     FOREIGN KEY(UT_IDX) REFERENCES TRAINER_DETAILS(UT_IDX) ON DELETE CASCADE
 );
+
+alter table review drop TRAINER_ID;
 
 COMMIT;
 
@@ -31,5 +32,6 @@ INSERT INTO REVIEW
 VALUES(NULL, 'test1', 'test93', 4, '또 배우고 싶습니당', 5, current_date, NULL);
 INSERT INTO REVIEW
 VALUES(NULL, 'test2', 'test93', 4, '시설도 좋고 트레이너쌤도 친절해요.', 5, current_date, NULL);
+
 INSERT INTO REVIEW
-VALUES(NULL, 'test2', 'test93', 6, '트레이너쌤이 불친절해요. 근데 잘 가르쳐주는듯.', 4, current_date, NULL);
+VALUES(NULL, 'test96', 'test93', 4, '트레이너쌤이 불친절해요. 근데 잘 가르쳐주는듯.', 3, current_date, NULL);

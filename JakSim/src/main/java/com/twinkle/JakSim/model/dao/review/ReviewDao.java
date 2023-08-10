@@ -24,24 +24,24 @@ public class ReviewDao {
      * @param trainerIdx
      */
     public void insertReview(ReviewRequestDto review, String userId, int trainerIdx) {
-        this.sql = "INSERT INTO REVIEW VALUES(NULL, ?, '', ?, ?, ?, current_timestamp, NULL)";
+        this.sql = "INSERT INTO REVIEW VALUES(NULL, ?, ?, ?, ?, current_timestamp, NULL)";
 
         jdbcTemplate.update(this.sql, userId, trainerIdx,
                             review.getReviewContent(), review.getStar());
 
     }
 
-    public List<ReviewRequestDto> getTrainerReview(String trainerId) {
-        this.sql = "SELECT *" +
+    public List<ReviewRequestDto> getTrainerReview(int trainerId) {
+        this.sql = "SELECT * " +
                 "FROM REVIEW " +
-                "WHERE TRAINER_ID = ? "+
+                "WHERE UT_IDX = ? "+
                 " ORDER BY R_IDX DESC" +
                 " LIMIT 3";
 
         return jdbcTemplate.query(this.sql, new ReviewRowMapper(), trainerId);
     }
 
-    public List<ReviewRequestDto> getTrainerReviewAll(int page, int pageSize, int filter, String trainerId) {
+    public List<ReviewRequestDto> getTrainerReviewAll(int page, int pageSize, int filter, int trainerId) {
         //1. 최신순 (기본)
         //2. 별점 높은순
         //3. 별점 낮은순
@@ -51,7 +51,7 @@ public class ReviewDao {
         if(filter == 0) {
             String sql = "SELECT *" +
                     "FROM REVIEW " +
-                    "WHERE TRAINER_ID = ? "+
+                    "WHERE UT_IDX = ? "+
                     " ORDER BY R_IDX DESC" +
                     " LIMIT ?, ?";
 
@@ -61,7 +61,7 @@ public class ReviewDao {
         else if(filter == 1) {
             String sql = "SELECT *" +
                     "FROM REVIEW " +
-                    "WHERE TRAINER_ID = ? "+
+                    "WHERE UT_IDX = ? "+
                     " ORDER BY R_STAR DESC" +
                     " LIMIT ?, ?";
 
@@ -70,7 +70,7 @@ public class ReviewDao {
         else {
             String sql = "SELECT *" +
                     "FROM REVIEW " +
-                    "WHERE TRAINER_ID = ? "+
+                    "WHERE UT_IDX = ? "+
                     " ORDER BY R_STAR ASC" +
                     " LIMIT ?, ?";
 
@@ -79,11 +79,11 @@ public class ReviewDao {
 
     }
 
-    public ReviewRequestDto getStarAvgAndCnt(String trainerId) {
+    public ReviewRequestDto getStarAvgAndCnt(int utIdx) {
         this.sql = "SELECT *, COUNT(*) AS REVIEW_CNT, ROUND(AVG(R_STAR), 1) AS AVG_R_STAR " +
-                "FROM REVIEW WHERE TRAINER_ID = ?";
+                "FROM REVIEW WHERE UT_IDX = ?";
 
-        return jdbcTemplate.queryForObject(this.sql, new ReviewRowMapper2(), trainerId);
+        return jdbcTemplate.queryForObject(this.sql, new ReviewRowMapper2(), utIdx);
 
     }
 

@@ -39,15 +39,16 @@ window.onload = function() {
     Array.from(viewReviewButtons).forEach((button) => {
         button.addEventListener('click', function(event){
             var reviewId = event.target.closest('tr').querySelector('.jaksim_font td:first-child span').textContent;
-            window.location.href=`/editReview/${reviewId}`;
+            window.location.href=`/review/editReview/${reviewId}`;
         });
     });
 
     var viewPayButtons = document.getElementsByClassName('mypage_viewPayDetail');
     Array.from(viewPayButtons).forEach((button) => {
         button.addEventListener('click', function(event){
-            var payId = event.target.closest('tr').querySelector('td:first-child span').textContent;
-            window.location.href=`/payment/detail/${payId}`;
+            var tid = event.target.closest('tr').querySelector('td:first-child span').textContent;
+            console.log(tid);
+            window.location.href=`/payment/detail/${tid}`; //tid로 변경바람
         });
     });
 }
@@ -123,7 +124,6 @@ function nameChangeResult(){
 
     axios.put('/mypage/api/profile/update/name', {name: nameInput.value})
         .then(response => {
-            console.log(response.data);
             if(response.data){
                 alert('이름이 정상적으로 변경되었습니다.');
                 window.location.reload();
@@ -140,7 +140,6 @@ function nameChangeResult(){
 function checkTel(){
     axios.post('/mypage/api/profile/check/tel', {tel: telInput.value})
             .then(response => {
-                console.log(response.data);
                 if(response.data === true){
                     telChangeResult();
                 }else{
@@ -160,7 +159,6 @@ function nameChangeInput(){
 
 var deleteUser = function(){
     var data = {id : document.getElementById('navi_username').innerHTML};
-    console.log(data);
 
     axios.delete('/mypage/api/delete')
         .then(response => {

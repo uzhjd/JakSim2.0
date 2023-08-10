@@ -9,12 +9,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TrainerInsertDto {
 
+    private int trainerId;
     private String insta;
     private String introduce;
     private String gym;
     private int expert1;
     private int expert2;
     private String address;
+    private String profileImg;
 
     private int[] ptId;
     private int[] ptTimes;
@@ -28,7 +30,6 @@ public class TrainerInsertDto {
 
     private int[] certId;
     private String[] certName;
-    private String certImage;
 
     private int[] imageId;
     private String[] imagePath;
