@@ -12,7 +12,6 @@ public class TrainerSearchDto {
     private int trainerId;
 
     private String userId;
-
     private String userName;
 
     private String insta;
@@ -21,6 +20,7 @@ public class TrainerSearchDto {
     private int expert1;
     private int expert2;
     private String address;
+    private String profile;
 
     private int ptTimes;
     private int ptPrice;

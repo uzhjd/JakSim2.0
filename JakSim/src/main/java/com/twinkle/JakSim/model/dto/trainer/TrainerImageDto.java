@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TrainerImageDto {
     private int imageId;
-    private String userId;
+    private int trainerId;
     private String imagePath;
 
 }

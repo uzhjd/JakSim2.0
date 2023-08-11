@@ -8,6 +8,7 @@ import com.twinkle.JakSim.model.dto.timetable.response.TimetableResponse;
 import com.twinkle.JakSim.model.dto.trainer.TrainerInsertDto;
 import com.twinkle.JakSim.model.dto.trainer.*;
 import com.twinkle.JakSim.model.dto.trainer.response.TrainerDetailResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -21,47 +22,49 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
+@RequiredArgsConstructor
 public class TrainerDao {
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
+    private final JdbcTemplate jdbcTemplate;
     private String sql;
-
 
     // 트레이너 등록
     public void insertTrainer(TrainerInsertDto trainer, String userId) {
         try {
-            this.sql = "INSERT INTO TRAINER_DETAILS VALUES(NULL, ?, ?, ?, ?, ?, ?, ?)";
+            // Insert into TRAINER_DETAILS table
+            this.sql = "INSERT INTO TRAINER_DETAILS VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?)";
             jdbcTemplate.update(sql, trainer.getIntroduce(), trainer.getInsta(),
-                    trainer.getGym(), userId, trainer.getExpert1(), trainer.getExpert2(), trainer.getAddress());
+                    trainer.getGym(), userId, trainer.getExpert1(), trainer.getExpert2(), trainer.getAddress(), trainer.getProfileImg());
 
+            // Get the inserted UT_IDX
+            Integer utIdx = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
+
+            // Insert into PRODUCT table
             this.sql = "INSERT INTO PRODUCT VALUES(NULL, ?, ?, ?, ?, ?, ?)";
-
             for (int i = 0; i < trainer.getPtTimes().length; i++) {
-
-                jdbcTemplate.update(sql, userId, trainer.getPtTimes()[i],
+                jdbcTemplate.update(sql, utIdx, trainer.getPtTimes()[i],
                         trainer.getPtPrice()[i], trainer.getPtType()[i], trainer.getPtTitle()[i],
                         trainer.getPtPeriod()[i]);
             }
 
+            // Insert into TRAINER_CAREER table
             this.sql = "INSERT INTO TRAINER_CAREER VALUES(NULL, ?, ?)";
-
             for (String content : trainer.getCareerContent()) {
-                jdbcTemplate.update(sql, userId, content);
+                jdbcTemplate.update(sql, utIdx, content);
             }
 
-            this.sql = "INSERT INTO TRAINER_CERT VALUES(NULL, ?, ?, ?)";
-
+            // Insert into TRAINER_CERT table
+            this.sql = "INSERT INTO TRAINER_CERT VALUES(NULL, ?, ?)";
             for (String cert : trainer.getCertName()) {
-                jdbcTemplate.update(sql, userId, cert, trainer.getCertImage());
+                jdbcTemplate.update(sql, utIdx, cert);
             }
 
+            // Insert into TRAINER_IMAGE table
             this.sql = "INSERT INTO TRAINER_IMAGE VALUES(NULL, ?, ?)";
-
             for (String image : trainer.getImagePath()) {
-                jdbcTemplate.update(sql, userId, image);
+                jdbcTemplate.update(sql, utIdx, image);
             }
 
+            // 트레이너로 USER_ROLE 변경
             this.sql = "UPDATE USER_INFO SET USER_ROLE = 2 WHERE USER_ID = ?";
             jdbcTemplate.update(sql, userId);
 
@@ -72,6 +75,8 @@ public class TrainerDao {
         }
     }
 
+
+    // 트레이너 찾기
     public List<TrainerSearchDto> getAllTrainerForSearch(int page, int pageSize, int filter, String address) {
         int offset = (page - 1) * pageSize;
         //1. 주소만 있을 때, 필터링은 없음
@@ -81,13 +86,13 @@ public class TrainerDao {
 
         if((!address.equals("-")) && (filter == -1)){
 
-            String sql = "SELECT DISTINCT td.user_id, td.UT_IDX, ti.TI_PATH, td.UT_GYM, ui.user_name, " +
+            String sql = "SELECT DISTINCT td.user_id, td.UT_IDX, td.UT_PROFILE_IMG, ti.TI_PATH, td.UT_GYM, ui.user_name, " +
                     "td.UT_EXPERT_1, td.UT_EXPERT_2, td.UT_ADDRESS, tc.TC_NAME, ROUND(AVG(r.R_STAR), 1) AS AVG_R_STAR" +
                     " FROM trainer_details td" +
-                    " JOIN product p ON td.user_id = p.user_id" +
-                    " JOIN trainer_career tca ON td.user_id = tca.user_id" +
-                    " JOIN trainer_cert tc ON td.user_id = tc.user_id" +
-                    " JOIN trainer_image ti ON td.user_id = ti.user_id" +
+                    " JOIN product p ON td.UT_IDX = p.UT_IDX" +
+                    " JOIN trainer_career tca ON td.UT_IDX = tca.UT_IDX" +
+                    " JOIN trainer_cert tc ON td.UT_IDX = tc.UT_IDX" +
+                    " JOIN trainer_image ti ON td.UT_IDX = ti.UT_IDX" +
                     " JOIN user_info ui ON td.user_id = ui.user_id" +
                     " LEFT JOIN review r ON td.UT_IDX = r.UT_IDX" +
                     " where ut_address LIKE ?" +
@@ -100,13 +105,13 @@ public class TrainerDao {
         }
         else if((address.equals("-")) && (filter != -1)) {
 
-            String sql = "SELECT DISTINCT td.user_id, td.UT_IDX, ti.TI_PATH, td.UT_GYM, ui.user_name, " +
+            String sql = "SELECT DISTINCT td.user_id, td.UT_IDX, td.UT_PROFILE_IMG, ti.TI_PATH, td.UT_GYM, ui.user_name, " +
                     "td.UT_EXPERT_1, td.UT_EXPERT_2, td.UT_ADDRESS, tc.TC_NAME, ROUND(AVG(r.R_STAR), 1) AS AVG_R_STAR" +
                     " FROM trainer_details td" +
-                    " JOIN product p ON td.user_id = p.user_id" +
-                    " JOIN trainer_career tca ON td.user_id = tca.user_id" +
-                    " JOIN trainer_cert tc ON td.user_id = tc.user_id" +
-                    " JOIN trainer_image ti ON td.user_id = ti.user_id" +
+                    " JOIN product p ON td.UT_IDX = p.UT_IDX" +
+                    " JOIN trainer_career tca ON td.UT_IDX = tca.UT_IDX" +
+                    " JOIN trainer_cert tc ON td.UT_IDX = tc.UT_IDX" +
+                    " JOIN trainer_image ti ON td.UT_IDX = ti.UT_IDX" +
                     " JOIN user_info ui ON td.user_id = ui.user_id" +
                     " LEFT JOIN review r ON td.UT_IDX = r.UT_IDX" +
                     " where ut_expert_1 = ? or ut_expert_2 = ? " +
@@ -118,13 +123,13 @@ public class TrainerDao {
 
         }
         else if((!address.equals("-")) && (filter != -1)) {
-            String sql = "SELECT DISTINCT td.user_id, td.UT_IDX, ti.TI_PATH, td.UT_GYM, ui.user_name, " +
+            String sql = "SELECT DISTINCT td.user_id, td.UT_IDX, td.UT_PROFILE_IMG, ti.TI_PATH, td.UT_GYM, ui.user_name, " +
                     "td.UT_EXPERT_1, td.UT_EXPERT_2, td.UT_ADDRESS, tc.TC_NAME, ROUND(AVG(r.R_STAR), 1) AS AVG_R_STAR" +
                     " FROM trainer_details td" +
-                    " JOIN product p ON td.user_id = p.user_id" +
-                    " JOIN trainer_career tca ON td.user_id = tca.user_id" +
-                    " JOIN trainer_cert tc ON td.user_id = tc.user_id" +
-                    " JOIN trainer_image ti ON td.user_id = ti.user_id" +
+                    " JOIN product p ON td.UT_IDX = p.UT_IDX" +
+                    " JOIN trainer_career tca ON td.UT_IDX = tca.UT_IDX" +
+                    " JOIN trainer_cert tc ON td.UT_IDX = tc.UT_IDX" +
+                    " JOIN trainer_image ti ON td.UT_IDX = ti.UT_IDX" +
                     " JOIN user_info ui ON td.user_id = ui.user_id" +
                     " LEFT JOIN review r ON td.UT_IDX = r.UT_IDX" +
                     " where ut_address LIKE ?" +
@@ -138,13 +143,13 @@ public class TrainerDao {
         }
         else {
 
-            String sql = "SELECT DISTINCT td.user_id, td.UT_IDX, ti.TI_PATH, td.UT_GYM, ui.user_name, " +
+            String sql = "SELECT DISTINCT td.user_id, td.UT_IDX, td.UT_PROFILE_IMG, ti.TI_PATH, td.UT_GYM, ui.user_name, " +
                     "td.UT_EXPERT_1, td.UT_EXPERT_2, td.UT_ADDRESS, tc.TC_NAME, ROUND(AVG(r.R_STAR), 1) AS AVG_R_STAR" +
                     " FROM trainer_details td" +
-                    " JOIN product p ON td.user_id = p.user_id" +
-                    " JOIN trainer_career tca ON td.user_id = tca.user_id" +
-                    " JOIN trainer_cert tc ON td.user_id = tc.user_id" +
-                    " JOIN trainer_image ti ON td.user_id = ti.user_id" +
+                    " JOIN product p ON td.UT_IDX = p.UT_IDX" +
+                    " JOIN trainer_career tca ON td.UT_IDX = tca.UT_IDX" +
+                    " JOIN trainer_cert tc ON td.UT_IDX = tc.UT_IDX" +
+                    " JOIN trainer_image ti ON td.UT_IDX = ti.UT_IDX" +
                     " JOIN user_info ui ON td.user_id = ui.user_id" +
                     " LEFT JOIN review r ON td.UT_IDX = r.UT_IDX" +
                     " GROUP BY td.user_id" +
@@ -157,6 +162,7 @@ public class TrainerDao {
 
     }
 
+    // 2-1. 트레이너 count
     public int getTrainerCount(int filter, String address) {
         //1. 주소만 있을 때, 필터링은 없음
         //2. 필터링만 할 때, 주소는 없음
@@ -192,14 +198,16 @@ public class TrainerDao {
 
     }
 
+
+    // 메인 페이지
     public List<TrainerSearchDto> getAllTrainerForMainPage() {
-        String sql = "SELECT DISTINCT td.user_id, td.UT_IDX, ti.TI_PATH, td.UT_GYM, ui.user_name, " +
+        String sql = "SELECT DISTINCT td.user_id, td.UT_IDX, td.UT_PROFILE_IMG, ti.TI_PATH, td.UT_GYM, ui.user_name, " +
                 "td.UT_EXPERT_1, td.UT_EXPERT_2, td.UT_ADDRESS, tc.TC_NAME, ROUND(AVG(r.R_STAR), 1) AS AVG_R_STAR" +
                 " FROM trainer_details td" +
-                " JOIN product p ON td.user_id = p.user_id" +
-                " JOIN trainer_career tca ON td.user_id = tca.user_id" +
-                " JOIN trainer_cert tc ON td.user_id = tc.user_id" +
-                " JOIN trainer_image ti ON td.user_id = ti.user_id" +
+                " JOIN product p ON td.UT_IDX = p.UT_IDX" +
+                " JOIN trainer_career tca ON td.UT_IDX = tca.UT_IDX" +
+                " JOIN trainer_cert tc ON td.UT_IDX = tc.UT_IDX" +
+                " JOIN trainer_image ti ON td.UT_IDX = ti.UT_IDX" +
                 " JOIN user_info ui ON td.user_id = ui.user_id" +
                 " LEFT JOIN review r ON td.UT_IDX = r.UT_IDX" +
                 " GROUP BY td.user_id" +
@@ -209,13 +217,14 @@ public class TrainerDao {
         return jdbcTemplate.query(sql, new TrainerSearchRowMapper());
     }
 
-    public UserDto getTrainerName(String userId) {
+    // 트레이너 이름, 인덱스 가져오기
+    public TrainerPageDto getTrainerName(String userId) {
         String sql = "SELECT DISTINCT * " +
                 "FROM trainer_details td " +
                 "JOIN user_info ui ON td.user_id = ui.user_id " +
                 "WHERE td.user_id = ?";
 
-        List<UserDto> resultList = jdbcTemplate.query(sql, new UserRowMapper(), userId);
+        List<TrainerPageDto> resultList = jdbcTemplate.query(sql, new TrainerPageRowMapper(), userId);
 
         if (resultList.isEmpty()) {
             return null;
@@ -224,63 +233,73 @@ public class TrainerDao {
         }
     }
 
-    // 상세페이지
-    public List<TrainerPageDto> getTrainerPage(String userId) {
-        String sql = "SELECT DISTINCT tc.TC_IMAGE, td.user_id, td.UT_EXPERT_1, td.UT_EXPERT_2, " +
-                "ui.user_name, td.UT_GYM, td.UT_INSTA, td.UT_INTRO, td.UT_ADDRESS " +
+    // 트레이너 상세페이지
+    public List<TrainerPageDto> getTrainerPage(int utIdx) {
+        String sql = "SELECT DISTINCT td.UT_IDX, td.user_id, td.UT_EXPERT_1, td.UT_EXPERT_2, " +
+                "ui.user_name, td.UT_GYM, td.UT_INSTA, td.UT_INTRO, td.UT_ADDRESS, td.UT_PROFILE_IMG " +
                 "FROM trainer_details td " +
                 "JOIN user_info ui ON td.user_id = ui.user_id " +
-                "JOIN trainer_cert tc ON td.user_id = tc.user_id " +
-                "WHERE td.user_id = ?";
+                "JOIN trainer_cert tc ON td.UT_IDX = tc.UT_IDX " +
+                "WHERE td.UT_IDX = ?";
 
-        return jdbcTemplate.query(sql, new TrainerPageRowMapper(), userId);
+        return jdbcTemplate.query(sql, new TrainerPageRowMapper(), utIdx);
     }
 
-    public List<ProductDto> getProduct(String userId) {
-        this.sql = "select * from product where user_id = ?";
+    public List<ProductDto> getProduct(int utIdx) {
+        this.sql = "select * from product where UT_IDX = ?";
 
-        return jdbcTemplate.query(sql, new ProductRowMapper(), userId);
+        return jdbcTemplate.query(sql, new ProductRowMapper(), utIdx);
     }
-    public List<TrainerCareerDto> getCareer(String userId) {
-        this.sql = "select * from trainer_career where user_id = ?";
+    public List<TrainerCareerDto> getCareer(int utIdx) {
+        this.sql = "select * from trainer_career where UT_IDX = ?";
 
-        return jdbcTemplate.query(sql, new TrainerCareerRowMapper(), userId);
-    }
-    public List<TrainerCertDto> getCert(String userId) {
-        this.sql = "select * from trainer_cert where user_id = ?";
-
-        return jdbcTemplate.query(sql, new TrainerCertRowMapper(), userId);
+        return jdbcTemplate.query(sql, new TrainerCareerRowMapper(), utIdx);
     }
 
-    public List<TrainerImageDto> getTrainerImage(String userId) {
-        this.sql = "select * from trainer_image where user_id = ?";
+    public List<TrainerCertDto> getCert(int utIdx) {
+        this.sql = "select * from trainer_cert where UT_IDX = ?";
 
-        return jdbcTemplate.query(sql, new TrainerImageRowMapper(), userId);
+        return jdbcTemplate.query(sql, new TrainerCertRowMapper(), utIdx);
     }
 
-//    public List<TrainerSearchDto> getTrainerForTrainerPage(String userId) {
-//        String sql = "select * from trainer_details td " +
-//                "join product p on td.user_id = p.user_id " +
-//                "join trainer_career tca on td.user_id = tca.user_id " +
-//                "join trainer_cert tc on td.user_id = tc.user_id " +
-//                "join trainer_image ti on td.user_id = ti.user_id " +
-//                "join user_info ui on td.user_id = ui.user_id " +
-//                "where td.user_id = ?";
-//
-//        return jdbcTemplate.query(sql, new TrainerSearchRowMapper(), userId);
-//    }
+    public List<TrainerImageDto> getTrainerImage(int utIdx) {
+        this.sql = "select * from trainer_image where UT_IDX = ?";
 
+        return jdbcTemplate.query(sql, new TrainerImageRowMapper(), utIdx);
+    }
+
+    // 트레이너 정보 수정
     public void upDateTrainer(TrainerInsertDto trainer, String userId, MultipartFile[] imagePath){
-        this.sql = "UPDATE TRAINER_DETAILS " +
-                "SET UT_INTRO = ?," +
-                "UT_INSTA = ?," +
-                "UT_GYM = ?," +
-                "UT_EXPERT_1 = ?," +
-                "UT_EXPERT_2 = ? " +
-                "WHERE USER_ID = ?";
+        if (trainer.getProfileImg() != null) {
+            this.sql = "UPDATE TRAINER_DETAILS " +
+                    "SET UT_INTRO = ?," +
+                    "UT_INSTA = ?," +
+                    "UT_GYM = ?," +
+                    "UT_EXPERT_1 = ?," +
+                    "UT_EXPERT_2 = ? ," +
+                    "UT_ADDRESS = ? ," +
+                    "UT_PROFILE_IMG = ? " +
+                    "WHERE USER_ID = ?";
 
-        jdbcTemplate.update(sql, trainer.getIntroduce(), trainer.getInsta(),
-                trainer.getGym(), trainer.getExpert1(), trainer.getExpert2(), userId);
+            jdbcTemplate.update(sql, trainer.getIntroduce(), trainer.getInsta(),
+                    trainer.getGym(), trainer.getExpert1(), trainer.getExpert2(), trainer.getAddress(), trainer.getProfileImg(), userId);
+
+        }
+        else {
+            this.sql = "UPDATE TRAINER_DETAILS " +
+                    "SET UT_INTRO = ?," +
+                    "UT_INSTA = ?," +
+                    "UT_GYM = ?," +
+                    "UT_EXPERT_1 = ?," +
+                    "UT_EXPERT_2 = ? ," +
+                    "UT_ADDRESS = ? " +
+                    "WHERE USER_ID = ?";
+
+            jdbcTemplate.update(sql, trainer.getIntroduce(), trainer.getInsta(),
+                    trainer.getGym(), trainer.getExpert1(), trainer.getExpert2(), trainer.getAddress(), userId);
+
+        }
+
 
 
         for(int i=0; i<trainer.getPtTimes().length; i++) {
@@ -304,25 +323,13 @@ public class TrainerDao {
 
             jdbcTemplate.update(sql, trainer.getCareerContent()[i], trainer.getCareerId()[i]);
         }
-        if(trainer.getCertImage() != null) {
-            for(int i=0; i<trainer.getCertName().length; i++) {
-                this.sql = "UPDATE TRAINER_CERT " +
-                        "SET TC_NAME = ?," +
-                        "TC_IMAGE = ? " +
-                        "WHERE TC_IDX = ?";
 
-                jdbcTemplate.update(sql, trainer.getCertName()[i], trainer.getCertImage(), trainer.getCertId()[i]);
-            }
-        }
-        else if(trainer.getCertImage() == null) {
-            System.out.println("CertImage NUll!");
-            for(int i=0; i<trainer.getCertName().length; i++) {
-                this.sql = "UPDATE TRAINER_CERT " +
-                        "SET TC_NAME = ? " +
-                        "WHERE TC_IDX = ?";
+        for(int i=0; i<trainer.getCertName().length; i++) {
+            this.sql = "UPDATE TRAINER_CERT " +
+                    "SET TC_NAME = ? " +
+                    "WHERE TC_IDX = ?";
 
-                jdbcTemplate.update(sql, trainer.getCertName()[i], trainer.getCertId()[i]);
-            }
+            jdbcTemplate.update(sql, trainer.getCertName()[i], trainer.getCertId()[i]);
         }
 
         if (!imagePath[0].isEmpty()) {
@@ -341,24 +348,25 @@ public class TrainerDao {
 
     }
 
-    public void deleteTrainer(String userId){
+    // 트레이너 탈퇴
+    public void deleteTrainer(String userId, int utIdx){
         this.sql = "DELETE FROM TRAINER_DETAILS WHERE USER_ID = ?";
         jdbcTemplate.update(sql, userId);
 
-        this.sql = "DELETE FROM PRODUCT WHERE USER_ID = ?";
-        jdbcTemplate.update(sql, userId);
+        this.sql = "DELETE FROM PRODUCT WHERE UT_IDX = ?";
+        jdbcTemplate.update(sql, utIdx);
 
-        this.sql = "DELETE FROM TRAINER_CAREER WHERE USER_ID = ?";
-        jdbcTemplate.update(sql, userId);
+        this.sql = "DELETE FROM TRAINER_CAREER WHERE UT_IDX = ?";
+        jdbcTemplate.update(sql, utIdx);
 
-        this.sql = "DELETE FROM TRAINER_CERT WHERE USER_ID = ?";
-        jdbcTemplate.update(sql, userId);
+        this.sql = "DELETE FROM TRAINER_CERT WHERE UT_IDX = ?";
+        jdbcTemplate.update(sql, utIdx);
 
-        this.sql = "DELETE FROM TRAINER_IMAGE WHERE USER_ID = ?";
-        jdbcTemplate.update(sql, userId);
+        this.sql = "DELETE FROM TRAINER_IMAGE WHERE UT_IDX = ?";
+        jdbcTemplate.update(sql, utIdx);
 
-        this.sql = "UPDATE USER_INFO SET USER_ROLE = 1 WHERE USER_ID = ?";
-        jdbcTemplate.update(sql, userId);
+        this.sql = "UPDATE USER_INFO SET USER_ROLE = 1 WHERE UT_IDX = ?";
+        jdbcTemplate.update(sql, utIdx);
 
         this.sql = "DELETE FROM TIMETABLE WHERE USER_ID = ?";
         jdbcTemplate.update(sql, userId);
@@ -381,49 +389,21 @@ public class TrainerDao {
         return trainerDetailResponse;
     }
 
+    // 트레이너 PT 시간표 가져오기
     public List<TimetableResponse> getTimetable(String userId) {
         this.sql = "SELECT * FROM TIMETABLE WHERE USER_ID = ?";
 
         return jdbcTemplate.query(this.sql, new TimetableRowMapper(), userId);
     }
 
+    // 트레이너 시간표 등록
     public void registerTimetable(TimetableResponse timetable) {
         try {
-            // Check for null values in required fields
-            if (timetable == null || timetable.getUserId() == null || timetable.getTDate() == null ||
-                    timetable.getTStartT() == null || timetable.getTEndT() == null ||
-                    timetable.getTPeople() == 0 || timetable.getTType() == 0) {
-                throw new IllegalArgumentException("timetable and its fields cannot be null");
-            }
-
             this.sql = "INSERT INTO TIMETABLE VALUES(NULL, ?, ?, ?, ?, ?, ?)";
 
-            jdbcTemplate.update(this.sql, timetable.getUserId(), timetable.getTDate(),
+            jdbcTemplate.update(this.sql, timetable.getUserId(), timetable.getTDate(), timetable.getTType(),
                     timetable.getTStartT(), timetable.getTEndT(),
-                    timetable.getTPeople(), timetable.getTType());
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void updateTimetable(TimetableResponse timetable, String userId) {
-        try {
-            if (timetable == null || userId == null || timetable.getTStartT() == null ||
-                    timetable.getTEndT() == null || timetable.getTPeople() == 0 || timetable.getTType() == 0) {
-                throw new IllegalArgumentException("timetable, userId, and all timetable fields cannot be null");
-            }
-
-            this.sql = "UPDATE TIMETABLE " +
-                    "SET T_START_T = ?, " +
-                    "T_END_T = ?, " +
-                    "T_PEOPLE = ?, " +
-                    "T_TYPE = ? " +
-                    "WHERE USER_ID = ?";
-
-            jdbcTemplate.update(this.sql, timetable.getTStartT(), timetable.getTEndT(),
-                    timetable.getTPeople(), timetable.getTType(), userId);
+                    timetable.getTPeople());
         } catch (NullPointerException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -437,51 +417,54 @@ public class TrainerDao {
         jdbcTemplate.update(this.sql, tIdx);
     }
 
-    public List<PtUserDto> getPtUserInfo(int page, int pageSize, String userId, String ptUserName) {
+    // 트레이너 결제 회원 정보 조회
+    public List<PtUserDto> getPtUserInfo(int page, int pageSize, int utIdx, String ptUserName) {
         int offset = (page - 1) * pageSize;
 
         if(ptUserName.equals("-")) {
             String sql = "SELECT UI.USER_ID, UI.USER_NAME, UI.USER_TEL, UI.USER_GENDER, PD.TP_TYPE, P.P_PT_CNT " +
                     "FROM USER_INFO UI JOIN PAYMENT P ON UI.USER_ID = P.USER_ID " +
-                    "JOIN PRODUCT PD ON P.TP_IDX = PD.TP_IDX WHERE PD.USER_ID = ?" +
+                    "JOIN PRODUCT PD ON P.TP_IDX = PD.TP_IDX WHERE PD.UT_IDX = ?" +
                     " LIMIT ?, ?";
 
-            return jdbcTemplate.query(sql, new Object[]{userId, offset, pageSize}, new PtUserRowMapper());
+            return jdbcTemplate.query(sql, new Object[]{utIdx, offset, pageSize}, new PtUserRowMapper());
 
         }
         else {
             String sql = "SELECT UI.USER_ID, UI.USER_NAME, UI.USER_TEL, UI.USER_GENDER, PD.TP_TYPE, P.P_PT_CNT " +
                     "FROM USER_INFO UI JOIN PAYMENT P ON UI.USER_ID = P.USER_ID " +
-                    "JOIN PRODUCT PD ON P.TP_IDX = PD.TP_IDX WHERE PD.USER_ID = ? AND UI.USER_NAME = ?" +
+                    "JOIN PRODUCT PD ON P.TP_IDX = PD.TP_IDX WHERE PD.UT_IDX = ? AND UI.USER_NAME = ?" +
                     " LIMIT ?, ?";
 
-            return jdbcTemplate.query(sql,  new Object[]{userId, ptUserName, offset, pageSize}, new PtUserRowMapper());
+            return jdbcTemplate.query(sql,  new Object[]{utIdx, ptUserName, offset, pageSize}, new PtUserRowMapper());
         }
 
     }
 
+    // 트레이너 결제 회원 count
     public int getPtUserCnt(String userId, String ptUserName) {
 
         if (ptUserName.equals("-")) {
             String sql = "select count(*)" +
                     " from user_info ui join payment p on ui.user_id = p.user_id" +
-                    " join product pd on p.tp_idx = pd.tp_idx where pd.user_id = ?";
+                    " join product pd on p.tp_idx = pd.tp_idx where pd.UT_IDX = ?";
 
             return jdbcTemplate.queryForObject(sql, Integer.class, userId);
         }
         else {
             String sql = "select count(*)" +
                     " from user_info ui join payment p on ui.user_id = p.user_id" +
-                    " join product pd on p.tp_idx = pd.tp_idx where pd.user_id = ? and ui.user_name = ?";
+                    " join product pd on p.tp_idx = pd.tp_idx where pd.UT_IDX = ? and ui.user_name = ?";
 
             return jdbcTemplate.queryForObject(sql, Integer.class, userId, ptUserName);
         }
     }
 
-    public TrainerForPayDetail searchByUsername(String userId) {
+    // 확인 필요
+    public TrainerForPayDetail searchByUsername(int trainerId) {
         this.sql = "SELECT T.UT_IDX, T.USER_ID, U.USER_NAME, U.USER_GENDER, T.UT_INSTA, T.UT_GYM, T.UT_EXPERT_1, T.UT_EXPERT_2, I.TI_PATH " +
                 "FROM TRAINER_DETAILS T, USER_INFO U, TRAINER_IMAGE I " +
-                "WHERE T.USER_ID = ? " +
+                "WHERE T.UT_IDX = ? " +
                 "AND T.USER_ID = U.USER_ID AND T.USER_ID = I.USER_ID ";
         TrainerForPayDetail trainer = new TrainerForPayDetail();
         try{
@@ -500,7 +483,7 @@ public class TrainerDao {
                     dto.setUserName(rs.getString("USER_NAME"));
                     return dto;
                 }
-            }, userId);
+            }, trainerId);
         }catch (EmptyResultDataAccessException e){
             System.out.println(e.getMessage());
         }

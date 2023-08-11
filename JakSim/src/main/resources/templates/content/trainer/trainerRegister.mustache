@@ -28,6 +28,10 @@
                 <input readonly type="text" name="address" placeholder="헬스장 주소를 입력하세요" id="input-address" style="pointer-events: none; width: 350px; border: white; border-radius: 5px; "/></a>
                 <br>
         </div>
+            <span style="font-weight:bold" >프로필 사진 등록</span><br>
+            <span style="font-size: 12px;">프로필 사진을 등록해주세요</span><br>
+            <input accept="image/*" type="file" name="profileImage1" required onchange="previewImage(event)" />
+            <img id="preview-image" src="" alt="미리보기">
         <br>
         <span style="font-weight:bold">전문분야</span>
             <span style="font-size: 12px;">2개를 선택해주세요</span><br>
@@ -52,10 +56,7 @@
             <span class="input_span">자격증</span>
             <input class="input_input" type="text" name="certNameInput" id="certName">
             <button type="button" id="add-cert" class="btn btn-outline-secondary">자격증 추가</button><br/>
-            <span style="font-weight:bold"  >자격증 이미지 등록</span><br>
-            <span style="font-size: 12px;">자격증 이미지는 1개만 등록 가능합니다.</span><br>
-            <input accept="image/*" type="file" name="certImage1" required onchange="previewImage(event)" />
-            <img id="preview-image" src="" alt="미리보기">
+
             <div id="create_cert_div"></div>
         </div>
 
@@ -87,15 +88,15 @@
 
             <span class="input_span">유효기간</span>
             <input class="input_input" type="number" name="ptPeriod1" id="ptPeriod" placeholder="유효기간을 입력하세요(일단위)" style="margin-bottom:5px;">
-            <button type="button" id="add-pt" class="btn btn-outline-secondary  ">등록</button>
+            <button type="button" id="add-pt" class="btn btn-outline-secondary">등록</button>
             <div id="create_pt_div">
 
             </div>
         </div>
 
         <div class="input_class">
-            <span style="font-weight:bold">이미지 등록</span><br>
-            <span style="font-size: 12px;">첫번째 이미지는 프로필 이미지로 사용됩니다</span><br>
+            <span style="font-weight:bold">추가 이미지 등록</span><br>
+            <span style="font-size: 12px;">자격증, 헬스장 사진 등을 등록해주세요</span><br>
             <input accept="image/*" type="file" name="imagePath1" required onchange="previewImage2(event)" multiple/>
             <div id="image-preview-container"></div>
         </div>

@@ -19,10 +19,12 @@ public class MainController {
     public String mainPage(Model model, @AuthenticationPrincipal User info) {
         if(info != null) {
             model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
+            model.addAttribute("name", trainerService.searchTrainerName(info.getUsername()));
         }
         //로그인했을떄만 작동함.
         model.addAttribute("head_title", "작심득근");
-        model.addAttribute("trainers", trainerService.searchTrainerForMainPage());
+        model.addAttribute("trainer", trainerService.searchTrainerForMainPage());
+
         return "content/index";
     }
 }

@@ -13,7 +13,7 @@ public class TrainerCareerRowMapper implements RowMapper<TrainerCareerDto>{
         TrainerCareerDto trainerCareerDto = new TrainerCareerDto();
 
         trainerCareerDto.setCareerId(rs.getInt("TCAR_IDX"));
-        trainerCareerDto.setUserId(rs.getString("USER_ID"));
+        trainerCareerDto.setTrainerId(rs.getInt("UT_IDX"));
         trainerCareerDto.setCareerContent(rs.getString("TCAR_CONTENT"));
 
         return trainerCareerDto;

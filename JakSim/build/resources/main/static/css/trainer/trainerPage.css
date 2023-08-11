@@ -43,6 +43,7 @@
        }
 
  #pt-info {
+  display: flex;
     align-items: center;
     border: 1px solid gray;
     border-radius: 10px;
@@ -56,19 +57,23 @@
 
   }
 
-  #pt-info span {
-    margin-right: 10px; /* Adjust the value as needed */
+    #pt-info span {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 5px;
     font-size: 15px;
-    margin-left: 15px;
+    margin-left: 5px;
     border: none;
-  }
+    }
 
-  .trainer_pay {
-    float: right; /* 오른쪽으로 부유(floating) */
-  }
+    #pt-info .trainer_pay {
+    margin-left: 350px;
+    float: right;
+    }
 
   .payButton{
     background-color: #A584EE;
+    width: 120px;
     color: black;
     border: none;
     border-radius: 5px;
@@ -82,12 +87,12 @@
 .review {
   background-color: #E9E1FB;
   border: 2px solid #E9E1FB;
-  width: 800px;
+  width: 850px;
   border-radius: 10px;
   padding: 20px;
   margin-left: 50px;
   margin-right: 50px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .review-filters {
@@ -135,4 +140,10 @@
 
 td {
     padding-right: 10px;
+}
+
+#pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; 
 }

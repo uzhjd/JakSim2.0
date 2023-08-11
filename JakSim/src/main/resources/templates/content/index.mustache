@@ -30,20 +30,20 @@
   justify-content: center;
   flex-wrap: wrap; ">
   
-        {{#trainers}}
+        {{#trainer}}
             <div class="trainer-item" style="width: 300px; border-radius: 10px; margin-left: 10px; margin-right: 10px; display: flex;
   flex-direction: column;
   align-items: center;">
-                <a href="/trainer/{{userId}}">
+                <a href="/trainer/{{trainerId}}">
                     <div class="find_trainer_crop">
-                        <img src="{{imagePath}}" style="margin-bottom: 10px" alt="트레이너" class="find_trainer_profile">
+                        <img src="{{profile}}" style="margin-bottom: 10px" alt="트레이너" class="find_trainer_profile">
                     </div>
                     <div>
                         <p style="text-align: center;">{{gym}} 헬스장 {{userName}} 트레이너</p>
                     </div>
                 </a>
             </div>
-        {{/trainers}}
+        {{/trainer}}
     </div>
 </div>
 {{>layout/footer}}

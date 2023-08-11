@@ -4,6 +4,7 @@ import com.twinkle.JakSim.model.dto.review.ReviewRequestDto;
 import com.twinkle.JakSim.model.service.account.FileService;
 import com.twinkle.JakSim.model.service.review.ReviewService;
 import com.twinkle.JakSim.model.service.trainer.TrainerService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
@@ -12,26 +13,27 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequiredArgsConstructor
 public class ReviewController {
-    @Autowired
-    ReviewService reviewService;
-    @Autowired
-    FileService fileService;
-    @Autowired
-    TrainerService trainerService;
 
-    @GetMapping("/registerReview/{trainerId}")
-    public String registerMyReview(Model model, @PathVariable("trainerId") String trainerId, @AuthenticationPrincipal User info) {
-        if(info != null) {
-            model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
-            //model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
-        }
-        model.addAttribute("head_title", "리뷰 등록");
-        model.addAttribute("trainerId", trainerId);
-        //mypage에서 접근 위해 추가했습니다.
-        model.addAttribute("trainerIdx", trainerService.searchByUsername(trainerId).getUt_idx());
-        return "content/review/registerReview";
-    }
+    private final ReviewService reviewService;
+    private final FileService fileService;
+    private final TrainerService trainerService;
+    
+    // 수정필요
+
+//    @GetMapping("/registerReview/{trainerId}")
+//    public String registerMyReview(Model model, @PathVariable("trainerId") String trainerId, @AuthenticationPrincipal User info) {
+//        if(info != null) {
+//            model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
+//            //model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
+//        }
+//        model.addAttribute("head_title", "리뷰 등록");
+//        model.addAttribute("trainerId", trainerId);
+//        //mypage에서 접근 위해 추가했습니다.
+//        model.addAttribute("trainerIdx", trainerService.searchByUsername(trainerId).getUt_idx());
+//        return "content/review/registerReview";
+//    }
 
     @PostMapping("/registerReview/{trainerIdx}")
     public String registerReview(@PathVariable("trainerIdx") int trainerIdx, @AuthenticationPrincipal User info,
@@ -41,12 +43,12 @@ public class ReviewController {
         return "redirect:/";
     }
 
+    // 리뷰 수정
     @GetMapping("/review/editReview/{reviewIdx}")
     public String editReview(@PathVariable("reviewIdx") int reviewIdx, Model model, @AuthenticationPrincipal User info,
                              ReviewRequestDto reviewRequestDto) {
         if(info != null) {
             model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
-            //model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
         }
 
         model.addAttribute("head_title", "리뷰 수정");

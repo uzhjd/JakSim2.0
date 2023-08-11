@@ -13,7 +13,7 @@ public class TrainerImageRowMapper implements RowMapper<TrainerImageDto> {
         TrainerImageDto trainerImageDto = new TrainerImageDto();
 
         trainerImageDto.setImageId(rs.getInt("TI_IDX"));
-        trainerImageDto.setUserId(rs.getString("USER_ID"));
+        trainerImageDto.setTrainerId(rs.getInt("UT_IDX"));
         trainerImageDto.setImagePath(rs.getString("TI_PATH"));
 
         return trainerImageDto;
