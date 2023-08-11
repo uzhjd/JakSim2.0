@@ -26,25 +26,25 @@ class JakSimApplicationTests {
 	 *     테스트 중에 발생하는 오류에 대해<br>
 	 *     - 중복된 데이터를 작성했을 경우, 애러가 발생할 수 있습니다.<br>
 	 *     - 혹은 데이터베이스 수정이 이뤄지지 않은 경우 발생할 수 있습니다.<br>
-	 *     - 현재 데이터베이스는 user question과 answer가 포함되어있는 상태입니다.
 	 * </p>
 	 *
 	 */
 	@Test
 	void singleRegisterMember() {
-
+		int result = 0;
+		for(int i=0; i<5000000; i++){
 			UserDto userDto = new UserDto();
-			userDto.setId("west");
+			userDto.setId("west" + i);
 			userDto.setPw("1234");
-			userDto.setName("wester");
-			userDto.setEmail("test@naver.com");
+			userDto.setName("wester"+i);
+			userDto.setEmail("west"+i+"@naver.com");
 			userDto.setGender(1);
 			userDto.setBirth("2023-03-30");
-			userDto.setTel("01012341239");
-			userDto.setRole(0);// 0->Admin 1->User 2->Trainer
+			userDto.setTel("55324"+i);
+			userDto.setRole(1);// 0->Admin 1->User 2->Trainer
 
-			accountRestApi.AccountAction(userDto);
-
+			result = accountRestApi.accountAction(userDto);
+		}
 		System.out.println("fin");
 	}
 }

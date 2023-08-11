@@ -17,12 +17,6 @@ public class ReviewDao {
     private JdbcTemplate jdbcTemplate;
     private String sql;
 
-    /**
-     * TRAINER_ID 누락
-     * @param review
-     * @param userId
-     * @param trainerIdx
-     */
     public void insertReview(ReviewRequestDto review, String userId, int trainerIdx) {
         this.sql = "INSERT INTO REVIEW VALUES(NULL, ?, ?, ?, ?, current_timestamp, NULL)";
 

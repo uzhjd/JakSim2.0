@@ -53,7 +53,7 @@ function checkUserId(resultSpan){
         isUsernameLength = false;
     }
 
-    axios.post('/account/checkid', {id: userId.value})
+    axios.get(`/account/api/verify-id?userId=${userId.value}`)
         .then(response => {
             (response.data) ? success() : fail();
         })
