@@ -7,6 +7,7 @@ import com.twinkle.JakSim.model.dto.trainer.*;
 import com.twinkle.JakSim.model.service.account.FileService;
 import com.twinkle.JakSim.model.service.review.ReviewService;
 import com.twinkle.JakSim.model.service.trainer.TrainerService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
@@ -21,13 +22,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class TrainerController {
-    @Autowired
-    TrainerService trainerService;
-    @Autowired
-    ReviewService reviewService;
-    @Autowired
-    FileService fileService;
+
+    private final TrainerService trainerService;
+    private final ReviewService reviewService;
+    private final FileService fileService;
+
+    // 트레이너 등록
     @GetMapping("/trainer/trainerRegister")
     public String trainerSignUp(Model model,  @AuthenticationPrincipal User info) {
         if(info != null) {
@@ -47,6 +49,7 @@ public class TrainerController {
         return "redirect:/logout";
     }
 
+    // 트레이너 수정
     @GetMapping("/trainer/trainerUpdate/{trainerId}")
     public String trainerUpdate(Model model, @PathVariable("trainerId") int trainerId, @AuthenticationPrincipal User info) {
 
@@ -68,14 +71,16 @@ public class TrainerController {
 
     @PostMapping("/trainerUpdate")
     public String trainerUpdate(TrainerInsertDto trainerDto, @AuthenticationPrincipal User info,
-                                @RequestParam("certImage1") MultipartFile profileImage,
+                                @RequestParam("profileImage1") MultipartFile profileImage,
                                 @RequestParam("imagePath1") MultipartFile[] imagePath) throws IOException {
 
         trainerService.updateTrainer(trainerDto, info.getUsername(), profileImage, imagePath);
+        TrainerPageDto trainer = trainerService.searchTrainerName(info.getUsername());
 
-        return "redirect:/trainer/trainerUpdate/" + info.getUsername();
+        return "redirect:/trainer/trainerUpdate/" + trainer.getTrainerId();
     }
 
+    // 트레이너 탈퇴
     @PostMapping("/trainerDelete")
     public String trainerDelete(TrainerInsertDto trainerDto, @AuthenticationPrincipal User info) {
         trainerService.deleteTrainer(trainerDto, info.getUsername());
@@ -83,11 +88,11 @@ public class TrainerController {
         return "redirect:/logout";
     }
 
+    // 트레이너 상세페이지
     @GetMapping("/trainer/{trainerId}")
     public String viewTrainer(@PathVariable("trainerId") int trainerId, @AuthenticationPrincipal User info, Model model) {
         if(info != null) {
             model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
-            //model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
         }
 
         model.addAttribute("head_title", "트레이너 상세페이지");
@@ -99,10 +104,12 @@ public class TrainerController {
         model.addAttribute("cert", trainerService.getCert(trainerId));
         model.addAttribute("career", trainerService.getCareer(trainerId));
         model.addAttribute("imageList", trainerService.getTrainerImage(trainerId));
+        model.addAttribute("name", trainerService.searchTrainerName(info.getUsername()));
 
         return "content/trainer/trainerDetailPage";
     }
 
+    // 트레이너별 리뷰 상세페이지
     @GetMapping("/trainer/review/{trainerId}")
     public String viewTrainerReview(@PathVariable("trainerId") int trainerId, @AuthenticationPrincipal User info, Model model,
                                     @RequestParam(value = "page", defaultValue = "1") int page,
@@ -110,11 +117,11 @@ public class TrainerController {
                                     @RequestParam(value = "filter", defaultValue = "0") int filter) {
         if(info != null) {
             model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
-            //model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
         }
 
         model.addAttribute("head_title", "트레이너 리뷰페이지");
         model.addAttribute("session", info);
+        model.addAttribute("name", trainerService.searchTrainerName(info.getUsername()));
 
         model.addAttribute("stars", reviewService.getStarAvgAndCnt(trainerId));
         model.addAttribute("trainer", trainerService.searchTrainer(trainerId));
@@ -147,8 +154,8 @@ public class TrainerController {
 
         return "content/trainer/trainerReviewPage";
     }
-
-
+    
+    // 트레이너 찾기
     @GetMapping("/trainer/trainerSearch")
     public String viewTrainerSearch(Model model, @AuthenticationPrincipal User info,
                                     @RequestParam(value = "page", defaultValue = "1") int page,
@@ -159,9 +166,11 @@ public class TrainerController {
 
         if (info != null) {
             model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
+            model.addAttribute("name", trainerService.searchTrainerName(info.getUsername()));
         }
         model.addAttribute("head_title", "트레이너 찾기");
         model.addAttribute("userId", info);
+
 
         if((!address.equals("주소를 입력하세요"))) {
             // Separate the second word from the address using space as the delimiter
@@ -175,14 +184,13 @@ public class TrainerController {
         List<TrainerSearchDto> trainers = trainerService.searchAllTrainer(page, pageSize, filter, secondWord);
         int totalTrainers = trainerService.getTrainerCnt(filter, secondWord);
 
-        model.addAttribute("trainers", trainers);
+        model.addAttribute("trainer", trainers);
         model.addAttribute("currentPage", page);
         model.addAttribute("trainersPerPage", pageSize);
         model.addAttribute("filter", filter);
 
         // Set the address and secondWord variables in the model
         model.addAttribute("address", address);
-
 
         int totalPages = (int) Math.ceil((double) totalTrainers / pageSize);
 
@@ -202,12 +210,12 @@ public class TrainerController {
         return "content/trainer/trainerSearch";
     }
 
+    // 트레이너 관리페이지
     @GetMapping("/trainer/trainerControl")
     public String trainerControl(Model model, @AuthenticationPrincipal User info){
 
         if(info != null) {
             model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
-            //model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
         }
 
         model.addAttribute("head_title", "트레이너 관리페이지");
@@ -219,7 +227,9 @@ public class TrainerController {
     }
     @PostMapping("/trainer/ptTimetableRegister")
     public String timetableRegister(Model model, @AuthenticationPrincipal User info, TimetableInsertDto timetable){
-        model.addAttribute("userId", info);
+        //model.addAttribute("userId", info);
+
+        System.out.println("안녕하세요"+timetable.getTType());
         trainerService.registerTimetable(timetable, info.getUsername());
 
         return "redirect:/trainer/trainerControl";
@@ -231,6 +241,7 @@ public class TrainerController {
         return "redirect:/trainer/trainerControl";
     }
 
+    // 트레이너별 결제 회원 조회
     @GetMapping("/trainer/ptUserInfo")
     public String ptUserInfo(Model model, @AuthenticationPrincipal User info,
                              @RequestParam(value = "page", defaultValue = "1") int page,
@@ -239,13 +250,13 @@ public class TrainerController {
 
         if(info != null) {
             model.addAttribute("profile_image", fileService.getSingeProfile(info.getUsername()));
-            //model.addAttribute("isTrainer", info.getAuthorities().toString().equals("[ROLE_TRAINER]"));
         }
+        TrainerPageDto trainerId = trainerService.searchTrainerName(info.getUsername());
 
         model.addAttribute("head_title", "트레이너 관리페이지");
         model.addAttribute("userId", info);
-        model.addAttribute("ptUser", trainerService.getMyPtUserInfo(page, pageSize, info.getUsername(), ptUserName));
-        model.addAttribute("name", trainerService.searchTrainerName(info.getUsername()));
+        model.addAttribute("ptUser", trainerService.getMyPtUserInfo(page, pageSize, trainerId.getTrainerId(), ptUserName));
+        model.addAttribute("name", trainerId);
         model.addAttribute("ptUserName", ptUserName);
 
         // 페이징을 위한 데이터 조회
@@ -272,13 +283,13 @@ public class TrainerController {
         return "content/trainer/trainerPage3";
     }
 
-    // 트레이너 찾기 페이지
+    // 트레이너 찾기 페이지 주소 모달
     @GetMapping("/address-search")
     public String addressTest() {
         return "content/trainer/addressModal";
     }
 
-    // 트레이너 등록, 수정 페이지
+    // 트레이너 등록, 수정 페이지 주소 모달
     @GetMapping("/address-search2")
     public String addressTestForRegister() {
         return "content/trainer/addressModalForRegister";

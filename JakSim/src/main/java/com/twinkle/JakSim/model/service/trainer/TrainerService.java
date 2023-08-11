@@ -31,15 +31,14 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class TrainerService {
 
-    @Autowired
-    private TrainerDao trainerDao;
+    private final TrainerDao trainerDao;
 
     //트레이너 등록
     @Transactional
     public void TrainerSignUp(TrainerInsertDto requestTrainer, String userId, MultipartFile profileImage, MultipartFile[] imagePath) throws IOException {
         if(!profileImage.isEmpty() || profileImage != null) {
             String projectPath = System.getProperty("user.dir") +
-                    "/JakSim/src/main/resources/static/image/trainer";  // 자신의 폴더에 맞게 수정
+                    "/JakSim/src/main/resources/static/image/trainer";  // 자신의 폴더에 맞게 수정!!
             System.out.println(projectPath);
 
             UUID uuid = UUID.randomUUID();
@@ -54,7 +53,7 @@ public class TrainerService {
 
         if(imagePath.length != 0  || imagePath != null) {
             String projectPath = System.getProperty("user.dir") +
-                    "/JakSim/src/main/resources/static/image/trainer";  // 자신의 폴더에 맞게 수정
+                    "/JakSim/src/main/resources/static/image/trainer";  // 자신의 폴더에 맞게 수정!!
             UUID uuid = UUID.randomUUID();
             List<String> imagePaths = new ArrayList<>();
 
@@ -72,6 +71,8 @@ public class TrainerService {
         trainerDao.insertTrainer(requestTrainer, userId);
 
     }
+
+    // 트레이너 정보 수정
     @Transactional
     public void updateTrainer(TrainerInsertDto requestTrainer, String userId, MultipartFile profileImage, MultipartFile[] imagePath) throws IOException {
         if(!profileImage.isEmpty()) {
@@ -97,7 +98,7 @@ public class TrainerService {
             }
         }
         else {
-            System.out.println("자격증 이미지없음");
+            System.out.println("새로운 프로필 이미지없음");
         }
 
         if(!imagePath[0].isEmpty()) {
@@ -135,23 +136,27 @@ public class TrainerService {
         trainerDao.upDateTrainer(requestTrainer, userId, imagePath);
     }
 
+    // 트레이너 찾기
     @Transactional
     public List<TrainerSearchDto> searchAllTrainer(int page, int pageSize, int filter, String address) {
         return trainerDao.getAllTrainerForSearch(page, pageSize, filter, address);
     }
 
+    // 트레이너 전체 수 count
     @Transactional
     public int getTrainerCnt(int filter, String address) {
         return trainerDao.getTrainerCount(filter, address);
     }
 
+    // 메인페이지 트레이너 (최신등록순)
     @Transactional
     public List<TrainerSearchDto> searchTrainerForMainPage() {
         return trainerDao.getAllTrainerForMainPage();
     }
 
+    // 트레이너 이름 및 인덱스 값 가져오기
     @Transactional
-    public UserDto searchTrainerName(String userId) {
+    public TrainerPageDto searchTrainerName(String userId) {
         return trainerDao.getTrainerName(userId);
     }
 
@@ -182,18 +187,19 @@ public class TrainerService {
     }
 
 
+    // 트레이너 정보 삭제
     @Transactional
     public void deleteTrainer(TrainerInsertDto trainerDto, String userId) {
 
         String projectPath = System.getProperty("user.dir") +
-                "/JakSim/src/main/resources/static";
+                "/JakSim/src/main/resources/static";        // 자신의 폴더에 맞게 수정 !!
 
         if(trainerDto.getProfileImg() != null) {
             String path = projectPath + trainerDto.getProfileImg();
 
             File file = new File(path);
 
-            if(file.exists()) {
+            if(file.exists()) {     // 정보 삭제 시 사진 또한 폴더에서 삭제
                 file.delete();
             }
         }
@@ -215,11 +221,13 @@ public class TrainerService {
 
     }
 
+    // 트레이너 PT 시간표 가져오기
     @Transactional
     public List<TimetableResponse> getTimetable(String userId) {
         return trainerDao.getTimetable(userId);
     }
 
+    // 트레이너 PT 시간표 등록
     @Transactional
     public void registerTimetable(TimetableInsertDto timetable, String userId) {
         TimetableResponse timetableDto = new TimetableResponse(timetable.getTIdx(), userId, LocalDate.parse(timetable.getTDate()),
@@ -230,16 +238,19 @@ public class TrainerService {
 
     }
 
+    // 트레이너 시간표 삭제
     @Transactional
     public void deleteTimetable(int tIdx) {
         trainerDao.deleteTimetable(tIdx);
     }
 
+    // 트레이너별 결제 회원 정보 가져오기
     @Transactional
-    public List<PtUserDto> getMyPtUserInfo(int page, int pageSize, String userId, String ptUserName) {
-        return trainerDao.getPtUserInfo(page, pageSize, userId, ptUserName);
+    public List<PtUserDto> getMyPtUserInfo(int page, int pageSize, int utIdx, String ptUserName) {
+        return trainerDao.getPtUserInfo(page, pageSize, utIdx, ptUserName);
     }
 
+    // 트레이너별 결제 회원 count
     @Transactional
     public int getPtUserCnt(String userId, String ptUserName) {
         return trainerDao.getPtUserCnt(userId, ptUserName);
@@ -258,8 +269,8 @@ public class TrainerService {
         return trainerDetailResponse;
     }
 
-    // 수정 필요
-//    public TrainerForPayDetail searchByUsername(String userId) {
-//        return trainerDao.searchByUsername(userId);
-//    }
+    // 확인 필요
+    public TrainerForPayDetail searchByUsername(int trainerId) {
+        return trainerDao.searchByUsername(trainerId);
+    }
 }

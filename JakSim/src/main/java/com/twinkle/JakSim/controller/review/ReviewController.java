@@ -4,6 +4,7 @@ import com.twinkle.JakSim.model.dto.review.ReviewRequestDto;
 import com.twinkle.JakSim.model.service.account.FileService;
 import com.twinkle.JakSim.model.service.review.ReviewService;
 import com.twinkle.JakSim.model.service.trainer.TrainerService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
@@ -12,13 +13,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequiredArgsConstructor
 public class ReviewController {
-    @Autowired
-    ReviewService reviewService;
-    @Autowired
-    FileService fileService;
-    @Autowired
-    TrainerService trainerService;
+
+    private final ReviewService reviewService;
+    private final FileService fileService;
+    private final TrainerService trainerService;
     
     // 수정필요
 
@@ -43,6 +43,7 @@ public class ReviewController {
         return "redirect:/";
     }
 
+    // 리뷰 수정
     @GetMapping("/review/editReview/{reviewIdx}")
     public String editReview(@PathVariable("reviewIdx") int reviewIdx, Model model, @AuthenticationPrincipal User info,
                              ReviewRequestDto reviewRequestDto) {

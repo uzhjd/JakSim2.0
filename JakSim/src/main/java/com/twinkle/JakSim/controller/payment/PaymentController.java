@@ -81,6 +81,7 @@ public class PaymentController {
         return String.format(defaultPage + "pay_list");
     }
 
+    // 확인 필요
     @GetMapping("/detail/{tid}")
     public String payDetailPage(@AuthenticationPrincipal User user, @PathVariable("tid") String tid, Model model) {
         model.addAttribute("head_title", "결제 내역 상세");
@@ -90,7 +91,7 @@ public class PaymentController {
                     model.addAttribute("payment", item);
                     ProductDto product = paymentService.getProductByIdx(item.getTp_idx());
                     model.addAttribute("product", product);
-                    model.addAttribute("trainer", trainerService.searchByUsername(product.getUserId()));
+                    model.addAttribute("trainer", trainerService.searchByUsername(product.getTrainerId())); // 수정함
                 }
         );
         return String.format(defaultPage + "pay_detail");

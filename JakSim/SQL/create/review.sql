@@ -12,14 +12,12 @@ CREATE TABLE REVIEW(
     FOREIGN KEY(UT_IDX) REFERENCES TRAINER_DETAILS(UT_IDX) ON DELETE CASCADE
 );
 
-alter table review drop TRAINER_ID;
-
 COMMIT;
 
 INSERT INTO REVIEW
 VALUES(NULL, 'ujeong', 'test93', 4, '트레이너가 친절하고 PT가 맛있어요', 5, '2023-06-27 12:34:56', NULL);
 INSERT INTO REVIEW
-VALUES(NULL, 'humble', 'test93', 4, '무릎이 박살남', 1, '2023-07-01 12:34:56', NULL);
+VALUES(NULL, 'humble', 2, '무릎이 박살남', 1, '2023-07-01 12:34:56', NULL);
 INSERT INTO REVIEW
 VALUES(NULL, 'hyerin', 'test93', 4, '나쁘지 않아용', 3, '2023-07-07 12:34:56', NULL);
 INSERT INTO REVIEW
@@ -34,4 +32,4 @@ INSERT INTO REVIEW
 VALUES(NULL, 'test2', 'test93', 4, '시설도 좋고 트레이너쌤도 친절해요.', 5, current_date, NULL);
 
 INSERT INTO REVIEW
-VALUES(NULL, 'test96', 'test93', 4, '트레이너쌤이 불친절해요. 근데 잘 가르쳐주는듯.', 3, current_date, NULL);
+VALUES(NULL, 'test96', 2, '트레이너쌤이 불친절해요. 근데 잘 가르쳐주는듯.', 3, current_timestamp, NULL);

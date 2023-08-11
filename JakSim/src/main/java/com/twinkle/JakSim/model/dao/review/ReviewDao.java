@@ -17,6 +17,14 @@ public class ReviewDao {
     private JdbcTemplate jdbcTemplate;
     private String sql;
 
+    /**
+     * TRAINER_ID 누락
+     * @param review
+     * @param userId
+     * @param trainerIdx
+     */
+
+    // 리뷰 등록
     public void insertReview(ReviewRequestDto review, String userId, int trainerIdx) {
         this.sql = "INSERT INTO REVIEW VALUES(NULL, ?, ?, ?, ?, current_timestamp, NULL)";
 
@@ -25,6 +33,7 @@ public class ReviewDao {
 
     }
 
+    // 트레이너 리뷰 미리보기 (최신순)
     public List<ReviewRequestDto> getTrainerReview(int trainerId) {
         this.sql = "SELECT * " +
                 "FROM REVIEW " +
@@ -35,6 +44,7 @@ public class ReviewDao {
         return jdbcTemplate.query(this.sql, new ReviewRowMapper(), trainerId);
     }
 
+    // 트레이너 리뷰 전체보기
     public List<ReviewRequestDto> getTrainerReviewAll(int page, int pageSize, int filter, int trainerId) {
         //1. 최신순 (기본)
         //2. 별점 높은순
@@ -73,6 +83,7 @@ public class ReviewDao {
 
     }
 
+    // 리뷰 별점 및 전체수 count
     public ReviewRequestDto getStarAvgAndCnt(int utIdx) {
         this.sql = "SELECT *, COUNT(*) AS REVIEW_CNT, ROUND(AVG(R_STAR), 1) AS AVG_R_STAR " +
                 "FROM REVIEW WHERE UT_IDX = ?";
@@ -81,6 +92,7 @@ public class ReviewDao {
 
     }
 
+    // 리뷰 정보 가져오기 (리뷰 인덱스별)
     public List<ReviewRequestDto> getMyReview(String userId, int reviewIdx) {
         this.sql = "SELECT * FROM REVIEW " +
                 "WHERE USER_ID = ? AND R_IDX = ?";
@@ -88,6 +100,7 @@ public class ReviewDao {
         return jdbcTemplate.query(this.sql, new ReviewRowMapper(), userId, reviewIdx);
     }
 
+    // 나의 리뷰 전체 가져오기 (마이페이지용)
     public Optional<List<ReviewRequestDto>> getMyReviewForMyPage(String userId) {
         this.sql = "SELECT * FROM REVIEW R " +
                 "WHERE USER_ID = ? " +
@@ -102,7 +115,7 @@ public class ReviewDao {
         return Optional.ofNullable(reviewList);
     }
 
-
+    // 리뷰 수정
     public void editReview(ReviewRequestDto review, String userId) {
         this.sql = "UPDATE REVIEW SET R_CONTENT = ?, R_STAR = ?, R_M_DT = current_timestamp " +
                 "WHERE USER_ID = ?";
@@ -112,6 +125,7 @@ public class ReviewDao {
 
     }
 
+    // 리뷰 삭제
     public void deleteReview(String userId) {
         this.sql = "DELETE FROM REVIEW WHERE USER_ID = ?";
 
