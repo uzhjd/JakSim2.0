@@ -20,16 +20,17 @@
                     <tbody>
                     <tr>
                         <td>
-                            <input style="pointer-events: none;" type="time" id="start_time_1" name="tStartT" value="{{tStartT}}" readonly> ~
-                            <input style="pointer-events: none;" type="time" id="end_time_1" name="tEndT" value="{{tEndT}}" readonly>
+                            <i class="fa-regular fa-clock" style="color: #a584ee; margin-right:4px;"></i>
+                            <input style="pointer-events: none; border: white; " type="time" id="start_time_1" name="tStartT" value="{{tStartT}}" readonly disabled> ~
+                            <input style="pointer-events: none; border: white; margin-left: 20px;" type="time" id="end_time_1" name="tEndT" value="{{tEndT}}" readonly disabled>
                         </td>
                         <td>
-                            <input style="width: 104px;
+                            <input style="width: 50px;
                     margin-right: 20px;
                     margin-left: 20px; border: white; text-align: center; pointer-events: none;" type="text" name="tType" value="{{tType}}" class="tType" readonly />
                         </td>
                         <td>
-                            <span style=" width: 104px;
+                            <span style=" width: 50px;
                             margin-right: 20px;
                             margin-left: 20px; border: white; text-align: center; pointer-events: none;">{{tPeople}} </span> 
                         </td>
@@ -65,9 +66,9 @@
                             <input style="width: 120px;" type="time" id="tEndT" class="jaksim_font" name="tEndT" required>
                         </td>
                         <td>
-                            <input type="radio" name="tType" class="jaksim_font" value="0">상담
-                            <input type="radio" name="tType" class="jaksim_font" value="1" checked>1:1
-                            <input type="radio" name="tType" class="jaksim_font" value="2">단체
+                            <input type="radio" name="tType" value="0">상담
+                            <input type="radio" name="tType" value="1" checked>1:1
+                            <input type="radio" name="tType" value="2">단체
                         </td>
                         <td>
                             <input style="width: 40px; text-align: center;" type="number" class="jaksim_font" name="tPeople" value="1">

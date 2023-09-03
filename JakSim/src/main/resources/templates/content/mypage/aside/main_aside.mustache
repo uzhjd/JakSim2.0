@@ -1,6 +1,6 @@
 <div id="mypage_aside_profileImgContainer">
 
-    <a href="/mypage/{{session_user.username}}/profile">
+    <a href="/mypage/profile">
         {{#session_profile}}
             <img src="{{session_profile.path}}" alt="profile" id="mypage_aside_profileImg">
         {{/session_profile}}
@@ -16,10 +16,10 @@
 
 <div id="mypage_aside_nav">
     <ul style="margin: 50px auto;">
-        <li><a href="/mypage/{{session_user.username}}/profile" class="jaksim_font aside_item">내프로필</a></li>
-        <li><a href="/mypage/{{session_user.username}}/history" class="jaksim_font aside_item">내가 작성한 리뷰</a></li>
+        <li><a href="/mypage/profile" class="jaksim_font aside_item">내프로필</a></li>
+        <li><a href="/payment/list" class="jaksim_font aside_item">내가 작성한 리뷰</a></li>
         <li><a href="/payment/list" class="jaksim_font aside_item">결제 목록</a></li>
-        <li><a href="/mypage/{{user_info.id}}/history/inbody" class="jaksim_font aside_item">인바디</a></li>
+        <li><a href="/mypage/inbody" class="jaksim_font aside_item">인바디</a></li>
     </ul>
 </div>
 

@@ -22,6 +22,7 @@ public class TrainerPageDto {
     private int expert1;
     private int expert2;
     private String address;
+    private String profile;
 
     private int ptTimes;
     private int ptPrice;
@@ -30,7 +31,6 @@ public class TrainerPageDto {
     private String careerContent;
 
     private String certName;
-    private String certImage;
 
     private String imagePath;
 

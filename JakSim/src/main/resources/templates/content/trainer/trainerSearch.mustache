@@ -35,11 +35,11 @@
                 <label for="toggle-condition" class="toggle-label jaksim_font">컨디셔닝</label>
             </div>
             <div class="trainer-container">
-                {{#trainers}}
+                {{#trainer}}
                     <div class="trainer-item" data-expert1="{{expert1}}" data-expert2="{{expert2}}">
-                        <a href="/trainer/{{userId}}">
+                        <a href="/trainer/{{trainerId}}">
                             <div class="find_trainer_crop">
-                                <img src="{{imagePath}}" style=" margin-bottom: 10px;" alt="트레이너" class="find_trainer_profile">
+                                <img src="{{profile}}" style="margin-bottom: 10px;" alt="트레이너" class="find_trainer_profile">
                             </div>
 
                             <div>
@@ -58,7 +58,7 @@
                             <input hidden="hidden" value="{{address}}">
                         </a>
                     </div>
-                {{/trainers}}
+                {{/trainer}}
             </div>
             <div id="pagination">
                 <a href="/trainer/trainerSearch?page={{prevPage}}&pageSize={{trainersPerPage}}&filter={{filter}}&address={{address}}" class="jaksim_btn" style="margin-right:5px; padding-left: 10px; padding-right: 10px;padding-bottom: 6px;padding-top: 6px; text-decoration: none;">이전</a>

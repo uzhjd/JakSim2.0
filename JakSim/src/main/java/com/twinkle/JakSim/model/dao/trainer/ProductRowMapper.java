@@ -13,7 +13,7 @@ public class ProductRowMapper implements RowMapper<ProductDto>{
         ProductDto productDto = new ProductDto();
 
         productDto.setPtId(rs.getInt("TP_IDX"));
-        productDto.setUserId(rs.getString("USER_ID"));
+        productDto.setTrainerId(rs.getInt("UT_IDX"));
         productDto.setPtTimes(rs.getInt("TP_TIMES"));
         productDto.setPtPrice(rs.getInt("TP_PRICE"));
         productDto.setPtType(rs.getInt("TP_TYPE"));

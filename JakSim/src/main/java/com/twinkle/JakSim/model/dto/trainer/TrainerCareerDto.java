@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class TrainerCareerDto {
 
     private int careerId;
-    private String userId;
+    private int trainerId;
     private String careerContent;
 
 }

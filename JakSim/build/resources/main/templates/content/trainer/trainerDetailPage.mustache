@@ -13,12 +13,7 @@
     <br/><br/>
     {{#trainer}}
     <div id="trainer-info">
-        <script>
-        var imageList = [{{#imageList}}"{{imagePath}}",{{/imageList}}];
-        var firstImage = imageList.length > 0 ? imageList[0] : '';
-        var imgTag = "<img src='" + firstImage + "' alt='Trainer Image' width='270' height='270' style='border-radius: 5%;  object-fit: cover; object-position: top center;'/>";
-        document.write(imgTag);
-        </script>
+        <img src="{{profile}}" alt="Trainer Image" width='270' height='270' style="border-radius: 5%;  object-fit: cover; object-position: top center;"/>
 
         <div id="trainer-table">
                 <span class="expert1" style="background-color: #E9E1FB;
@@ -73,8 +68,6 @@
             <div id="trainer-cert">
             {{#cert}}
                 <span>{{certName}}</span><br/>
-
-                <img src="{{certImage}}" alt="Trainer Image" width="220" height="220"><br/>
             {{/cert}}
             </div>
 

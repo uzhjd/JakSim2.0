@@ -12,12 +12,12 @@ function checkExpertValues() {
         return true; // Allow form submission
     }
 
-function previewCertImage(event) {
+function previewImage(event) {
     var input = event.target;
     var reader = new FileReader();
 
     reader.onload = function(){
-        var preview = document.getElementById('preview-cert-image');
+        var preview = document.getElementById('preview-profile-image');
         preview.src = reader.result;
         preview.style.display = 'block';
     };

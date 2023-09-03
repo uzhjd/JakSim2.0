@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
@@ -80,7 +82,6 @@ public class SessionController {
         }
         return "redirect:/session/list";
     }
-
 
     @GetMapping("/session/expired")
     public String sessionExpired() {
