@@ -22,7 +22,6 @@ public class KakaoPayRestController {
 
     private final KakaoPayService kakaoPayService;
 
-    // 결제 요청 (준비)
     @PostMapping("/ready")
     public ReadyResponse readyToKakaoPay(@AuthenticationPrincipal User user,
                                          @Valid @RequestBody PaymentRequest paymentRequest) {

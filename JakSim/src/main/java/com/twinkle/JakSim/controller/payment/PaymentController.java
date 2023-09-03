@@ -29,7 +29,6 @@ public class PaymentController {
     private final PaymentService paymentService;
     private final TrainerService trainerService;
 
-
     private final String defaultPage = "/content/payment/";
 
     @GetMapping("/cancel")
