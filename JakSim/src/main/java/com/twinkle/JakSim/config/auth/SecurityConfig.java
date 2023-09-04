@@ -45,7 +45,7 @@ public class SecurityConfig {
         http.csrf().disable();
         http.authorizeHttpRequests().antMatchers( "/",
                         "/reservation/**",
-                         "/trainer/trainerSearch", "/scheduler/**",
+                         "/trainer/trainerSearch",
                         "/javascript/**", "/css/**", "/image/**", "/email/**", "/account/api/**").permitAll()
                 .antMatchers("/login/**", "/find/**", "/account/**").hasAnyRole("ANONYMOUS")
                 .antMatchers("/trainer/trainerRegister/**").hasAuthority("USER")

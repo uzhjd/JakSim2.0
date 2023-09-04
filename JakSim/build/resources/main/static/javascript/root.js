@@ -5,7 +5,7 @@ function showSessionValidTime(){
     navTime = document.getElementById('nav_time');
     if(navTime === null)
         return ;
-    axios.get('/mypage/api/sessiontime')
+    axios.get('/mypage/api/session-time')
         .then(response => {
             countDown(response.data, navTime);
         })

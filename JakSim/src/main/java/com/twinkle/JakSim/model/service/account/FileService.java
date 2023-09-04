@@ -23,7 +23,7 @@ public class FileService {
     public boolean updateProfileImage(MultipartFile file, String username) throws Exception{
         UserImage userImage = new UserImage();
 
-        String projectPath = System.getProperty("user.dir") + "/JakSim/src/main/resources/static/image/profiles";
+        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/image/profiles";
         UUID uuid = UUID.randomUUID();
 
         String fileName = uuid + "_" + file.getOriginalFilename();

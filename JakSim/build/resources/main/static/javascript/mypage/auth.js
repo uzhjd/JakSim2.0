@@ -28,7 +28,7 @@ function sendPw(data){
     axios.post('/mypage/api/auth', data)
         .then(response => {
             if(response.data !== ''){
-                window.location.href='/mypage/' + response.data;
+                window.location.href='/mypage/main';
             }else{
                 span.innerHTML = '비밀번호를 다시 확인해주세요';
                 span.style.color='red';

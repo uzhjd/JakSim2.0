@@ -10,6 +10,8 @@ import lombok.*;
 public class TrainerDetailResponse {
     private String userId;
 
+    private int utIdx;
+
     private String userName;
 
     private int gender;

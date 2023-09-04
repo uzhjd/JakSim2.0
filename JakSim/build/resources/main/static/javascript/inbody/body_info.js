@@ -49,7 +49,7 @@ function createData(){
         return ;
     }
 
-    axios.post('/mypage/api/inbody/create', inbodyData)
+    axios.post('/inbody/api/create', inbodyData)
         .then(response => {
             if(response.data > 0){
                 alert('데이터가 추가되었습니다.');
@@ -91,7 +91,7 @@ function nextButtonListener(){
 }
 
 function getData(){
-    axios.get(`/mypage/api/inbody/${page}`)
+    axios.get(`/inbody/api/${page}`)
         .then(response => {
             var html = '';
             var tbody = document.getElementById('table_tbody');
@@ -124,7 +124,7 @@ function deleteData(event){
     var tdId = row.querySelector('td:first-child').id;
     var itemId = document.getElementById(tdId).textContent;
 
-    axios.delete(`/mypage/api/inbody/del/${itemId}`)
+    axios.delete(`/inbody/api/remove/${itemId}`)
         .then(response => {
             if(response.data > 0){
                 alert('데이터가 삭제되었습니다.');
@@ -139,7 +139,7 @@ function deleteData(event){
 }
 
 function getChart(option){
-    axios.get('/mypage/api/inbody/data')
+    axios.get('/inbody/api/chart-data')
         .then(response => {
             if(response.data.length === 0){
                 response.data = [{
