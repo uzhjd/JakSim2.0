@@ -74,26 +74,6 @@
 
 
 #### 시퀀스 다이어그램
-
+[시퀀스 다이어그램](./docs/sequence.md)
 
 *** 작심득근 is available under the MIT license. ***
-
-#### Test
-
-<table>
-  <tr height="50px">
-    <td align="center" width="130px">
-      <img src="이미지 링크" />
-    </td>
-    <td align="center" width="130px">
-      <img src="./docs/img/inbodyPage_Entire.png" />
-    </td>
-  </tr>  
-  <tr>
-    <td align="center">
-      <a href="./docs/img/inbodyPage.png">111</a>
-    </td>
-    <td align="center">
-      <a href="./docs/img/ERD.png">222</a>
-    </td>
-  </tr>
