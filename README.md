@@ -81,4 +81,7 @@
 #### • 시퀀스 다이어그램
 [시퀀스 다이어그램](./docs/sequence.md)
 
+<br>
+
+
 *** 작심득근 is available under the MIT license. ***
