@@ -66,13 +66,13 @@ function setSelectedFilter() {
             {{/review}}
 
             <div id="pagination">
-    <a href="/trainer/review/{{#trainer}}{{userId}}{{/trainer}}?page={{prevPage}}&pageSize={{reviewPageSize}}&filter={{filter}}" class="jaksim_btn" style="margin-right:5px; padding-left: 10px; padding-right: 10px;padding-bottom: 6px;padding-top: 6px; text-decoration: none;">이전</a>
+    <a href="/trainer/review/{{#trainer}}{{trainerId}}{{/trainer}}?page={{prevPage}}&pageSize={{reviewPageSize}}&filter={{filter}}" class="jaksim_btn" style="margin-right:5px; padding-left: 10px; padding-right: 10px;padding-bottom: 6px;padding-top: 6px; text-decoration: none;">이전</a>
 
     {{#pageNumbers}}
-    <a href="/trainer/review/{{#trainer}}{{userId}}{{/trainer}}?page={{.}}&pageSize={{reviewPageSize}}&filter={{filter}}" style="margin-left:5px; margin-right:5px; color: black;">{{.}}</a>
+    <a href="/trainer/review/{{#trainer}}{{trainerId}}{{/trainer}}?page={{.}}&pageSize={{reviewPageSize}}&filter={{filter}}" style="margin-left:5px; margin-right:5px; color: black;">{{.}}</a>
     {{/pageNumbers}}
 
-    <a href="/trainer/review/{{#trainer}}{{userId}}{{/trainer}}?page={{nextPage}}&pageSize={{reviewPageSize}}&filter={{filter}}" class="jaksim_btn" style="margin-left:5px; padding-left: 10px; padding-right: 10px;padding-bottom: 6px;padding-top: 6px; text-decoration: none;">다음</a>
+    <a href="/trainer/review/{{#trainer}}{{trainerId}}{{/trainer}}?page={{nextPage}}&pageSize={{reviewPageSize}}&filter={{filter}}" class="jaksim_btn" style="margin-left:5px; padding-left: 10px; padding-right: 10px;padding-bottom: 6px;padding-top: 6px; text-decoration: none;">다음</a>
 </div>
     </div>
 </div>

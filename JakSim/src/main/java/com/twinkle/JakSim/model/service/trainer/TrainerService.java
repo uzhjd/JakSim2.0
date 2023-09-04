@@ -204,7 +204,7 @@ public class TrainerService {
             }
         }
 
-        if(trainerDto.getImagePath().length==0 || trainerDto.getImagePath() != null) {
+        if(trainerDto.getImagePath().length != 0) {
             for (String image : trainerDto.getImagePath()) {
                 String path = projectPath + image;
 
@@ -214,9 +214,7 @@ public class TrainerService {
                     file.delete();
                 }
             }
-
         }
-
         trainerDao.deleteTrainer(userId, trainerDto.getTrainerId());
 
     }

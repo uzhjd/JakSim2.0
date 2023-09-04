@@ -3,7 +3,7 @@ window.onload = function(){
 }
 
 function axiosAction(){
-    axios.post('/account/action', createJSON())
+    axios.post('/account/api/action', createJSON())
         .then(response => {
             console.log(response.data);
             sessionStorage.clear();

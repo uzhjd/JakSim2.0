@@ -108,10 +108,12 @@ function telChangeResult(){
     telChangeButton.textContent = '수정';
     telInput.readOnly = true;
 
-    axios.put('/mypage/api/profile/update/tel', {tel: telInput.value})
+    axios.put('/account/api/change-tel', {tel: telInput.value})
         .then(response => {
-            alert('전화번호가 정상적으로 변경되었습니다.');
-            window.location.reload();
+            if(response.data > 0){
+                alert('전화번호가 정상적으로 변경되었습니다.');
+                window.location.reload();
+            }
         })
         .catch(error => {
             console.error(error);
@@ -122,9 +124,9 @@ function nameChangeResult(){
     nameChangeButton.textContent = '수정';
     nameInput.readOnly = true;
 
-    axios.put('/mypage/api/profile/update/name', {name: nameInput.value})
+    axios.put('/account/api/change-name', {name: nameInput.value})
         .then(response => {
-            if(response.data){
+            if(response.data > 0){
                 alert('이름이 정상적으로 변경되었습니다.');
                 window.location.reload();
             }else{
@@ -138,7 +140,7 @@ function nameChangeResult(){
 }
 
 function checkTel(){
-    axios.post('/mypage/api/profile/check/tel', {tel: telInput.value})
+    axios.get(`/account/api/verify-tel?tel=${telInput.value}`)
             .then(response => {
                 if(response.data === true){
                     telChangeResult();
@@ -160,7 +162,7 @@ function nameChangeInput(){
 var deleteUser = function(){
     var data = {id : document.getElementById('navi_username').innerHTML};
 
-    axios.delete('/mypage/api/delete')
+    axios.delete('/account/api/delete')
         .then(response => {
             if(response.data === 1){
                 alert('회원정보가 삭제되었습니다.');

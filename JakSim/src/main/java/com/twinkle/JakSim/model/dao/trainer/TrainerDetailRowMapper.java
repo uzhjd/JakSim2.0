@@ -10,13 +10,14 @@ public class TrainerDetailRowMapper implements RowMapper<TrainerDetailResponse> 
 
     public TrainerDetailResponse mapRow(ResultSet rs, int rowNum) throws SQLException {
         TrainerDetailResponse trainerDetailResponse = new TrainerDetailResponse(rs.getString("USER_ID"),
+                                                                    rs.getInt("UT_IDX"),
                                                                     rs.getString("USER_NAME"),
                                                                     rs.getInt("USER_GENDER"),
                                                                     rs.getString("UT_INSTA"),
                                                                     rs.getString("UT_GYM"),
                                                                     rs.getInt("UT_EXPERT_1"),
                                                                     rs.getInt("UT_EXPERT_2"),
-                                                                    rs.getString("TI_PATH"));
+                                                                    rs.getString("UT_PROFILE_IMG"));
 
 
         return trainerDetailResponse;

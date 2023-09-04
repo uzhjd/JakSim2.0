@@ -22,9 +22,6 @@ public class SchedulerMain {
     @GetMapping("")
     public String scheduler(@AuthenticationPrincipal User user, Model model) {
         String isUser = "USER";
-        if(user != null) {
-            model.addAttribute("name", trainerService.searchTrainerName(user.getUsername()));
-        }
 
         for(GrantedAuthority authority : user.getAuthorities()){
             String authorityString = authority.getAuthority();

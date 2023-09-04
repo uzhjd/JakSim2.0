@@ -12,7 +12,7 @@
                         <a class="nav-link nav_font" href="/trainer/trainerSearch">트레이너 찾기</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav_font" href="/trainer/trainerUpdate/{{session_user.username}}">트레이너 페이지</a>
+                        <a class="nav-link nav_font" href="/trainer/trainerUpdate/{{#name}}{{trainerId}}{{/name}}">트레이너 페이지</a>
                     </li>
                 {{/isTrainer}}
                 {{^isTrainer}}
