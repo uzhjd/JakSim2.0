@@ -40,15 +40,19 @@
     <tr>
         <td>구세은</td>
         <td>- 트레이너 관리<br>- 리뷰 관리<br>- 트레이너 PT 시간표 관리<br>- 트레이너 PT 이용자 조회</td>
-    </tr>  
-</table>   
-
-| 구성 인원 | 역할                                                           | git profile                             |
-|-----------|--------------------------------------------------------------|-----------------------------------------|
-| 구세은   | - 트레이너 관리<br>- 리뷰 관리<br>- 트레이너 PT 시간표 관리<br>- 트레이너 PT 이용자 조회 | [git페이지](https://github.com/gse96)      |
-| 남유정   | - PT 예약 관리<br>- PT권 관리<br>- 결제<br>- 캘린더<br>- 트레이너 시간표        | [git페이지](https://github.com/uzhjd)      |
-| 장효림   | - 회원가입<br>- 로그인<br>- 마이페이지<br>- 인바디                          | [git페이지](https://github.com/JorimJoram) |
-
+        <td width="160px"><a href="https://github.com/gse96"><img src="./docs/profile/gse96.jpeg"/></a></td>
+    </tr>
+    <tr>
+        <td>남유정</td>
+        <td>- PT 예약 관리<br>- PT권 관리<br>- 결제<br>- 캘린더<br>- 트레이너 시간표</td>
+        <td width="160px"><a href="https://github.com/uzhjd"><img src="./docs/profile/uzhjd.jpeg"/></a></td>
+    </tr>
+    <tr>
+        <td>장효림</td>
+        <td>- 회원가입<br>- 로그인<br>- 마이페이지<br>- 인바디</td>
+        <td width="160px"><a href="https://github.com/JorimJoram"><img src="https://avatars.githubusercontent.com/u/107216416?v=4"/></a></td>
+    </tr>
+</table>
 
 
 ### 기술 스택
