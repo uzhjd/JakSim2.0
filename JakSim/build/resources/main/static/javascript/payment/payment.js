@@ -33,7 +33,7 @@ function getPay(){
                     html += `<td><span>이름</span></td>`; //트레이너 이름
                     html += `<td><span>가격</span></td>`; //가격
                     html += `<td><span>${item.c_dt}</span></td>`;
-                    html += `<td><button class="jaksim_btn" onclick="window.location.href='/payment/detail/${item.idx}'"+>상세 조회</button></td>`;
+                html += `<td><button class="jaksim_btn" onclick="window.location.href='/payment/detail/${item.tid}'"+>상세 조회</button></td>`;
                     html += '<tr>';
                 });
                 container.innerHTML = html;

@@ -34,7 +34,7 @@ function afterConfirm(result){
         successSpan.innerHTML = '';
         return ;
     }
-    axios.post('/find/api/email/get', {email:sessionStorage.getItem('userEmail')})
+    axios.get(`/email/api/user-info?email=${sessionStorage.getItem('userEmail')}`)
         .then(response => {
             successSpan.innerHTML = response.data['id'];
         })

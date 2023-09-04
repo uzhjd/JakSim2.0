@@ -15,21 +15,21 @@ CREATE TABLE REVIEW(
 COMMIT;
 
 INSERT INTO REVIEW
-VALUES(NULL, 'ujeong', 'test93', 4, '트레이너가 친절하고 PT가 맛있어요', 5, '2023-06-27 12:34:56', NULL);
+VALUES(NULL, 'ujeong', 5, '트레이너가 친절하고 PT가 맛있어요', 5, '2023-06-27 12:34:56', NULL);
 INSERT INTO REVIEW
 VALUES(NULL, 'humble', 2, '무릎이 박살남', 1, '2023-07-01 12:34:56', NULL);
 INSERT INTO REVIEW
-VALUES(NULL, 'hyerin', 'test93', 4, '나쁘지 않아용', 3, '2023-07-07 12:34:56', NULL);
+VALUES(NULL, 'hyerin', 5, '나쁘지 않아용', 3, '2023-07-07 12:34:56', NULL);
 INSERT INTO REVIEW
-VALUES(NULL, 'hye8997', 'test93', 4, '피티는 별론데 트레이너가 잘생겼어요~', 4, current_date, NULL);
+VALUES(NULL, 'hye8997', 5, '피티는 별론데 트레이너가 잘생겼어요~', 4, current_timestamp, NULL);
 INSERT INTO REVIEW
-VALUES(NULL, 'senny9', 'test93', 4, '체력이 좋아졌어요!', 5, current_date, NULL);
+VALUES(NULL, 'senny9', 5, '체력이 좋아졌어요!', 5, current_timestamp, NULL);
 INSERT INTO REVIEW
-VALUES(NULL, 'gse2881', 'test93', 4, '잘 가르쳐 주시고 친절해요 ㅎㅎ', 5, current_date, NULL);
+VALUES(NULL, 'gse2881', 5, '잘 가르쳐 주시고 친절해요 ㅎㅎ', 5, current_timestamp, NULL);
 INSERT INTO REVIEW
-VALUES(NULL, 'test1', 'test93', 4, '또 배우고 싶습니당', 5, current_date, NULL);
+VALUES(NULL, 'test1', 4, '또 배우고 싶습니당', 5, current_date, NULL);
 INSERT INTO REVIEW
-VALUES(NULL, 'test2', 'test93', 4, '시설도 좋고 트레이너쌤도 친절해요.', 5, current_date, NULL);
+VALUES(NULL, 'test2', 4, '시설도 좋고 트레이너쌤도 친절해요.', 5, current_date, NULL);
 
 INSERT INTO REVIEW
-VALUES(NULL, 'test96', 2, '트레이너쌤이 불친절해요. 근데 잘 가르쳐주는듯.', 3, current_timestamp, NULL);
+VALUES(NULL, 'test96', 5, '트레이너쌤이 불친절해요. 근데 잘 가르쳐주는듯.', 3, current_timestamp, NULL);

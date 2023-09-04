@@ -70,7 +70,7 @@ function storePassword(){
         window.location.href = '/login';
     }
 
-    axios.put('/account/changepw', {id: userId, pw: pwInput.value})
+    axios.put('/account/api/change-pw', {id: userId, pw: pwInput.value})
         .then(response => {
             (response.data > 0) ? success() : alert('다시 시도해주세요');
         })

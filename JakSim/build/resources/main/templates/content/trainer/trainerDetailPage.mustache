@@ -93,7 +93,7 @@
     <span style="font-weight: bold; font-size: 16px;">PT 상품</span><br/>
     {{#product}}
             <div id="pt-info">
-            <span style="width: 150px;">{{ptTitle}}</span>
+            <span style="width: 200px;">{{ptTitle}}</span>
             <span style="width: 45px;">{{ptTimes}}회</span>
             <span style="width: 100px;" class="money">{{ptPrice}}원</span>
 
@@ -118,7 +118,7 @@
                 {{#stars}}{{avgRstar}}{{/stars}} </span>
                 <span style="font-size:15px; margin-top: 20px;">
                 ({{#stars}}{{reviewCnt}}{{/stars}}개) </span>
-                <a href="/trainer/review/{{#trainer}}{{userId}}{{/trainer}}" style="color: #747474; font-size:13px; ">리뷰 전체보기</a>
+                <a href="/trainer/review/{{#trainer}}{{trainerId}}{{/trainer}}" style="color: #747474; font-size:13px; ">리뷰 전체보기</a>
             </div>
             {{#review}}
             <div class="review">

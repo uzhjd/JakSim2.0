@@ -66,6 +66,7 @@ public class TrainerController {
         model.addAttribute("imageList", trainerService.getTrainerImage(trainerId));
         model.addAttribute("name", trainerService.searchTrainerName(info.getUsername()));
 
+
         return "content/trainer/trainerPage";
     }
 
@@ -83,6 +84,7 @@ public class TrainerController {
     // 트레이너 탈퇴
     @PostMapping("/trainerDelete")
     public String trainerDelete(TrainerInsertDto trainerDto, @AuthenticationPrincipal User info) {
+
         trainerService.deleteTrainer(trainerDto, info.getUsername());
 
         return "redirect:/logout";
@@ -204,7 +206,7 @@ public class TrainerController {
         int prevPage = (page > 1) ? page - 1 : 1;
         int nextPage = (page < totalPages) ? page + 1 : totalPages;
 
-        model.addAttribute("prevPage", prevPage);
+        model.addAttribute("prevPageForSearch", prevPage);
         model.addAttribute("nextPage", nextPage);
 
         return "content/trainer/trainerSearch";
@@ -227,9 +229,7 @@ public class TrainerController {
     }
     @PostMapping("/trainer/ptTimetableRegister")
     public String timetableRegister(Model model, @AuthenticationPrincipal User info, TimetableInsertDto timetable){
-        //model.addAttribute("userId", info);
 
-        System.out.println("안녕하세요"+timetable.getTType());
         trainerService.registerTimetable(timetable, info.getUsername());
 
         return "redirect:/trainer/trainerControl";

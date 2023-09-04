@@ -37,7 +37,7 @@ public class AccountService {
         userDto.setTel(member.getTel());
         userDto.setBirth(member.getBirth());
         userDto.setEmail(member.getEmail());
-        userDto.setRole(member.getRole());
+        userDto.setRole(1);
 
         //정상
         return userDao.insertMember(userDto);

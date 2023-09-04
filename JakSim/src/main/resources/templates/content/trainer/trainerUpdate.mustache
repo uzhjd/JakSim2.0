@@ -130,7 +130,12 @@
 </form>
 
 <form action="/trainerDelete" method="POST" onsubmit="return confirm('트레이너 정보를 삭제하시겠습니까?');">
-
+    {{#imageList}}
+        <input type="hidden" name="imagePath" value="{{imagePath}}">
+    {{/imageList}}
+    {{#trainer}}
+        <input type="hidden" name="profile" value="{{profile}}">
+    {{/trainer}}
     <button type="submit" style="height: 38px;" class="jaksim_withdraw_btn">정보삭제</button>
 </form>
 </div>

@@ -85,7 +85,6 @@ public class TrainerDao {
         //4. 주소와 필터링을 둘다 안할때 (else)
 
         if((!address.equals("-")) && (filter == -1)){
-
             String sql = "SELECT DISTINCT td.user_id, td.UT_IDX, td.UT_PROFILE_IMG, ti.TI_PATH, td.UT_GYM, ui.user_name, " +
                     "td.UT_EXPERT_1, td.UT_EXPERT_2, td.UT_ADDRESS, tc.TC_NAME, ROUND(AVG(r.R_STAR), 1) AS AVG_R_STAR" +
                     " FROM trainer_details td" +
@@ -104,7 +103,6 @@ public class TrainerDao {
 
         }
         else if((address.equals("-")) && (filter != -1)) {
-
             String sql = "SELECT DISTINCT td.user_id, td.UT_IDX, td.UT_PROFILE_IMG, ti.TI_PATH, td.UT_GYM, ui.user_name, " +
                     "td.UT_EXPERT_1, td.UT_EXPERT_2, td.UT_ADDRESS, tc.TC_NAME, ROUND(AVG(r.R_STAR), 1) AS AVG_R_STAR" +
                     " FROM trainer_details td" +
@@ -142,7 +140,6 @@ public class TrainerDao {
 
         }
         else {
-
             String sql = "SELECT DISTINCT td.user_id, td.UT_IDX, td.UT_PROFILE_IMG, ti.TI_PATH, td.UT_GYM, ui.user_name, " +
                     "td.UT_EXPERT_1, td.UT_EXPERT_2, td.UT_ADDRESS, tc.TC_NAME, ROUND(AVG(r.R_STAR), 1) AS AVG_R_STAR" +
                     " FROM trainer_details td" +
@@ -300,8 +297,6 @@ public class TrainerDao {
 
         }
 
-
-
         for(int i=0; i<trainer.getPtTimes().length; i++) {
             this.sql = "UPDATE PRODUCT " +
                 "SET TP_TIMES = ?," +
@@ -353,22 +348,7 @@ public class TrainerDao {
         this.sql = "DELETE FROM TRAINER_DETAILS WHERE USER_ID = ?";
         jdbcTemplate.update(sql, userId);
 
-        this.sql = "DELETE FROM PRODUCT WHERE UT_IDX = ?";
-        jdbcTemplate.update(sql, utIdx);
-
-        this.sql = "DELETE FROM TRAINER_CAREER WHERE UT_IDX = ?";
-        jdbcTemplate.update(sql, utIdx);
-
-        this.sql = "DELETE FROM TRAINER_CERT WHERE UT_IDX = ?";
-        jdbcTemplate.update(sql, utIdx);
-
-        this.sql = "DELETE FROM TRAINER_IMAGE WHERE UT_IDX = ?";
-        jdbcTemplate.update(sql, utIdx);
-
-        this.sql = "UPDATE USER_INFO SET USER_ROLE = 1 WHERE UT_IDX = ?";
-        jdbcTemplate.update(sql, utIdx);
-
-        this.sql = "DELETE FROM TIMETABLE WHERE USER_ID = ?";
+        this.sql = "UPDATE USER_INFO SET USER_ROLE = 1 WHERE USER_ID = ?";
         jdbcTemplate.update(sql, userId);
 
     }
@@ -377,9 +357,7 @@ public class TrainerDao {
         TrainerDetailResponse trainerDetailResponse = new TrainerDetailResponse();
 
         this.sql = "select * from trainer_details as t inner join user_info as u on t.user_id = u.user_id " +
-                "inner join trainer_image as img on u.user_id = img.user_id " +
                 "where t.user_id = ? group by t.user_id";
-
         try {
             trainerDetailResponse = jdbcTemplate.queryForObject(this.sql, new TrainerDetailRowMapper(), trainerId);
         } catch (EmptyResultDataAccessException e) {
@@ -410,7 +388,6 @@ public class TrainerDao {
             e.printStackTrace();
         }
     }
-
 
     public void deleteTimetable(int tIdx) {
         this.sql = "DELETE FROM TIMETABLE WHERE T_IDX = ?";
@@ -465,7 +442,7 @@ public class TrainerDao {
         this.sql = "SELECT T.UT_IDX, T.USER_ID, U.USER_NAME, U.USER_GENDER, T.UT_INSTA, T.UT_GYM, T.UT_EXPERT_1, T.UT_EXPERT_2, I.TI_PATH " +
                 "FROM TRAINER_DETAILS T, USER_INFO U, TRAINER_IMAGE I " +
                 "WHERE T.UT_IDX = ? " +
-                "AND T.USER_ID = U.USER_ID AND T.USER_ID = I.USER_ID ";
+                "AND T.USER_ID = U.USER_ID AND T.UT_IDX = I.UT_IDX group by t.ut_idx";
         TrainerForPayDetail trainer = new TrainerForPayDetail();
         try{
             trainer = jdbcTemplate.queryForObject(sql, new RowMapper<TrainerForPayDetail>() {

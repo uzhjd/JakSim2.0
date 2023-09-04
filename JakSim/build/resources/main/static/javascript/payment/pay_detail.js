@@ -126,7 +126,7 @@ function doRefund() {
 }
 
 function goReview(){
-    var trainerId = document.getElementById('pay_detail_trainerId').innerHTML;
+    var trainerId = document.getElementById('pay_detail_utIdx').innerHTML;
     window.location.href=`/registerReview/${trainerId}`;
 }
 
