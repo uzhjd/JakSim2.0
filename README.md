@@ -40,17 +40,17 @@
         <th>git</th>
     </tr>
     <tr>
-        <td>구세은</td>
-        <td>- 트레이너 관리<br>- 리뷰 관리<br>- 트레이너 PT 시간표 관리<br>- 트레이너 PT 이용자 조회</td>
+        <td>&nbsp&nbsp구세은</td>
+        <td>- 트레이너 관리<br>- 리뷰<br>- 트레이너 PT 시간표<br>- 트레이너 PT 이용자 조회</td>
         <td width="160px"><a href="https://github.com/gse96"><img src="https://avatars.githubusercontent.com/u/80148941?v=4"/></a></td>
     </tr>
     <tr>
-        <td>남유정</td>
+        <td>&nbsp&nbsp남유정<br>&nbsp&nbsp&nbsp(팀장)</br></td>
         <td>- PT 예약 관리<br>- PT권 관리<br>- 결제<br>- 캘린더<br>- 트레이너 시간표</td>
         <td width="160px"><a href="https://github.com/uzhjd"><img src="https://avatars.githubusercontent.com/u/73466440?v=4"/></a></td>
     </tr>
     <tr>
-        <td>장효림</td>
+        <td>&nbsp&nbsp장효림</td>
         <td>- 회원가입<br>- 로그인<br>- 마이페이지<br>- 인바디</td>
         <td width="160px"><a href="https://github.com/JorimJoram"><img src="https://avatars.githubusercontent.com/u/107216416?v=4"/></a></td>
     </tr>
