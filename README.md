@@ -41,7 +41,7 @@
     </tr>
     <tr>
         <td>&nbsp&nbsp구세은</td>
-        <td>- 트레이너 관리<br>- 리뷰<br>- 트레이너 PT 시간표<br>- 트레이너 PT 이용자 조회</td>
+        <td>- 트레이너 관리<br>- 리뷰<br>- 트레이너 시간표<br>- PT 이용자 조회(트레이너)</td>
         <td width="160px"><a href="https://github.com/gse96"><img src="https://avatars.githubusercontent.com/u/80148941?v=4"/></a></td>
     </tr>
     <tr>
