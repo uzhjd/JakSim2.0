@@ -41,15 +41,7 @@ public class SessionController {
                                         .sessionId(si.getSessionId())
                                         .build()
                                 ).collect(Collectors.toList()))
-                        .build()).sorted(new Comparator<UserSession>() {
-                    @Override
-                    public int compare(UserSession o1, UserSession o2) {
-                        int result = 0;
-                        if(o1 != null && !o2.getSessions().isEmpty())
-                            result = o2.getSessions().get(0).getLastRequest().compareTo(o1.getSessions().get(0).getLastRequest());
-                        return result;
-                    }
-                }).collect(Collectors.toList());
+                        .build()).collect(Collectors.toList());
 
         model.addAttribute("sessionList", userSessions);
         model.addAttribute("amount_user", userSessions.size());
