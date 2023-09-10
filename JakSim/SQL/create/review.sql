@@ -21,9 +21,9 @@ VALUES(NULL, 'humble', 2, '무릎이 박살남', 1, '2023-07-01 12:34:56', NULL)
 INSERT INTO REVIEW
 VALUES(NULL, 'hyerin', 5, '나쁘지 않아용', 3, '2023-07-07 12:34:56', NULL);
 INSERT INTO REVIEW
-VALUES(NULL, 'hye8997', 5, '피티는 별론데 트레이너가 잘생겼어요~', 4, current_timestamp, NULL);
+VALUES(NULL, 'hye8997', 13, '피티는 별론데 트레이너가 잘생겼어요~', 4, current_timestamp, NULL);
 INSERT INTO REVIEW
-VALUES(NULL, 'senny9', 5, '체력이 좋아졌어요!', 5, current_timestamp, NULL);
+VALUES(NULL, 'senny9', 13, '체력이 좋아졌어요!', 5, current_timestamp, NULL);
 INSERT INTO REVIEW
 VALUES(NULL, 'gse2881', 5, '잘 가르쳐 주시고 친절해요 ㅎㅎ', 5, current_timestamp, NULL);
 INSERT INTO REVIEW
