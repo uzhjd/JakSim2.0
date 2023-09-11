@@ -266,8 +266,6 @@ public class TrainerService {
 
         return trainerDetailResponse;
     }
-
-    // 확인 필요
     public TrainerForPayDetail searchByUsername(int trainerId) {
         return trainerDao.searchByUsername(trainerId);
     }
